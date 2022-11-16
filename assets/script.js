@@ -3,7 +3,6 @@ var gameId;
 var inputVal = '2021';
 const homeRosterArray = [];
 const awayRosterArray = [];
-//const fs = require('fs');
 var rosterArray;
 
 // two lines below will allow user to search by year
