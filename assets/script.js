@@ -170,7 +170,6 @@ function getInputValue() {
             });
         };
 
-        // }
         function getRoster(event) {
           var genre = event.currentTarget.value;
           console.log('u r in get roster');
@@ -242,8 +241,14 @@ function getInputValue() {
                     return response.json();
                   })
                   .then(function (data) {
-                    console.log('I am in third then')
+                    console.log('I am in third then');
             console.log(data);
+            // #4 
+            // #23
+            // #2 
+            // #6 
+            // #5 00:00-00:30, 2:30-4:44, 6:30-7:16, 7:19-7:32, 9:01-9:29, 11:10-11:41
+            // #20 00:00-00:29, 2:30-4:43, 6:30-7:11, 9:02-9:29, 11:46-12:41
             });
         }
       }
