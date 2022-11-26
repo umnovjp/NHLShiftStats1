@@ -171,7 +171,7 @@ function getInputValue() {
         };
 
         function getRoster(event) {
-          var genre = event.currentTarget.value;
+            //       var genre = event.currentTarget.value;
           console.log('u r in get roster');
 
           var requestURL = 'https://statsapi.web.nhl.com/api/v1/game/' + gameId + '/feed/live';
@@ -233,6 +233,7 @@ function getInputValue() {
           getShifts();
           function getShifts(event) {
             console.log(gameId);
+            getRoster();
             var shiftURL = 'https://cors-anywhere.herokuapp.com/https://api.nhle.com/stats/rest/en/shiftcharts?cayenneExp=gameId=' + gameId;
                 fetch(shiftURL, {
                   "method": "GET", "headers": {  }
@@ -242,7 +243,14 @@ function getInputValue() {
                   })
                   .then(function (data) {
                     console.log('I am in third then');
-            console.log(data);
+            console.log(data.data);
+            for (i = 0; i < data.data.length; i++) {
+              if (data.data[i].typeCode === 517) {
+                fullName = data.data[i].firstName + data.data[i].lastName
+                console.log(data.data[i].startTime, 'i= ',i, ' ', fullName)
+              }
+            console.log(homeRosterArray)
+            }
             
             // #23 1:20-2:30, 5:06-5:41, 7:11-7:28, 9:29-10:12, 14:48-15:30
             // #2 1:20-2:30, 5:06-5:48, 7:16-7:19, 7:32-8:14, 9:29-10:09, 14:48=15:30
@@ -252,9 +260,9 @@ function getInputValue() {
             // #20 00:00-00:29, 2:30-4:43, 6:30-7:11, 9:02-9:29, 11:46-12:41
 
 
-            3, 6,9, 9.5, 
-            2,5, 7
-            1,4,8, 9.5, 
+            // 3, 6,9, 9.5, 
+            // 2,5, 7
+            // 1,4,8, 9.5, 
             });
         }
       }

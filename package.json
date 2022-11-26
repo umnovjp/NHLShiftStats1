@@ -1,0 +1,29 @@
+{
+  "name": "nhlshiftstats2",
+  "version": "1.0.0",
+  "description": "NHL shift charts analysis",
+  "main": "game",
+  "scripts": {
+    "test": "none"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/umnovjp/NHLShiftStats1.git"
+  },
+  "keywords": [
+    "NHL",
+    "sports",
+    "game",
+    "analysis",
+    "Dallas",
+    "Cowboys",
+    "Dallas",
+    "Stars"
+  ],
+  "author": "Alex",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/umnovjp/NHLShiftStats1/issues"
+  },
+  "homepage": "https://github.com/umnovjp/NHLShiftStats1#readme"
+}
