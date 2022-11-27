@@ -3,7 +3,7 @@ var gameId;
 var inputVal = '2021';
 const homeRosterArray = [];
 const awayRosterArray = [];
-var rosterArray;
+// var rosterArray;
 
 // two lines below will allow user to search by year
 function getInputValue() {
@@ -89,11 +89,11 @@ function getInputValue() {
             document.getElementById('gameInfo').appendChild(goalButton);
             goalButton.addEventListener('click', getGoals);
 
-            var rosterButton = document.createElement('button');
-            rosterButton.setAttribute('class', 'searchParameter');
-            rosterButton.textContent = 'Print Rosters';
-            document.getElementById('gameInfo').appendChild(rosterButton);
-            rosterButton.addEventListener('click', getRoster);
+  //           var rosterButton = document.createElement('button');
+  //           rosterButton.setAttribute('class', 'searchParameter');
+  //           rosterButton.textContent = 'Print Rosters';
+  //           document.getElementById('gameInfo').appendChild(rosterButton);
+  // //          rosterButton.addEventListener('click', getRoster);
           });
         function getGoals(event) {
           var requestURL = 'https://statsapi.web.nhl.com/api/v1/game/' + gameId + '/feed/live';
@@ -170,70 +170,56 @@ function getInputValue() {
             });
         };
 
-        function getRoster(event) {
-            //       var genre = event.currentTarget.value;
-          console.log('u r in get roster');
-
-          var requestURL = 'https://statsapi.web.nhl.com/api/v1/game/' + gameId + '/feed/live';
-          fetch(requestURL, {
-            "method": "GET", "headers": {
-            }
-          })
-
-            .then(function (response) {
-              return response.json();
-            })
-            .then(function (data) {
-              console.log(data.gameData.players)
-
-              var obj = data.gameData.players;
-              var keys = Object.keys(obj);
-
-              var awayRoster = document.createElement('h2');
-              awayRoster.innerHTML = data.gameData.teams.away.name + ' Roster ';
-              awayRoster.setAttribute('id', 'awayTeamId');
-              document.getElementById('gameInfoAway').appendChild(awayRoster);
-
-              var homeRoster = document.createElement('h2');
-              homeRoster.innerHTML = data.gameData.teams.home.name + ' Roster ';
-              homeRoster.setAttribute('id', 'homeTeamId');
-              document.getElementById('gameInfoHome').appendChild(homeRoster);
-              const homeRosterArray = [];
-              const awayRosterArray = [];
-
-              for (var i = 0; i < keys.length; i++) {
-                var val = obj[keys[i]];
-                const playerName1 = val.fullName;
-                const lastName = val.lastName;
-                const primaryNumber1 = val.primaryNumber;
-                const tempAttribute = playerName1;
-                var playerName = document.createElement('p');
-                if (val.primaryPosition.code == 'G')
-                {playerName.innerHTML = val.primaryNumber + ' ' + val.fullName + ', ' + val.primaryPosition.code + ' catches:' + val.shootsCatches + ','}
-                else 
-                {playerName.innerHTML = val.primaryNumber + ' ' + val.fullName + ', ' + val.primaryPosition.code + ' shoots:' + val.shootsCatches + ','};
-                playerName.setAttribute('id', tempAttribute);
-                if (val.currentTeam.id == data.gameData.teams.away.id) {
-                  document.getElementById('awayTeamId').appendChild(playerName);
-                  awayRosterArray.push(primaryNumber1);
-                  awayRosterArray.push(playerName1);
-                  rosterArray = awayRosterArray;
-                }
-                else if (val.currentTeam.id == data.gameData.teams.home.id) {
-                  //    console.log(val.fullName + ' ' + val.currentTeam.name + ' ' + val.currentTeam.id + data.gameData.teams.home.id);
-                  document.getElementById('homeTeamId').appendChild(playerName);
-                  homeRosterArray.push(primaryNumber1);
-                  homeRosterArray.push(playerName1);
-                }
-              }
-              console.log(homeRosterArray);
-              console.log(awayRosterArray);
-            });
-        }
           getShifts();
           function getShifts(event) {
+// lines 235-277 generate home roster and away roster line number may change
+            var rosterURL = 'https://statsapi.web.nhl.com/api/v1/game/' + gameId + '/feed/live';
+  fetch(rosterURL, {
+    "method": "GET", "headers": {}  })
+    .then(function (response) {
+      return response.json();   })
+    .then(function (data) {
+      console.log(data.gameData.players)
+
+      var obj = data.gameData.players;
+      var keys = Object.keys(obj);
+
+      // const homeRosterArray = [];
+      // const awayRosterArray = [];
+
+      for (var i = 0; i < keys.length; i++) {
+        var val = obj[keys[i]];
+        console.log(keys[i], val);
+        const playerName1 = val.fullName;
+      //  const lastName = val.lastName;
+        const primaryNumber1 = val.primaryNumber;
+        const tempAttribute = playerName1;
+        var playerName = document.createElement('p');
+        if (val.primaryPosition.code == 'G')
+        {playerName.innerHTML = val.primaryNumber + ' ' + val.fullName + ', ' + val.primaryPosition.code + ' catches:' + val.shootsCatches + ','}
+        else 
+        {playerName.innerHTML = val.primaryNumber + ' ' + val.fullName + ', ' + val.primaryPosition.code + ' shoots:' + val.shootsCatches + ','};
+        playerName.setAttribute('id', tempAttribute);
+        if (val.currentTeam.id == data.gameData.teams.away.id) {
+        //  document.getElementById('awayTeamId').appendChild(playerName);
+          awayRosterArray.push(primaryNumber1);
+          awayRosterArray.push(playerName1);
+          awayRosterArray.push(keys[i]);
+     //     rosterArray = awayRosterArray;
+        }
+        else if (val.currentTeam.id == data.gameData.teams.home.id) {
+          //    console.log(val.fullName + ' ' + val.currentTeam.name + ' ' + val.currentTeam.id + data.gameData.teams.home.id);
+      //    document.getElementById('homeTeamId').appendChild(playerName);
+          homeRosterArray.push(primaryNumber1);
+          homeRosterArray.push(playerName1);
+          homeRosterArray.push(keys[i]);
+        }
+      }
+      console.log(homeRosterArray);
+      console.log(awayRosterArray);
+    });
             console.log(gameId);
-            getRoster();
+       //     getRoster();
             var shiftURL = 'https://cors-anywhere.herokuapp.com/https://api.nhle.com/stats/rest/en/shiftcharts?cayenneExp=gameId=' + gameId;
                 fetch(shiftURL, {
                   "method": "GET", "headers": {  }
@@ -249,7 +235,7 @@ function getInputValue() {
                 fullName = data.data[i].firstName + data.data[i].lastName
                 console.log(data.data[i].startTime, 'i= ',i, ' ', fullName)
               }
-            console.log(homeRosterArray)
+       //     console.log(homeRosterArray)
             }
             
             // #23 1:20-2:30, 5:06-5:41, 7:11-7:28, 9:29-10:12, 14:48-15:30
@@ -269,18 +255,3 @@ function getInputValue() {
     }
     );
 }
-
-// function getShifts(event) {
-//     console.log(gameId);
-//     var shiftURL = 'https://api.nhle.com/stats/rest/en/shiftcharts?cayenneExp=gameId=' + gameId;
-//         fetch(shiftURL, {
-//           "method": "GET", "headers": {  }
-//         })
-//           .then(function (response) {
-//             return response.json();
-//           })
-//           .then(function (data) {
-//             console.log('I am in third then')
-//     console.log(data);
-//     });
-// }
