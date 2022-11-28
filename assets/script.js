@@ -233,10 +233,53 @@ function getInputValue() {
             for (i = 0; i < data.data.length; i++) {
               if (data.data[i].typeCode === 517) {
                 fullName = data.data[i].firstName + data.data[i].lastName
-                console.log(data.data[i].startTime, 'i= ',i, ' ', fullName)
-              }
+                console.log(data.data[i].startTime, typeof data.data[i].startTime, 'i= ',i, ' ', fullName)
+                playerChart1 = [];
+                playerChart2 = [];
+                playerChart3 = [];
+                playerChartOT =[];
+                playerShifts ={};
+                const playerId = data.data[i].playerId; 
+                if (data.data[i].period === 1) {
+                playerChart1.push(data.data[i].startTime, data.data[i].endTime, data.data[i].duration)
+                }
+                else if (data.data[i].period === 2) {
+                  playerChart2.push(data.data[i].startTime, data.data[i].endTime, data.data[i].duration)
+                }
+                else if (data.data[i].period === 3) {
+                  playerChart3.push(data.data[i].startTime, data.data[i].endTime, data.data[i].duration)
+                }
+                else if (data.data[i].period === 'OT') {
+                  playerChartOT.push(data.data[i].startTime, data.data[i].endTime, data.data[i].duration)
+                }
+                else {console.log('Not enough periods!!!')}
+                totalChart = [];
+                totalChart.push(playerChart1);
+                totalChart.push(playerChart2);
+                totalChart.push(playerChart3);
+                totalChart.push(playerChartOT);
+                playerShifts = Object.assign (playerId, totalChart);
+                console.log(playerShifts);
+                  // startTime2 = data.data[i].startTime.split("");
+                  // endTime2 = data.data[i].endTime.split("");
+                  // startTime3 = startTime2[0];
+                  // startTime4 = Number(startTime3);
+                  // startTime5 = startTime4 + 2;
+                  // startTime6 = startTime5.toString();
+                  // startTime2[0] = startTime6;
+                  // startJoin = startTime2.join("");
+                  // endTime3 = endTime2[0];
+                  // endTime4 = Number(endTime3);
+                  // endTime5 = endTime4 + 2;
+                  // endTime6 = endTime5.toString();
+                  // endTime2[0] = endTime6;
+                  // endJoin = endTime2.join("");
+                  // console.log(startJoin, endJoin);
+               //   playerChart.push(data.data[i].startTime, data.data[i].endTime, data.data[i].duration)
+                  }
+               }
        //     console.log(homeRosterArray)
-            }
+       //     }
             
             // #23 1:20-2:30, 5:06-5:41, 7:11-7:28, 9:29-10:12, 14:48-15:30
             // #2 1:20-2:30, 5:06-5:48, 7:16-7:19, 7:32-8:14, 9:29-10:09, 14:48=15:30
