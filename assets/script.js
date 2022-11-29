@@ -230,15 +230,16 @@ function getInputValue() {
                   .then(function (data) {
                     console.log('I am in third then');
             console.log(data.data);
+            playerChart1 = [];
+            playerChart2 = [];
+            playerChart3 = [];
+            playerChartOT =[];
+            playerShifts ={};
             for (i = 0; i < data.data.length; i++) {
               if (data.data[i].typeCode === 517) {
                 fullName = data.data[i].firstName + data.data[i].lastName
                 console.log(data.data[i].startTime, typeof data.data[i].startTime, 'i= ',i, ' ', fullName)
-                playerChart1 = [];
-                playerChart2 = [];
-                playerChart3 = [];
-                playerChartOT =[];
-                playerShifts ={};
+               
                 const playerId = data.data[i].playerId; 
                 if (data.data[i].period === 1) {
                 playerChart1.push(data.data[i].startTime, data.data[i].endTime, data.data[i].duration)
