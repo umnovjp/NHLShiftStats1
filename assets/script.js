@@ -230,35 +230,21 @@ function getInputValue() {
                   .then(function (data) {
                     console.log('I am in third then');
             console.log(data.data);
-            playerChart1 = [];
-            playerChart2 = [];
-            playerChart3 = [];
-            playerChartOT =[];
+            playerChart1 = [];           
             playerShifts ={};
-            for (i = 0; i < data.data.length; i++) {
+            for (i = 0; i < data.data.length - 1; i++) {
               if (data.data[i].typeCode === 517) {
-                fullName = data.data[i].firstName + data.data[i].lastName
-                console.log(data.data[i].startTime, typeof data.data[i].startTime, 'i= ',i, ' ', fullName)
+                // fullName = data.data[i].firstName + data.data[i].lastName
+                // console.log(data.data[i].startTime, typeof data.data[i].startTime, 'i= ',i, ' ', fullName)
                
                 const playerId = data.data[i].playerId; 
-                if (data.data[i].period === 1) {
-                playerChart1.push(data.data[i].startTime, data.data[i].endTime, data.data[i].duration)
-                }
-                else if (data.data[i].period === 2) {
-                  playerChart2.push(data.data[i].startTime, data.data[i].endTime, data.data[i].duration)
-                }
-                else if (data.data[i].period === 3) {
-                  playerChart3.push(data.data[i].startTime, data.data[i].endTime, data.data[i].duration)
-                }
-                else if (data.data[i].period === 'OT') {
-                  playerChartOT.push(data.data[i].startTime, data.data[i].endTime, data.data[i].duration)
-                }
-                else {console.log('Not enough periods!!!')}
+                if (data.data[i].playerId = data.data[i+1].playerId)
+            {    playerChart1.push(data.data[i].startTime, data.data[i].endTime, data.data[i].duration)}
+                
+                else {console.log('Not enough periods!!!')
+              }
                 totalChart = [];
                 totalChart.push(playerChart1);
-                totalChart.push(playerChart2);
-                totalChart.push(playerChart3);
-                totalChart.push(playerChartOT);
                 playerShifts = Object.assign (playerId, totalChart);
                 console.log(playerShifts);
                   // startTime2 = data.data[i].startTime.split("");
