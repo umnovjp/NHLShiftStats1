@@ -238,11 +238,11 @@ function getInputValue() {
                 // console.log(data.data[i].startTime, typeof data.data[i].startTime, 'i= ',i, ' ', fullName)
                
                 const playerId = data.data[i].playerId; 
-                if (data.data[i].playerId = data.data[i+1].playerId)
-            {    playerChart1.push(data.data[i].startTime, data.data[i].endTime, data.data[i].duration)}
+                if (data.data[i].playerId == data.data[i+1].playerId)
+            {    playerChart1.push(data.data[i].startTime)} //, data.data[i].endTime, data.data[i].duration
                 
-                else {console.log('Not enough periods!!!')
-              }
+                else {console.log('Not enough periods!!!')}
+
                 totalChart = [];
                 totalChart.push(playerChart1);
                 playerShifts = Object.assign (playerId, totalChart);
