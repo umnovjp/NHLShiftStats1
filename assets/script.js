@@ -232,6 +232,8 @@ function getInputValue() {
             console.log(data.data);
             playerChart1 = [];           
             playerShifts ={};
+            totalChart = [];
+            idChart = [];
             for (i = 0; i < data.data.length - 1; i++) {
               if (data.data[i].typeCode === 517) {
                 // fullName = data.data[i].firstName + data.data[i].lastName
@@ -241,12 +243,17 @@ function getInputValue() {
                 if (data.data[i].playerId == data.data[i+1].playerId)
             {    playerChart1.push(data.data[i].startTime)} //, data.data[i].endTime, data.data[i].duration
                 
-                else {console.log('Not enough periods!!!')}
-
-                totalChart = [];
+                else {
                 totalChart.push(playerChart1);
+                idChart.push(playerId);
+                playerChart1 = [];
+                console.log(totalChart, idChart);
+              }
+
+                
+                
                 playerShifts = Object.assign (playerId, totalChart);
-                console.log(playerShifts);
+              //  console.log(playerShifts);
                   // startTime2 = data.data[i].startTime.split("");
                   // endTime2 = data.data[i].endTime.split("");
                   // startTime3 = startTime2[0];
