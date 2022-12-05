@@ -38,7 +38,7 @@ function getInputValue() {
         var gameName = document.createElement('button');
         gameName.setAttribute('id', 'game' + i);
         var idx = gameName.getAttribute('id');
-        console.log(idx);
+       // console.log(idx);
         gameName.innerHTML = 'Game ' + i + ': ' + data.dates[0].games[i].teams.away.team.name + ' ' + data.dates[0].games[i].teams.away.leagueRecord.wins + 'W ' + data.dates[0].games[i].teams.away.leagueRecord.losses + 'L ' + data.dates[0].games[i].teams.away.leagueRecord.ot + 'O vs ' + data.dates[0].games[i].teams.home.team.name + ' ' + data.dates[0].games[i].teams.home.leagueRecord.wins + 'W ' + data.dates[0].games[i].teams.home.leagueRecord.losses + 'L ' + data.dates[0].games[i].teams.home.leagueRecord.ot + 'O ';
         document.getElementById('schedule').appendChild(gameName);
         gameName.addEventListener('click', displayGameData);
@@ -89,11 +89,11 @@ function getInputValue() {
             document.getElementById('gameInfo').appendChild(goalButton);
             goalButton.addEventListener('click', getGoals);
 
-  //           var rosterButton = document.createElement('button');
-  //           rosterButton.setAttribute('class', 'searchParameter');
-  //           rosterButton.textContent = 'Print Rosters';
-  //           document.getElementById('gameInfo').appendChild(rosterButton);
-  // //          rosterButton.addEventListener('click', getRoster);
+       //           var rosterButton = document.createElement('button');
+       //           rosterButton.setAttribute('class', 'searchParameter');
+        //           rosterButton.textContent = 'Print Rosters';
+         //           document.getElementById('gameInfo').appendChild(rosterButton);
+        // //          rosterButton.addEventListener('click', getRoster);
           });
         function getGoals(event) {
           var requestURL = 'https://statsapi.web.nhl.com/api/v1/game/' + gameId + '/feed/live';
@@ -172,10 +172,10 @@ function getInputValue() {
 
           getShifts();
           function getShifts(event) {
-// lines 235-277 generate home roster and away roster line number may change
+          // lines 235-277 generate home roster and away roster line number may change
             var rosterURL = 'https://statsapi.web.nhl.com/api/v1/game/' + gameId + '/feed/live';
-  fetch(rosterURL, {
-    "method": "GET", "headers": {}  })
+           fetch(rosterURL, {
+          "method": "GET", "headers": {}  })
     .then(function (response) {
       return response.json();   })
     .then(function (data) {
@@ -189,7 +189,7 @@ function getInputValue() {
 
       for (var i = 0; i < keys.length; i++) {
         var val = obj[keys[i]];
-        console.log(keys[i], val);
+      //  console.log(keys[i], val);
         const playerName1 = val.fullName;
       //  const lastName = val.lastName;
         const primaryNumber1 = val.primaryNumber;
@@ -231,29 +231,30 @@ function getInputValue() {
                     console.log('I am in third then');
             console.log(data.data);
             playerChart1 = [];           
-            playerShifts ={};
+          //  playerShifts ={};
             totalChart = [];
             idChart = [];
-            for (i = 0; i < data.data.length - 1; i++) {
-              if (data.data[i].typeCode === 517) {
-                // fullName = data.data[i].firstName + data.data[i].lastName
-                // console.log(data.data[i].startTime, typeof data.data[i].startTime, 'i= ',i, ' ', fullName)
+               for (i = 0; i < data.data.length - 1; i++) {
+                   if (data.data[i].typeCode === 517) {
+                 // fullName = data.data[i].firstName + data.data[i].lastName
+                  // console.log(data.data[i].startTime, typeof data.data[i].startTime, 'i= ',i, ' ', fullName)
                
-                const playerId = data.data[i].playerId; 
-                if (data.data[i].playerId == data.data[i+1].playerId)
-            {    playerChart1.push(data.data[i].startTime)} //, data.data[i].endTime, data.data[i].duration
+                 const playerId = data.data[i].playerId; 
+                  if (data.data[i].playerId == data.data[i+1].playerId)
+                  {playerChart1.push(data.data[i].startTime)} //, data.data[i].endTime, data.data[i].duration
                 
-                else {
-                totalChart.push(playerChart1);
-                idChart.push(playerId);
-                playerChart1 = [];
-                console.log(totalChart, idChart);
-              }
+                 else {
+                  playerChart1.push(data.data[i].startTime);
+                  totalChart.push(playerChart1);
+                  idChart.push(playerId);
+                   playerChart1 = [];
+                  console.log(totalChart, idChart);
+                   }
 
                 
                 
-                playerShifts = Object.assign (playerId, totalChart);
-              //  console.log(playerShifts);
+                    //     playerShifts = Object.assign (playerId, totalChart);
+                   //  console.log(playerShifts);
                   // startTime2 = data.data[i].startTime.split("");
                   // endTime2 = data.data[i].endTime.split("");
                   // startTime3 = startTime2[0];
@@ -269,7 +270,7 @@ function getInputValue() {
                   // endTime2[0] = endTime6;
                   // endJoin = endTime2.join("");
                   // console.log(startJoin, endJoin);
-               //   playerChart.push(data.data[i].startTime, data.data[i].endTime, data.data[i].duration)
+                 //   playerChart.push(data.data[i].startTime, data.data[i].endTime, data.data[i].duration)
                   }
                }
        //     console.log(homeRosterArray)
