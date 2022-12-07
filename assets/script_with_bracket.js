@@ -38,7 +38,7 @@ function getInputValue() {
         var gameName = document.createElement('button');
         gameName.setAttribute('id', 'game' + i);
         var idx = gameName.getAttribute('id');
-       // console.log(idx);
+        // console.log(idx);
         gameName.innerHTML = 'Game ' + i + ': ' + data.dates[0].games[i].teams.away.team.name + ' ' + data.dates[0].games[i].teams.away.leagueRecord.wins + 'W ' + data.dates[0].games[i].teams.away.leagueRecord.losses + 'L ' + data.dates[0].games[i].teams.away.leagueRecord.ot + 'O vs ' + data.dates[0].games[i].teams.home.team.name + ' ' + data.dates[0].games[i].teams.home.leagueRecord.wins + 'W ' + data.dates[0].games[i].teams.home.leagueRecord.losses + 'L ' + data.dates[0].games[i].teams.home.leagueRecord.ot + 'O ';
         document.getElementById('schedule').appendChild(gameName);
         gameName.addEventListener('click', displayGameData);
@@ -89,11 +89,11 @@ function getInputValue() {
             document.getElementById('gameInfo').appendChild(goalButton);
             goalButton.addEventListener('click', getGoals);
 
-       //           var rosterButton = document.createElement('button');
-       //           rosterButton.setAttribute('class', 'searchParameter');
-        //           rosterButton.textContent = 'Print Rosters';
-         //           document.getElementById('gameInfo').appendChild(rosterButton);
-        // //          rosterButton.addEventListener('click', getRoster);
+            //           var rosterButton = document.createElement('button');
+            //           rosterButton.setAttribute('class', 'searchParameter');
+            //           rosterButton.textContent = 'Print Rosters';
+            //           document.getElementById('gameInfo').appendChild(rosterButton);
+            // //          rosterButton.addEventListener('click', getRoster);
           });
         function getGoals(event) {
           var requestURL = 'https://statsapi.web.nhl.com/api/v1/game/' + gameId + '/feed/live';
@@ -170,138 +170,126 @@ function getInputValue() {
             });
         };
 
-          getShifts();
-          function getShifts(event) {
+        getShifts();
+        function getShifts(event) {
           // lines 235-277 generate home roster and away roster line number may change
-            var rosterURL = 'https://statsapi.web.nhl.com/api/v1/game/' + gameId + '/feed/live';
-           fetch(rosterURL, {
-          "method": "GET", "headers": {}  })
-    .then(function (response) {
-      return response.json();   })
-    .then(function (data) {
-      console.log(data.gameData.players)
+          var rosterURL = 'https://statsapi.web.nhl.com/api/v1/game/' + gameId + '/feed/live';
+          fetch(rosterURL, {
+            "method": "GET", "headers": {}
+          })
+            .then(function (response) {
+              return response.json();
+            })
+            .then(function (data) {
+              console.log(data.gameData.players)
 
-      var obj = data.gameData.players;
-      var keys = Object.keys(obj);
+              var obj = data.gameData.players;
+              var keys = Object.keys(obj);
 
-      // const homeRosterArray = [];
-      // const awayRosterArray = [];
+              // const homeRosterArray = [];
+              // const awayRosterArray = [];
 
-      for (var i = 0; i < keys.length; i++) {
-        var val = obj[keys[i]];
-      //  console.log(keys[i], val);
-        const playerName1 = val.fullName;
-      //  const lastName = val.lastName;
-        const primaryNumber1 = val.primaryNumber;
-        const tempAttribute = playerName1;
-        var playerName = document.createElement('p');
-        if (val.primaryPosition.code == 'G')
-        {playerName.innerHTML = val.primaryNumber + ' ' + val.fullName + ', ' + val.primaryPosition.code + ' catches:' + val.shootsCatches + ','}
-        else 
-        {playerName.innerHTML = val.primaryNumber + ' ' + val.fullName + ', ' + val.primaryPosition.code + ' shoots:' + val.shootsCatches + ','};
-        playerName.setAttribute('id', tempAttribute);
-        if (val.currentTeam.id == data.gameData.teams.away.id) {
-        //  document.getElementById('awayTeamId').appendChild(playerName);
-          awayRosterArray.push(primaryNumber1);
-          awayRosterArray.push(playerName1);
-          awayRosterArray.push(keys[i]);
-     //     rosterArray = awayRosterArray;
-        }
-        else if (val.currentTeam.id == data.gameData.teams.home.id) {
-          //    console.log(val.fullName + ' ' + val.currentTeam.name + ' ' + val.currentTeam.id + data.gameData.teams.home.id);
-      //    document.getElementById('homeTeamId').appendChild(playerName);
-          homeRosterArray.push(primaryNumber1);
-          homeRosterArray.push(playerName1);
-          homeRosterArray.push(keys[i]);
-        }
-      }
-      console.log(homeRosterArray);
-      console.log(awayRosterArray);
-    });
-            console.log(gameId);
-       //     getRoster();
-            var shiftURL = 'https://cors-anywhere.herokuapp.com/https://api.nhle.com/stats/rest/en/shiftcharts?cayenneExp=gameId=' + gameId;
-                fetch(shiftURL, {
-                  "method": "GET", "headers": {  }
-                })
-                  .then(function (response) {
-                    return response.json();
-                  })
-                  .then(function (data) {
-                    console.log('I am in third then');
-            console.log(data.data);
-            playerChart1 = [];   
-            playerChart2 = []; 
-            playerChart3 = []; 
-          //  playerShifts ={};
-            totalChart = [];
-            idChart = [];
-               for (i = 0; i < data.data.length - 1; i++) {
-                   if (data.data[i].typeCode === 517) {
-                 // fullName = data.data[i].firstName + data.data[i].lastName
-                  // console.log(data.data[i].startTime, typeof data.data[i].startTime, 'i= ',i, ' ', fullName)
-               
-                 const playerId = data.data[i].playerId; 
-                  if (data.data[i].playerId == data.data[i+1].playerId)
-                  {if (data.data[i].period == 1)
-                    { playerChart1.push(data.data[i].startTime) }
-                    else if (data.data[i].period == 2)
-                    { playerChart2.push(data.data[i].startTime) }
-                    else if (data.data[i].period == 3)
-                    { playerChart3.push(data.data[i].startTime) }
-                    else {console.log ('shift not added')}
-                    } //, data.data[i].endTime, data.data[i].duration
-                
-                 else {
-                  playerChart3.push(data.data[i].startTime);
-                  totalChart.push(playerChart1);
-                  totalChart.push(playerChart2);
-                  totalChart.push(playerChart3);
-                  idChart.push(playerId);
-                   playerChart1 = [];
-                   playerChart2 = [];
-                   playerChart3 = [];
-                
-                  console.log(totalChart, idChart);
-                   }
-
-                
-                
-                    //     playerShifts = Object.assign (playerId, totalChart);
-                   //  console.log(playerShifts);
-                  // startTime2 = data.data[i].startTime.split("");
-                  // endTime2 = data.data[i].endTime.split("");
-                  // startTime3 = startTime2[0];
-                  // startTime4 = Number(startTime3);
-                  // startTime5 = startTime4 + 2;
-                  // startTime6 = startTime5.toString();
-                  // startTime2[0] = startTime6;
-                  // startJoin = startTime2.join("");
-                  // endTime3 = endTime2[0];
-                  // endTime4 = Number(endTime3);
-                  // endTime5 = endTime4 + 2;
-                  // endTime6 = endTime5.toString();
-                  // endTime2[0] = endTime6;
-                  // endJoin = endTime2.join("");
-                  // console.log(startJoin, endJoin);
-                 //   playerChart.push(data.data[i].startTime, data.data[i].endTime, data.data[i].duration)
-                  }
-               }
-       //     console.log(homeRosterArray)
-       //     }
-            
-            // #23 1:20-2:30, 5:06-5:41, 7:11-7:28, 9:29-10:12, 14:48-15:30
-            // #2 1:20-2:30, 5:06-5:48, 7:16-7:19, 7:32-8:14, 9:29-10:09, 14:48=15:30
-            // #4 00:32-1:20, 4:43-5:06, 5:48-6:30, 7:28-9:01, 10:10-11:46 1st two seconds late, 
-            // #6 00:29-1:20, 4:44-5:06, 5:41-6:30, 8:14-9:02, 10:10-11:10
-            // #5 00:00-00:30, 2:30-4:44, 6:30-7:16, 7:19-7:32, 9:01-9:29, 11:10-11:41
-            // #20 00:00-00:29, 2:30-4:43, 6:30-7:11, 9:02-9:29, 11:46-12:41
-
-
-            // 3, 6,9, 9.5, 
-            // 2,5, 7
-            // 1,4,8, 9.5, 
+              for (var i = 0; i < keys.length; i++) {
+                var val = obj[keys[i]];
+                //  console.log(keys[i], val);
+                const playerName1 = val.fullName;
+                //  const lastName = val.lastName;
+                const primaryNumber1 = val.primaryNumber;
+                const tempAttribute = playerName1;
+                var playerName = document.createElement('p');
+                if (val.primaryPosition.code == 'G') { playerName.innerHTML = val.primaryNumber + ' ' + val.fullName + ', ' + val.primaryPosition.code + ' catches:' + val.shootsCatches + ',' }
+                else { playerName.innerHTML = val.primaryNumber + ' ' + val.fullName + ', ' + val.primaryPosition.code + ' shoots:' + val.shootsCatches + ',' };
+                playerName.setAttribute('id', tempAttribute);
+                if (val.currentTeam.id == data.gameData.teams.away.id) {
+                  //  document.getElementById('awayTeamId').appendChild(playerName);
+                  awayRosterArray.push(primaryNumber1);
+                  awayRosterArray.push(playerName1);
+                  awayRosterArray.push(keys[i]);
+                  //     rosterArray = awayRosterArray;
+                }
+                else if (val.currentTeam.id == data.gameData.teams.home.id) {
+                  //    console.log(val.fullName + ' ' + val.currentTeam.name + ' ' + val.currentTeam.id + data.gameData.teams.home.id);
+                  //    document.getElementById('homeTeamId').appendChild(playerName);
+                  homeRosterArray.push(primaryNumber1);
+                  homeRosterArray.push(playerName1);
+                  homeRosterArray.push(keys[i]);
+                }
+              }
+              console.log(homeRosterArray);
+              console.log(awayRosterArray);
             });
+          console.log(gameId);
+          //     getRoster();
+          var shiftURL = 'https://cors-anywhere.herokuapp.com/https://api.nhle.com/stats/rest/en/shiftcharts?cayenneExp=gameId=' + gameId;
+          fetch(shiftURL, {
+            "method": "GET", "headers": {}
+          })
+            .then(function (response) {
+              return response.json();
+            })
+            .then(function (data) {
+              console.log('I am in third then');
+              console.log(data.data);
+              playerChart1 = [];
+              //  playerShifts ={};
+              totalChart = [];
+              idChart = [];
+              for (i = 0; i < data.data.length - 1; i++) {
+                if (data.data[i].typeCode === 517) {
+                  // fullName = data.data[i].firstName + data.data[i].lastName
+                  // console.log(data.data[i].startTime, typeof data.data[i].startTime, 'i= ',i, ' ', fullName)
+                  //      if (data.data[i].period === 1) {
+                  const playerId = data.data[i].playerId;
+                  if (data.data[i].playerId == data.data[i + 1].playerId) {
+                    if (data.data[i].period == 1) {
+                      playerChart1.push(data.data[i].startTime)
+                    } //, data.data[i].endTime, data.data[i].duration
+                  }
+                  else {
+                    {
+                        playerChart1.push(data.data[i].startTime);
+                        totalChart.push(playerChart1);
+                        idChart.push(playerId);
+                        playerChart1 = [];
+                        console.log(totalChart, idChart);                    
+                    }
+
+                    //     playerShifts = Object.assign (playerId, totalChart);
+                    //  console.log(playerShifts);
+                    // startTime2 = data.data[i].startTime.split("");
+                    // endTime2 = data.data[i].endTime.split("");
+                    // startTime3 = startTime2[0];
+                    // startTime4 = Number(startTime3);
+                    // startTime5 = startTime4 + 2;
+                    // startTime6 = startTime5.toString();
+                    // startTime2[0] = startTime6;
+                    // startJoin = startTime2.join("");
+                    // endTime3 = endTime2[0];
+                    // endTime4 = Number(endTime3);
+                    // endTime5 = endTime4 + 2;
+                    // endTime6 = endTime5.toString();
+                    // endTime2[0] = endTime6;
+                    // endJoin = endTime2.join("");
+                    // console.log(startJoin, endJoin);
+                    //   playerChart.push(data.data[i].startTime, data.data[i].endTime, data.data[i].duration)
+                    //} //end if period
+                  } // end if 517
+                } // end for loop
+                //     console.log(homeRosterArray)
+                //     }
+
+                // #23 1:20-2:30, 5:06-5:41, 7:11-7:28, 9:29-10:12, 14:48-15:30
+                // #2 1:20-2:30, 5:06-5:48, 7:16-7:19, 7:32-8:14, 9:29-10:09, 14:48=15:30
+                // #4 00:32-1:20, 4:43-5:06, 5:48-6:30, 7:28-9:01, 10:10-11:46 1st two seconds late, 
+                // #6 00:29-1:20, 4:44-5:06, 5:41-6:30, 8:14-9:02, 10:10-11:10
+                // #5 00:00-00:30, 2:30-4:44, 6:30-7:16, 7:19-7:32, 9:01-9:29, 11:10-11:41
+                // #20 00:00-00:29, 2:30-4:43, 6:30-7:11, 9:02-9:29, 11:46-12:41
+
+
+                // 3, 6,9, 9.5, 
+                // 2,5, 7
+                // 1,4,8, 9.5, 
+              });
         }
       }
     }
