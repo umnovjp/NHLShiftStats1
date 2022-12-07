@@ -252,8 +252,14 @@ function getInputValue() {
                     else {console.log ('shift not added')}
                     } //, data.data[i].endTime, data.data[i].duration
                 
-                 else {
-                  playerChart3.push(data.data[i].startTime);
+                 else { 
+                  if (data.data[i].period == 3)
+                  { playerChart3.push(data.data[i].startTime); }
+                  else if (data.data[i].period == 2)
+                  { playerChart2.push(data.data[i].startTime); }
+                  else if (data.data[i].period == 1)
+                  { playerChart1.push(data.data[i].startTime); }
+                  else {console.log('error in adding last shift')}
                   totalChart.push(playerChart1);
                   totalChart.push(playerChart2);
                   totalChart.push(playerChart3);
