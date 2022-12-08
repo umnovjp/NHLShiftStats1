@@ -193,14 +193,7 @@ function getInputValue() {
         const playerName1 = val.fullName;
       //  const lastName = val.lastName;
         const primaryNumber1 = val.primaryNumber;
-        const tempAttribute = playerName1;
-        var playerName = document.createElement('p');
-        if (val.primaryPosition.code == 'G')
-        {playerName.innerHTML = val.primaryNumber + ' ' + val.fullName + ', ' + val.primaryPosition.code + ' catches:' + val.shootsCatches + ','}
-        else 
-        {playerName.innerHTML = val.primaryNumber + ' ' + val.fullName + ', ' + val.primaryPosition.code + ' shoots:' + val.shootsCatches + ','};
-        playerName.setAttribute('id', tempAttribute);
-        if (val.currentTeam.id == data.gameData.teams.away.id) {
+          if (val.currentTeam.id == data.gameData.teams.away.id) {
         //  document.getElementById('awayTeamId').appendChild(playerName);
           awayRosterArray.push(primaryNumber1);
           awayRosterArray.push(playerName1);
@@ -233,6 +226,7 @@ function getInputValue() {
             playerChart1 = [];   
             playerChart2 = []; 
             playerChart3 = []; 
+            startingLineup = [];
           //  playerShifts ={};
             totalChart = [];
             idChart = [];
@@ -244,7 +238,22 @@ function getInputValue() {
                  const playerId = data.data[i].playerId; 
                   if (data.data[i].playerId == data.data[i+1].playerId)
                   {if (data.data[i].period == 1)
-                    { playerChart1.push(data.data[i].startTime) }
+                    { shiftStart = data.data[i].startTime;                      
+                      shiftStart1 = shiftStart.split(':');
+                      minutes = Number(shiftStart1[0]);
+                      seconds = Number(shiftStart1[1]);                      
+                      shiftStart2 = minutes*60 + seconds;
+                      playerChart1.push(shiftStart2);
+                      shiftEnd = data.data[i].endTime;                      
+                      shiftEnd1 = shiftEnd.split(':');
+                      minutes = Number(shiftEnd1[0]);
+                      seconds = Number(shiftEnd1[1]);                      
+                      shiftEnd2 = minutes*60 + seconds;
+                      playerChart1.push(shiftEnd2)  
+                    if (shiftStart2 == 0) 
+                  {startingLineup.push(data.data[i].playerId)}
+                  }
+                  
                     else if (data.data[i].period == 2)
                     { playerChart2.push(data.data[i].startTime) }
                     else if (data.data[i].period == 3)
@@ -267,10 +276,9 @@ function getInputValue() {
                    playerChart1 = [];
                    playerChart2 = [];
                    playerChart3 = [];
-                
-                  console.log(totalChart, idChart);
+                  
                    }
-
+                   
                 
                 
                     //     playerShifts = Object.assign (playerId, totalChart);
@@ -293,7 +301,8 @@ function getInputValue() {
                  //   playerChart.push(data.data[i].startTime, data.data[i].endTime, data.data[i].duration)
                   }
                }
-       //     console.log(homeRosterArray)
+               console.log(startingLineup);
+               console.log(totalChart, idChart);
        //     }
             
             // #23 1:20-2:30, 5:06-5:41, 7:11-7:28, 9:29-10:12, 14:48-15:30
