@@ -3,6 +3,8 @@ var gameId;
 var inputVal = '2021';
 const homeRosterArray = [];
 const awayRosterArray = [];
+const homeRosterIdArray = [];
+const awayRosterIdArray = [];
 // var rosterArray;
 
 // two lines below will allow user to search by year
@@ -46,7 +48,7 @@ function getInputValue() {
 
       function displayGameData(event) {
         idx = event.currentTarget;
-        console.log(typeof idx)
+    //    console.log(typeof idx)
         idxString = event.currentTarget.textContent;
         idxArray = idxString.split(':');
         idxNumber = idxArray[0].split(' ');
@@ -184,32 +186,31 @@ function getInputValue() {
       var obj = data.gameData.players;
       var keys = Object.keys(obj);
 
-      // const homeRosterArray = [];
-      // const awayRosterArray = [];
-
       for (var i = 0; i < keys.length; i++) {
         var val = obj[keys[i]];
-      //  console.log(keys[i], val);
-        const playerName1 = val.fullName;
-      //  const lastName = val.lastName;
-        const primaryNumber1 = val.primaryNumber;
           if (val.currentTeam.id == data.gameData.teams.away.id) {
         //  document.getElementById('awayTeamId').appendChild(playerName);
-          awayRosterArray.push(primaryNumber1);
-          awayRosterArray.push(playerName1);
+          awayRosterArray.push(val.primaryNumber);
+          awayRosterArray.push(val.fullName);
+          awayRosterArray.push(val.primaryPosition.abbreviation);
           awayRosterArray.push(keys[i]);
-     //     rosterArray = awayRosterArray;
+          hId = keys[i].split('ID');
+          hIdNumber = Number(hId[1]);
+          awayRosterIdArray.push(hIdNumber);
         }
         else if (val.currentTeam.id == data.gameData.teams.home.id) {
-          //    console.log(val.fullName + ' ' + val.currentTeam.name + ' ' + val.currentTeam.id + data.gameData.teams.home.id);
-      //    document.getElementById('homeTeamId').appendChild(playerName);
-          homeRosterArray.push(primaryNumber1);
-          homeRosterArray.push(playerName1);
+          homeRosterArray.push(val.primaryNumber);
+          homeRosterArray.push(val.fullName);
+          awayRosterArray.push(val.primaryPosition.abbreviation);
           homeRosterArray.push(keys[i]);
+          hId = keys[i].split('ID');       
+          hIdNumber = Number(hId[1]);
+          homeRosterIdArray.push(hIdNumber);
         }
       }
       console.log(homeRosterArray);
       console.log(awayRosterArray);
+      console.log(homeRosterIdArray, awayRosterIdArray);
     });
             console.log(gameId);
        //     getRoster();
@@ -277,10 +278,7 @@ function getInputValue() {
                    playerChart2 = [];
                    playerChart3 = [];
                   
-                   }
-                   
-                
-                
+                   }                
                     //     playerShifts = Object.assign (playerId, totalChart);
                    //  console.log(playerShifts);
                   // startTime2 = data.data[i].startTime.split("");
@@ -303,6 +301,8 @@ function getInputValue() {
                }
                console.log(startingLineup);
                console.log(totalChart, idChart);
+               for (i = 0; i++, 11)
+               {}
        //     }
             
             // #23 1:20-2:30, 5:06-5:41, 7:11-7:28, 9:29-10:12, 14:48-15:30
