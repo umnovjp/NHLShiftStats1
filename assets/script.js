@@ -276,59 +276,56 @@ function getInputValue() {
                   idChart.push(playerId);
                    playerChart1 = [];
                    playerChart2 = [];
-                   playerChart3 = [];
-                  
-                   }                
-                    //     playerShifts = Object.assign (playerId, totalChart);
-                   //  console.log(playerShifts);
-                  // startTime2 = data.data[i].startTime.split("");
-                  // endTime2 = data.data[i].endTime.split("");
-                  // startTime3 = startTime2[0];
-                  // startTime4 = Number(startTime3);
-                  // startTime5 = startTime4 + 2;
-                  // startTime6 = startTime5.toString();
-                  // startTime2[0] = startTime6;
-                  // startJoin = startTime2.join("");
-                  // endTime3 = endTime2[0];
-                  // endTime4 = Number(endTime3);
-                  // endTime5 = endTime4 + 2;
-                  // endTime6 = endTime5.toString();
-                  // endTime2[0] = endTime6;
-                  // endJoin = endTime2.join("");
-                  // console.log(startJoin, endJoin);
-                 //   playerChart.push(data.data[i].startTime, data.data[i].endTime, data.data[i].duration)
+                   playerChart3 = [];                  
+                   }          
                   }
                }
                console.log(startingLineup);
                console.log(totalChart, idChart);
                console.log(homeRosterIdArray, awayRosterIdArray)
+               // next loop determines starting lineup for both teams currently lines 287-297
                for (i = 0; i < 12; i++)
                { tempVariable = startingLineup[i];
-            //    console.log(tempVariable, i);
-                tempString = tempVariable.toString();   
-            //    console.log(tempString, typeof tempString);
-                if (homeRosterIdArray.includes(tempString))
-              {
-                console.log(homeRosterIdArray.indexOf(tempString), 'home')}
+                  tempString = tempVariable.toString();   
+                  if (homeRosterIdArray.includes(tempString))
+                 {
+                 console.log(homeRosterIdArray.indexOf(tempString), 'home', homeRosterArray[4*homeRosterIdArray.indexOf(tempString) + 1], homeRosterArray[4*homeRosterIdArray.indexOf(tempString) + 2])}
                   else if (awayRosterIdArray.includes(tempString))
                   {
-                    console.log(awayRosterIdArray.indexOf(tempString), 'away')}
+                    console.log(awayRosterIdArray.indexOf(tempString), 'away', awayRosterArray[4*awayRosterIdArray.indexOf(tempString) + 1], awayRosterArray[4*awayRosterIdArray.indexOf(tempString) + 2])}
                   else {console.log(tempString, 'fatal')}
-            }
-       //     }
+            } // end for cycle startingLineup
+            homeRosterDArray = [];
+            homeRosterGArray = [];
+            homeRosterFArray = [];
+              for (i=0; i < homeRosterArray.length; i++)
+              { if (homeRosterArray[i] == 'D')
+                { homeRosterDArray.push(i) }
+                else if (homeRosterArray[i] == 'G')
+                { homeRosterGArray.push(i) }
+                else if (homeRosterArray[i] == 'C')
+                { homeRosterFArray.push(i) }
+                else if (homeRosterArray[i] == 'RW')
+                { homeRosterFArray.push(i); }
+                else if (homeRosterArray[i] == 'LW')
+                { homeRosterFArray.push(i); }
+           //     else (console.log('he does not have a position', i))
+                }
+                console.log(homeRosterDArray, homeRosterGArray, homeRosterFArray);
+                   //     }
             
-            // #23 1:20-2:30, 5:06-5:41, 7:11-7:28, 9:29-10:12, 14:48-15:30
-            // #2 1:20-2:30, 5:06-5:48, 7:16-7:19, 7:32-8:14, 9:29-10:09, 14:48=15:30
-            // #4 00:32-1:20, 4:43-5:06, 5:48-6:30, 7:28-9:01, 10:10-11:46 1st two seconds late, 
-            // #6 00:29-1:20, 4:44-5:06, 5:41-6:30, 8:14-9:02, 10:10-11:10
-            // #5 00:00-00:30, 2:30-4:44, 6:30-7:16, 7:19-7:32, 9:01-9:29, 11:10-11:41
-            // #20 00:00-00:29, 2:30-4:43, 6:30-7:11, 9:02-9:29, 11:46-12:41
+                 // #23 1:20-2:30, 5:06-5:41, 7:11-7:28, 9:29-10:12, 14:48-15:30
+                   // #2 1:20-2:30, 5:06-5:48, 7:16-7:19, 7:32-8:14, 9:29-10:09, 14:48=15:30
+                  // #4 00:32-1:20, 4:43-5:06, 5:48-6:30, 7:28-9:01, 10:10-11:46 1st two seconds late, 
+                 // #6 00:29-1:20, 4:44-5:06, 5:41-6:30, 8:14-9:02, 10:10-11:10
+                 // #5 00:00-00:30, 2:30-4:44, 6:30-7:16, 7:19-7:32, 9:01-9:29, 11:10-11:41
+                   // #20 00:00-00:29, 2:30-4:43, 6:30-7:11, 9:02-9:29, 11:46-12:41
 
 
-            // 3, 6,9, 9.5, 
-            // 2,5, 7
-            // 1,4,8, 9.5, 
-            });
+                    // 3, 6,9, 9.5, 
+                   // 2,5, 7
+                  // 1,4,8, 9.5, 
+                  });
         }
       }
     }
