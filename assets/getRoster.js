@@ -42,3 +42,6 @@ function getRoster() {
       console.log(awayRosterArray);
     });
 }
+
+//
+// (20) ['8480878'] (21) ['8483630','8482745', '8478841']

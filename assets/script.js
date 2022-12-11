@@ -40,7 +40,7 @@ function getInputValue() {
         var gameName = document.createElement('button');
         gameName.setAttribute('id', 'game' + i);
         var idx = gameName.getAttribute('id');
-       // console.log(idx);
+        // console.log(idx);
         gameName.innerHTML = 'Game ' + i + ': ' + data.dates[0].games[i].teams.away.team.name + ' ' + data.dates[0].games[i].teams.away.leagueRecord.wins + 'W ' + data.dates[0].games[i].teams.away.leagueRecord.losses + 'L ' + data.dates[0].games[i].teams.away.leagueRecord.ot + 'O vs ' + data.dates[0].games[i].teams.home.team.name + ' ' + data.dates[0].games[i].teams.home.leagueRecord.wins + 'W ' + data.dates[0].games[i].teams.home.leagueRecord.losses + 'L ' + data.dates[0].games[i].teams.home.leagueRecord.ot + 'O ';
         document.getElementById('schedule').appendChild(gameName);
         gameName.addEventListener('click', displayGameData);
@@ -48,7 +48,7 @@ function getInputValue() {
 
       function displayGameData(event) {
         idx = event.currentTarget;
-    //    console.log(typeof idx)
+        //    console.log(typeof idx)
         idxString = event.currentTarget.textContent;
         idxArray = idxString.split(':');
         idxNumber = idxArray[0].split(' ');
@@ -91,11 +91,11 @@ function getInputValue() {
             document.getElementById('gameInfo').appendChild(goalButton);
             goalButton.addEventListener('click', getGoals);
 
-       //           var rosterButton = document.createElement('button');
-       //           rosterButton.setAttribute('class', 'searchParameter');
-        //           rosterButton.textContent = 'Print Rosters';
-         //           document.getElementById('gameInfo').appendChild(rosterButton);
-        // //          rosterButton.addEventListener('click', getRoster);
+            //           var rosterButton = document.createElement('button');
+            //           rosterButton.setAttribute('class', 'searchParameter');
+            //           rosterButton.textContent = 'Print Rosters';
+            //           document.getElementById('gameInfo').appendChild(rosterButton);
+            // //          rosterButton.addEventListener('click', getRoster);
           });
         function getGoals(event) {
           var requestURL = 'https://statsapi.web.nhl.com/api/v1/game/' + gameId + '/feed/live';
@@ -172,160 +172,158 @@ function getInputValue() {
             });
         };
 
-          getShifts();
-          function getShifts(event) {
+        getShifts();
+        function getShifts(event) {
           // lines 235-277 generate home roster and away roster line number may change
-            var rosterURL = 'https://statsapi.web.nhl.com/api/v1/game/' + gameId + '/feed/live';
-           fetch(rosterURL, {
-          "method": "GET", "headers": {}  })
-    .then(function (response) {
-      return response.json();   })
-    .then(function (data) {
-      console.log(data.gameData.players)
+          var rosterURL = 'https://statsapi.web.nhl.com/api/v1/game/' + gameId + '/feed/live';
+          fetch(rosterURL, {
+            "method": "GET", "headers": {}
+          })
+            .then(function (response) {
+              return response.json();
+            })
+            .then(function (data) {
+              console.log(data.gameData.players)
 
-      var obj = data.gameData.players;
-      var keys = Object.keys(obj);
+              var obj = data.gameData.players;
+              var keys = Object.keys(obj);
 
-      for (var i = 0; i < keys.length; i++) {
-        var val = obj[keys[i]];
-          if (val.currentTeam.id == data.gameData.teams.away.id) {
-        //  document.getElementById('awayTeamId').appendChild(playerName);
-          awayRosterArray.push(val.primaryNumber);
-          awayRosterArray.push(val.fullName);
-          awayRosterArray.push(val.primaryPosition.abbreviation);
-          awayRosterArray.push(keys[i]);
-          hId = keys[i].split('ID');
-        //  hIdNumber = Number(hId[1]);
-          awayRosterIdArray.push(hId[1]);
-        }
-        else if (val.currentTeam.id == data.gameData.teams.home.id) {
-          homeRosterArray.push(val.primaryNumber);
-          homeRosterArray.push(val.fullName);
-          homeRosterArray.push(val.primaryPosition.abbreviation);
-          homeRosterArray.push(keys[i]);
-          hId = keys[i].split('ID');       
-       //   hIdNumber = Number(hId[1]);
-          homeRosterIdArray.push(hId[1]);
-        }
-      }
-      console.log(homeRosterArray);
-      console.log(awayRosterArray);
-      console.log(homeRosterIdArray, awayRosterIdArray);
-    });
-            console.log(gameId);
-       //     getRoster();
-            var shiftURL = 'https://cors-anywhere.herokuapp.com/https://api.nhle.com/stats/rest/en/shiftcharts?cayenneExp=gameId=' + gameId;
-                fetch(shiftURL, {
-                  "method": "GET", "headers": {  }
-                })
-                  .then(function (response) {
-                    return response.json();
-                  })
-                  .then(function (data) {
-                    console.log('I am in third then');
-            console.log(data.data);
-            playerChart1 = [];   
-            playerChart2 = []; 
-            playerChart3 = []; 
-            startingLineup = [];
-          //  playerShifts ={};
-            totalChart = [];
-            idChart = [];
-               for (i = 0; i < data.data.length - 1; i++) {
-                   if (data.data[i].typeCode === 517) {
-                 // fullName = data.data[i].firstName + data.data[i].lastName
+              for (var i = 0; i < keys.length; i++) {
+                var val = obj[keys[i]];
+                if (val.currentTeam.id == data.gameData.teams.away.id) {
+                  //  document.getElementById('awayTeamId').appendChild(playerName);
+                  awayRosterArray.push(val.primaryNumber);
+                  awayRosterArray.push(val.fullName);
+                  awayRosterArray.push(val.primaryPosition.abbreviation);
+                  awayRosterArray.push(keys[i]);
+                  hId = keys[i].split('ID');
+                  //  hIdNumber = Number(hId[1]);
+                  awayRosterIdArray.push(hId[1]);
+                }
+                else if (val.currentTeam.id == data.gameData.teams.home.id) {
+                  homeRosterArray.push(val.primaryNumber);
+                  homeRosterArray.push(val.fullName);
+                  homeRosterArray.push(val.primaryPosition.abbreviation);
+                  homeRosterArray.push(keys[i]);
+                  hId = keys[i].split('ID');
+                  //   hIdNumber = Number(hId[1]);
+                  homeRosterIdArray.push(hId[1]);
+                }
+              }
+              console.log(homeRosterArray);
+              console.log(awayRosterArray);
+              console.log(homeRosterIdArray, awayRosterIdArray);
+            });
+          console.log(gameId);
+          //     getRoster();
+          var shiftURL = 'https://cors-anywhere.herokuapp.com/https://api.nhle.com/stats/rest/en/shiftcharts?cayenneExp=gameId=' + gameId;
+          fetch(shiftURL, {
+            "method": "GET", "headers": {}
+          })
+            .then(function (response) {
+              return response.json();
+            })
+            .then(function (data) {
+              console.log('I am in third then');
+              console.log(data.data);
+              playerChart1 = [];
+              playerChart2 = [];
+              playerChart3 = [];
+              startingLineup = [];
+              //  playerShifts ={};
+              totalChart = [];
+              idChart = [];
+              for (i = 0; i < data.data.length - 1; i++) {
+                if (data.data[i].typeCode === 517) {
+                  // fullName = data.data[i].firstName + data.data[i].lastName
                   // console.log(data.data[i].startTime, typeof data.data[i].startTime, 'i= ',i, ' ', fullName)
-               
-                 const playerId = data.data[i].playerId; 
-                  if (data.data[i].playerId == data.data[i+1].playerId)
-                  {if (data.data[i].period == 1)
-                    { shiftStart = data.data[i].startTime;                      
+
+                  const playerId = data.data[i].playerId;
+                  if (data.data[i].playerId == data.data[i + 1].playerId) {
+                    if (data.data[i].period == 1) {
+                      shiftStart = data.data[i].startTime;
                       shiftStart1 = shiftStart.split(':');
                       minutes = Number(shiftStart1[0]);
-                      seconds = Number(shiftStart1[1]);                      
-                      shiftStart2 = minutes*60 + seconds;
+                      seconds = Number(shiftStart1[1]);
+                      shiftStart2 = minutes * 60 + seconds;
                       playerChart1.push(shiftStart2);
-                      shiftEnd = data.data[i].endTime;                      
+                      shiftEnd = data.data[i].endTime;
                       shiftEnd1 = shiftEnd.split(':');
                       minutes = Number(shiftEnd1[0]);
-                      seconds = Number(shiftEnd1[1]);                      
-                      shiftEnd2 = minutes*60 + seconds;
-                      playerChart1.push(shiftEnd2)  
-                    if (shiftStart2 == 0) 
-                  {startingLineup.push(data.data[i].playerId)}
+                      seconds = Number(shiftEnd1[1]);
+                      shiftEnd2 = minutes * 60 + seconds;
+                      playerChart1.push(shiftEnd2)
+                      if (shiftStart2 == 0) { startingLineup.push(data.data[i].playerId) }
+                    }
+
+                    else if (data.data[i].period == 2) { playerChart2.push(data.data[i].startTime) }
+                    else if (data.data[i].period == 3) { playerChart3.push(data.data[i].startTime) }
+                    else { console.log('shift not added') }
+                  } //, data.data[i].endTime, data.data[i].duration
+
+                  else if (data.data[i].playerId !== data.data[i + 1].playerId){
+                    if (data.data[i].period == 3) { playerChart3.push(data.data[i].startTime); }
+                    else if (data.data[i].period == 2) { playerChart2.push(data.data[i].startTime); }
+                    else if (data.data[i].period == 1) { playerChart1.push(data.data[i].startTime); }
+                    else { console.log('error in adding last shift') }
+                    totalChart.push(playerChart1);
+                    totalChart.push(playerChart2);
+                    totalChart.push(playerChart3);
+                    idChart.push(playerId);
+                    playerChart1 = [];
+                    playerChart2 = [];
+                    playerChart3 = [];
                   }
-                  
-                    else if (data.data[i].period == 2)
-                    { playerChart2.push(data.data[i].startTime) }
-                    else if (data.data[i].period == 3)
-                    { playerChart3.push(data.data[i].startTime) }
-                    else {console.log ('shift not added')}
-                    } //, data.data[i].endTime, data.data[i].duration
-                
-                 else { 
-                  if (data.data[i].period == 3)
-                  { playerChart3.push(data.data[i].startTime); }
-                  else if (data.data[i].period == 2)
-                  { playerChart2.push(data.data[i].startTime); }
-                  else if (data.data[i].period == 1)
-                  { playerChart1.push(data.data[i].startTime); }
-                  else {console.log('error in adding last shift')}
+                  if (i == data.data.length - 2)
+                  {console.log('i = ', i);
+                  console.log(playerChart1, playerChart2, playerChart3);
                   totalChart.push(playerChart1);
-                  totalChart.push(playerChart2);
-                  totalChart.push(playerChart3);
-                  idChart.push(playerId);
-                   playerChart1 = [];
-                   playerChart2 = [];
-                   playerChart3 = [];                  
-                   }          
-                  }
-               }
-               console.log(startingLineup);
-               console.log(totalChart, idChart);
-               console.log(homeRosterIdArray, awayRosterIdArray)
-               // next loop determines starting lineup for both teams currently lines 287-297
-               for (i = 0; i < 12; i++)
-               { tempVariable = startingLineup[i];
-                  tempString = tempVariable.toString();   
-                  if (homeRosterIdArray.includes(tempString))
-                 {
-                 console.log(homeRosterIdArray.indexOf(tempString), 'home', homeRosterArray[4*homeRosterIdArray.indexOf(tempString) + 1], homeRosterArray[4*homeRosterIdArray.indexOf(tempString) + 2])}
-                  else if (awayRosterIdArray.includes(tempString))
-                  {
-                    console.log(awayRosterIdArray.indexOf(tempString), 'away', awayRosterArray[4*awayRosterIdArray.indexOf(tempString) + 1], awayRosterArray[4*awayRosterIdArray.indexOf(tempString) + 2])}
-                  else {console.log(tempString, 'fatal')}
-            } // end for cycle startingLineup
-            homeRosterDArray = [];
-            homeRosterGArray = [];
-            homeRosterFArray = [];
-              for (i=0; i < homeRosterArray.length; i++)
-              { if (homeRosterArray[i] == 'D')
-                { homeRosterDArray.push(i) }
-                else if (homeRosterArray[i] == 'G')
-                { homeRosterGArray.push(i) }
-                else if (homeRosterArray[i] == 'C')
-                { homeRosterFArray.push(i) }
-                else if (homeRosterArray[i] == 'RW')
-                { homeRosterFArray.push(i); }
-                else if (homeRosterArray[i] == 'LW')
-                { homeRosterFArray.push(i); }
-           //     else (console.log('he does not have a position', i))
+                    totalChart.push(playerChart2);
+                    totalChart.push(playerChart3);
+                    idChart.push(playerId);}
                 }
-                console.log(homeRosterDArray, homeRosterGArray, homeRosterFArray);
-                   //     }
-            
-                 // #23 1:20-2:30, 5:06-5:41, 7:11-7:28, 9:29-10:12, 14:48-15:30
-                   // #2 1:20-2:30, 5:06-5:48, 7:16-7:19, 7:32-8:14, 9:29-10:09, 14:48=15:30
-                  // #4 00:32-1:20, 4:43-5:06, 5:48-6:30, 7:28-9:01, 10:10-11:46 1st two seconds late, 
-                 // #6 00:29-1:20, 4:44-5:06, 5:41-6:30, 8:14-9:02, 10:10-11:10
-                 // #5 00:00-00:30, 2:30-4:44, 6:30-7:16, 7:19-7:32, 9:01-9:29, 11:10-11:41
-                   // #20 00:00-00:29, 2:30-4:43, 6:30-7:11, 9:02-9:29, 11:46-12:41
+              }
+              console.log(startingLineup);
+              console.log(totalChart, idChart);
+              console.log(homeRosterIdArray, awayRosterIdArray)
+              // next loop determines starting lineup for both teams currently lines 287-297
+              for (i = 0; i < 12; i++) {
+                tempVariable = startingLineup[i];
+                tempString = tempVariable.toString();
+                if (homeRosterIdArray.includes(tempString)) {
+                  console.log(homeRosterIdArray.indexOf(tempString), 'home', homeRosterArray[4 * homeRosterIdArray.indexOf(tempString) + 1], homeRosterArray[4 * homeRosterIdArray.indexOf(tempString) + 2])
+                }
+                else if (awayRosterIdArray.includes(tempString)) {
+                  console.log(awayRosterIdArray.indexOf(tempString), 'away', awayRosterArray[4 * awayRosterIdArray.indexOf(tempString) + 1], awayRosterArray[4 * awayRosterIdArray.indexOf(tempString) + 2])
+                }
+                else { console.log(tempString, 'fatal') }
+              } // end for cycle startingLineup
+              homeRosterDArray = [];
+              homeRosterGArray = [];
+              homeRosterFArray = [];
+              for (i = 0; i < homeRosterArray.length; i++) {
+                if (homeRosterArray[i] == 'D') { homeRosterDArray.push(i) }
+                else if (homeRosterArray[i] == 'G') { homeRosterGArray.push(i) }
+                else if (homeRosterArray[i] == 'C') { homeRosterFArray.push(i) }
+                else if (homeRosterArray[i] == 'RW') { homeRosterFArray.push(i); }
+                else if (homeRosterArray[i] == 'LW') { homeRosterFArray.push(i); }
+                //     else (console.log('he does not have a position', i))
+              } // end for homeRosterArray 
+              console.log(homeRosterDArray, homeRosterGArray, homeRosterFArray);
+              //     }
+
+              // #23 1:20-2:30, 5:06-5:41, 7:11-7:28, 9:29-10:12, 14:48-15:30
+              // #2 1:20-2:30, 5:06-5:48, 7:16-7:19, 7:32-8:14, 9:29-10:09, 14:48=15:30
+              // #4 00:32-1:20, 4:43-5:06, 5:48-6:30, 7:28-9:01, 10:10-11:46 1st two seconds late, 
+              // #6 00:29-1:20, 4:44-5:06, 5:41-6:30, 8:14-9:02, 10:10-11:10
+              // #5 00:00-00:30, 2:30-4:44, 6:30-7:16, 7:19-7:32, 9:01-9:29, 11:10-11:41
+              // #20 00:00-00:29, 2:30-4:43, 6:30-7:11, 9:02-9:29, 11:46-12:41
 
 
-                    // 3, 6,9, 9.5, 
-                   // 2,5, 7
-                  // 1,4,8, 9.5, 
-                  });
+              // 3, 6,9, 9.5, 
+              // 2,5, 7
+              // 1,4,8, 9.5, 
+            });
         }
       }
     }
