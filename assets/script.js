@@ -5,6 +5,7 @@ const homeRosterArray = [];
 const awayRosterArray = [];
 const homeRosterIdArray = [];
 const awayRosterIdArray = [];
+const homeRosterDArray = [];
 // var rosterArray;
 
 // two lines below will allow user to search by year
@@ -314,7 +315,7 @@ function getInputValue() {
               homeStartingLineup.push(homeStartingDLineup);
               homeStartingLineup.push(homeStartingFLineup);
               console.log(homeStartingLineup);
-              homeRosterDArray = [];
+              
               homeRosterGArray = [];
               homeRosterFArray = [];
               for (i = 0; i < idChart.length; i++) {
@@ -331,7 +332,14 @@ function getInputValue() {
               } // end for idChart loop
               console.log(homeRosterDArray, homeRosterGArray, homeRosterFArray);
               //     }
-
+              getDPairs();
+                function getDPairs()
+                {for (i = 0; i < homeRosterDArray.length; i++)
+                  {
+                  console.log(idChart.indexOf(homeRosterDArray[i]));
+                  console.log(totalChart[3*idChart.indexOf(homeRosterDArray[i])]);
+                  }
+                } // end function getDPairs
               // #23 1:20-2:30, 5:06-5:41, 7:11-7:28, 9:29-10:12, 14:48-15:30
               // #2 1:20-2:30, 5:06-5:48, 7:16-7:19, 7:32-8:14, 9:29-10:09, 14:48=15:30
               // #4 00:32-1:20, 4:43-5:06, 5:48-6:30, 7:28-9:01, 10:10-11:46 1st two seconds late, 
