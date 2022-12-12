@@ -230,14 +230,11 @@ function getInputValue() {
               playerChart2 = [];
               playerChart3 = [];
               startingLineup = [];
-              //  playerShifts ={};
               totalChart = [];
               idChart = [];
+              // that's a complex cycle that creates arrays of each player time shifts in each of three periods, also arary of playerIDs who actually played the game, not just were in the roster, also starting lineups are created
               for (i = 0; i < data.data.length - 1; i++) {
                 if (data.data[i].typeCode === 517) {
-                  // fullName = data.data[i].firstName + data.data[i].lastName
-                  // console.log(data.data[i].startTime, typeof data.data[i].startTime, 'i= ',i, ' ', fullName)
-
                   const playerId = data.data[i].playerId;
                   if (data.data[i].playerId == data.data[i + 1].playerId) {
                     if (data.data[i].period == 1) {
@@ -261,10 +258,12 @@ function getInputValue() {
                     else { console.log('shift not added') }
                   } //, data.data[i].endTime, data.data[i].duration
 
-                  else if (data.data[i].playerId !== data.data[i + 1].playerId){
-                    if (data.data[i].period == 3) { playerChart3.push(data.data[i].startTime); }
-                    else if (data.data[i].period == 2) { playerChart2.push(data.data[i].startTime); }
-                    else if (data.data[i].period == 1) { playerChart1.push(data.data[i].startTime); }
+                  else {if (data.data[i].period == 3) 
+                    { playerChart3.push(data.data[i].startTime); }
+                    else if (data.data[i].period == 2) 
+                    { playerChart2.push(data.data[i].startTime); }
+                    else if (data.data[i].period == 1) 
+                    { playerChart1.push(data.data[i].startTime); }
                     else { console.log('error in adding last shift') }
                     totalChart.push(playerChart1);
                     totalChart.push(playerChart2);
@@ -274,30 +273,47 @@ function getInputValue() {
                     playerChart2 = [];
                     playerChart3 = [];
                   }
+                 
                   if (i == data.data.length - 2)
-                  {console.log('i = ', i);
-                  console.log(playerChart1, playerChart2, playerChart3);
+                  {// console.log('i = ', i);
+              //    console.log(playerChart1, playerChart2, playerChart3);
                   totalChart.push(playerChart1);
                     totalChart.push(playerChart2);
                     totalChart.push(playerChart3);
                     idChart.push(playerId);}
                 }
-              }
+              } // end for cycle for shift processing data next six lines just last shift of last pleyer
+              if (data.data[data.data.length - 1].period == 3) 
+              { playerChart3.push(data.data[data.data.length - 1].startTime); }
+              else if (data.data[data.data.length - 1].period == 2) 
+              { playerChart2.push(data.data[data.data.length - 1].startTime); }
+              else if (data.data[data.data.length - 1].period == 1) 
+              { playerChart1.push(data.data[data.data.length - 1].startTime); }
               console.log(startingLineup);
               console.log(totalChart, idChart);
               console.log(homeRosterIdArray, awayRosterIdArray)
               // next loop determines starting lineup for both teams currently lines 287-297
+              homeStartingLineup = [];
+              homeStartingDLineup = [];
+              homeStartingFLineup = [];
               for (i = 0; i < 12; i++) {
                 tempVariable = startingLineup[i];
                 tempString = tempVariable.toString();
                 if (homeRosterIdArray.includes(tempString)) {
                   console.log(homeRosterIdArray.indexOf(tempString), 'home', homeRosterArray[4 * homeRosterIdArray.indexOf(tempString) + 1], homeRosterArray[4 * homeRosterIdArray.indexOf(tempString) + 2])
+                  if (homeRosterArray[4 * homeRosterIdArray.indexOf(tempString) + 2] == 'D') {homeStartingDLineup.push(tempVariable)}
+                  else if (homeRosterArray[4 * homeRosterIdArray.indexOf(tempString) + 2] == 'G') {homeStartingLineup.push(tempVariable)}
+                  else {homeStartingFLineup.push(tempVariable)}
                 }
+              
                 else if (awayRosterIdArray.includes(tempString)) {
                   console.log(awayRosterIdArray.indexOf(tempString), 'away', awayRosterArray[4 * awayRosterIdArray.indexOf(tempString) + 1], awayRosterArray[4 * awayRosterIdArray.indexOf(tempString) + 2])
                 }
                 else { console.log(tempString, 'fatal') }
               } // end for cycle startingLineup
+              homeStartingLineup.push(homeStartingDLineup);
+              homeStartingLineup.push(homeStartingFLineup);
+              console.log(homeStartingLineup);
               homeRosterDArray = [];
               homeRosterGArray = [];
               homeRosterFArray = [];
