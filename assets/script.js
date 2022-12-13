@@ -334,18 +334,28 @@ function getInputValue() {
               //     }
               getDPairs();
                 function getDPairs()
-                {for (i = 0; i < homeRosterDArray.length; i++)
-                  {
-                  console.log(idChart.indexOf(homeRosterDArray[i]));
-                  console.log(totalChart[3*idChart.indexOf(homeRosterDArray[i])]);
+                {shiftsArray = [];
+                  for (i = 0; i < homeRosterDArray.length; i++)
+                  { shiftsArray.push(totalChart[3*idChart.indexOf(homeRosterDArray[i])]);
+                  console.log(idChart.indexOf(homeRosterDArray[i]), shiftsArray);
+                  } // end first for loop
+                  for (i = 0; i < 1; i++) // i < shiftsArray.length
+                  { console.log(i);
+                    for (j = i + 1; j < shiftsArray.length; j++ )
+                    {console.log(j);
+                      for (k = 0; k < 0.5*shiftsArray[0].length; k++ )
+                      { tempArray = shiftsArray[i];
+                         console.log (tempArray[2*k])
+                      }
+                    }
                   }
                 } // end function getDPairs
-              // #23 1:20-2:30, 5:06-5:41, 7:11-7:28, 9:29-10:12, 14:48-15:30
-              // #2 1:20-2:30, 5:06-5:48, 7:16-7:19, 7:32-8:14, 9:29-10:09, 14:48=15:30
-              // #4 00:32-1:20, 4:43-5:06, 5:48-6:30, 7:28-9:01, 10:10-11:46 1st two seconds late, 
-              // #6 00:29-1:20, 4:44-5:06, 5:41-6:30, 8:14-9:02, 10:10-11:10
-              // #5 00:00-00:30, 2:30-4:44, 6:30-7:16, 7:19-7:32, 9:01-9:29, 11:10-11:41
-              // #20 00:00-00:29, 2:30-4:43, 6:30-7:11, 9:02-9:29, 11:46-12:41
+                  // #23 1:20-2:30, 5:06-5:41, 7:11-7:28, 9:29-10:12, 14:48-15:30
+                  // #2 1:20-2:30, 5:06-5:48, 7:16-7:19, 7:32-8:14, 9:29-10:09, 14:48=15:30
+                 // #4 00:32-1:20, 4:43-5:06, 5:48-6:30, 7:28-9:01, 10:10-11:46 1st two seconds late, 
+                   // #6 00:29-1:20, 4:44-5:06, 5:41-6:30, 8:14-9:02, 10:10-11:10
+                  // #5 00:00-00:30, 2:30-4:44, 6:30-7:16, 7:19-7:32, 9:01-9:29, 11:10-11:41
+                  // #20 00:00-00:29, 2:30-4:43, 6:30-7:11, 9:02-9:29, 11:46-12:41
 
 
               // 3, 6,9, 9.5, 
