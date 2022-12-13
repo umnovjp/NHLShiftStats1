@@ -342,10 +342,11 @@ function getInputValue() {
                   for (i = 0; i < 1; i++) // i < shiftsArray.length
                   { console.log(i);
                     for (j = i + 1; j < shiftsArray.length; j++ )
-                    {console.log(j);
+                    {console.log(i, j);
                       for (k = 0; k < 0.5*shiftsArray[0].length; k++ )
                       { tempArray = shiftsArray[i];
-                         console.log (tempArray[2*k])
+                         console.log (i, j, k, tempArray[2*k])
+                         // 4th loop will be here
                       }
                     }
                   }

@@ -15,3 +15,6 @@ In some games, players get injured. Or some players get game misconduct penalty.
 
 ## Print Goals Button
 This is optional feature will print all goals of the game to the screen if a user wants to see that. But this button is unlikely to stay there in the final version. 
+
+## Notes
+It is first time when I use 4 nested loops in JavaScript. That was wonderful experience to do it again
