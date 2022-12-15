@@ -259,12 +259,10 @@ function getInputValue() {
                     else { console.log('shift not added') }
                   } //, data.data[i].endTime, data.data[i].duration
 
-                  else {if (data.data[i].period == 3) 
-                    { playerChart3.push(data.data[i].startTime); }
-                    else if (data.data[i].period == 2) 
-                    { playerChart2.push(data.data[i].startTime); }
-                    else if (data.data[i].period == 1) 
-                    { playerChart1.push(data.data[i].startTime); }
+                  else {
+                    if (data.data[i].period == 3) { playerChart3.push(data.data[i].startTime); }
+                    else if (data.data[i].period == 2) { playerChart2.push(data.data[i].startTime); }
+                    else if (data.data[i].period == 1) { playerChart1.push(data.data[i].startTime); }
                     else { console.log('error in adding last shift') }
                     totalChart.push(playerChart1);
                     totalChart.push(playerChart2);
@@ -274,22 +272,19 @@ function getInputValue() {
                     playerChart2 = [];
                     playerChart3 = [];
                   }
-                 
-                  if (i == data.data.length - 2)
-                  {// console.log('i = ', i);
-              //    console.log(playerChart1, playerChart2, playerChart3);
-                  totalChart.push(playerChart1);
+
+                  if (i == data.data.length - 2) {// console.log('i = ', i);
+                    //    console.log(playerChart1, playerChart2, playerChart3);
+                    totalChart.push(playerChart1);
                     totalChart.push(playerChart2);
                     totalChart.push(playerChart3);
-                    idChart.push(playerId);}
+                    idChart.push(playerId);
+                  }
                 }
               } // end for cycle for shift processing data next six lines just last shift of last pleyer
-              if (data.data[data.data.length - 1].period == 3) 
-              { playerChart3.push(data.data[data.data.length - 1].startTime); }
-              else if (data.data[data.data.length - 1].period == 2) 
-              { playerChart2.push(data.data[data.data.length - 1].startTime); }
-              else if (data.data[data.data.length - 1].period == 1) 
-              { playerChart1.push(data.data[data.data.length - 1].startTime); }
+              if (data.data[data.data.length - 1].period == 3) { playerChart3.push(data.data[data.data.length - 1].startTime); }
+              else if (data.data[data.data.length - 1].period == 2) { playerChart2.push(data.data[data.data.length - 1].startTime); }
+              else if (data.data[data.data.length - 1].period == 1) { playerChart1.push(data.data[data.data.length - 1].startTime); }
               console.log(startingLineup);
               console.log(totalChart, idChart);
               console.log(homeRosterIdArray, awayRosterIdArray)
@@ -302,11 +297,11 @@ function getInputValue() {
                 tempString = tempVariable.toString();
                 if (homeRosterIdArray.includes(tempString)) {
                   console.log(homeRosterIdArray.indexOf(tempString), 'home', homeRosterArray[4 * homeRosterIdArray.indexOf(tempString) + 1], homeRosterArray[4 * homeRosterIdArray.indexOf(tempString) + 2])
-                  if (homeRosterArray[4 * homeRosterIdArray.indexOf(tempString) + 2] == 'D') {homeStartingDLineup.push(tempVariable)}
-                  else if (homeRosterArray[4 * homeRosterIdArray.indexOf(tempString) + 2] == 'G') {homeStartingLineup.push(tempVariable)}
-                  else {homeStartingFLineup.push(tempVariable)}
+                  if (homeRosterArray[4 * homeRosterIdArray.indexOf(tempString) + 2] == 'D') { homeStartingDLineup.push(tempVariable) }
+                  else if (homeRosterArray[4 * homeRosterIdArray.indexOf(tempString) + 2] == 'G') { homeStartingLineup.push(tempVariable) }
+                  else { homeStartingFLineup.push(tempVariable) }
                 }
-              
+
                 else if (awayRosterIdArray.includes(tempString)) {
                   console.log(awayRosterIdArray.indexOf(tempString), 'away', awayRosterArray[4 * awayRosterIdArray.indexOf(tempString) + 1], awayRosterArray[4 * awayRosterIdArray.indexOf(tempString) + 2])
                 }
@@ -315,50 +310,60 @@ function getInputValue() {
               homeStartingLineup.push(homeStartingDLineup);
               homeStartingLineup.push(homeStartingFLineup);
               console.log(homeStartingLineup);
-              
+
               homeRosterGArray = [];
               homeRosterFArray = [];
               for (i = 0; i < idChart.length; i++) {
                 tempValue = 'ID' + idChart[i];
-                if (homeRosterArray.includes(tempValue))
-                {tempVariable = homeRosterArray.indexOf(tempValue);
-            //      console.log(tempVariable, homeRosterArray[tempVariable - 3], homeRosterArray[tempVariable - 1])
-                if (homeRosterArray[tempVariable - 1] == 'D') { homeRosterDArray.push(idChart[i]) }
-                else if (homeRosterArray[tempVariable - 1] == 'G') { homeRosterGArray.push(idChart[i]) }
-                else if (homeRosterArray[tempVariable - 1] == 'C') { homeRosterFArray.push(idChart[i]) }
-                else if (homeRosterArray[tempVariable - 1] == 'RW') { homeRosterFArray.push(idChart[i]); }
-                else if (homeRosterArray[tempVariable - 1] == 'LW') { homeRosterFArray.push(idChart[i]); }
-               else (console.log('he does not have a position', tempValue))}
+                if (homeRosterArray.includes(tempValue)) {
+                  tempVariable = homeRosterArray.indexOf(tempValue);
+                  //      console.log(tempVariable, homeRosterArray[tempVariable - 3], homeRosterArray[tempVariable - 1])
+                  if (homeRosterArray[tempVariable - 1] == 'D') { homeRosterDArray.push(idChart[i]) }
+                  else if (homeRosterArray[tempVariable - 1] == 'G') { homeRosterGArray.push(idChart[i]) }
+                  else if (homeRosterArray[tempVariable - 1] == 'C') { homeRosterFArray.push(idChart[i]) }
+                  else if (homeRosterArray[tempVariable - 1] == 'RW') { homeRosterFArray.push(idChart[i]); }
+                  else if (homeRosterArray[tempVariable - 1] == 'LW') { homeRosterFArray.push(idChart[i]); }
+                  else (console.log('he does not have a position', tempValue))
+                }
               } // end for idChart loop
               console.log(homeRosterDArray, homeRosterGArray, homeRosterFArray);
               //     }
               getDPairs();
-                function getDPairs()
-                {shiftsArray = [];
-                  for (i = 0; i < homeRosterDArray.length; i++)
-                  { shiftsArray.push(totalChart[3*idChart.indexOf(homeRosterDArray[i])]);
+              function getDPairs() {
+                shiftsArray = [];
+                for (i = 0; i < homeRosterDArray.length; i++) {
+                  shiftsArray.push(totalChart[3 * idChart.indexOf(homeRosterDArray[i])]);
                   console.log(idChart.indexOf(homeRosterDArray[i]), shiftsArray);
-                  } // end first for loop
-                  for (i = 0; i < 1; i++) // i < shiftsArray.length
-                  { console.log(i);
-                    for (j = i + 1; j < shiftsArray.length; j++)
-                    {console.log(i, j);
-                      for (k = 0; k < 0.5*shiftsArray[0].length; k++)
-                      { tempArray = shiftsArray[i];
-                        console.log (i, j, k, tempArray[2*k])
-                         for (l = 0; l < 0.5*shiftsArray[j].length; l++)
-                         {tempArray2 = shiftsArray[j];
-                         console.log (i, j, k, l, tempArray2[2*l])}
+                } // end first for loop
+                for (i = 0; i < 1; i++) // i < shiftsArray.length
+                {
+                  console.log(i);
+                  for (j = i + 1; j < shiftsArray.length; j++) {
+                    console.log(i, j);
+                    for (k = 0; k < 0.5 * shiftsArray[0].length; k++) {
+                      tempArray = shiftsArray[i];
+                      console.log(i, j, k, tempArray[2 * k])
+                      for (l = 0; l < 0.5 * shiftsArray[j].length; l++) {
+                        tempArray2 = shiftsArray[j];
+                        //      big if starts
+                        if (tempArray2[2 * l] >= tempArray[2 * k] && tempArray2[2 * l] <= tempArray[2 * k + 1]) {
+                          if (tempArray2[2 * l + 1] >= tempArray[2 * k + 1]) { console.log(i, j, k, l, tempArray2[2 * l], tempArray[2 * k + 1] - tempArray2[2 * l]) }
+                          else { console.log(i, j, k, l, tempArray2[2 * l], tempArray2[2 * l + 1] - tempArray2[2 * l]) }
+                        }
+                        else if (tempArray2[2*l] <= tempArray[2*k] && tempArray2[2*l + 1] >= tempArray[2*k])
+                        {if (tempArray2[2*l + 1] >= tempArray[2*k + 1]) {console.log(i, j, k, l, tempArray2[2 * l], tempArray2[2*l + 1] - tempArray[2*k])}
+                        else {console.log(i, j, k, l, tempArray2[2 * l], tempArray2[2*l + 1] - tempArray[2*k])}}
                       }
                     }
                   }
-                } // end function getDPairs
-                  // #23 1:20-2:30, 5:06-5:41, 7:11-7:28, 9:29-10:12, 14:48-15:30
-                  // #2 1:20-2:30, 5:06-5:48, 7:16-7:19, 7:32-8:14, 9:29-10:09, 14:48=15:30
-                 // #4 00:32-1:20, 4:43-5:06, 5:48-6:30, 7:28-9:01, 10:10-11:46 1st two seconds late, 
-                   // #6 00:29-1:20, 4:44-5:06, 5:41-6:30, 8:14-9:02, 10:10-11:10
-                  // #5 00:00-00:30, 2:30-4:44, 6:30-7:16, 7:19-7:32, 9:01-9:29, 11:10-11:41
-                  // #20 00:00-00:29, 2:30-4:43, 6:30-7:11, 9:02-9:29, 11:46-12:41
+                }
+              } // end function getDPairs
+              // #23 1:20-2:30, 5:06-5:41, 7:11-7:28, 9:29-10:12, 14:48-15:30
+              // #2 1:20-2:30, 5:06-5:48, 7:16-7:19, 7:32-8:14, 9:29-10:09, 14:48=15:30
+              // #4 00:32-1:20, 4:43-5:06, 5:48-6:30, 7:28-9:01, 10:10-11:46 1st two seconds late, 
+              // #6 00:29-1:20, 4:44-5:06, 5:41-6:30, 8:14-9:02, 10:10-11:10
+              // #5 00:00-00:30, 2:30-4:44, 6:30-7:16, 7:19-7:32, 9:01-9:29, 11:10-11:41
+              // #20 00:00-00:29, 2:30-4:43, 6:30-7:11, 9:02-9:29, 11:46-12:41
 
 
               // 3, 6,9, 9.5, 
