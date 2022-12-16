@@ -340,21 +340,27 @@ function getInputValue() {
                   console.log(i);
                   for (j = i + 1; j < shiftsArray.length; j++) {
                     console.log(i, j);
+                    tempTime = [];
                     for (k = 0; k < 0.5 * shiftsArray[0].length; k++) {
                       tempArray = shiftsArray[i];
-                      console.log(i, j, k, tempArray[2 * k])
+                      console.log(i, j, k, tempArray[2 * k]);
+                      
                       for (l = 0; l < 0.5 * shiftsArray[j].length; l++) {
-                        tempArray2 = shiftsArray[j];
+                        tempArray2 = shiftsArray[j];                        
                         //      big if starts
                         if (tempArray2[2 * l] >= tempArray[2 * k] && tempArray2[2 * l] <= tempArray[2 * k + 1]) {
-                          if (tempArray2[2 * l + 1] >= tempArray[2 * k + 1]) { console.log(i, j, k, l, tempArray2[2 * l], tempArray[2 * k + 1] - tempArray2[2 * l]) }
-                          else { console.log(i, j, k, l, tempArray2[2 * l], tempArray2[2 * l + 1] - tempArray2[2 * l]) }
+                          if (tempArray2[2 * l + 1] >= tempArray[2 * k + 1]) 
+                          { tempTime.push(tempArray[2 * k + 1] - tempArray2[2 * l]);
+                            console.log('case 1', tempTime, i, j, k, l, tempArray2[2 * l], tempArray[2 * k + 1] - tempArray2[2 * l]) }
+                          else { tempTime.push(tempArray2[2 * l + 1] - tempArray2[2 * l]);
+                            console.log('case 2', tempTime, i, j, k, l, tempArray2[2 * l], tempArray2[2 * l + 1] - tempArray2[2 * l]) }
                         }
-                        else if (tempArray2[2*l] <= tempArray[2*k] && tempArray2[2*l + 1] >= tempArray[2*k])
-                        {if (tempArray2[2*l + 1] >= tempArray[2*k + 1]) {console.log(i, j, k, l, tempArray2[2 * l], tempArray2[2*l + 1] - tempArray[2*k])}
-                        else {console.log(i, j, k, l, tempArray2[2 * l], tempArray2[2*l + 1] - tempArray[2*k])}}
+                        else if (tempArray2[2 * l] <= tempArray[2 * k] && tempArray2[2 * l + 1] >= tempArray[2 * k]) {
+                          if (tempArray2[2 * l + 1] >= tempArray[2 * k + 1]) { console.log('case 3', i, j, k, l, tempArray2[2 * l], tempArray2[2 * l + 1] - tempArray[2 * k]) }
+                          else { console.log('case 4', i, j, k, l, tempArray2[2 * l], tempArray2[2 * l + 1] - tempArray[2 * k]) }
+                        }
                       }
-                    }
+                    } // end k cycle
                   }
                 }
               } // end function getDPairs
