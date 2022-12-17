@@ -331,17 +331,18 @@ function getInputValue() {
               getDPairs();
               function getDPairs() {
                 shiftsArray = [];
+                pairingsArray = [];
                 for (i = 0; i < homeRosterDArray.length; i++) {
                   shiftsArray.push(totalChart[3 * idChart.indexOf(homeRosterDArray[i])]);
                   console.log(idChart.indexOf(homeRosterDArray[i]), shiftsArray);
                 } // end first for loop
-                for (i = 0; i < 1; i++) // i < shiftsArray.length
+                for (i = 0; i < shiftsArray.length; i++) // i < shiftsArray.length
                 {
                   console.log(i);
                   for (j = i + 1; j < shiftsArray.length; j++) {
                     console.log(i, j);
                     tempTime = [];
-                    for (k = 0; k < 0.5 * shiftsArray[0].length; k++) {
+                    for (k = 0; k < 0.5 * shiftsArray[i].length; k++) {
                       tempArray = shiftsArray[i];
                       console.log(i, j, k, tempArray[2 * k]);
                       
@@ -351,17 +352,30 @@ function getInputValue() {
                         if (tempArray2[2 * l] >= tempArray[2 * k] && tempArray2[2 * l] <= tempArray[2 * k + 1]) {
                           if (tempArray2[2 * l + 1] >= tempArray[2 * k + 1]) 
                           { tempTime.push(tempArray[2 * k + 1] - tempArray2[2 * l]);
-                            console.log('case 1', tempTime, i, j, k, l, tempArray2[2 * l], tempArray[2 * k + 1] - tempArray2[2 * l]) }
+                           // console.log('case 1', tempTime, i, j, k, l, tempArray2[2 * l], tempArray[2 * k + 1] - tempArray2[2 * l]) 
+                          }
                           else { tempTime.push(tempArray2[2 * l + 1] - tempArray2[2 * l]);
-                            console.log('case 2', tempTime, i, j, k, l, tempArray2[2 * l], tempArray2[2 * l + 1] - tempArray2[2 * l]) }
+                           // console.log('case 2', tempTime, i, j, k, l, tempArray2[2 * l], tempArray2[2 * l + 1] - tempArray2[2 * l]) 
+                          }
                         }
                         else if (tempArray2[2 * l] <= tempArray[2 * k] && tempArray2[2 * l + 1] >= tempArray[2 * k]) {
-                          if (tempArray2[2 * l + 1] >= tempArray[2 * k + 1]) { console.log('case 3', i, j, k, l, tempArray2[2 * l], tempArray2[2 * l + 1] - tempArray[2 * k]) }
-                          else { console.log('case 4', i, j, k, l, tempArray2[2 * l], tempArray2[2 * l + 1] - tempArray[2 * k]) }
+                          if (tempArray2[2 * l + 1] >= tempArray[2 * k + 1]) { tempTime.push(tempArray2[2 * l + 1] - tempArray[2 * k]);
+                          //  console.log('case 3', tempTime, i, j, k, l, tempArray2[2 * l], tempArray2[2 * l + 1] - tempArray[2 * k]) 
+                          }
+                          else { tempTime.push(tempArray2[2 * l + 1] - tempArray[2 * k]);
+                           // console.log('case 4', tempTime, i, j, k, l, tempArray2[2 * l], tempArray2[2 * l + 1] - tempArray[2 * k])
+                          }
                         }
                       }
                     } // end k cycle
-                  }
+                    shifts = 0;
+                    const sum = tempTime.reduce((partialSum, a) => partialSum + a, 0);
+                    for (m = 0; m < tempTime.length; m++) 
+                    {if (tempTime[m] >= 10) {shifts = shifts + 1}}
+                    pairingsArray.push(sum);
+                    pairingsArray.push(shifts);
+                    console.log(tempTime, i, j, sum, shifts);} 
+                    console.log(pairingsArray);//
                 }
               } // end function getDPairs
               // #23 1:20-2:30, 5:06-5:41, 7:11-7:28, 9:29-10:12, 14:48-15:30
