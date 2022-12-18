@@ -330,21 +330,34 @@ function getInputValue() {
               //     }
               getDPairs();
               function getDPairs() {
-                shiftsArray = [];
+                shiftsArray = [];                
+                TOIArray = [];
                 pairingsArray = [];
                 for (i = 0; i < homeRosterDArray.length; i++) {
                   shiftsArray.push(totalChart[3 * idChart.indexOf(homeRosterDArray[i])]);
-                  console.log(idChart.indexOf(homeRosterDArray[i]), shiftsArray);
+           //       console.log(idChart.indexOf(homeRosterDArray[i]), shiftsArray);                
                 } // end first for loop
+                console.log(shiftsArray);
+                for (i = 0; i < shiftsArray.length; i++) {totalShiftLength = 0;
+                  tempArray = shiftsArray[i];
+                  for (j = 0; j < 0.5*tempArray.length; j++){
+                  const shiftLength = tempArray[2*j + 1] - tempArray[2*j];
+                 //      console.log(shiftLength);
+                  totalShiftLength = totalShiftLength + shiftLength;
+                  } // end j loop
+                 TOIArray.push(totalShiftLength);
+                } // end i loop
+                
+    //            console.log(TOIArray);
+             //   
                 for (i = 0; i < shiftsArray.length; i++) // i < shiftsArray.length
-                {
-                  console.log(i);
+                { // console.log(i);
                   for (j = i + 1; j < shiftsArray.length; j++) {
-                    console.log(i, j);
+           //         console.log(i, j);
                     tempTime = [];
                     for (k = 0; k < 0.5 * shiftsArray[i].length; k++) {
                       tempArray = shiftsArray[i];
-                      console.log(i, j, k, tempArray[2 * k]);
+            //          console.log(i, j, k, tempArray[2 * k]);
                       
                       for (l = 0; l < 0.5 * shiftsArray[j].length; l++) {
                         tempArray2 = shiftsArray[j];                        
@@ -374,9 +387,13 @@ function getInputValue() {
                     {if (tempTime[m] >= 10) {shifts = shifts + 1}}
                     pairingsArray.push(sum);
                     pairingsArray.push(shifts);
-                    console.log(tempTime, i, j, sum, shifts);} 
-                    console.log(pairingsArray);//
+      //              console.log(tempTime, i, j, sum, shifts);
+                  } 
                 }
+                console.log(pairingsArray, TOIArray);
+                const maxTime = Math.max(...TOIArray);
+                const numberOneD = TOIArray.indexOf(maxTime);
+                console.log(numberOneD, maxTime);
               } // end function getDPairs
               // #23 1:20-2:30, 5:06-5:41, 7:11-7:28, 9:29-10:12, 14:48-15:30
               // #2 1:20-2:30, 5:06-5:48, 7:16-7:19, 7:32-8:14, 9:29-10:09, 14:48=15:30
