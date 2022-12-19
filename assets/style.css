@@ -61,8 +61,8 @@ background-blend-mode: red;
 
 .yearEntry{float:right;
   font-size:20px;
-width: 125px;
-height: 148px;
+width: 215px;
+height: 128px;
 color: lightblue;
 vertical-align: top;
 margin-right: 20px;
@@ -70,13 +70,13 @@ margin-right: 20px;
 
 .yearEntry:hover  {box-shadow: 5px 5px 3px rgb(234, 0, 255);}
 
-.yearEntry2{float:center;
+/*.yearEntry2{float:center;
   font-size: 16px;
 width: 150px;
-/*height: 75px;*/
+height: 75px;
 color:lightslategrey;
 vertical-align: top;
-}
+}*/
 
 .searchParameter{
   background-color: rgb(122, 124, 240);
