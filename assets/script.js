@@ -6,6 +6,7 @@ const awayRosterArray = [];
 const homeRosterIdArray = [];
 const awayRosterIdArray = [];
 const homeRosterDArray = [];
+const awayRosterDArray = [];
 
 // two lines below will allow user to search by year
 function getInputValue() {
@@ -190,7 +191,8 @@ function getInputValue() {
 
               for (var i = 0; i < keys.length; i++) {
                 var val = obj[keys[i]];
-                if (val.currentTeam.id == data.gameData.teams.away.id) {
+             //   console.log(val, val.currentTeam.id, data.gameData.teams.away.id);
+                  if (val.currentTeam.id == data.gameData.teams.away.id) {                  
                   //  document.getElementById('awayTeamId').appendChild(playerName);
                   awayRosterArray.push(val.primaryNumber);
                   awayRosterArray.push(val.fullName);
@@ -209,6 +211,7 @@ function getInputValue() {
                   //   hIdNumber = Number(hId[1]);
                   homeRosterIdArray.push(hId[1]);
                 }
+                else {console.log('player probably retired')}
               }
               console.log(homeRosterArray);
               console.log(awayRosterArray);
@@ -253,7 +256,21 @@ function getInputValue() {
                       if (shiftStart2 == 0) { startingLineup.push(data.data[i].playerId) }
                     }
 
-                    else if (data.data[i].period == 2) { playerChart2.push(data.data[i].startTime) }
+                    else if (data.data[i].period == 2) {
+                      shiftStart = data.data[i].startTime;
+                      shiftStart1 = shiftStart.split(':');
+                      minutes = Number(shiftStart1[0]);
+                      seconds = Number(shiftStart1[1]);
+                      shiftStart2 = minutes * 60 + seconds;
+                      playerChart2.push(shiftStart2);
+                      shiftEnd = data.data[i].endTime;
+                      shiftEnd1 = shiftEnd.split(':');
+                      minutes = Number(shiftEnd1[0]);
+                      seconds = Number(shiftEnd1[1]);
+                      shiftEnd2 = minutes * 60 + seconds;
+                      playerChart2.push(shiftEnd2)
+                    }
+
                     else if (data.data[i].period == 3) { playerChart3.push(data.data[i].startTime) }
                     else { console.log('shift not added') }
                   } //, data.data[i].endTime, data.data[i].duration
@@ -312,6 +329,8 @@ function getInputValue() {
 
               homeRosterGArray = [];
               homeRosterFArray = [];
+              awayRosterGArray = [];
+              awayRosterFArray = [];
               for (i = 0; i < idChart.length; i++) {
                 tempValue = 'ID' + idChart[i];
                 if (homeRosterArray.includes(tempValue)) {
@@ -324,8 +343,22 @@ function getInputValue() {
                   else if (homeRosterArray[tempVariable - 1] == 'LW') { homeRosterFArray.push(idChart[i]); }
                   else (console.log('he does not have a position', tempValue))
                 }
-              } // end for idChart loop
+              } // end for home idChart loop
+              for (i = 0; i < idChart.length; i++) {
+                tempValue = 'ID' + idChart[i];
+                if (awayRosterArray.includes(tempValue)) {
+                  tempVariable = awayRosterArray.indexOf(tempValue);
+                  //      console.log(tempVariable, homeRosterArray[tempVariable - 3], homeRosterArray[tempVariable - 1])
+                  if (awayRosterArray[tempVariable - 1] == 'D') { awayRosterDArray.push(idChart[i]) }
+                  else if (awayRosterArray[tempVariable - 1] == 'G') { awayRosterGArray.push(idChart[i]) }
+                  else if (awayRosterArray[tempVariable - 1] == 'C') { awayRosterFArray.push(idChart[i]) }
+                  else if (awayRosterArray[tempVariable - 1] == 'RW') { awayRosterFArray.push(idChart[i]); }
+                  else if (awayRosterArray[tempVariable - 1] == 'LW') { awayRosterFArray.push(idChart[i]); }
+                  else (console.log('he does not have a position', tempValue))
+                }
+              } // end for away idChart loop
               console.log(homeRosterDArray, homeRosterGArray, homeRosterFArray);
+              console.log(awayRosterDArray, awayRosterGArray, awayRosterFArray);
               //     }
               getDPairs();
               function getDPairs() {
@@ -333,8 +366,7 @@ function getInputValue() {
                 TOIArray = [];
                 pairingsArray = [];
                 for (i = 0; i < homeRosterDArray.length; i++) {
-                  shiftsArray.push(totalChart[3 * idChart.indexOf(homeRosterDArray[i])]);
-                  //       console.log(idChart.indexOf(homeRosterDArray[i]), shiftsArray);                
+                  shiftsArray.push(totalChart[3 * idChart.indexOf(homeRosterDArray[i])]);               
                 } // end first for loop
                 console.log(shiftsArray);
                 for (i = 0; i < shiftsArray.length; i++) {
@@ -395,29 +427,26 @@ function getInputValue() {
                 const numberOnePair = pairingsArray.indexOf(maxTime);
                 const tempArray3 = pairingsArray;
                 tempArray3[numberOnePair] = 0;
-               // console.log(tempArray3);
                 const maxTime2 = Math.max(...tempArray3);
                 const numberTwoPair = tempArray3.indexOf(maxTime2);
-             //   const tempArray = pairingsArray;
+                //   const tempArray = pairingsArray;
                 tempArray3[numberTwoPair] = 0;
-            //    console.log(tempArray3);
-                const maxTime3 = Math.max(...tempArray3);
-                const numberThreePair = tempArray3.indexOf(maxTime3);
+                  //    console.log(tempArray3);
+                //     const maxTime3 = Math.max(...tempArray3);
+                //    const numberThreePair = tempArray3.indexOf(maxTime3);
                 if (pairingsArray.length == 42) { arrayDs = [0, [0, 1], 2, [0, 2], 4, [0, 3], 6, [0, 4], 8, [0, 5], 10, [0, 6], 12, [1, 2], 14, [1, 3], 16, [1, 4], 18, [1, 5], 20, [1, 6], 22, [2, 3], 24, [2, 4], 26, [2, 5], 28, [2, 6], 30, [3, 4], 32, [3, 5], 34, [3, 6], 36, [4, 5], 38, [4, 6], 40, [5, 6]] }
                 else if (pairingsArray.length == 30) { arrayDs = [0, [0, 1], 2, [0, 2], 4, [0, 3], 6, [0, 4], 8, [0, 5], 10, [1, 2], 12, [1, 3], 14, [1, 4], 16, [1, 5], 18, [2, 3], 20, [2, 4], 22, [2, 5], 24, [3, 4], 26, [3, 5], 28, [4, 5]] }
                 else if (pairingsArray.length == 20) { arrayDs = [0, [0, 1], 2, [0, 2], 4, [0, 3], 6, [0, 4], 8, [1, 2], 10, [1, 3], 12, [1, 4], 14, [2, 3], 16, [2, 4], 18, [3, 4]] }
                 else if (pairingsArray.length == 12) { arrayDs = [0, [0, 1], 2, [0, 2], 4, [0, 3], 6, [1, 2], 8, [1, 3], 10, [2, 3]] }
           
-                console.log(numberOnePair, maxTime, arrayDs[numberOnePair + 1], numberTwoPair, maxTime2, arrayDs[numberTwoPair + 1], numberThreePair, maxTime3, arrayDs[numberThreePair + 1]);
-              //  const twoPairs = arrayDs[numberOnePair + 1];
-              //  var top3D = arrayDs[numberOnePair + 1];
+                console.log(numberOnePair, maxTime, arrayDs[numberOnePair + 1], numberTwoPair, maxTime2, arrayDs[numberTwoPair + 1]);
                 
-                const top3D = arrayDs[numberOnePair + 1].push(arrayDs[numberTwoPair + 1][0]);
-                console.log(top3D);
-                console.log(arrayDs[numberTwoPair + 1][0], arrayDs[numberTwoPair + 1][1], top3D)
-                top3D = top3D.push(arrayDs[numberTwoPair + 1][1]);
-                console.log(top3D);
-              } // end function getDPairs
+                const topTwo = arrayDs[numberOnePair + 1];
+                topThree = topTwo.push(arrayDs[numberTwoPair + 1][0]);
+                topFour = topTwo.push(arrayDs[numberTwoPair + 1][1]);
+                console.log(topTwo, topThree, topFour);
+                  //     console.log(arrayDs[numberTwoPair + 1][0], arrayDs[numberTwoPair + 1][1], top3D)
+              } // end function getDPairs Joel Henley was dressed as F on 11/19 against NYI he missed entire 3rd period
             });
         }
       }
