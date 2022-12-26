@@ -271,22 +271,9 @@ function getInputValue() {
                       playerChart2.push(shiftEnd2)
                     }
 
-                    else if (data.data[i].period == 3) { 
-                      shiftStart = data.data[i].startTime;
-                      shiftStart1 = shiftStart.split(':');
-                      minutes = Number(shiftStart1[0]);
-                      seconds = Number(shiftStart1[1]);
-                      shiftStart2 = minutes * 60 + seconds;
-                      playerChart3.push(shiftStart2);
-                      shiftEnd = data.data[i].endTime;
-                      shiftEnd1 = shiftEnd.split(':');
-                      minutes = Number(shiftEnd1[0]);
-                      seconds = Number(shiftEnd1[1]);
-                      shiftEnd2 = minutes * 60 + seconds;
-                      playerChart3.push(shiftEnd2)
-                     }
+                    else if (data.data[i].period == 3) { playerChart3.push(data.data[i].startTime) }
                     else { console.log('shift not added') }
-                  } 
+                  } //, data.data[i].endTime, data.data[i].duration
 
                   else {
                     if (data.data[i].period == 3) { playerChart3.push(data.data[i].startTime); }
@@ -383,15 +370,12 @@ function getInputValue() {
                 } 
                 for (i = 0; i < homeRosterDArray.length; i++) {
                   shiftsArray.push(totalChart[3 * idChart.indexOf(homeRosterDArray[i]) + 1]);               
-                } 
-                for (i = 0; i < homeRosterDArray.length; i++) {
-                  shiftsArray.push(totalChart[3 * idChart.indexOf(homeRosterDArray[i]) + 2]);               
-                } // end first three for loops
+                } // end first two for loops
                 console.log(shiftsArray);
                 for (i = 0; i < shiftsArray.length; i++) {
                   totalShiftLength = 0;
                   tempArray = shiftsArray[i];
-                  for (j = 0; j < tempArray.length/3; j++) {
+                  for (j = 0; j < 0.5 * tempArray.length; j++) {
                     const shiftLength = tempArray[2 * j + 1] - tempArray[2 * j];
                     //      console.log(shiftLength);
                     totalShiftLength = totalShiftLength + shiftLength;
@@ -399,14 +383,14 @@ function getInputValue() {
                   TOIArray.push(totalShiftLength);
                 } // end i loop
                 //   
-                for (i = 0; i < shiftsArray.length/3; i++) // i < shiftsArray.length
-                { for (j = i + 1; j < shiftsArray.length/3; j++) {
+                for (i = 0; i < 0.5*shiftsArray.length; i++) // i < shiftsArray.length
+                { for (j = i + 1; j < 0.5*shiftsArray.length; j++) {
                     tempTime = [];
-                    for (k = 0; k < 0.5*shiftsArray[i].length; k++) {
+                    for (k = 0; k < 0.5 * shiftsArray[i].length; k++) {
                       tempArray = shiftsArray[i];
-                 //               console.log(i, j, k, tempArray[2 * k]); 
+                      //          console.log(i, j, k, tempArray[2 * k]); 
 
-                      for (l = 0; l < 0.5*shiftsArray[j].length; l++) {
+                      for (l = 0; l < 0.5 * shiftsArray[j].length; l++) {
                         tempArray2 = shiftsArray[j];
                         //      big if starts
                         if (tempArray2[2 * l] >= tempArray[2 * k] && tempArray2[2 * l] <= tempArray[2 * k + 1]) {
@@ -440,71 +424,8 @@ function getInputValue() {
                   }
                 }
                 console.log(pairingsArray, TOIArray);
-                for (i = shiftsArray.length/3; i < 2*shiftsArray.length/3; i++) // i < shiftsArray.length
-                { console.log(i);
-                  for (j = i + 1; j < 2*shiftsArray.length/3; j++) {
-                    console.log(i, j);
-                    tempTime = [];
-                    for (k = 0; k < 0.5*shiftsArray[i].length; k++) {
-                      console.log(i, j, k);
-                      tempArray = shiftsArray[i];
-                      for (l = 0; l < 0.5*shiftsArray[j].length; l++) {
-                        tempArray2 = shiftsArray[j];
-                        if (tempArray2[2 * l] >= tempArray[2 * k] && tempArray2[2 * l] <= tempArray[2 * k + 1]) {
-                          if (tempArray2[2 * l + 1] >= tempArray[2 * k + 1]) { tempTime.push(tempArray[2 * k + 1] - tempArray2[2 * l]) }
-                          else { tempTime.push(tempArray2[2 * l + 1] - tempArray2[2 * l]) }
-                        }
-                        else if (tempArray2[2 * l] <= tempArray[2 * k] && tempArray2[2 * l + 1] >= tempArray[2 * k]) {
-                          if (tempArray2[2 * l + 1] >= tempArray[2 * k + 1]) { tempTime.push(tempArray2[2 * l + 1] - tempArray[2 * k]) }
-                          else { tempTime.push(tempArray2[2 * l + 1] - tempArray[2 * k]) }
-                        }
-                      }
-                    } // end k cycle
-                    shifts = 0;
-                    const sum = tempTime.reduce((partialSum, a) => partialSum + a, 0);
-                    
-                    for (m = 0; m < tempTime.length; m++) { if (tempTime[m] >= 10) { shifts = shifts + 1 } }
-                 //   console.log(sum, shifts);
-                    pairingsArray.push(sum);
-                    pairingsArray.push(shifts);
-                  }
-                }
-                console.log(pairingsArray, TOIArray);
-                for (i = 2*shiftsArray.length/3; i < shiftsArray.length; i++) // i < shiftsArray.length
-                { console.log(i);
-                  for (j = i + 1; j < shiftsArray.length; j++) {
-                    console.log(i, j);
-                    tempTime = [];
-                    for (k = 0; k < 0.5*shiftsArray[i].length; k++) {
-                      console.log(i, j, k);
-                      tempArray = shiftsArray[i];
-                      for (l = 0; l < 0.5*shiftsArray[j].length; l++) {
-                        tempArray2 = shiftsArray[j];
-                        if (tempArray2[2 * l] >= tempArray[2 * k] && tempArray2[2 * l] <= tempArray[2 * k + 1]) {
-                          if (tempArray2[2 * l + 1] >= tempArray[2 * k + 1]) { tempTime.push(tempArray[2 * k + 1] - tempArray2[2 * l]) }
-                          else { tempTime.push(tempArray2[2 * l + 1] - tempArray2[2 * l]) }
-                        }
-                        else if (tempArray2[2 * l] <= tempArray[2 * k] && tempArray2[2 * l + 1] >= tempArray[2 * k]) {
-                          if (tempArray2[2 * l + 1] >= tempArray[2 * k + 1]) { tempTime.push(tempArray2[2 * l + 1] - tempArray[2 * k]) }
-                          else { tempTime.push(tempArray2[2 * l + 1] - tempArray[2 * k]) }
-                        }
-                      }
-                    } // end k cycle
-                    shifts = 0;
-                    const sum = tempTime.reduce((partialSum, a) => partialSum + a, 0);
-                    
-                    for (m = 0; m < tempTime.length; m++) { if (tempTime[m] >= 10) { shifts = shifts + 1 } }
-                 //   console.log(sum, shifts);
-                    pairingsArray.push(sum);
-                    pairingsArray.push(shifts);
-                  }
-                }
-                console.log(pairingsArray, TOIArray);
-                //pairingsArray1 = pairingsArray.splice(0, 0.5*pairingsArray.length);
-                pairingsArray2 = pairingsArray.splice(0.5*pairingsArray.length);
-                console.log(pairingsArray, pairingsArray2);
-                const maxTime1 = Math.max(...pairingsArray);
-                const numberOnePair = pairingsArray.indexOf(maxTime1);
+                const maxTime = Math.max(...pairingsArray);
+                const numberOnePair = pairingsArray.indexOf(maxTime);
                 const tempArray3 = pairingsArray;
                 tempArray3[numberOnePair] = 0;
                 const maxTime2 = Math.max(...tempArray3);
