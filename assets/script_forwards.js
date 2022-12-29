@@ -237,7 +237,7 @@ function getInputValue() {
               idChart = [];
               // that's a complex cycle that creates arrays of each player time shifts in each of three periods, also arary of playerIDs who actually played the game, not just were in the roster, also starting lineups are created
               for (i = 0; i < data.data.length - 1; i++) {
-                if (data.data[i].typeCode == 517) {
+                if (data.data[i].typeCode === 517) {
                   const playerId = data.data[i].playerId;
                   if (data.data[i].playerId == data.data[i + 1].playerId) {
                     if (data.data[i].period == 1) {
@@ -289,11 +289,10 @@ function getInputValue() {
                   }
 
                   else {
-                    if (data.data[i].period == 3) { playerChart3.push(data.data[i].startTime); 
-                    console.log(data.data[i].startTime, data.data[i].typeCode, typeof data.data[i].typeCode, i)}
+                    if (data.data[i].period == 3) { playerChart3.push(data.data[i].startTime); }
                     else if (data.data[i].period == 2) { playerChart2.push(data.data[i].startTime); }
                     else if (data.data[i].period == 1) { playerChart1.push(data.data[i].startTime); }
-                    else { console.log('error in adding last shift', data.data[i].period) }
+                    else { console.log('error in adding last shift') }
                     totalChart.push(playerChart1);
                     totalChart.push(playerChart2);
                     totalChart.push(playerChart3);
@@ -311,8 +310,7 @@ function getInputValue() {
                   }
                 }
               } // end for cycle for shift processing data next six lines just last shift of last pleyer
-              if (data.data[data.data.length - 1].period == 3) { playerChart3.push(data.data[data.data.length - 1].startTime); 
-              console.log(data.data[data.data.length - 1].startTime)}
+              if (data.data[data.data.length - 1].period == 3) { playerChart3.push(data.data[data.data.length - 1].startTime); }
               else if (data.data[data.data.length - 1].period == 2) { playerChart2.push(data.data[data.data.length - 1].startTime); }
               else if (data.data[data.data.length - 1].period == 1) { playerChart1.push(data.data[data.data.length - 1].startTime); }
               console.log(startingLineup);
@@ -482,11 +480,7 @@ function getInputValue() {
                       }
                       
                     } // end k cycle
-                    shifts = 0;
-                    const sum = tempTime.reduce((partialSum, a) => partialSum + a, 0);
-                    for (m = 0; m < tempTime.length; m++) { if (tempTime[m] >= 10) { shifts = shifts + 1 } }
-                    pairingsArray.push(sum);
-                    pairingsArray.push(shifts);
+
                   }
                 }
                 console.log(pairingsArray, TOIArray);
@@ -515,25 +509,6 @@ function getInputValue() {
                     pairingsArray.push(shifts);
                   }
                 }
-                console.log(pairingsArray);
-                // tempArray4 = [];
-                // tempArray5 = [];
-                tempArray6 = [];
-                // tempArray7 = [];
-                tempArray4 = shiftsFArray.splice(shiftsFArray.length/3);
-                tempArray5 = tempArray4.splice(tempArray4.length/2);
-                tempArray6[0] = tempArray4;
-                tempArray6[1] = tempArray5;
-                tempArray6[2] = shiftsFArray;
-                // tempArray6 = tempArray6.push(tempArray4);
-                // tempArray6 = tempArray6.push(tempArray5);
-                // for (i = 0; i < shiftsFArray/3; i++) {tempArray4.push(shiftsFArray[i])}
-                // for (i = shiftsFArray/3; i < 2*shiftsFArray/3; i++) {tempArray5.push(shiftsFArray[i])}
-                // for (i = 2*shiftsFArray/3; i < shiftsFArray; i++) {tempArray6.push(shiftsFArray[i])}
-                // tempArray7 = tempArray7.push(tempArray4);
-                // tempArray7 = tempArray7.push(tempArray5);
-                // tempArray7 = tempArray7.push(tempArray6);
-                console.log(shiftsFArray, tempArray4, tempArray5, tempArray6);
                 for (i = 0; i < shiftsFArray.length; i++) {
                   mathFloor = Math.floor(i / (shiftsFArray.length / 3));
                   //    console.log(mathFloor, i)
@@ -546,22 +521,22 @@ function getInputValue() {
                           tempArray2 = shiftsFArray[k];
                           if (tempArray2[2 * m] >= tempArray[2 * l] && tempArray2[2 * m] <= tempArray[2 * l + 1]) {
                             if (tempArray2[2 * m + 1] >= tempArray[2 * l + 1]) { tempTime.push(tempArray[2 * l + 1] - tempArray2[2 * m]);
-                             }
+                            console.log(tempTime, m, k, tempArray[2 * l + 1]) }
                             else { tempTime.push(tempArray2[2 * m + 1] - tempArray2[2 * m]);
-                              }
+                              console.log(tempTime, m. k, tempArray2[2 * m + 1]) }
                           }
                           else if (tempArray2[2 * m] <= tempArray[2 * l] && tempArray2[2 * m + 1] >= tempArray[2 * l]) {
                             if (tempArray2[2 * m + 1] >= tempArray[2 * l + 1]) { tempTime.push(tempArray2[2 * m + 1] - tempArray[2 * l]) 
-                              }
+                              console.log(tempTime, m, k, tempArray2[2 * m + 1])}
                             else { tempTime.push(tempArray2[2 * m + 1] - tempArray[2 * l])
-                             }
+                              console.log(tempTime, m, k, tempArray2[2 * m + 1]) }
                           }
                         }
                       } // end l F loop
                       //          console.log(i, j, k)
                       if (i == shiftsFArray.length/3) {
                         shifts = 0;
-            
+                        console.log(tempTime)
                       const sum = tempTime.reduce((partialSum, a) => partialSum + a, 0);
                       for (n = 0; n < tempTime.length; n++) { if (tempTime[n] >= 10) { shifts = shifts + 1 } }
                       linesArray.push(sum);
