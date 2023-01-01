@@ -8,13 +8,13 @@ Then menu with all games played on this date will open.
 User will select one game at a time. That will run a function which determines forward lines and defensive pairs, and probability of them to play together during the game. Also, a very important part is to determine which line played against which line. And that will be done by periods.
 
 ## Special Teams
-Attempt will be made to determine PP and PK units. Don't know how yet especially for cases like 4x4 or 5x3. 
+There is no attempt to differentiate lines or pairs on special teams. It will be done rather laetr than sooner. The reason is that script is longer than 800 lines. 
 
 ## Player did not finish game
 In some games, players get injured. Or some players get game misconduct penalty. They cannot finish game. That results in defensive pair of lines of forwards change as game goes by. If a skater did not have a shift during last 10 minutes of the game, a message will appear that he did not finish the game, without specific reason. 
 
 ## Print Goals Button
-This is optional feature will print all goals of the game to the screen if a user wants to see that. But this button is unlikely to stay there in the final version. 
+This is optional feature will print all goals of the game to the screen if a user wants to see that. But this button is unlikely to stay there in the final version. Currently it is not a working feature.
 
 ## Notes
 It is first time when I use 4 nested loops in JavaScript. That was wonderful experience to do it again
