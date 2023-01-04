@@ -15,11 +15,11 @@ function getInputValue() {
   console.log('inputVal= ' + inputVal);
 
   var date = inputVal.split('/');
-  console.log(date);
+  //console.log(date);
   var formatted = date[2] + '-' + date[0] + '-' + date[1];
   console.log(formatted)
   var requestURL = 'https://statsapi.web.nhl.com/api/v1/schedule/?date=' + formatted;
-  console.log(requestURL);
+  //console.log(requestURL);
   fetch(requestURL, {
     "method": "GET", "headers": {
     }
@@ -31,7 +31,7 @@ function getInputValue() {
     .then(function (data) {
       console.log('I am in schedule then')
       console.log(data.dates[0].games);
-      console.log(data.dates[0].games[0].teams.away.leagueRecord);
+      // console.log(data.dates[0].games[0].teams.away.leagueRecord);
       var numberOfGames = data.dates[0].games.length;
       // var obj = data.gameData.players;
       // var keys = Object.keys(obj);
@@ -49,7 +49,6 @@ function getInputValue() {
 
       function displayGameData(event) {
         idx = event.currentTarget;
-        //    console.log(typeof idx)
         idxString = event.currentTarget.textContent;
         idxArray = idxString.split(':');
         idxNumber = idxArray[0].split(' ');
@@ -86,67 +85,7 @@ function getInputValue() {
             gameTitle.innerHTML = 'You are watching stats for ' + data.gameData.teams.away.name + ' at ' + data.gameData.teams.home.name + ' game';
             document.getElementById('gameInfo').appendChild(gameTitle);
 
-            var goalButton = document.createElement('button');
-            goalButton.setAttribute('class', 'searchParameter');
-            goalButton.textContent = 'Print Goals';
-            document.getElementById('gameInfo').appendChild(goalButton);
-            goalButton.addEventListener('click', getGoals);
           });
-        function getGoals(event) {
-          var requestURL = 'https://statsapi.web.nhl.com/api/v1/game/' + gameId + '/feed/live';
-          fetch(requestURL, {
-            "method": "GET", "headers": {
-              //   "x-rapidapi-host": "data-imdb1.p.rapidapi.com",
-            }
-          })
-            .then(function (response) {
-              return response.json();
-            })
-            .then(function (data) {
-              var goalTitle = document.createElement('h3');
-              goalTitle.setAttribute('id', 'drama');
-              goalTitle.innerHTML = 'Goals - shot location figure will be added';
-              document.getElementById('gameInfo').appendChild(goalTitle);
-              const arrayGoals = [];
-
-              for (i = 0; i < data.liveData.plays.scoringPlays.length; i++) {
-                scoringPlay = data.liveData.plays.scoringPlays[i];
-                var newGoal = document.createElement('p');
-                newGoal.innerHTML = 'Period: ' + data.liveData.plays.allPlays[scoringPlay].about.period + ' Time: ' + data.liveData.plays.allPlays[scoringPlay].about.periodTime + ' Score: ' + data.liveData.plays.allPlays[scoringPlay].about.goals.away + ' : ' + data.liveData.plays.allPlays[scoringPlay].about.goals.home + ' Shot Location: ' + data.liveData.plays.allPlays[scoringPlay].coordinates.x + ' : ' + data.liveData.plays.allPlays[scoringPlay].coordinates.y;
-                document.getElementById('gameInfo').appendChild(newGoal);
-                var coordinates = { x: data.liveData.plays.allPlays[scoringPlay].coordinates.x, y: data.liveData.plays.allPlays[scoringPlay].coordinates.y };
-                arrayGoals.push(coordinates);
-
-                for (j = 0; j < data.liveData.plays.allPlays[scoringPlay].players.length; j++) {
-                  var goalEvent = document.createElement('span');
-
-                  goalEvent.innerHTML = 'Name: ' + data.liveData.plays.allPlays[scoringPlay].players[j].player.fullName + ' Type: ' + data.liveData.plays.allPlays[scoringPlay].players[j].playerType;
-                  document.getElementById('gameInfo').appendChild(goalEvent);
-
-                  if (data.liveData.plays.allPlays[scoringPlay].players[j].playerType == 'Scorer') {
-                    var goal = document.createElement('span');
-                    goal.innerHTML = 'GO,';
-                    const scorer = data.liveData.plays.allPlays[scoringPlay].players[j].player.fullName;
-                    document.getElementById(scorer).appendChild(goal);
-                  }
-                  else if (data.liveData.plays.allPlays[scoringPlay].players[j].playerType == 'Assist') {
-                    var assist = document.createElement('span');
-                    assist.innerHTML = 'AS,';
-                    const assistant = data.liveData.plays.allPlays[scoringPlay].players[j].player.fullName;
-                    document.getElementById(assistant).appendChild(assist);
-                  }
-                  else if (data.liveData.plays.allPlays[scoringPlay].players[j].playerType == 'Goalie') {
-                    var goal = document.createElement('span');
-                    goal.innerHTML = 'AL,';
-                    const Goalie = data.liveData.plays.allPlays[scoringPlay].players[j].player.fullName;
-                    document.getElementById(Goalie).appendChild(goal);
-                  }
-                }
-              }
-              console.log(arrayGoals);
-
-            });
-        };
 
         getShifts();
         function getShifts(event) {
@@ -159,7 +98,7 @@ function getInputValue() {
               return response.json();
             })
             .then(function (data) {
-              console.log(data.gameData.players)
+              // console.log(data.gameData.players)
 
               var obj = data.gameData.players;
               var keys = Object.keys(obj);
@@ -190,9 +129,9 @@ function getInputValue() {
               }
               console.log(homeRosterArray);
               console.log(awayRosterArray);
-              console.log(homeRosterIdArray, awayRosterIdArray);
+              //console.log(homeRosterIdArray, awayRosterIdArray);
             });
-          console.log(gameId);
+          // console.log(gameId);
           //     getRoster();
           var shiftURL = 'https://cors-anywhere.herokuapp.com/https://api.nhle.com/stats/rest/en/shiftcharts?cayenneExp=gameId=' + gameId;
           fetch(shiftURL, {
@@ -203,7 +142,7 @@ function getInputValue() {
             })
             .then(function (data) {
               console.log('I am in third then');
-              console.log(data.data);
+             // console.log(data.data);
               playerChart1 = [];
               playerChart2 = [];
               playerChart3 = [];
@@ -305,9 +244,9 @@ function getInputValue() {
                       shiftEnd2 = minutes * 60 + seconds;
                       playerChart1.push(shiftEnd2) }
                     else { console.log('error in adding last shift', data.data[i].period) }
-                    totalChart.push(playerChart1);
-                    totalChart.push(playerChart2);
-                    totalChart.push(playerChart3);
+                    totalChart.push(playerChart1, playerChart2, playerChart3);
+                    // totalChart.push(playerChart2);
+                    // totalChart.push(playerChart3);
                     idChart.push(playerId);
                     playerChart1 = [];
                     playerChart2 = [];
@@ -315,9 +254,9 @@ function getInputValue() {
                   }
 
                   if (i == data.data.length - 2) {// console.log('i = ', i);
-                    totalChart.push(playerChart1);
-                    totalChart.push(playerChart2);
-                    totalChart.push(playerChart3);
+                    totalChart.push(playerChart1, playerChart2, playerChart3);
+                    // totalChart.push(playerChart2);
+                    // totalChart.push(playerChart3);
                     idChart.push(playerId);
                   }
                 }
@@ -327,7 +266,7 @@ function getInputValue() {
               else if (data.data[data.data.length - 1].period == 2) { playerChart2.push(data.data[data.data.length - 1].startTime); }
               else if (data.data[data.data.length - 1].period == 1) { playerChart1.push(data.data[data.data.length - 1].startTime); }
               console.log(startingLineup);
-              console.log(totalChart, idChart);
+              // console.log(totalChart, idChart);
               console.log(homeRosterIdArray, awayRosterIdArray)
               // next loop determines starting lineup for both teams currently lines 287-297
               homeStartingLineup = [];
@@ -337,19 +276,19 @@ function getInputValue() {
                 tempVariable = startingLineup[i];
                 tempString = tempVariable.toString();
                 if (homeRosterIdArray.includes(tempString)) {
-                  console.log(homeRosterIdArray.indexOf(tempString), 'home', homeRosterArray[4 * homeRosterIdArray.indexOf(tempString) + 1], homeRosterArray[4 * homeRosterIdArray.indexOf(tempString) + 2])
+                 // console.log(homeRosterIdArray.indexOf(tempString), 'home', homeRosterArray[4 * homeRosterIdArray.indexOf(tempString) + 1], homeRosterArray[4 * homeRosterIdArray.indexOf(tempString) + 2])
                   if (homeRosterArray[4 * homeRosterIdArray.indexOf(tempString) + 2] == 'D') { homeStartingDLineup.push(tempVariable) }
                   else if (homeRosterArray[4 * homeRosterIdArray.indexOf(tempString) + 2] == 'G') { homeStartingLineup.push(tempVariable) }
                   else { homeStartingFLineup.push(tempVariable) }
                 }
 
                 else if (awayRosterIdArray.includes(tempString)) {
-                  console.log(awayRosterIdArray.indexOf(tempString), 'away', awayRosterArray[4 * awayRosterIdArray.indexOf(tempString) + 1], awayRosterArray[4 * awayRosterIdArray.indexOf(tempString) + 2])
+                  //console.log(awayRosterIdArray.indexOf(tempString), 'away', awayRosterArray[4 * awayRosterIdArray.indexOf(tempString) + 1], awayRosterArray[4 * awayRosterIdArray.indexOf(tempString) + 2])
                 }
                 else { console.log(tempString, 'fatal') }
               } // end for cycle starting Lineup
-              homeStartingLineup.push(homeStartingDLineup);
-              homeStartingLineup.push(homeStartingFLineup);
+              homeStartingLineup.push(homeStartingDLineup, homeStartingFLineup);
+              // homeStartingLineup.push(homeStartingFLineup);
               console.log(homeStartingLineup);
 
               homeRosterGArray = [];
@@ -575,7 +514,7 @@ function getInputValue() {
                     } // end k F loop
                   } // end j F loop
                 } // end i F loop
-                console.log(pairingsArray, TOIArray, linesArray);
+                // console.log(pairingsArray, TOIArray, linesArray);
                 pairingsArray2 = pairingsArray.splice(pairingsArray.length / 3);
                 pairingsArray3 = pairingsArray2.splice(pairingsArray2.length / 2)
                 console.log(pairingsArray, pairingsArray2, pairingsArray3);
@@ -591,10 +530,10 @@ function getInputValue() {
                 const maxTime2b = pairingsArray2[numberTwoPair];
                 const maxTime1c = pairingsArray3[numberOnePair];
                 const maxTime2c = pairingsArray3[numberTwoPair];
-                if (pairingsArray.length == 42) { arrayDs = [0, [0, 1], 2, [0, 2], 4, [0, 3], 6, [0, 4], 8, [0, 5], 10, [0, 6], 12, [1, 2], 14, [1, 3], 16, [1, 4], 18, [1, 5], 20, [1, 6], 22, [2, 3], 24, [2, 4], 26, [2, 5], 28, [2, 6], 30, [3, 4], 32, [3, 5], 34, [3, 6], 36, [4, 5], 38, [4, 6], 40, [5, 6]] }
-                else if (pairingsArray.length == 30) { arrayDs = [0, [0, 1], 2, [0, 2], 4, [0, 3], 6, [0, 4], 8, [0, 5], 10, [1, 2], 12, [1, 3], 14, [1, 4], 16, [1, 5], 18, [2, 3], 20, [2, 4], 22, [2, 5], 24, [3, 4], 26, [3, 5], 28, [4, 5]] }
-                else if (pairingsArray.length == 20) { arrayDs = [0, [0, 1], 2, [0, 2], 4, [0, 3], 6, [0, 4], 8, [1, 2], 10, [1, 3], 12, [1, 4], 14, [2, 3], 16, [2, 4], 18, [3, 4]] }
-                else if (pairingsArray.length == 12) { arrayDs = [0, [0, 1], 2, [0, 2], 4, [0, 3], 6, [1, 2], 8, [1, 3], 10, [2, 3]] }
+                if (homeRosterDArray.length == 7) { arrayDs = [0, [0, 1], 2, [0, 2], 4, [0, 3], 6, [0, 4], 8, [0, 5], 10, [0, 6], 12, [1, 2], 14, [1, 3], 16, [1, 4], 18, [1, 5], 20, [1, 6], 22, [2, 3], 24, [2, 4], 26, [2, 5], 28, [2, 6], 30, [3, 4], 32, [3, 5], 34, [3, 6], 36, [4, 5], 38, [4, 6], 40, [5, 6]] }
+                else if (homeRosterDArray.length == 6) { arrayDs = [0, [0, 1], 2, [0, 2], 4, [0, 3], 6, [0, 4], 8, [0, 5], 10, [1, 2], 12, [1, 3], 14, [1, 4], 16, [1, 5], 18, [2, 3], 20, [2, 4], 22, [2, 5], 24, [3, 4], 26, [3, 5], 28, [4, 5]] }
+                else if (homeRosterDArray.length == 5) { arrayDs = [0, [0, 1], 2, [0, 2], 4, [0, 3], 6, [0, 4], 8, [1, 2], 10, [1, 3], 12, [1, 4], 14, [2, 3], 16, [2, 4], 18, [3, 4]] }
+                else if (homeRosterDArray.length == 4) { arrayDs = [0, [0, 1], 2, [0, 2], 4, [0, 3], 6, [1, 2], 8, [1, 3], 10, [2, 3]] }
 
                 const topTwo = arrayDs[numberOnePair + 1];
                 console.log(arrayDs, numberOnePair);
@@ -615,16 +554,29 @@ function getInputValue() {
                 DManIndex4a = homeRosterArray.indexOf(DManIndex4);
                 topTwo.sort();
                 topTwo.reverse();
-                if (homeRosterDArray.length == 6) { topThree = [0,1,2,3,4,5]} 
-                else if (homeRosterDArray.length == 7) { topThree = [0,1,2,3,4,5,6]}
-                else {comsole.log( ' We had ', homeRosterDArray.length, ' DMen on the roster')}
+                topThree = [];
+                for (i = 0; i < homeRosterDArray.length; i++) {topThree.push(i)}
+                // if (homeRosterDArray.length == 6) { topThree = [0,1,2,3,4,5]} 
+                // else if (homeRosterDArray.length == 7) { topThree = [0,1,2,3,4,5,6]}
+                // else {comsole.log( ' We had ', homeRosterDArray.length, ' DMen on the roster')}
                 for (i = 0 ; i < 4; i++) {topThree.splice(topTwo[i], 1)
-                console.log(topThree, topTwo, homeRosterDArray.length)}
-                if (homeRosterDArray.length = 7) {tempArray7 = [[topThree[0], topThree[1]], [topThree[0], topThree [2]], [topThree[1], topThree[2]]];
-                console.log(homeRosterDArray, tempArray7);
-                  for (i = 0; tempArray7.length; i++) {tempArray8 = [];
-                  tempArray8.push(arrayDs.indexOf(tempArray7[i])) }
-                  console.log(tempArray8, i)}
+                }
+                console.log(topThree, typeof topThree, topTwo, homeRosterDArray.length);
+                if (homeRosterDArray.length === 7) {
+                  // array0 = [topThree[0], topThree[1]];
+                  // array1 = [topThree[0], topThree [2]];
+                  // array2 = [topThree[1], topThree[2]];
+                  // console.log(typeof array0, typeof topThree);
+                  console.log(topThree);
+                  tempArray7 = [];
+                  for (i = 0; i < topThree.length + 1; i++){tempArray8 = topThree;
+                  array = tempArray8.splice(i, 1);
+                 // tempArray7.push(array0, array1, array2);
+                console.log(i, topThree, tempArray8, array);}
+                  for (i = 0; i < tempArray7.length; i++) { tempVar = tempArray7[i];
+                  console.log(tempVar, arrayDs.indexOf(tempVar)) } //arrayDs.indexOf(tempArray7[i])
+                  // console.log(tempArray8, i)
+                }
 
                 console.log(DManIndex1a, DManIndex2a, homeRosterArray[DManIndex1a - 2], homeRosterArray[DManIndex2a - 2]);
                 var firstPair = document.createElement('p');
