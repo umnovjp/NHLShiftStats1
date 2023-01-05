@@ -558,23 +558,38 @@ function getInputValue() {
                 for (i = 0; i < homeRosterDArray.length; i++) {topThree.push(i)}
                 // if (homeRosterDArray.length == 6) { topThree = [0,1,2,3,4,5]} 
                 // else if (homeRosterDArray.length == 7) { topThree = [0,1,2,3,4,5,6]}
-                // else {comsole.log( ' We had ', homeRosterDArray.length, ' DMen on the roster')}
-                for (i = 0 ; i < 4; i++) {topThree.splice(topTwo[i], 1)
-                }
+                for (i = 0 ; i < 4; i++) { topThree.splice(topTwo[i], 1) }
                 console.log(topThree, typeof topThree, topTwo, homeRosterDArray.length);
+                tempArray7 = [];
+                DMan5 = topThree[0];
+                DMan6 = topThree[1];
+                if (homeRosterDArray.length === 7) {DMan7 = topThree[2]}
                 if (homeRosterDArray.length === 7) {
-                  // array0 = [topThree[0], topThree[1]];
-                  // array1 = [topThree[0], topThree [2]];
-                  // array2 = [topThree[1], topThree[2]];
-                  // console.log(typeof array0, typeof topThree);
-                  console.log(topThree);
                   tempArray7 = [];
-                  for (i = 0; i < topThree.length + 1; i++){tempArray8 = topThree;
+                  for (i = 0; i < topThree.length; i++){tempArray8 = topThree;
+                    //tempArray9 = tempArray8;
+                    
                   array = tempArray8.splice(i, 1);
+                  topThree = [];
+                  topThree.push(DMan5, DMan6, DMan7);
+                  tempArray7.push(tempArray8);
                  // tempArray7.push(array0, array1, array2);
                 console.log(i, topThree, tempArray8, array);}
+                arrayDs = [];
+                l = 0;
+                for (j = 0; j < homeRosterDArray.length; j++){
+                  
+                  for (k = j + 1; k < homeRosterDArray.length; k++) {                
+                    
+                    tempArray9 = [j,k];
+                    arrayDs.push(2 * l);
+                    arrayDs.push(tempArray9);
+                    l = l + 1;
+                  }
+                }
+                console.log(arrayDs);
                   for (i = 0; i < tempArray7.length; i++) { tempVar = tempArray7[i];
-                  console.log(tempVar, arrayDs.indexOf(tempVar)) } //arrayDs.indexOf(tempArray7[i])
+                  console.log(tempVar, arrayDs.findIndex(tempVar), arrayDs.indexOf([0,i]), arrayDs[2 * i + 1]) } //arrayDs.indexOf(tempArray7[i])
                   // console.log(tempArray8, i)
                 }
 
