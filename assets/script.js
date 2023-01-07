@@ -558,6 +558,7 @@ function getInputValue() {
                 for (i = 0; i < homeRosterDArray.length; i++) {topThree.push(i)}
                 // if (homeRosterDArray.length == 6) { topThree = [0,1,2,3,4,5]} 
                 // else if (homeRosterDArray.length == 7) { topThree = [0,1,2,3,4,5,6]}
+                l = -1;
                 function index0 (j,k) {   for (j = 0; j < homeRosterDArray.length; j++){
                   
                   for (k = j + 1; k < homeRosterDArray.length; k++) {                
@@ -571,6 +572,16 @@ function getInputValue() {
                     
                   }
                 }}
+                for (j = 0; j < homeRosterDArray.length; j++){
+                  
+                  for (k = j + 1; k < homeRosterDArray.length; k++) {                
+                    
+                    console.log(j, k, index0(j,k))
+                    
+                  }
+                }
+
+
                 for (j = 0; i < homeRosterDArray; j++) {
                   for (k = j + 1; homeRosterDArray; k++) {console.log(index0(j,k))}
                 }
