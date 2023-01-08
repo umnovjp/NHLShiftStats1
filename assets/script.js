@@ -558,29 +558,36 @@ function getInputValue() {
                 for (i = 0; i < homeRosterDArray.length; i++) {topThree.push(i)}
                 // if (homeRosterDArray.length == 6) { topThree = [0,1,2,3,4,5]} 
                 // else if (homeRosterDArray.length == 7) { topThree = [0,1,2,3,4,5,6]}
-                l = -1;
-                function index0 (j,k) {   for (j = 0; j < homeRosterDArray.length; j++){
+                sum0 = 0;
+                arrayDs = [];
+                function index0 (p1, p2) {   
+                  if (p1 < homeRosterDArray.length + 1 && p2 < homeRosterDArray.length + 1) {
+                  for (j = 0; j < p1; j++){sum0 = sum0 + j;
                   
-                  for (k = j + 1; k < homeRosterDArray.length; k++) {                
+                  sum1 = j * homeRosterDArray.length;
+                 // console.log(j, sum0, sum1);
+                  for (k = j + 1; k < p2; k++) {                
                     
-                    tempArray9 = [j,k];
-                    arrayDs.push(2 * l);
-                    arrayDs.push(tempArray9);
-                    l = l + 1;
+                   // tempArray9 = [j,k];
+                    arrayDs.push(2 * (sum1 - sum0 + k - j));
+                    arrayDs.push([j,k]);
+                    // l = sum0 + sum1 + k - j;
                   
-                    return(l);
+                    return sum1 - sum0 + k - j;}                   
                     
                   }
-                }}
+                  }
+                  else return 0
+                }
                 for (j = 0; j < homeRosterDArray.length; j++){
                   
                   for (k = j + 1; k < homeRosterDArray.length; k++) {                
                     
-                    console.log(j, k, index0(j,k))
+                    console.log(j, k, index0(j, k))
                     
                   }
                 }
-
+                // console.log(arrayDs);
 
                 for (j = 0; i < homeRosterDArray; j++) {
                   for (k = j + 1; homeRosterDArray; k++) {console.log(index0(j,k))}
@@ -606,9 +613,12 @@ function getInputValue() {
                 
              
                 console.log(topThree);
-                for (j = 0; j < topThree.length; j++) {
-                  for (k = j + 1; k < topThree.length; k++) {console.log(index0(j,k))}
-                }
+                console.log(index0(0, 2), index0(0, 6), index0(2, 6));
+                console.log(index0(topThree[0], topThree[1]), index0(topThree[0], topThree[2]), index0(topThree[1], topThree[2]))
+                // console.log(pairingsArray[index0(topThree[0], topThree[1])], pairingsArray[index0(topThree[0], topThree[2])], pairingsArray[index0(topThree[0], topThree[2])])
+                // for (j = 0; j < topThree.length; j++) {
+                //   for (k = j + 1; k < topThree.length; k++) {console.log(index0(j,k))}
+                // }
                   // for (i = 0; i < tempArray7.length; i++) { tempVar = tempArray7[i];
                   // console.log(tempVar, arrayDs.indexOf([0,i]), arrayDs[2 * i + 1]) } //arrayDs.indexOf(tempArray7[i])
                   // console.log(tempArray8, i)

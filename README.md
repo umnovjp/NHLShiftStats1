@@ -7,6 +7,8 @@ Then menu with all games played on this date will open.
     
 User will select one game at a time. That will run a function which determines forward lines and defensive pairs, and probability of them to play together during the game. Also, a very important part is to determine which line played against which line. And that will be done by periods.
 
+If you want to view next game analysis repload the page.
+
 ## Special Teams
 There is no attempt to differentiate lines or pairs on special teams. It will be done rather laetr than sooner. The reason is that script is longer than 800 lines. 
 
