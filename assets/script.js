@@ -561,12 +561,11 @@ function getInputValue() {
                 sum0 = 0;
                 arrayDs = [];
                 function index0 (p1, p2) {   
-                  if (p1 < homeRosterDArray.length + 1 && p2 < homeRosterDArray.length + 1) {
-                  for (j = 0; j < p1; j++){sum0 = sum0 + j;
+                  for (j = 0; j < p1 + 2; j++){sum0 = sum0 + j;
                   
                   sum1 = j * homeRosterDArray.length;
                  // console.log(j, sum0, sum1);
-                  for (k = j + 1; k < p2; k++) {                
+                  for (k = j + 1; k < p2 + 2; k++) {                
                     
                    // tempArray9 = [j,k];
                     arrayDs.push(2 * (sum1 - sum0 + k - j));
@@ -576,14 +575,14 @@ function getInputValue() {
                     return sum1 - sum0 + k - j;}                   
                     
                   }
-                  }
-                  else return 0
+                
                 }
+                
                 for (j = 0; j < homeRosterDArray.length; j++){
                   
                   for (k = j + 1; k < homeRosterDArray.length; k++) {                
                     
-                    console.log(j, k, index0(j, k))
+                    console.log(j, k, index0(0, 1), index0(0,2), index0 (0,3))
                     
                   }
                 }
