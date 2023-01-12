@@ -564,15 +564,15 @@ function getInputValue() {
                   for (j = 0; j < p1 + 2; j++){sum0 = sum0 + j;
                   
                   sum1 = j * homeRosterDArray.length;
-                 // console.log(j, sum0, sum1);
+                 // console.log(j, sum0, sum1); 
                   for (k = j + 1; k < p2 + 2; k++) {                
                     
                    // tempArray9 = [j,k];
                     arrayDs.push(2 * (sum1 - sum0 + k - j));
                     arrayDs.push([j,k]);
                     // l = sum0 + sum1 + k - j;
-                  
-                    return sum1 - sum0 + k - j;}                   
+                    sum2 = sum1 - sum0 + k - j;
+                    return sum2;}                   
                     
                   }
                 
