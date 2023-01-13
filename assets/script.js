@@ -558,44 +558,48 @@ function getInputValue() {
                 for (i = 0; i < homeRosterDArray.length; i++) {topThree.push(i)}
                 // if (homeRosterDArray.length == 6) { topThree = [0,1,2,3,4,5]} 
                 // else if (homeRosterDArray.length == 7) { topThree = [0,1,2,3,4,5,6]}
-                sum0 = 0;
-                arrayDs = [];
-                function index0 (p1, p2) {   
-                  for (j = 0; j < p1 + 2; j++){sum0 = sum0 + j;
+                // sum0 = 0;
+                // arrayDs = [];
+                // function index0 (p1, p2) {   
+                //   for (j = 0; j < p1 + 2; j++){sum0 = sum0 + j;
                   
-                  sum1 = j * homeRosterDArray.length;
-                 // console.log(j, sum0, sum1); 
-                  for (k = j + 1; k < p2 + 2; k++) {                
+                //   sum1 = j * homeRosterDArray.length;
+                //  // console.log(j, sum0, sum1); 
+                //   for (k = j + 1; k < p2 + 2; k++) {                
                     
-                   // tempArray9 = [j,k];
-                    arrayDs.push(2 * (sum1 - sum0 + k - j));
-                    arrayDs.push([j,k]);
-                    // l = sum0 + sum1 + k - j;
-                    sum2 = sum1 - sum0 + k - j;
-                    return sum2;}                   
+                //    // tempArray9 = [j,k];
+                //     arrayDs.push(2 * (sum1 - sum0 + k - j));
+                //     arrayDs.push([j,k]);
+                //     // l = sum0 + sum1 + k - j;
+                //     sum2 = sum1 - sum0 + k - j;
+                //     return sum2;}                   
                     
-                  }
+                //   }
                 
-                }
+                // }
                 
-                for (j = 0; j < homeRosterDArray.length; j++){
+                // for (j = 0; j < homeRosterDArray.length; j++){
                   
-                  for (k = j + 1; k < homeRosterDArray.length; k++) {                
+                //   for (k = j + 1; k < homeRosterDArray.length; k++) {                
                     
-                    console.log(j, k, index0(0, 1), index0(0,2), index0 (0,3))
+                //     console.log(j, k)
                     
-                  }
-                }
+                //   }
+                // }
                 // console.log(arrayDs);
-
-                for (j = 0; i < homeRosterDArray; j++) {
-                  for (k = j + 1; homeRosterDArray; k++) {console.log(index0(j,k))}
-                }
+                thirdPairTime = [];
+                // for (j = 0; i < homeRosterDArray; j++) {
+                //   for (k = j + 1; homeRosterDArray; k++) {console.log(j,k)}
+                // }
                 for (i = 0 ; i < 4; i++) { topThree.splice(topTwo[i], 1) }
-                console.log(topThree, typeof topThree, topTwo, homeRosterDArray.length);
+                
+                for (i = 0; i < topThree.length; i++) {thirdPairTime.push(TOIArray[topThree[i]])}
+                tempVar1 = Math.max(...thirdPairTime)
+                tempVar = thirdPairTime.findIndex(tempVar1);
                 tempArray7 = [];
-                DMan5 = topThree[0];
+                DMan5 = topThree[tempVar];
                 DMan6 = topThree[1];
+                console.log(topThree, thirdPairTime, DMan5, topTwo, homeRosterDArray.length);
                 if (homeRosterDArray.length === 7) {DMan7 = topThree[2]}
                 if (homeRosterDArray.length === 7) {
                   tempArray7 = [];
@@ -612,8 +616,8 @@ function getInputValue() {
                 
              
                 console.log(topThree);
-                console.log(index0(0, 2), index0(0, 6), index0(2, 6));
-                console.log(index0(topThree[0], topThree[1]), index0(topThree[0], topThree[2]), index0(topThree[1], topThree[2]))
+               // console.log(index0(0, 2), index0(0, 6), index0(2, 6));
+               // console.log(index0(topThree[0], topThree[1]), index0(topThree[0], topThree[2]), index0(topThree[1], topThree[2]))
                 // console.log(pairingsArray[index0(topThree[0], topThree[1])], pairingsArray[index0(topThree[0], topThree[2])], pairingsArray[index0(topThree[0], topThree[2])])
                 // for (j = 0; j < topThree.length; j++) {
                 //   for (k = j + 1; k < topThree.length; k++) {console.log(index0(j,k))}
