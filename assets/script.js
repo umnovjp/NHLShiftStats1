@@ -106,6 +106,7 @@ function getInputValue() {
               for (var i = 0; i < keys.length; i++) {
                 var val = obj[keys[i]];
                 //   console.log(val, val.currentTeam.id, data.gameData.teams.away.id);
+                console.log(val.currentTeam, data.gameData.teams.away.id, val.fullName)
                 if (val.currentTeam.id == data.gameData.teams.away.id) {
                   //  document.getElementById('awayTeamId').appendChild(playerName);
                   awayRosterArray.push(val.primaryNumber);
@@ -594,12 +595,12 @@ function getInputValue() {
                 for (i = 0 ; i < 4; i++) { topThree.splice(topTwo[i], 1) }
                 
                 for (i = 0; i < topThree.length; i++) {thirdPairTime.push(TOIArray[topThree[i]])}
-                const tempVar1 = element => element = Math.max(...thirdPairTime);
-                tempVar = thirdPairTime.findIndex(tempVar1);
+                const tempVar1 = thirdPairTime.reduce((iMax, currentValue, currentIndex, arr) => currentValue > arr[iMax] ? currentIndex: iMax, 0);
+                // tempVar = thirdPairTime.findIndex(tempVar1);
                 tempArray7 = [];
-                DMan5 = topThree[tempVar];
+                DMan5 = topThree[tempVar1];
                 DMan6 = topThree[1];
-                console.log(DMan5);
+                console.log(DMan5, tempVar1);
                 console.log(topThree, thirdPairTime, DMan5, topTwo, homeRosterDArray.length);
                 if (homeRosterDArray.length === 7) {DMan7 = topThree[2]}
                 if (homeRosterDArray.length === 7) {
