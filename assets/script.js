@@ -599,8 +599,15 @@ function getInputValue() {
                 // tempVar = thirdPairTime.findIndex(tempVar1);
                 tempArray7 = [];
                 DMan5 = topThree[tempVar1];
+                console.log(DMan5, tempVar1, topThree, thirdPairTime);
+                if (topThree.length > 1) {
+                  numberSix = topThree.splice(tempVar1, 1);
+                  numberSixTime = thirdPairTime.splice(tempVar1, 1)
+                }
+                console.log(numberSix, numberSixTime);
+                
                 DMan6 = topThree[1];
-                console.log(DMan5, tempVar1);
+                
                 console.log(topThree, thirdPairTime, DMan5, topTwo, homeRosterDArray.length);
                 if (homeRosterDArray.length === 7) {DMan7 = topThree[2]}
                 if (homeRosterDArray.length === 7) {

@@ -18,5 +18,8 @@ In some games, players get injured. Or some players get game misconduct penalty.
 ## Print Goals Button
 This is optional feature will print all goals of the game to the screen if a user wants to see that. But this button is unlikely to stay there in the final version. Currently it is not a working feature.
 
+## Kind of known bug
+Script gets interrupted during analysis of Flyers game where Lukas Sedlak #23 played in 2022-23 season. It is very unusual contract situation. I decided to leave it as it is. If necessary I will be able to write a patch. Leaving as it is for now...
+
 ## Notes
-It is first time when I use 4 nested loops in JavaScript. That was wonderful experience to do it again
+It is first time when I use 7 nested loops in JavaScript. Did it before in languages like Pascal. That was wonderful experience to do it again in the new language
