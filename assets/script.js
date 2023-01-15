@@ -595,11 +595,29 @@ function getInputValue() {
                 for (i = 0 ; i < 4; i++) { topThree.splice(topTwo[i], 1) }
                 
                 for (i = 0; i < topThree.length; i++) {thirdPairTime.push(TOIArray[topThree[i]])}
+                if (topThree.length = 2) {DMan5 = topThree[0];
+                DMan6 = topThree[1]}
                 const tempVar1 = thirdPairTime.reduce((iMax, currentValue, currentIndex, arr) => currentValue > arr[iMax] ? currentIndex: iMax, 0);
                 // tempVar = thirdPairTime.findIndex(tempVar1);
+                DManIndex5 = 'ID' + homeRosterDArray[DMan5];
+                DManIndex6 = 'ID' + homeRosterDArray[DMan6];
+                DManIndex5a = homeRosterArray.indexOf(DManIndex5);
+                DManIndex6a = homeRosterArray.indexOf(DManIndex6);
+                for (i = 0; i < arrayDs.length/2; i++) {
+                  
+                    if (arrayDs[2 * i + 1][0] == topThree[0] && arrayDs[2 * i + 1][1] == topThree[1])
+                    { numberThreePair = 2 * i;
+                      console.log(i, topThree[0], topThree[1], pairingsArray[2 * i], pairingsArray2[2 * i], pairingsArray3[2 * i])}
+                }
+                const maxTime3b = pairingsArray2[numberThreePair];
+                const maxTime3c = pairingsArray3[numberThreePair];
+                const maxTime3 = pairingsArray[numberThreePair];
+                
                 tempArray7 = [];
-                DMan5 = topThree[tempVar1];
+                // DMan5 = topThree[tempVar1];
                 console.log(DMan5, tempVar1, topThree, thirdPairTime);
+                // const tempIndex = arrayDs.findIndex(topThree);
+                console.log(typeof topThree, typeof arrayDs[1]);
                 if (topThree.length > 1) {
                   numberSix = topThree.splice(tempVar1, 1);
                   numberSixTime = thirdPairTime.splice(tempVar1, 1)
@@ -643,6 +661,9 @@ function getInputValue() {
                 var secondPair = document.createElement('p');
                 secondPair.innerHTML = homeRosterArray[DManIndex3a - 2] + ' ' + homeRosterArray[DManIndex4a - 2] + ' ' + pairingsArray[numberTwoPair + 1] + ' shifts ' + maxTime2 + ' seconds ' + pairingsArray2[numberTwoPair + 1] + ' shifts ' + maxTime2b + ' seconds ' + pairingsArray3[numberTwoPair + 1] + ' shifts ' + maxTime2c + ' seconds ';
                 document.getElementById('gameInfo').appendChild(secondPair);
+                var thirdPair = document.createElement('p');
+                thirdPair.innerHTML = homeRosterArray[DManIndex5a - 2] + ' ' + homeRosterArray[DManIndex6a - 2] + ' ' + pairingsArray[numberThreePair + 1] + ' shifts ' + maxTime3 + ' seconds ' + pairingsArray2[numberThreePair + 1] + ' shifts ' + maxTime3b + ' seconds ' + pairingsArray3[numberThreePair + 1] + ' shifts ' + maxTime3c + ' seconds ' ;
+                document.getElementById('gameInfo').appendChild(thirdPair);
               } // end function getDPairs Joel Henley was dressed as F on 11/19 against NYI he missed entire 3rd period
             });
         }
