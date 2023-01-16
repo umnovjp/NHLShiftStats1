@@ -106,7 +106,7 @@ function getInputValue() {
               for (var i = 0; i < keys.length; i++) {
                 var val = obj[keys[i]];
                 //   console.log(val, val.currentTeam.id, data.gameData.teams.away.id);
-                console.log(val.currentTeam, data.gameData.teams.away.id, val.fullName)
+                // console.log(val.currentTeam, data.gameData.teams.away.id, val.fullName)
                 if (val.currentTeam.id == data.gameData.teams.away.id) {
                   //  document.getElementById('awayTeamId').appendChild(playerName);
                   awayRosterArray.push(val.primaryNumber);
@@ -388,15 +388,11 @@ function getInputValue() {
                             tempTime.push(tempArray[2 * k + 1] - tempArray2[2 * l]);
                             // console.log('case 1', tempTime, i, j, k, l, tempArray2[2 * l], tempArray[2 * k + 1] - tempArray2[2 * l]) 
                           }
-                          else {
-                            tempTime.push(tempArray2[2 * l + 1] - tempArray2[2 * l]);
-                            // console.log('case 2', tempTime, i, j, k, l, tempArray2[2 * l], tempArray2[2 * l + 1] - tempArray2[2 * l]) 
-                          }
+                          else { tempTime.push(tempArray2[2 * l + 1] - tempArray2[2 * l])}
                         }
                         else if (tempArray2[2 * l] <= tempArray[2 * k] && tempArray2[2 * l + 1] >= tempArray[2 * k]) {
                           if (tempArray2[2 * l + 1] >= tempArray[2 * k + 1]) {
-                            tempTime.push(tempArray2[2 * l + 1] - tempArray[2 * k]);
-                            //  console.log('case 3', tempTime, i, j, k, l, tempArray2[2 * l], tempArray2[2 * l + 1] - tempArray[2 * k]) 
+                            tempTime.push(tempArray[2 * k + 1] - tempArray[2 * k]);
                           }
                           else {
                             tempTime.push(tempArray2[2 * l + 1] - tempArray[2 * k]);
@@ -426,15 +422,17 @@ function getInputValue() {
                           else { tempTime.push(tempArray2[2 * l + 1] - tempArray2[2 * l]) }
                         }
                         else if (tempArray2[2 * l] <= tempArray[2 * k] && tempArray2[2 * l + 1] >= tempArray[2 * k]) {
-                          if (tempArray2[2 * l + 1] >= tempArray[2 * k + 1]) { tempTime.push(tempArray2[2 * l + 1] - tempArray[2 * k]) }
+                          if (tempArray2[2 * l + 1] >= tempArray[2 * k + 1]) { tempTime.push(tempArray[2 * k + 1] - tempArray[2 * k]) }
                           else { tempTime.push(tempArray2[2 * l + 1] - tempArray[2 * k]) }
                         }
+                        //console.log(i, j, k, l,tempTime);
                       }
                       
                     } // end k cycle
                     shifts = 0;
                     const sum = tempTime.reduce((partialSum, a) => partialSum + a, 0);
                     for (m = 0; m < tempTime.length; m++) { if (tempTime[m] >= 10) { shifts = shifts + 1 } }
+                
                     pairingsArray.push(sum);
                     pairingsArray.push(shifts);
                   }
@@ -453,14 +451,17 @@ function getInputValue() {
                           else { tempTime.push(tempArray2[2 * l + 1] - tempArray2[2 * l]) }
                         }
                         else if (tempArray2[2 * l] <= tempArray[2 * k] && tempArray2[2 * l + 1] >= tempArray[2 * k]) {
-                          if (tempArray2[2 * l + 1] >= tempArray[2 * k + 1]) { tempTime.push(tempArray[2 * l + 1] - tempArray[2 * k]) }
+                          if (tempArray2[2 * l + 1] >= tempArray[2 * k + 1]) { tempTime.push(tempArray[2 * k + 1] - tempArray[2 * k]) }
                           else { tempTime.push(tempArray2[2 * l + 1] - tempArray[2 * k]) }
                         }
+                        // console.log(i, shiftsArray[i].length, j, shiftsArray[j].length, k, l, tempTime)
                       }
                     } // end k cycle
                     shifts = 0;
                     const sum = tempTime.reduce((partialSum, a) => partialSum + a, 0);
-                    for (m = 0; m < tempTime.length; m++) { if (tempTime[m] >= 10) { shifts = shifts + 1 } }
+                    for (m = 0; m < tempTime.length; m++) { if (tempTime[m] >= 10) { shifts = shifts + 1 } 
+                    // 
+                  }
                     pairingsArray.push(sum);
                     pairingsArray.push(shifts);
                   }
@@ -557,37 +558,7 @@ function getInputValue() {
                 topTwo.reverse();
                 topThree = [];
                 for (i = 0; i < homeRosterDArray.length; i++) {topThree.push(i)}
-                // if (homeRosterDArray.length == 6) { topThree = [0,1,2,3,4,5]} 
-                // else if (homeRosterDArray.length == 7) { topThree = [0,1,2,3,4,5,6]}
-                // sum0 = 0;
-                // arrayDs = [];
-                // function index0 (p1, p2) {   
-                //   for (j = 0; j < p1 + 2; j++){sum0 = sum0 + j;
-                  
-                //   sum1 = j * homeRosterDArray.length;
-                //  // console.log(j, sum0, sum1); 
-                //   for (k = j + 1; k < p2 + 2; k++) {                
-                    
-                //    // tempArray9 = [j,k];
-                //     arrayDs.push(2 * (sum1 - sum0 + k - j));
-                //     arrayDs.push([j,k]);
-                //     // l = sum0 + sum1 + k - j;
-                //     sum2 = sum1 - sum0 + k - j;
-                //     return sum2;}                   
-                    
-                //   }
                 
-                // }
-                
-                // for (j = 0; j < homeRosterDArray.length; j++){
-                  
-                //   for (k = j + 1; k < homeRosterDArray.length; k++) {                
-                    
-                //     console.log(j, k)
-                    
-                //   }
-                // }
-                // console.log(arrayDs);
                 thirdPairTime = [];
                 // for (j = 0; i < homeRosterDArray; j++) {
                 //   for (k = j + 1; homeRosterDArray; k++) {console.log(j,k)}
@@ -595,7 +566,7 @@ function getInputValue() {
                 for (i = 0 ; i < 4; i++) { topThree.splice(topTwo[i], 1) }
                 
                 for (i = 0; i < topThree.length; i++) {thirdPairTime.push(TOIArray[topThree[i]])}
-                if (topThree.length = 2) {DMan5 = topThree[0];
+                if (topThree.length == 2) {DMan5 = topThree[0];
                 DMan6 = topThree[1]}
                 const tempVar1 = thirdPairTime.reduce((iMax, currentValue, currentIndex, arr) => currentValue > arr[iMax] ? currentIndex: iMax, 0);
                 // tempVar = thirdPairTime.findIndex(tempVar1);
