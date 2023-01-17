@@ -510,7 +510,7 @@ function getInputValue() {
                         if (tempTime[n] >= 10) { shifts = shifts + 1 
                         tempTime2.push(tempTime[n]);
                   } }
-                     // console.log(k, sum, tempTime2);
+
                       linesArray.push(sum);
                       linesArray.push(shifts);
                     } // end k F loop
@@ -560,15 +560,15 @@ function getInputValue() {
                 for (i = 0; i < homeRosterDArray.length; i++) {topThree.push(i)}
                 
                 thirdPairTime = [];
-                // for (j = 0; i < homeRosterDArray; j++) {
-                //   for (k = j + 1; homeRosterDArray; k++) {console.log(j,k)}
-                // }
                 for (i = 0 ; i < 4; i++) { topThree.splice(topTwo[i], 1) }
                 
                 for (i = 0; i < topThree.length; i++) {thirdPairTime.push(TOIArray[topThree[i]])}
+                console.log(topThree.length, topThree);
                 if (topThree.length == 2) {DMan5 = topThree[0];
                 DMan6 = topThree[1]}
-                const tempVar1 = thirdPairTime.reduce((iMax, currentValue, currentIndex, arr) => currentValue > arr[iMax] ? currentIndex: iMax, 0);
+                else if (topThree.length == 3) {thirdPairTime2 = Math.max(...thirdPairTime);
+                console.log(thirdPairTime, thirdPairTime2, thirdPairTime.indexOf(thirdPairTime2))}
+                const tempVar1 = thirdPairTime.reduce((iMax, currentValue, currentIndex, arr) => currentValue > arr[iMax] ? currentIndex: iMax, 0); // idea was to find max of thirdPairTime and delete do not need it anymore
                 // tempVar = thirdPairTime.findIndex(tempVar1);
                 DManIndex5 = 'ID' + homeRosterDArray[DMan5];
                 DManIndex6 = 'ID' + homeRosterDArray[DMan6];
@@ -589,10 +589,10 @@ function getInputValue() {
                 console.log(DMan5, tempVar1, topThree, thirdPairTime);
                 // const tempIndex = arrayDs.findIndex(topThree);
                 console.log(typeof topThree, typeof arrayDs[1]);
-                if (topThree.length > 1) {
-                  numberSix = topThree.splice(tempVar1, 1);
-                  numberSixTime = thirdPairTime.splice(tempVar1, 1)
-                }
+                // if (topThree.length > 1) {
+                //   numberSix = topThree.splice(tempVar1, 1);
+                //   numberSixTime = thirdPairTime.splice(tempVar1, 1)
+                // }
                 console.log(numberSix, numberSixTime);
                 
                 DMan6 = topThree[1];
