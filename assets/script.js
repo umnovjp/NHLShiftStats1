@@ -528,17 +528,21 @@ function getInputValue() {
                 const numberTwoPair = tempArray3.indexOf(maxTime2);
                 //   const tempArray = pairingsArray;
                 tempArray3[numberTwoPair] = 0;
-                const maxTime1b = pairingsArray2[numberOnePair];
-                const maxTime2b = pairingsArray2[numberTwoPair];
-                const maxTime1c = pairingsArray3[numberOnePair];
-                const maxTime2c = pairingsArray3[numberTwoPair];
                 if (homeRosterDArray.length == 7) { arrayDs = [0, [0, 1], 2, [0, 2], 4, [0, 3], 6, [0, 4], 8, [0, 5], 10, [0, 6], 12, [1, 2], 14, [1, 3], 16, [1, 4], 18, [1, 5], 20, [1, 6], 22, [2, 3], 24, [2, 4], 26, [2, 5], 28, [2, 6], 30, [3, 4], 32, [3, 5], 34, [3, 6], 36, [4, 5], 38, [4, 6], 40, [5, 6]] }
                 else if (homeRosterDArray.length == 6) { arrayDs = [0, [0, 1], 2, [0, 2], 4, [0, 3], 6, [0, 4], 8, [0, 5], 10, [1, 2], 12, [1, 3], 14, [1, 4], 16, [1, 5], 18, [2, 3], 20, [2, 4], 22, [2, 5], 24, [3, 4], 26, [3, 5], 28, [4, 5]] }
                 else if (homeRosterDArray.length == 5) { arrayDs = [0, [0, 1], 2, [0, 2], 4, [0, 3], 6, [0, 4], 8, [1, 2], 10, [1, 3], 12, [1, 4], 14, [2, 3], 16, [2, 4], 18, [3, 4]] }
                 else if (homeRosterDArray.length == 4) { arrayDs = [0, [0, 1], 2, [0, 2], 4, [0, 3], 6, [1, 2], 8, [1, 3], 10, [2, 3]] }
 
+                console.log(numberOnePair, numberTwoPair, arrayDs[numberOnePair + 1], arrayDs[numberTwoPair + 1]);
+                // if (arrayDs[numberTwoPair + 1][0] === arrayDs[numberOnePair + 1][0] && arrayDs[numberTwoPair + 1][0] === arrayDs[numberOnePair + 1][1] && arrayDs[numberTwoPair + 1][1] === arrayDs[numberOnePair + 1][0] && arrayDs[numberTwoPair + 1][1] === arrayDs[numberOnePair + 1][1])
+                // console.log('something is wrong!', arrayDs[numberTwoPair + 1][0], arrayDs[numberTwoPair + 1][1], arrayDs[numberOnePair + 1][0], arrayDs[numberOnePair + 1][1])
+                const maxTime1b = pairingsArray2[numberOnePair];
+                const maxTime2b = pairingsArray2[numberTwoPair];
+                const maxTime1c = pairingsArray3[numberOnePair];
+                const maxTime2c = pairingsArray3[numberTwoPair];
+                
                 const topTwo = arrayDs[numberOnePair + 1];
-                console.log(arrayDs, numberOnePair);
+                // console.log(arrayDs, numberOnePair);
                 topThree = topTwo.push(arrayDs[numberTwoPair + 1][0]);
                 topFour = topTwo.push(arrayDs[numberTwoPair + 1][1]);
                 console.log(topTwo);
@@ -564,10 +568,23 @@ function getInputValue() {
                 
                 for (i = 0; i < topThree.length; i++) {thirdPairTime.push(TOIArray[topThree[i]])}
                 console.log(topThree.length, topThree);
-                if (topThree.length == 2) {DMan5 = topThree[0];
+                if (homeRosterDArray.length == 6) {DMan5 = topThree[0];
                 DMan6 = topThree[1]}
-                else if (topThree.length == 3) {thirdPairTime2 = Math.max(...thirdPairTime);
-                console.log(thirdPairTime, thirdPairTime2, thirdPairTime.indexOf(thirdPairTime2))}
+                else if (homeRosterDArray.length == 7) {thirdPairTime2 = Math.max(...thirdPairTime);
+                console.log(thirdPairTime, thirdPairTime2, thirdPairTime.indexOf(thirdPairTime2))
+                if (thirdPairTime.indexOf(thirdPairTime2) == 0)
+                {DMan5 = topThree[0];
+                DMan6 = topThree[1];
+                DMan7 = topThree[2]}
+                else if (thirdPairTime.indexOf(thirdPairTime2) == 1) {DMan5 = topThree[0];
+                  DMan6 = topThree[2];
+                  DMan7 = topThree[1]
+                }
+                else if (thirdPairTime.indexOf(thirdPairTime2) == 2) {DMan5 = topThree[1];
+                  DMan6 = topThree[2];
+                  DMan7 = topThree[0]
+                }
+              }
                 const tempVar1 = thirdPairTime.reduce((iMax, currentValue, currentIndex, arr) => currentValue > arr[iMax] ? currentIndex: iMax, 0); // idea was to find max of thirdPairTime and delete do not need it anymore
                 // tempVar = thirdPairTime.findIndex(tempVar1);
                 DManIndex5 = 'ID' + homeRosterDArray[DMan5];
@@ -576,7 +593,7 @@ function getInputValue() {
                 DManIndex6a = homeRosterArray.indexOf(DManIndex6);
                 for (i = 0; i < arrayDs.length/2; i++) {
                   
-                    if (arrayDs[2 * i + 1][0] == topThree[0] && arrayDs[2 * i + 1][1] == topThree[1])
+                    if (arrayDs[2 * i + 1][0] == DMan5 && arrayDs[2 * i + 1][1] == DMan6)
                     { numberThreePair = 2 * i;
                       console.log(i, topThree[0], topThree[1], pairingsArray[2 * i], pairingsArray2[2 * i], pairingsArray3[2 * i])}
                 }
@@ -584,46 +601,13 @@ function getInputValue() {
                 const maxTime3c = pairingsArray3[numberThreePair];
                 const maxTime3 = pairingsArray[numberThreePair];
                 
-                tempArray7 = [];
+                //tempArray7 = [];
                 // DMan5 = topThree[tempVar1];
-                console.log(DMan5, tempVar1, topThree, thirdPairTime);
-                // const tempIndex = arrayDs.findIndex(topThree);
-                console.log(typeof topThree, typeof arrayDs[1]);
-                // if (topThree.length > 1) {
-                //   numberSix = topThree.splice(tempVar1, 1);
-                //   numberSixTime = thirdPairTime.splice(tempVar1, 1)
-                // }
-                console.log(numberSix, numberSixTime);
+                console.log(DMan5, DMan6, tempVar1, topThree, thirdPairTime);
                 
-                DMan6 = topThree[1];
+                //DMan6 = topThree[1];
                 
-                console.log(topThree, thirdPairTime, DMan5, topTwo, homeRosterDArray.length);
-                if (homeRosterDArray.length === 7) {DMan7 = topThree[2]}
-                if (homeRosterDArray.length === 7) {
-                  tempArray7 = [];
-                  for (i = 0; i < topThree.length; i++){tempArray8 = topThree;
-                    //tempArray9 = tempArray8;
-                    
-                  array = tempArray8.splice(i, 1);
-                  topThree = [];
-                  topThree.push(DMan5, DMan6, DMan7);
-                  tempArray7.push(tempArray8);
-                 // tempArray7.push(array0, array1, array2);
-                console.log(i, topThree, tempArray8, array);}
-                arrayDs = [];
-                
-             
-                console.log(topThree);
-               // console.log(index0(0, 2), index0(0, 6), index0(2, 6));
-               // console.log(index0(topThree[0], topThree[1]), index0(topThree[0], topThree[2]), index0(topThree[1], topThree[2]))
-                // console.log(pairingsArray[index0(topThree[0], topThree[1])], pairingsArray[index0(topThree[0], topThree[2])], pairingsArray[index0(topThree[0], topThree[2])])
-                // for (j = 0; j < topThree.length; j++) {
-                //   for (k = j + 1; k < topThree.length; k++) {console.log(index0(j,k))}
-                // }
-                  // for (i = 0; i < tempArray7.length; i++) { tempVar = tempArray7[i];
-                  // console.log(tempVar, arrayDs.indexOf([0,i]), arrayDs[2 * i + 1]) } //arrayDs.indexOf(tempArray7[i])
-                  // console.log(tempArray8, i)
-                }
+                console.log(topThree, thirdPairTime, DMan5, topTwo, homeRosterDArray.length);               
 
                 console.log(DManIndex1a, DManIndex2a, homeRosterArray[DManIndex1a - 2], homeRosterArray[DManIndex2a - 2]);
                 var firstPair = document.createElement('p');
