@@ -372,30 +372,30 @@ function getInputValue() {
                   TOIFArray.push(totalShiftLength);
                 } // end i TOIFArray loop
                 //   
-                for (i = 0; i < shiftsArray.length / 3; i++) // i < shiftsArray.length
+                for (j = 0; j < shiftsArray.length / 3; j++) // i < shiftsArray.length
                 {
-                  for (j = i + 1; j < shiftsArray.length / 3; j++) {
+                  for (k = j + 1; k < shiftsArray.length / 3; k++) {
                     tempTime = [];
-                    for (k = 0; k < 0.5 * shiftsArray[i].length; k++) {
-                      tempArray = shiftsArray[i];
+                    for (l = 0; l < 0.5 * shiftsArray[j].length; l++) {
+                      tempArray = shiftsArray[j];
                       //               console.log(i, j, k, tempArray[2 * k]); 
 
-                      for (l = 0; l < 0.5 * shiftsArray[j].length; l++) {
-                        tempArray2 = shiftsArray[j];
+                      for (m = 0; m < 0.5 * shiftsArray[k].length; m++) {
+                        tempArray2 = shiftsArray[k];
                         //      big if starts
-                        if (tempArray2[2 * l] >= tempArray[2 * k] && tempArray2[2 * l] <= tempArray[2 * k + 1]) {
-                          if (tempArray2[2 * l + 1] >= tempArray[2 * k + 1]) {
-                            tempTime.push(tempArray[2 * k + 1] - tempArray2[2 * l]);
+                        if (tempArray2[2 * m] >= tempArray[2 * l] && tempArray2[2 * m] <= tempArray[2 * l + 1]) {
+                          if (tempArray2[2 * m + 1] >= tempArray[2 * l + 1]) {
+                            tempTime.push(tempArray[2 * l + 1] - tempArray2[2 * m]);
                             // console.log('case 1', tempTime, i, j, k, l, tempArray2[2 * l], tempArray[2 * k + 1] - tempArray2[2 * l]) 
                           }
-                          else { tempTime.push(tempArray2[2 * l + 1] - tempArray2[2 * l])}
+                          else { tempTime.push(tempArray2[2 * m + 1] - tempArray2[2 * m])}
                         }
-                        else if (tempArray2[2 * l] <= tempArray[2 * k] && tempArray2[2 * l + 1] >= tempArray[2 * k]) {
-                          if (tempArray2[2 * l + 1] >= tempArray[2 * k + 1]) {
-                            tempTime.push(tempArray[2 * k + 1] - tempArray[2 * k]);
+                        else if (tempArray2[2 * m] <= tempArray[2 * l] && tempArray2[2 * m + 1] >= tempArray[2 * l]) {
+                          if (tempArray2[2 * m + 1] >= tempArray[2 * l + 1]) {
+                            tempTime.push(tempArray[2 * l + 1] - tempArray[2 * l]);
                           }
                           else {
-                            tempTime.push(tempArray2[2 * l + 1] - tempArray[2 * k]);
+                            tempTime.push(tempArray2[2 * m + 1] - tempArray[2 * l]);
                             // console.log('case 4', tempTime, i, j, k, l, tempArray2[2 * l], tempArray2[2 * l + 1] - tempArray[2 * k])
                           }
                         }
@@ -403,27 +403,27 @@ function getInputValue() {
                     } // end k cycle
                     shifts = 0;
                     const sum = tempTime.reduce((partialSum, a) => partialSum + a, 0);
-                    for (m = 0; m < tempTime.length; m++) { if (tempTime[m] >= 10) { shifts = shifts + 1 } }
+                    for (n = 0; n < tempTime.length; n++) { if (tempTime[n] >= 10) { shifts = shifts + 1 } }
                     pairingsArray.push(sum);
                     pairingsArray.push(shifts);
                   }
                 }
                 console.log(pairingsArray, TOIArray, TOIFArray);
-                for (i = shiftsArray.length / 3; i < 2 * shiftsArray.length / 3; i++) // i < shiftsArray.length
+                for (j = shiftsArray.length / 3; j < 2 * shiftsArray.length / 3; j++) // jk, kl, lm, mn
                 {
-                  for (j = i + 1; j < 2 * shiftsArray.length / 3; j++) {
+                  for (k = j + 1; k < 2 * shiftsArray.length / 3; k++) {
                     tempTime = [];
-                    for (k = 0; k < 0.5 * shiftsArray[i].length; k++) {
-                      tempArray = shiftsArray[i];
-                      for (l = 0; l < 0.5 * shiftsArray[j].length; l++) {
-                        tempArray2 = shiftsArray[j];
-                        if (tempArray2[2 * l] >= tempArray[2 * k] && tempArray2[2 * l] <= tempArray[2 * k + 1]) {
-                          if (tempArray2[2 * l + 1] >= tempArray[2 * k + 1]) { tempTime.push(tempArray[2 * k + 1] - tempArray2[2 * l]) }
-                          else { tempTime.push(tempArray2[2 * l + 1] - tempArray2[2 * l]) }
+                    for (l = 0; l < 0.5 * shiftsArray[j].length; l++) {
+                      tempArray = shiftsArray[j];
+                      for (m = 0; m < 0.5 * shiftsArray[j].length; m++) {
+                        tempArray2 = shiftsArray[k];
+                        if (tempArray2[2 * m] >= tempArray[2 * l] && tempArray2[2 * m] <= tempArray[2 * l + 1]) {
+                          if (tempArray2[2 * m + 1] >= tempArray[2 * l + 1]) { tempTime.push(tempArray[2 * l + 1] - tempArray2[2 * m]) }
+                          else { tempTime.push(tempArray2[2 * m + 1] - tempArray2[2 * m]) }
                         }
-                        else if (tempArray2[2 * l] <= tempArray[2 * k] && tempArray2[2 * l + 1] >= tempArray[2 * k]) {
-                          if (tempArray2[2 * l + 1] >= tempArray[2 * k + 1]) { tempTime.push(tempArray[2 * k + 1] - tempArray[2 * k]) }
-                          else { tempTime.push(tempArray2[2 * l + 1] - tempArray[2 * k]) }
+                        else if (tempArray2[2 * m] <= tempArray[2 * l] && tempArray2[2 * m + 1] >= tempArray[2 * l]) {
+                          if (tempArray2[2 * m + 1] >= tempArray[2 * l + 1]) { tempTime.push(tempArray[2 * l + 1] - tempArray[2 * l]) }
+                          else { tempTime.push(tempArray2[2 * m + 1] - tempArray[2 * l]) }
                         }
                         //console.log(i, j, k, l,tempTime);
                       }
@@ -431,35 +431,35 @@ function getInputValue() {
                     } // end k cycle
                     shifts = 0;
                     const sum = tempTime.reduce((partialSum, a) => partialSum + a, 0);
-                    for (m = 0; m < tempTime.length; m++) { if (tempTime[m] >= 10) { shifts = shifts + 1 } }
+                    for (n = 0; n < tempTime.length; n++) { if (tempTime[n] >= 10) { shifts = shifts + 1 } }
                 
                     pairingsArray.push(sum);
                     pairingsArray.push(shifts);
                   }
                 }
                 console.log(pairingsArray, TOIArray);
-                for (i = 2 * shiftsArray.length / 3; i < shiftsArray.length; i++) // i < shiftsArray.length
+                for (j = 2 * shiftsArray.length / 3; j < shiftsArray.length; j++) // changing lines 442-468 jk, kl, lm, mn
                 {
-                  for (j = i + 1; j < shiftsArray.length; j++) {
+                  for (k = j + 1; k < shiftsArray.length; k++) {
                     tempTime = [];
-                    for (k = 0; k < 0.5 * shiftsArray[i].length; k++) {
-                      tempArray = shiftsArray[i];
-                      for (l = 0; l < 0.5 * shiftsArray[j].length; l++) {
-                        tempArray2 = shiftsArray[j];
-                        if (tempArray2[2 * l] >= tempArray[2 * k] && tempArray2[2 * l] <= tempArray[2 * k + 1]) {
-                          if (tempArray2[2 * l + 1] >= tempArray[2 * k + 1]) { tempTime.push(tempArray[2 * k + 1] - tempArray2[2 * l]) }
-                          else { tempTime.push(tempArray2[2 * l + 1] - tempArray2[2 * l]) }
+                    for (l = 0; l < 0.5 * shiftsArray[j].length; l++) {
+                      tempArray = shiftsArray[j];
+                      for (m = 0; m < 0.5 * shiftsArray[k].length; m++) {
+                        tempArray2 = shiftsArray[k];
+                        if (tempArray2[2 * m] >= tempArray[2 * l] && tempArray2[2 * m] <= tempArray[2 * l + 1]) {
+                          if (tempArray2[2 * m + 1] >= tempArray[2 * l + 1]) { tempTime.push(tempArray[2 * l + 1] - tempArray2[2 * m]) }
+                          else { tempTime.push(tempArray2[2 * m + 1] - tempArray2[2 * m]) }
                         }
-                        else if (tempArray2[2 * l] <= tempArray[2 * k] && tempArray2[2 * l + 1] >= tempArray[2 * k]) {
-                          if (tempArray2[2 * l + 1] >= tempArray[2 * k + 1]) { tempTime.push(tempArray[2 * k + 1] - tempArray[2 * k]) }
-                          else { tempTime.push(tempArray2[2 * l + 1] - tempArray[2 * k]) }
+                        else if (tempArray2[2 * m] <= tempArray[2 * l] && tempArray2[2 * m + 1] >= tempArray[2 * l]) {
+                          if (tempArray2[2 * m + 1] >= tempArray[2 * l + 1]) { tempTime.push(tempArray[2 * l + 1] - tempArray[2 * l]) }
+                          else { tempTime.push(tempArray2[2 * m + 1] - tempArray[2 * l]) }
                         }
                         // console.log(i, shiftsArray[i].length, j, shiftsArray[j].length, k, l, tempTime)
                       }
                     } // end k cycle
                     shifts = 0;
                     const sum = tempTime.reduce((partialSum, a) => partialSum + a, 0);
-                    for (m = 0; m < tempTime.length; m++) { if (tempTime[m] >= 10) { shifts = shifts + 1 } 
+                    for (n = 0; n < tempTime.length; n++) { if (tempTime[n] >= 10) { shifts = shifts + 1 } 
                     // 
                   }
                     pairingsArray.push(sum);
