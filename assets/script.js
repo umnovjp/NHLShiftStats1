@@ -296,7 +296,7 @@ function getInputValue() {
               } // end for cycle starting Lineup
               homeStartingLineup.push(homeStartingDLineup, homeStartingFLineup);
               // homeStartingLineup.push(homeStartingFLineup);
-              console.log(homeStartingLineup);
+              // console.log(homeStartingLineup);
 
               homeRosterGArray = [];
               homeRosterFArray = [];
@@ -329,6 +329,9 @@ function getInputValue() {
               } // end for away idChart loop
               console.log(homeRosterDArray, homeRosterGArray, homeRosterFArray);
               console.log(awayRosterDArray, awayRosterGArray, awayRosterFArray);
+              for (i = 0; i < 3; i++) { tempVar1 = homeRosterFArray.indexOf(homeStartingFLineup[i]);
+              homeStartingLineup.push(tempVar1)}
+              console.log(homeStartingLineup)
               //     }
               getDPairs();
               function getDPairs() {
@@ -452,8 +455,7 @@ function getInputValue() {
                 tempArray6[0] = shiftsArray;
 
                 for (i = 0; i < tempArray6.length; i++) {
-                  console.log(tempArray6[i], i, tempArray6[i].length, tempArray6.length);
-                  for (j = 0; j < tempArray6[i].length; j++) // changing lines 442-468 jk, kl, lm, mn
+                  for (j = 0; j < tempArray6[i].length; j++) 
                   { tempArray5 = tempArray6[i];
                     player1 = tempArray5[j]
                     for (k = j + 1; k < tempArray6[i].length; k++) {
@@ -495,8 +497,6 @@ function getInputValue() {
 
                 console.log(shiftsFArray, tempArray4, tempArray5, tempArray6);
                 for (i = 0; i < tempArray6.length; i++) {
-                  //  mathFloor = Math.floor(i / (shiftsFArray.length / 3));
-                  //    console.log(mathFloor, i)
                   for (j = 0; j < tempArray6[i].length; j++) {
                     tempArray5 = tempArray6[i]
                     player1 = tempArray5[j]
@@ -535,7 +535,6 @@ function getInputValue() {
                           tempTime2.push(tempTime[n]);
                         }
                       }
-
                       linesArray.push(sum);
                       linesArray.push(shifts);
                     } // end k F loop
@@ -544,7 +543,10 @@ function getInputValue() {
                 // console.log(pairingsArray, TOIArray, linesArray);
                 pairingsArray2 = pairingsArray.splice(pairingsArray.length / 3);
                 pairingsArray3 = pairingsArray2.splice(pairingsArray2.length / 2)
-                console.log(pairingsArray, pairingsArray2, pairingsArray3);
+                
+                linesArray2 = linesArray.splice(linesArray.length / 3);
+                linesArray3 = linesArray2.splice(linesArray2.length / 2)
+                console.log(linesArray, linesArray2, linesArray3, pairingsArray, pairingsArray2, pairingsArray3);
                 const maxTime1 = Math.max(...pairingsArray);
                 const numberOnePair = pairingsArray.indexOf(maxTime1);
                 const tempArray3 = pairingsArray;
