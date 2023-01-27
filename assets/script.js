@@ -653,6 +653,18 @@ function getInputValue() {
                 var thirdPair = document.createElement('p');
                 thirdPair.innerHTML = homeRosterArray[DManIndex5a - 2] + ' ' + homeRosterArray[DManIndex6a - 2] + ' ' + pairingsArray[numberThreePair + 1] + ' shifts ' + maxTime3 + ' seconds ' + pairingsArray2[numberThreePair + 1] + ' shifts ' + maxTime3b + ' seconds ' + pairingsArray3[numberThreePair + 1] + ' shifts ' + maxTime3c + ' seconds ';
                 document.getElementById('gameInfo').appendChild(thirdPair);
+                tempArray6 = [];
+                for (j = 0; j < homeRosterFArray.length - 1; j++) {tempArray6.push(linesArray[2 * j])}
+                forwardTime = Math.max(...tempArray6);
+                tempIndex = tempArray6.indexOf(forwardTime);
+                tempArray4 = tempArray6;
+                console.log(tempArray6, forwardTime, tempIndex);
+                tempArray5 = tempArray4.splice(tempIndex, 1);
+                
+                forwardTime = Math.max(...tempArray6);
+                tempIndex2 = tempArray6.indexOf(forwardTime);
+                console.log(tempArray6, tempIndex2 + 1, tempIndex + 1);
+
               } // end function getDPairs Joel Henley was dressed as F on 11/19 against NYI he missed entire 3rd period
             });
         }
