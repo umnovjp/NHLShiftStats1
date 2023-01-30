@@ -69,8 +69,6 @@ function getInputValue() {
             return response.json();
           })
           .then(function (data) {
-            console.log('I am in second then')
-            // console.log(data);
             const gameInfo = document.createElement('section');
             gameInfo.setAttribute('id', 'gameInfo');
             document.getElementById('schedule').appendChild(gameInfo);
@@ -380,73 +378,7 @@ function getInputValue() {
                   } // end j loop
                   TOIFArray.push(totalShiftLength);
                 } // end i TOIFArray loop
-                //   
-                // for (j = 0; j < shiftsArray.length / 3; j++) // i < shiftsArray.length
-                // {
-                //   for (k = j + 1; k < shiftsArray.length / 3; k++) {
-                //     tempTime = [];
-                //     for (l = 0; l < 0.5 * shiftsArray[j].length; l++) {
-                //       tempArray = shiftsArray[j];
-                //       //               console.log(i, j, k, tempArray[2 * k]); 
-
-                //       for (m = 0; m < 0.5 * shiftsArray[k].length; m++) {
-                //         tempArray2 = shiftsArray[k];
-                //         //      big if starts
-                //         if (tempArray2[2 * m] >= tempArray[2 * l] && tempArray2[2 * m] <= tempArray[2 * l + 1]) {
-                //           if (tempArray2[2 * m + 1] >= tempArray[2 * l + 1]) {
-                //             tempTime.push(tempArray[2 * l + 1] - tempArray2[2 * m]);
-                //             // console.log('case 1', tempTime, i, j, k, l, tempArray2[2 * l], tempArray[2 * k + 1] - tempArray2[2 * l]) 
-                //           }
-                //           else { tempTime.push(tempArray2[2 * m + 1] - tempArray2[2 * m])}
-                //         }
-                //         else if (tempArray2[2 * m] <= tempArray[2 * l] && tempArray2[2 * m + 1] >= tempArray[2 * l]) {
-                //           if (tempArray2[2 * m + 1] >= tempArray[2 * l + 1]) {
-                //             tempTime.push(tempArray[2 * l + 1] - tempArray[2 * l]);
-                //           }
-                //           else {
-                //             tempTime.push(tempArray2[2 * m + 1] - tempArray[2 * l]);
-                //             // console.log('case 4', tempTime, i, j, k, l, tempArray2[2 * l], tempArray2[2 * l + 1] - tempArray[2 * k])
-                //           }
-                //         }
-                //       }
-                //     } // end k cycle
-                //     shifts = 0;
-                //     const sum = tempTime.reduce((partialSum, a) => partialSum + a, 0);
-                //     for (n = 0; n < tempTime.length; n++) { if (tempTime[n] >= 10) { shifts = shifts + 1 } }
-                //     pairingsArray.push(sum);
-                //     pairingsArray.push(shifts);
-                //   }
-                // }
-                // console.log(pairingsArray, TOIArray, TOIFArray);
-                // for (j = shiftsArray.length / 3; j < 2 * shiftsArray.length / 3; j++) // jk, kl, lm, mn
-                // {
-                //   for (k = j + 1; k < 2 * shiftsArray.length / 3; k++) {
-                //     tempTime = [];
-                //     for (l = 0; l < 0.5 * shiftsArray[j].length; l++) {
-                //       tempArray = shiftsArray[j];
-                //       for (m = 0; m < 0.5 * shiftsArray[j].length; m++) {
-                //         tempArray2 = shiftsArray[k];
-                //         if (tempArray2[2 * m] >= tempArray[2 * l] && tempArray2[2 * m] <= tempArray[2 * l + 1]) {
-                //           if (tempArray2[2 * m + 1] >= tempArray[2 * l + 1]) { tempTime.push(tempArray[2 * l + 1] - tempArray2[2 * m]) }
-                //           else { tempTime.push(tempArray2[2 * m + 1] - tempArray2[2 * m]) }
-                //         }
-                //         else if (tempArray2[2 * m] <= tempArray[2 * l] && tempArray2[2 * m + 1] >= tempArray[2 * l]) {
-                //           if (tempArray2[2 * m + 1] >= tempArray[2 * l + 1]) { tempTime.push(tempArray[2 * l + 1] - tempArray[2 * l]) }
-                //           else { tempTime.push(tempArray2[2 * m + 1] - tempArray[2 * l]) }
-                //         }
-                //         //console.log(i, j, k, l,tempTime);
-                //       }
-
-                //     } // end k cycle
-                //     shifts = 0;
-                //     const sum = tempTime.reduce((partialSum, a) => partialSum + a, 0);
-                //     for (n = 0; n < tempTime.length; n++) { if (tempTime[n] >= 10) { shifts = shifts + 1 } }
-
-                //     pairingsArray.push(sum);
-                //     pairingsArray.push(shifts);
-                //   }
-                // }
-                // console.log(pairingsArray, TOIArray);
+            
                 tempArray6 = [];
                 tempArray4 = shiftsArray.splice(shiftsArray.length / 3);
                 tempArray5 = tempArray4.splice(tempArray4.length / 2);
@@ -653,18 +585,46 @@ function getInputValue() {
                 var thirdPair = document.createElement('p');
                 thirdPair.innerHTML = homeRosterArray[DManIndex5a - 2] + ' ' + homeRosterArray[DManIndex6a - 2] + ' ' + pairingsArray[numberThreePair + 1] + ' shifts ' + maxTime3 + ' seconds ' + pairingsArray2[numberThreePair + 1] + ' shifts ' + maxTime3b + ' seconds ' + pairingsArray3[numberThreePair + 1] + ' shifts ' + maxTime3c + ' seconds ';
                 document.getElementById('gameInfo').appendChild(thirdPair);
-                tempArray6 = [];
-                for (j = 0; j < homeRosterFArray.length - 1; j++) {tempArray6.push(linesArray[2 * j])}
-                forwardTime = Math.max(...tempArray6);
-                tempIndex = tempArray6.indexOf(forwardTime);
-                tempArray4 = tempArray6;
-                console.log(tempArray6, forwardTime, tempIndex);
-                tempArray5 = tempArray4.splice(tempIndex, 1);
+                // lineOne = [homeStartingLineup[3], homeStartingLineup[4], homeStartingLineup[5]];
+               
+                gammaFunction = [0, 1, 3, 6, 10, 15, 21, 28, 36, 45, 55, 66]
+                // jstart = 0;
+                // if (lineOne.includes(0) && lineOne.includes(1) && lineOne.includes(2)) { jstart = 1 }
+                for (i = 0; i < 1; i++) { // period cycle starts set to 1 currectly
+                  processedPlayers = [];
                 
-                forwardTime = Math.max(...tempArray6);
-                tempIndex2 = tempArray6.indexOf(forwardTime);
-                console.log(tempArray6, tempIndex2 + 1, tempIndex + 1);
-
+                for (j = 0; j < homeRosterFArray.length - 1; j++) { 
+                  tempArray6 = [];
+                  tempArray4 = [];
+                  for (k = j * homeRosterFArray.length - gammaFunction[j]; k < (j + 1) * homeRosterFArray.length - gammaFunction[j+1]; k++)
+                  { 
+                  tempArray6.push(linesArray[2 * k]); 
+                  tempArray4.push(linesArray[2 * k]);
+                  
+                  }  // end k cycle
+                  // tempArray4 = tempArray6;
+                  if (!processedPlayers.includes(j)){
+                  console.log(j, tempArray6);
+                  forwardTime = Math.max(...tempArray6);
+                  tempIndex = tempArray6.indexOf(forwardTime);
+                  tempArray5 = tempArray4.splice(tempIndex,1);
+                  forwardTime2 = Math.max(...tempArray4);
+                  tempIndex2 = tempArray6.indexOf(forwardTime2);
+                  if (forwardTime == forwardTime2) {
+                    tempIndex2 = tempArray6.indexOf(forwardTime2, tempIndex + 1);
+                  console.log('equal time', tempIndex, tempIndex2)
+                  }
+                  
+                  // console.log(tempArray6, tempArray4, tempArray5, forwardTime, tempIndex + 1, forwardTime2, tempIndex2 + 1);
+                  console.log(tempArray6[tempIndex2]);
+                  if (tempArray6[tempIndex2] > 130) {
+                  lineOne = [j, tempIndex + 1 + j, tempIndex2 + 1 + j]; 
+                  processedPlayers.push(j, tempIndex + 1 + j, tempIndex2 + 1 + j);
+                  console.log(lineOne, processedPlayers, tempArray6[tempIndex], tempArray6[tempIndex2])}
+                  else (console.log ('forward ', j, ' did not play enough shifts' ))
+                  } // end processedPlayers if cycle
+                } // end j cycle
+                } // end i cycle for each period, set to period 1 now
               } // end function getDPairs Joel Henley was dressed as F on 11/19 against NYI he missed entire 3rd period
             });
         }
