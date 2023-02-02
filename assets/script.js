@@ -617,7 +617,7 @@ function getInputValue() {
                   
                   // console.log(tempArray6, tempArray4, tempArray5, forwardTime, tempIndex + 1, forwardTime2, tempIndex2 + 1);
                   console.log(tempArray6[tempIndex2]);
-                  if (tempArray6[tempIndex2] > 130) {
+                  if (tempArray6[tempIndex2] > 150) {
                   lineOne = [j, tempIndex + 1 + j, tempIndex2 + 1 + j]; 
                   processedPlayers.push(j, tempIndex + 1 + j, tempIndex2 + 1 + j);
                   console.log(lineOne, processedPlayers, tempArray6[tempIndex], tempArray6[tempIndex2])}
