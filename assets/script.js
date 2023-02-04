@@ -592,6 +592,7 @@ function getInputValue() {
                 // if (lineOne.includes(0) && lineOne.includes(1) && lineOne.includes(2)) { jstart = 1 }
                 for (i = 0; i < 1; i++) { // period cycle starts set to 1 currectly
                   processedPlayers = [];
+                  lineCombinations = [];
                 
                 for (j = 0; j < homeRosterFArray.length - 1; j++) { 
                   tempArray6 = [];
@@ -617,19 +618,26 @@ function getInputValue() {
                   
                   // console.log(tempArray6, tempArray4, tempArray5, forwardTime, tempIndex + 1, forwardTime2, tempIndex2 + 1);
                   console.log(tempArray6[tempIndex2]);
-                  if (tempArray6[tempIndex2] > 150) {
+                  if (tempArray6[tempIndex2] > 147) {
                     lineOne = [j, tempIndex + 1 + j, tempIndex2 + 1 + j]; 
                     processedPlayers.push(j, tempIndex + 1 + j, tempIndex2 + 1 + j);
-                    console.log(lineOne, processedPlayers, tempArray6[tempIndex], tempArray6[tempIndex2])}
+                    lineCombinations.push(lineOne);
+                    console.log(lineOne, processedPlayers, lineCombinations)}
                     else (console.log ('forward ', j, ' did not play enough shifts' ))
-                    if (processedPlayers.length = 9) { topThree = [];
-                    for (i = 0; i < processedPlayers.length; i++) { topThree.push(i) }
-                    for (i = 0; i < processedPlayers.length; i++) { topThree.splice(lineOne[i], 1) }
-                    console.log(topThree)
-                    }
+                    
                   } // end processedPlayers if cycle 150
+                  
+                    }
                 } // end j cycle
-                } // end i cycle for each period, set to period 1 now
+                
+                 topThree = [];
+                  for (k = 0; k < homeRosterFArray.length; k++) { topThree.push(k) }
+                  processedPlayers.sort(function(a, b){return b - a});
+                  console.log(processedPlayers);
+                  for (k = 0; k < processedPlayers.length; k++) { topThree.splice(processedPlayers[k], 1);
+                    console.log(topThree) }
+                  
+                 // end i cycle for each period, set to period 1 now
               } // end function getDPairs Joel Henley was dressed as F on 11/19 against NYI he missed entire 3rd period
             });
         }
