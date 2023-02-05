@@ -96,7 +96,7 @@ function getInputValue() {
               return response.json();
             })
             .then(function (data) {
-              // console.log(data.gameData.players)
+               console.log(data, data.gameData.players)
 
               var obj = data.gameData.players;
               var keys = Object.keys(obj);
@@ -386,7 +386,7 @@ function getInputValue() {
                 tempArray6[2] = tempArray5;
                 tempArray6[0] = shiftsArray;
 
-                for (i = 0; i < tempArray6.length; i++) {
+                for (i = 0; i < tempArray6.length; i++) { 
                   for (j = 0; j < tempArray6[i].length; j++) 
                   { tempArray5 = tempArray6[i];
                     player1 = tempArray5[j]
@@ -407,7 +407,7 @@ function getInputValue() {
                           }
                           // console.log(i, shiftsArray[i].length, j, shiftsArray[j].length, k, l, tempTime)
                         }
-                      } // end k cycle
+                      } // end l cycle
                       shifts = 0;
                       const sum = tempTime.reduce((partialSum, a) => partialSum + a, 0);
                       for (n = 0; n < tempTime.length; n++) {
