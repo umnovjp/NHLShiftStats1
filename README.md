@@ -10,15 +10,12 @@ User will select one game at a time. That will run a function which determines f
 If you want to view next game analysis repload the page.
 
 ## Special Teams
-There is no attempt to differentiate lines or pairs on special teams. It will be done rather later than sooner. The reason is that script is longer than 800 lines. 
+There is no attempt to differentiate lines or pairs on special teams. It will be done rather later than sooner. The reason is that script is longer than 800 lines. And frequently on the PP, teams play with 4 forwards.n Still combinations are calculated for lines of 3 forwards
 
 ## Player did not finish game
 In some games, players get injured. Or some players get game misconduct penalty. They cannot finish game. That results in defensive pair of lines of forwards change as game goes by. If a skater did not have a shift during last 10 minutes of the game, a message will appear that he did not finish the game, without specific reason. 
 
-## Print Goals Button
-Deleted for now
-
-## Kind of known bug
+## Kind of known bug (fixed by now)
 Script gets interrupted during analysis of Flyers game where Lukas Sedlak #23 played in 2022-23 season. It is unusual contract situation when player started his season in NHL, then got his contract terminated to continue in Europe. Another example is Riley Sheahan with Sabres in 2022-23 who continued to play in Europe. Sometimes players waived later in the season have the same feature. I decided to leave it as it is. If necessary I will be able to write a patch. Leaving as it is for now...<img width="793" alt="image" src="https://user-images.githubusercontent.com/88174852/212519442-fdec1a64-227c-4b8a-8b10-53fe3e5412da.png">
 
 ## Teams playing with 7 Dmen and 11 Forwards

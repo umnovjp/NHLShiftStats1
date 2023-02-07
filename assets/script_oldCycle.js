@@ -97,43 +97,37 @@ function getInputValue() {
             })
             .then(function (data) {
                console.log(data.liveData.boxscore.teams.away.skaters, data.liveData.boxscore.teams.home.skaters, data.gameData.players);
-               skatersHome = data.liveData.boxscore.teams.home.skaters;
-               skatersAway = data.liveData.boxscore.teams.away.skaters;
-               goaliesHome = data.liveData.boxscore.teams.home.goalies;
-               goaliesAway = data.liveData.boxscore.teams.away.goalies;
 
               var obj = data.gameData.players;
               var keys = Object.keys(obj);
 
               for (var i = 0; i < keys.length; i++) {
                 var val = obj[keys[i]];
-                console.log(val.id, val.currentTeam.id, data.gameData.teams.away.id);
+                //   console.log(val, val.currentTeam.id, data.gameData.teams.away.id);
                 // console.log(val.currentTeam, data.gameData.teams.away.id, val.fullName)
-                if (skatersAway.includes(val.id) || goaliesAway.includes(val.id))// if (val.currentTeam.id == data.gameData.teams.away.id) 
-                {
+                if (val.currentTeam.id == data.gameData.teams.away.id) {
                   //  document.getElementById('awayTeamId').appendChild(playerName);
                   awayRosterArray.push(val.primaryNumber);
                   awayRosterArray.push(val.fullName);
                   awayRosterArray.push(val.primaryPosition.abbreviation);
                   awayRosterArray.push(keys[i]);
-                  // hId = keys[i].split('ID');
+                  hId = keys[i].split('ID');
                   //  hIdNumber = Number(hId[1]);
-                  awayRosterIdArray.push(val.id);
+                  awayRosterIdArray.push(hId[1]);
                 }
-                else if (skatersHome.includes(val.id) || goaliesHome.includes(val.id))// else if (val.currentTeam.id == data.gameData.teams.home.id) 
-                {
+                else if (val.currentTeam.id == data.gameData.teams.home.id) {
                   homeRosterArray.push(val.primaryNumber);
                   homeRosterArray.push(val.fullName);
                   homeRosterArray.push(val.primaryPosition.abbreviation);
                   homeRosterArray.push(keys[i]);
-                  // hId = keys[i].split('ID');
+                  hId = keys[i].split('ID');
                   //   hIdNumber = Number(hId[1]);
-                  homeRosterIdArray.push(val.id);
+                  homeRosterIdArray.push(hId[1]);
                 }
-                else { console.log(val.id, 'player probably changed team') }
+                else { console.log('player probably retired') }
               }
-              console.log(homeRosterArray, skatersHome, goaliesHome);
-              console.log(awayRosterArray, skatersAway, goaliesAway);
+              console.log(homeRosterArray);
+              console.log(awayRosterArray);
               //console.log(homeRosterIdArray, awayRosterIdArray);
             });
           // console.log(gameId);
@@ -277,29 +271,29 @@ function getInputValue() {
               else if (data.data[data.data.length - 1].period == 2) { playerChart2.push(data.data[data.data.length - 1].startTime); }
               else if (data.data[data.data.length - 1].period == 1) { playerChart1.push(data.data[data.data.length - 1].startTime); }
               console.log(startingLineup);
-               console.log(totalChart, idChart);
+              // console.log(totalChart, idChart);
               console.log(homeRosterIdArray, awayRosterIdArray)
               // next loop determines starting lineup for both teams currently lines 287-297
               homeStartingLineup = [];
               homeStartingDLineup = [];
               homeStartingFLineup = [];
-              // for (i = 0; i < 12; i++) {lines 286-302 disabled on 02/05/2023 i do not need starting lineup for now
-              //   tempVariable = startingLineup[i];
-              //   // tempString = tempVariable.toString();
-              //   if (homeRosterIdArray.includes(tempVariable)) {
-              //     // console.log(homeRosterIdArray.indexOf(tempString), 'home', homeRosterArray[4 * homeRosterIdArray.indexOf(tempString) + 1], homeRosterArray[4 * homeRosterIdArray.indexOf(tempString) + 2])
-              //     if (homeRosterArray[4 * homeRosterIdArray.indexOf(tempString) + 2] == 'D') { homeStartingDLineup.push(tempVariable) }
-              //     else if (homeRosterArray[4 * homeRosterIdArray.indexOf(tempString) + 2] == 'G') { homeStartingLineup.push(tempVariable) }
-              //     else { homeStartingFLineup.push(tempVariable) }
-              //   }
+              for (i = 0; i < 12; i++) {
+                tempVariable = startingLineup[i];
+                tempString = tempVariable.toString();
+                if (homeRosterIdArray.includes(tempString)) {
+                  // console.log(homeRosterIdArray.indexOf(tempString), 'home', homeRosterArray[4 * homeRosterIdArray.indexOf(tempString) + 1], homeRosterArray[4 * homeRosterIdArray.indexOf(tempString) + 2])
+                  if (homeRosterArray[4 * homeRosterIdArray.indexOf(tempString) + 2] == 'D') { homeStartingDLineup.push(tempVariable) }
+                  else if (homeRosterArray[4 * homeRosterIdArray.indexOf(tempString) + 2] == 'G') { homeStartingLineup.push(tempVariable) }
+                  else { homeStartingFLineup.push(tempVariable) }
+                }
 
-              //   else if (awayRosterIdArray.includes(tempVariable)) {
-              //     //console.log(awayRosterIdArray.indexOf(tempString), 'away', awayRosterArray[4 * awayRosterIdArray.indexOf(tempString) + 1], awayRosterArray[4 * awayRosterIdArray.indexOf(tempString) + 2])
-              //   }
-              //   else { console.log(tempVariable, 'fatal') }
-              // } // end for cycle starting Lineup
-              // homeStartingLineup.push(homeStartingDLineup, homeStartingFLineup);
-              // // homeStartingLineup.push(homeStartingFLineup);
+                else if (awayRosterIdArray.includes(tempString)) {
+                  //console.log(awayRosterIdArray.indexOf(tempString), 'away', awayRosterArray[4 * awayRosterIdArray.indexOf(tempString) + 1], awayRosterArray[4 * awayRosterIdArray.indexOf(tempString) + 2])
+                }
+                else { console.log(tempString, 'fatal') }
+              } // end for cycle starting Lineup
+              homeStartingLineup.push(homeStartingDLineup, homeStartingFLineup);
+              // homeStartingLineup.push(homeStartingFLineup);
               // console.log(homeStartingLineup);
 
               homeRosterGArray = [];
@@ -335,7 +329,7 @@ function getInputValue() {
               console.log(awayRosterDArray, awayRosterGArray, awayRosterFArray);
               for (i = 0; i < 3; i++) { tempVar1 = homeRosterFArray.indexOf(homeStartingFLineup[i]);
               homeStartingLineup.push(tempVar1)}
-              // console.log(homeStartingLineup)
+              console.log(homeStartingLineup)
               //     }
               getDPairs();
               function getDPairs() {
