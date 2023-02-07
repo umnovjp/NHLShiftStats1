@@ -17,8 +17,12 @@ h3 {
 }
 p {
 color: rgb(7, 26, 241);
-font-size: 18px;;
+font-size: 16px;
 }
+p1 {
+  color: rgb(241, 26, 37);
+  font-size: 16px;
+  }
 
 #input2 {display: inline-block;
 }

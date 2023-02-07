@@ -581,7 +581,6 @@ function getInputValue() {
 
                 console.log(topThree, thirdPairTime, DMan5, topTwo, homeRosterDArray.length);
 
-                console.log(DManIndex1a, DManIndex2a, homeRosterArray[DManIndex1a - 2], homeRosterArray[DManIndex2a - 2]);
                 var firstPair = document.createElement('p');
                 firstPair.innerHTML = homeRosterArray[DManIndex1a - 2] + ' ' + homeRosterArray[DManIndex2a - 2] + ' ' + pairingsArray[numberOnePair + 1] + ' shifts ' + maxTime1 + ' seconds ' + pairingsArray2[numberOnePair + 1] + ' shifts ' + maxTime1b + ' seconds ' + pairingsArray3[numberOnePair + 1] + ' shifts ' + maxTime1c + ' seconds ';
                 document.getElementById('gameInfo').appendChild(firstPair);
@@ -591,7 +590,6 @@ function getInputValue() {
                 var thirdPair = document.createElement('p');
                 thirdPair.innerHTML = homeRosterArray[DManIndex5a - 2] + ' ' + homeRosterArray[DManIndex6a - 2] + ' ' + pairingsArray[numberThreePair + 1] + ' shifts ' + maxTime3 + ' seconds ' + pairingsArray2[numberThreePair + 1] + ' shifts ' + maxTime3b + ' seconds ' + pairingsArray3[numberThreePair + 1] + ' shifts ' + maxTime3c + ' seconds ';
                 document.getElementById('gameInfo').appendChild(thirdPair);
-                // lineOne = [homeStartingLineup[3], homeStartingLineup[4], homeStartingLineup[5]];
                
                 gammaFunction = [0, 1, 3, 6, 10, 15, 21, 28, 36, 45, 55, 66]
                 // jstart = 0;
@@ -629,9 +627,8 @@ function getInputValue() {
                     processedPlayers.push(j, tempIndex + 1 + j, tempIndex2 + 1 + j);
                     lineCombinations.push(lineOne);
                     console.log(lineOne, processedPlayers, lineCombinations)}
-                    else (console.log ('forward ', j, ' did not play enough shifts' ))
-                    
-                  } // end processedPlayers if cycle 150
+                    else (console.log ('forward ', j, ' did not play enough shifts' ))                    
+                  } // end processedPlayers if cycle 150 or 147
                   
                     }
                 } // end j cycle
@@ -642,6 +639,31 @@ function getInputValue() {
                   console.log(processedPlayers);
                   for (k = 0; k < processedPlayers.length; k++) { topThree.splice(processedPlayers[k], 1);
                     console.log(topThree) }
+                    var firstLine = document.createElement('p1');
+                    // console.log(homeRosterFArray + lineCombinations[0] + lineCombinations[0][0] + lineCombinations[0][1] + lineCombinations[0][2])
+                    FManIndex1 = 'ID' + homeRosterFArray[lineCombinations[0][0]];
+                    FManIndex2 = 'ID' + homeRosterFArray[lineCombinations[0][1]];
+                    FManIndex3 = 'ID' + homeRosterFArray[lineCombinations[0][2]];
+                    FManIndex1a = homeRosterArray.indexOf(FManIndex1);
+                    FManIndex2a = homeRosterArray.indexOf(FManIndex2);
+                    FManIndex3a = homeRosterArray.indexOf(FManIndex3);
+                    console.log(FManIndex1, FManIndex2, FManIndex3, FManIndex1a, FManIndex2a, FManIndex3a);
+                 firstLine.innerHTML = homeRosterArray[FManIndex1a - 2] + ' ' + homeRosterArray[FManIndex2a - 2] + ' ' + homeRosterArray[FManIndex3a - 2] + ' ';
+                 document.getElementById('gameInfo').appendChild(firstLine);
+                 if (lineCombinations.length > 1){
+                  var secondLine = document.createElement('p1');
+                  // console.log(homeRosterFArray + lineCombinations[0] + lineCombinations[0][0] + lineCombinations[0][1] + lineCombinations[0][2])
+                  FManIndex4 = 'ID' + homeRosterFArray[lineCombinations[1][0]];
+                  FManIndex5 = 'ID' + homeRosterFArray[lineCombinations[1][1]];
+                  FManIndex6 = 'ID' + homeRosterFArray[lineCombinations[1][2]];
+                  FManIndex4a = homeRosterArray.indexOf(FManIndex4);
+                  FManIndex5a = homeRosterArray.indexOf(FManIndex5);
+                  FManIndex6a = homeRosterArray.indexOf(FManIndex6);
+                  console.log(FManIndex4, FManIndex5, FManIndex6, FManIndex4a, FManIndex5a, FManIndex6a);
+               secondLine.innerHTML = homeRosterArray[FManIndex4a - 2] + ' ' + homeRosterArray[FManIndex5a - 2] + ' ' + homeRosterArray[FManIndex6a - 2] + ' ';
+               document.getElementById('gameInfo').appendChild(secondLine);
+
+                 }
                   
                  // end i cycle for each period, set to period 1 now
               } // end function getDPairs Joel Henley was dressed as F on 11/19 against NYI he missed entire 3rd period
