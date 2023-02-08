@@ -257,6 +257,7 @@ function getInputValue() {
                     // totalChart.push(playerChart2);
                     // totalChart.push(playerChart3);
                     idChart.push(playerId);
+                    console.log(playerId, idChart.length);
                     playerChart1 = [];
                     playerChart2 = [];
                     playerChart3 = [];
@@ -307,14 +308,15 @@ function getInputValue() {
               awayRosterGArray = [];
               awayRosterFArray = [];
               for (i = 0; i < idChart.length; i++) {
+                
                 tempValue = 'ID' + idChart[i];
                 if (homeRosterArray.includes(tempValue)) {
                   tempVariable = homeRosterArray.indexOf(tempValue);
                   if (homeRosterArray[tempVariable - 1] == 'D') { homeRosterDArray.push(idChart[i]) }
                   else if (homeRosterArray[tempVariable - 1] == 'G') { homeRosterGArray.push(idChart[i]) }
-                  else if (homeRosterArray[tempVariable - 1] == 'C') { homeRosterFArray.push(idChart[i]) }
-                  else if (homeRosterArray[tempVariable - 1] == 'RW') { homeRosterFArray.push(idChart[i]); }
-                  else if (homeRosterArray[tempVariable - 1] == 'LW') { homeRosterFArray.push(idChart[i]); }
+                  else if (homeRosterArray[tempVariable - 1] == 'C') { homeRosterFArray.push(idChart[i]); console.log(i, homeRosterArray[tempVariable - 2]) }
+                  else if (homeRosterArray[tempVariable - 1] == 'RW') { homeRosterFArray.push(idChart[i]); console.log(i, homeRosterArray[tempVariable - 2])}
+                  else if (homeRosterArray[tempVariable - 1] == 'LW') { homeRosterFArray.push(idChart[i]); console.log(i, homeRosterArray[tempVariable - 2])}
                   else (console.log('he does not have a position', tempValue))
                 }
               } // end for home idChart loop
