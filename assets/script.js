@@ -205,6 +205,9 @@ function getInputValue() {
                       playerChart3.push(shiftEnd2)
                     }
                     else { console.log('shift not added') }
+                    // if (data.data[i+1].period == 5 && i < data.data.length - 2) { console.log(data.data[i+1].lastName, i, data.data.length)
+                    //   totalChart.push(playerChart1, playerChart2, playerChart3);
+                    //   idChart.push(playerId);}
                   }
 
                   else {
@@ -266,7 +269,7 @@ function getInputValue() {
                   if (i == data.data.length - 2) {// console.log('i = ', i);
                     totalChart.push(playerChart1, playerChart2, playerChart3);
                     // totalChart.push(playerChart2);
-                    // totalChart.push(playerChart3);
+                    console.log(i, playerId, idChart.length);
                     idChart.push(playerId);
                   }
                 }
