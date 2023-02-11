@@ -346,29 +346,25 @@ function getInputValue() {
               function getDPairs() {
                 shiftsArray = [];
                 shiftsFArray = [];
+                awayShiftsArray = [];
+                awayShiftsFArray = [];
                 TOIArray = [];
                 TOIFArray = [];
                 pairingsArray = [];
                 linesArray = [];
-                for (i = 0; i < homeRosterDArray.length; i++) {
-                  shiftsArray.push(totalChart[3 * idChart.indexOf(homeRosterDArray[i])]);
-                }
-                for (i = 0; i < homeRosterDArray.length; i++) {
-                  shiftsArray.push(totalChart[3 * idChart.indexOf(homeRosterDArray[i]) + 1]);
-                }
-                for (i = 0; i < homeRosterDArray.length; i++) {
-                  shiftsArray.push(totalChart[3 * idChart.indexOf(homeRosterDArray[i]) + 2]);
-                } // end first three for defense loops
-                for (i = 0; i < homeRosterFArray.length; i++) {
-                  shiftsFArray.push(totalChart[3 * idChart.indexOf(homeRosterFArray[i])]);
-                }
-                for (i = 0; i < homeRosterFArray.length; i++) {
-                  shiftsFArray.push(totalChart[3 * idChart.indexOf(homeRosterFArray[i]) + 1]);
-                }
-                for (i = 0; i < homeRosterFArray.length; i++) {
-                  shiftsFArray.push(totalChart[3 * idChart.indexOf(homeRosterFArray[i]) + 2]);
-                } // end first three for forward loops
-                console.log(shiftsArray, shiftsFArray);
+                for (i = 0; i < homeRosterDArray.length; i++) { shiftsArray.push(totalChart[3 * idChart.indexOf(homeRosterDArray[i])]);
+                  awayShiftsArray.push(totalChart[3 * idChart.indexOf(awayRosterDArray[i])]) }
+                for (i = 0; i < homeRosterDArray.length; i++) { shiftsArray.push(totalChart[3 * idChart.indexOf(homeRosterDArray[i]) + 1]);
+                  awayShiftsArray.push(totalChart[3 * idChart.indexOf(awayRosterDArray[i]) + 1]) }
+                for (i = 0; i < homeRosterDArray.length; i++) { shiftsArray.push(totalChart[3 * idChart.indexOf(homeRosterDArray[i]) + 2]);
+                  awayShiftsArray.push(totalChart[3 * idChart.indexOf(awayRosterDArray[i]) + 2]) } // end first three for defense loops
+                for (i = 0; i < homeRosterFArray.length; i++) { shiftsFArray.push(totalChart[3 * idChart.indexOf(homeRosterFArray[i])]);
+                  awayShiftsFArray.push(totalChart[3 * idChart.indexOf(awayRosterFArray[i])]) }
+                for (i = 0; i < homeRosterFArray.length; i++) { shiftsFArray.push(totalChart[3 * idChart.indexOf(homeRosterFArray[i]) + 1]);
+                  awayShiftsFArray.push(totalChart[3 * idChart.indexOf(awayRosterFArray[i]) + 1]) }
+                for (i = 0; i < homeRosterFArray.length; i++) { shiftsFArray.push(totalChart[3 * idChart.indexOf(homeRosterFArray[i]) + 2]); 
+                  awayShiftsFArray.push(totalChart[3 * idChart.indexOf(awayRosterFArray[i]) + 2])} // end first three for forward loops
+                console.log(shiftsArray, shiftsFArray, awayShiftsArray, awayShiftsFArray);
                 for (i = 0; i < shiftsArray.length; i++) {
                   totalShiftLength = 0;
                   tempArray = shiftsArray[i];
@@ -416,20 +412,18 @@ function getInputValue() {
                             if (tempArray2[2 * m + 1] >= tempArray[2 * l + 1]) { tempTime.push(tempArray[2 * l + 1] - tempArray[2 * l]) }
                             else { tempTime.push(tempArray2[2 * m + 1] - tempArray[2 * l]) }
                           }
-                          // console.log(i, shiftsArray[i].length, j, shiftsArray[j].length, k, l, tempTime)
                         }
                       } // end l cycle
                       shifts = 0;
                       const sum = tempTime.reduce((partialSum, a) => partialSum + a, 0);
                       for (n = 0; n < tempTime.length; n++) {
                         if (tempTime[n] >= 10) { shifts = shifts + 1 }
-                        // 
                       }
                       pairingsArray.push(sum);
                       pairingsArray.push(shifts);
                     }
-                  }  // end j loop
-                } // end i loop
+                  }  // end j loop each D player
+                } // end i loop for 3 periods
                 console.log(pairingsArray);
                 // tempArray6 = [];
                 tempArray4 = shiftsFArray.splice(shiftsFArray.length / 3);
@@ -483,7 +477,7 @@ function getInputValue() {
                     } // end k F loop
                   } // end j F loop
                 } // end i F loop
-                // console.log(pairingsArray, TOIArray, linesArray);
+                 console.log(pairingsArray, TOIArray, linesArray);
                 pairingsArray2 = pairingsArray.splice(pairingsArray.length / 3);
                 pairingsArray3 = pairingsArray2.splice(pairingsArray2.length / 2)
                 
