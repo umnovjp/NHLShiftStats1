@@ -7,7 +7,6 @@ const homeRosterIdArray = [];
 const awayRosterIdArray = [];
 const homeRosterDArray = [];
 const awayRosterDArray = [];
-pairingsArray4 = [];
 
 // two lines below will allow user to search by year
 function getInputValue() {
@@ -318,9 +317,9 @@ function getInputValue() {
                   tempVariable = homeRosterArray.indexOf(tempValue);
                   if (homeRosterArray[tempVariable - 1] == 'D') { homeRosterDArray.push(idChart[i]) }
                   else if (homeRosterArray[tempVariable - 1] == 'G') { homeRosterGArray.push(idChart[i]) }
-                  else if (homeRosterArray[tempVariable - 1] == 'C') { homeRosterFArray.push(idChart[i]) }
-                  else if (homeRosterArray[tempVariable - 1] == 'RW') { homeRosterFArray.push(idChart[i]) }
-                  else if (homeRosterArray[tempVariable - 1] == 'LW') { homeRosterFArray.push(idChart[i]) }
+                  else if (homeRosterArray[tempVariable - 1] == 'C') { homeRosterFArray.push(idChart[i]); console.log(i, homeRosterArray[tempVariable - 2]) }
+                  else if (homeRosterArray[tempVariable - 1] == 'RW') { homeRosterFArray.push(idChart[i]); console.log(i, homeRosterArray[tempVariable - 2])}
+                  else if (homeRosterArray[tempVariable - 1] == 'LW') { homeRosterFArray.push(idChart[i]); console.log(i, homeRosterArray[tempVariable - 2])}
                   else (console.log('he does not have a position', tempValue))
                 }
               } // end for home idChart loop
@@ -351,7 +350,7 @@ function getInputValue() {
                 awayShiftsFArray = [];
                 TOIArray = [];
                 TOIFArray = [];
-                pairingsArray = [];
+                pairingsArray = [[], [], []];
                 linesArray = [];
                 for (i = 0; i < homeRosterDArray.length; i++) { shiftsArray.push(totalChart[3 * idChart.indexOf(homeRosterDArray[i])]);
                   awayShiftsArray.push(totalChart[3 * idChart.indexOf(awayRosterDArray[i])]) }
@@ -393,6 +392,7 @@ function getInputValue() {
                 tempArray6[1] = tempArray4;
                 tempArray6[2] = tempArray5;
                 tempArray6[0] = shiftsArray;
+                console.log(tempArray6);
 
                 for (i = 0; i < tempArray6.length; i++) { 
                   for (j = 0; j < tempArray6[i].length; j++) 
@@ -420,13 +420,14 @@ function getInputValue() {
                       for (n = 0; n < tempTime.length; n++) {
                         if (tempTime[n] >= 10) { shifts = shifts + 1 }
                       }
-                      pairingsArray.push(sum);
-                      pairingsArray.push(shifts);
+                      pairingsArray[i].push(sum);
+                      pairingsArray[i].push(shifts);
+                      console.log(sum, shifts, i, j)
                     }
                   }  // end j loop each D player
                 } // end i loop for 3 periods
-                console.log(pairingsArray);
-                // tempArray6 = [];
+                console.log(pairingsArray)
+
                 tempArray4 = shiftsFArray.splice(shiftsFArray.length / 3);
                 tempArray5 = tempArray4.splice(tempArray4.length / 2);
                 tempArray6[1] = tempArray4;
@@ -478,57 +479,38 @@ function getInputValue() {
                     } // end k F loop
                   } // end j F loop
                 } // end i F loop
-                // console.log(pairingsArray, TOIArray, linesArray);
-                pairingsArray2 = pairingsArray.splice(pairingsArray.length / 3);
-                pairingsArray3 = pairingsArray2.splice(pairingsArray2.length / 2)
-                
+                 console.log(pairingsArray, TOIArray, linesArray);
+                // pairingsArray2 = pairingsArray.splice(pairingsArray.length / 3);
+                // pairingsArray3 = pairingsArray2.splice(pairingsArray2.length / 2)                
                 linesArray2 = linesArray.splice(linesArray.length / 3);
-                linesArray3 = linesArray2.splice(linesArray2.length / 2);
-                
-                pairingsArray4[0] = pairingsArray;
-                pairingsArray4[1] = pairingsArray2;
-                pairingsArray4[2] = pairingsArray3;
-                linesArray4 = [];
-                linesArray4[0] = linesArray;
-                linesArray4[1] = linesArray2;
-                linesArray4[2] = linesArray3;
-                console.log(linesArray4, pairingsArray4, TOIArray);
-
+                linesArray3 = linesArray2.splice(linesArray2.length / 2)
+                // console.log(linesArray, linesArray2, linesArray3, pairingsArray[0], pairingsArray[1], pairingsArray[2]);
                 const pairingsArrayMax = [];
-                if (homeRosterDArray.length == 7) { arrayDs = [0, [0, 1], 2, [0, 2], 4, [0, 3], 6, [0, 4], 8, [0, 5], 10, [0, 6], 12, [1, 2], 14, [1, 3], 16, [1, 4], 18, [1, 5], 20, [1, 6], 22, [2, 3], 24, [2, 4], 26, [2, 5], 28, [2, 6], 30, [3, 4], 32, [3, 5], 34, [3, 6], 36, [4, 5], 38, [4, 6], 40, [5, 6]] }
-                else if (homeRosterDArray.length == 6) { arrayDs = [0, [0, 1], 2, [0, 2], 4, [0, 3], 6, [0, 4], 8, [0, 5], 10, [1, 2], 12, [1, 3], 14, [1, 4], 16, [1, 5], 18, [2, 3], 20, [2, 4], 22, [2, 5], 24, [3, 4], 26, [3, 5], 28, [4, 5]] }
-                else if (homeRosterDArray.length == 5) { arrayDs = [0, [0, 1], 2, [0, 2], 4, [0, 3], 6, [0, 4], 8, [1, 2], 10, [1, 3], 12, [1, 4], 14, [2, 3], 16, [2, 4], 18, [3, 4]] }
-                else if (homeRosterDArray.length == 4) { arrayDs = [0, [0, 1], 2, [0, 2], 4, [0, 3], 6, [1, 2], 8, [1, 3], 10, [2, 3]] }
-                for (i = 0; i < 3; i++) { 
-                  tempArray6 = pairingsArray4[i];
-                  pairingsArrayMax[i] = [...tempArray6].sort((a,b) => b-a);
-                console.log(pairingsArrayMax[i], pairingsArrayMax[i][0], pairingsArrayMax[i][1], pairingsArrayMax[i][2], tempArray6.indexOf(pairingsArrayMax[i][0]), tempArray6.indexOf(pairingsArrayMax[i][1]), tempArray6.indexOf(pairingsArrayMax[i][2]), pairingsArray4[i])
-                  for (j = 0; j < 7; j++) {if (tempArray6.indexOf(pairingsArrayMax[i][j]) == tempArray6.lastIndexOf(pairingsArrayMax[i][j])) 
-                  {const tempVar1 = arrayDs[tempArray6.indexOf(pairingsArrayMax[i][j])]
-                  console.log(tempVar1, pairingsArrayMax[i][j], arrayDs[tempArray6.indexOf(pairingsArrayMax[i][j]) + 1])}
-                } // end j cycle
-              } // end i cycle by periods for DMen pairs 
-
-                const maxTime1 = Math.max(...pairingsArray);
-                const numberOnePair = pairingsArray.indexOf(maxTime1);
-                const tempArray3 = pairingsArray;
+                for (i = 0; i < 3; i++) {pairingsArrayMax[i] = pairingsArray[i].sort((a,b) => b-a).splice(0,6)}
+                console.log(pairingsArrayMax[0], pairingsArrayMax[1], pairingsArrayMax[2], pairingsArray[0], pairingsArrayMax[0][0], pairingsArray[0].indexOf(pairingsArrayMax[0][0]));
+                const maxTime1 = Math.max(...pairingsArray[0]);
+                const numberOnePair = pairingsArray[0].indexOf(maxTime1);
+                const tempArray3 = pairingsArray[0];
                 tempArray3[numberOnePair] = 0;
                 const maxTime2 = Math.max(...tempArray3);
                 const numberTwoPair = tempArray3.indexOf(maxTime2);
                 //   const tempArray = pairingsArray;
                 tempArray3[numberTwoPair] = 0;
-                
+                if (homeRosterDArray.length == 7) { arrayDs = [0, [0, 1], 2, [0, 2], 4, [0, 3], 6, [0, 4], 8, [0, 5], 10, [0, 6], 12, [1, 2], 14, [1, 3], 16, [1, 4], 18, [1, 5], 20, [1, 6], 22, [2, 3], 24, [2, 4], 26, [2, 5], 28, [2, 6], 30, [3, 4], 32, [3, 5], 34, [3, 6], 36, [4, 5], 38, [4, 6], 40, [5, 6]] }
+                else if (homeRosterDArray.length == 6) { arrayDs = [0, [0, 1], 2, [0, 2], 4, [0, 3], 6, [0, 4], 8, [0, 5], 10, [1, 2], 12, [1, 3], 14, [1, 4], 16, [1, 5], 18, [2, 3], 20, [2, 4], 22, [2, 5], 24, [3, 4], 26, [3, 5], 28, [4, 5]] }
+                else if (homeRosterDArray.length == 5) { arrayDs = [0, [0, 1], 2, [0, 2], 4, [0, 3], 6, [0, 4], 8, [1, 2], 10, [1, 3], 12, [1, 4], 14, [2, 3], 16, [2, 4], 18, [3, 4]] }
+                else if (homeRosterDArray.length == 4) { arrayDs = [0, [0, 1], 2, [0, 2], 4, [0, 3], 6, [1, 2], 8, [1, 3], 10, [2, 3]] }
 
-                console.log(numberOnePair, numberTwoPair, arrayDs[numberOnePair + 1], arrayDs[numberTwoPair + 1]);
+                console.log(numberOnePair, numberTwoPair, arrayDs[numberOnePair + 1], arrayDs[numberTwoPair + 1], maxTime1, maxTime2);
                 // if (arrayDs[numberTwoPair + 1][0] === arrayDs[numberOnePair + 1][0] && arrayDs[numberTwoPair + 1][0] === arrayDs[numberOnePair + 1][1] && arrayDs[numberTwoPair + 1][1] === arrayDs[numberOnePair + 1][0] && arrayDs[numberTwoPair + 1][1] === arrayDs[numberOnePair + 1][1])
                 // console.log('something is wrong!', arrayDs[numberTwoPair + 1][0], arrayDs[numberTwoPair + 1][1], arrayDs[numberOnePair + 1][0], arrayDs[numberOnePair + 1][1])
-                const maxTime1b = pairingsArray2[numberOnePair];
-                const maxTime2b = pairingsArray2[numberTwoPair];
-                const maxTime1c = pairingsArray3[numberOnePair];
-                const maxTime2c = pairingsArray3[numberTwoPair];
+                const maxTime1b = pairingsArray[1][numberOnePair];
+                const maxTime2b = pairingsArray[1][numberTwoPair];
+                const maxTime1c = pairingsArray[2][numberOnePair];
+                const maxTime2c = pairingsArray[2][numberTwoPair];
 
                 const topTwo = arrayDs[numberOnePair + 1];
-                // console.log(arrayDs, numberOnePair);
+                console.log(topTwo, numberOnePair);
                 topThree = topTwo.push(arrayDs[numberTwoPair + 1][0]);
                 topFour = topTwo.push(arrayDs[numberTwoPair + 1][1]);
                 console.log(topTwo);
@@ -587,12 +569,12 @@ function getInputValue() {
 
                   if (arrayDs[2 * i + 1][0] == DMan5 && arrayDs[2 * i + 1][1] == DMan6) {
                     numberThreePair = 2 * i;
-                    console.log(i, topThree[0], topThree[1], pairingsArray[2 * i], pairingsArray2[2 * i], pairingsArray3[2 * i])
+                    console.log(i, topThree[0], topThree[1], pairingsArray[0][2 * i], pairingsArray[1][2 * i], pairingsArray[2][2 * i])
                   }
                 }
-                const maxTime3b = pairingsArray2[numberThreePair];
-                const maxTime3c = pairingsArray3[numberThreePair];
-                const maxTime3 = pairingsArray[numberThreePair];
+                const maxTime3b = pairingsArray[1][numberThreePair];
+                const maxTime3c = pairingsArray[2][numberThreePair];
+                const maxTime3 = pairingsArray[0][numberThreePair];
 
                 //tempArray7 = [];
                 // DMan5 = topThree[tempVar1];
@@ -603,13 +585,13 @@ function getInputValue() {
                 console.log(topThree, thirdPairTime, DMan5, topTwo, homeRosterDArray.length);
 
                 var firstPair = document.createElement('p');
-                firstPair.innerHTML = homeRosterArray[DManIndex1a - 2] + ' ' + homeRosterArray[DManIndex2a - 2] + ' ' + pairingsArray[numberOnePair + 1] + ' shifts ' + maxTime1 + ' seconds ' + pairingsArray2[numberOnePair + 1] + ' shifts ' + maxTime1b + ' seconds ' + pairingsArray3[numberOnePair + 1] + ' shifts ' + maxTime1c + ' seconds ';
+                firstPair.innerHTML = homeRosterArray[DManIndex1a - 2] + ' ' + homeRosterArray[DManIndex2a - 2] + ' ' + pairingsArray[0][numberOnePair + 1] + ' shifts ' + maxTime1 + ' seconds ' + pairingsArray[1][numberOnePair + 1] + ' shifts ' + maxTime1b + ' seconds ' + pairingsArray[2][numberOnePair + 1] + ' shifts ' + maxTime1c + ' seconds ';
                 document.getElementById('gameInfo').appendChild(firstPair);
                 var secondPair = document.createElement('p');
-                secondPair.innerHTML = homeRosterArray[DManIndex3a - 2] + ' ' + homeRosterArray[DManIndex4a - 2] + ' ' + pairingsArray[numberTwoPair + 1] + ' shifts ' + maxTime2 + ' seconds ' + pairingsArray2[numberTwoPair + 1] + ' shifts ' + maxTime2b + ' seconds ' + pairingsArray3[numberTwoPair + 1] + ' shifts ' + maxTime2c + ' seconds ';
+                secondPair.innerHTML = homeRosterArray[DManIndex3a - 2] + ' ' + homeRosterArray[DManIndex4a - 2] + ' ' + pairingsArray[0][numberTwoPair + 1] + ' shifts ' + maxTime2 + ' seconds ' + pairingsArray[1][numberTwoPair + 1] + ' shifts ' + maxTime2b + ' seconds ' + pairingsArray[2][numberTwoPair + 1] + ' shifts ' + maxTime2c + ' seconds ';
                 document.getElementById('gameInfo').appendChild(secondPair);
                 var thirdPair = document.createElement('p');
-                thirdPair.innerHTML = homeRosterArray[DManIndex5a - 2] + ' ' + homeRosterArray[DManIndex6a - 2] + ' ' + pairingsArray[numberThreePair + 1] + ' shifts ' + maxTime3 + ' seconds ' + pairingsArray2[numberThreePair + 1] + ' shifts ' + maxTime3b + ' seconds ' + pairingsArray3[numberThreePair + 1] + ' shifts ' + maxTime3c + ' seconds ';
+                thirdPair.innerHTML = homeRosterArray[DManIndex5a - 2] + ' ' + homeRosterArray[DManIndex6a - 2] + ' ' + pairingsArray[0][numberThreePair + 1] + ' shifts ' + maxTime3 + ' seconds ' + pairingsArray[1][numberThreePair + 1] + ' shifts ' + maxTime3b + ' seconds ' + pairingsArray[2][numberThreePair + 1] + ' shifts ' + maxTime3c + ' seconds ';
                 document.getElementById('gameInfo').appendChild(thirdPair);
                
                 gammaFunction = [0, 1, 3, 6, 10, 15, 21, 28, 36, 45, 55, 66]
