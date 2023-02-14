@@ -492,7 +492,8 @@ function getInputValue() {
                 linesArray4[0] = linesArray;
                 linesArray4[1] = linesArray2;
                 linesArray4[2] = linesArray3;
-                console.log(linesArray4, pairingsArray4, TOIArray);
+                newArray3 = [-1];
+                console.log(linesArray4, pairingsArray4, TOIArray, newArray3);
 
                 const pairingsArrayMax = [];
                 if (homeRosterDArray.length == 7) { arrayDs = [0, [0, 1], 2, [0, 2], 4, [0, 3], 6, [0, 4], 8, [0, 5], 10, [0, 6], 12, [1, 2], 14, [1, 3], 16, [1, 4], 18, [1, 5], 20, [1, 6], 22, [2, 3], 24, [2, 4], 26, [2, 5], 28, [2, 6], 30, [3, 4], 32, [3, 5], 34, [3, 6], 36, [4, 5], 38, [4, 6], 40, [5, 6]] }
@@ -505,7 +506,17 @@ function getInputValue() {
                 console.log(pairingsArrayMax[i], pairingsArrayMax[i][0], pairingsArrayMax[i][1], pairingsArrayMax[i][2], tempArray6.indexOf(pairingsArrayMax[i][0]), tempArray6.indexOf(pairingsArrayMax[i][1]), tempArray6.indexOf(pairingsArrayMax[i][2]), pairingsArray4[i])
                   for (j = 0; j < 7; j++) {if (tempArray6.indexOf(pairingsArrayMax[i][j]) == tempArray6.lastIndexOf(pairingsArrayMax[i][j])) 
                   {const tempVar1 = arrayDs[tempArray6.indexOf(pairingsArrayMax[i][j])]
-                  console.log(tempVar1, pairingsArrayMax[i][j], arrayDs[tempArray6.indexOf(pairingsArrayMax[i][j]) + 1])}
+                  console.log(j, tempVar1, pairingsArrayMax[i][j], arrayDs[tempArray6.indexOf(pairingsArrayMax[i][j]) + 1])}
+                  else {for (k = newArray3[newArray3.length - 1]; k < tempArray6.length; k++) { 
+                    if (tempArray6[k] == pairingsArrayMax[i][j]) { console.log(pairingsArrayMax[i][j], tempArray6[k], newArray3[newArray3.length - 1]); 
+                      tempArray6a = tempArray6;
+                      newArray3.push(tempArray6.indexOf(pairingsArrayMax[i][j]))
+                      // tempArray6a = [...tempArray6].splice(k, 1)
+                      console.log(j, newArray3, tempArray6)
+                    }
+                    
+                  }
+                  }
                 } // end j cycle
               } // end i cycle by periods for DMen pairs 
 
