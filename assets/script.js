@@ -501,18 +501,18 @@ function getInputValue() {
                 else if (homeRosterDArray.length == 5) { arrayDs = [0, [0, 1], 2, [0, 2], 4, [0, 3], 6, [0, 4], 8, [1, 2], 10, [1, 3], 12, [1, 4], 14, [2, 3], 16, [2, 4], 18, [3, 4]] }
                 else if (homeRosterDArray.length == 4) { arrayDs = [0, [0, 1], 2, [0, 2], 4, [0, 3], 6, [1, 2], 8, [1, 3], 10, [2, 3]] }
                 for (i = 0; i < 3; i++) { 
-                  tempArray6 = pairingsArray4[i];
+                  tempArray6 = pairingsArray4[i]; 
                   pairingsArrayMax[i] = [...tempArray6].sort((a,b) => b-a);
                 console.log(pairingsArrayMax[i], pairingsArrayMax[i][0], pairingsArrayMax[i][1], pairingsArrayMax[i][2], tempArray6.indexOf(pairingsArrayMax[i][0]), tempArray6.indexOf(pairingsArrayMax[i][1]), tempArray6.indexOf(pairingsArrayMax[i][2]), pairingsArray4[i])
                   for (j = 0; j < 7; j++) {if (tempArray6.indexOf(pairingsArrayMax[i][j]) == tempArray6.lastIndexOf(pairingsArrayMax[i][j])) 
                   {const tempVar1 = arrayDs[tempArray6.indexOf(pairingsArrayMax[i][j])]
                   console.log(j, tempVar1, pairingsArrayMax[i][j], arrayDs[tempArray6.indexOf(pairingsArrayMax[i][j]) + 1])}
-                  else {for (k = newArray3[newArray3.length - 1]; k < tempArray6.length; k++) { 
+                  else {for (k = kStart + 1; k < tempArray6.length; k++) { 
                     if (tempArray6[k] == pairingsArrayMax[i][j]) { console.log(pairingsArrayMax[i][j], tempArray6[k], newArray3[newArray3.length - 1]); 
                       tempArray6a = tempArray6;
                       newArray3.push(tempArray6.indexOf(pairingsArrayMax[i][j]))
                       // tempArray6a = [...tempArray6].splice(k, 1)
-                      console.log(j, newArray3, tempArray6)
+                      console.log(j, newArray3, tempArray6) 
                     }
                     
                   }
