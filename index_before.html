@@ -1,0 +1,51 @@
+
+<!DOCTYPE html>
+
+<html lang="en-US">
+<head class = 'header'>
+
+    <meta charset="UTF-8">
+    <title>NHL Shift Charts</title>
+    <link rel="stylesheet" href="./assets/style.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+  
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+  <script>
+  $( function() {
+    $( "#datepicker" ).datepicker();
+  } );
+  </script>
+
+  </head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+  <body>
+    
+    <header style="height: 250px;">
+      <h1 style="text-align:center" id = 'top5D'>Game Stats Inspired by Olga </h1>
+      <h2 style="text-align:center; margin-left:160px"> Future analysis of NHL forward lines and defensive pairs</h2>
+      <div>
+        <button class = 'yearEntry' style = "background-image: url('./assets/Stars-Logo.png');" onclick ="window.location.href = 'https://www.nhl.com';"></button>
+      </div><br>
+    </header>
+    
+    <p> </p>
+    <div class="sidenav">
+      <h2>this tab is not functioning it is for future use</h2>
+      <a href="#drama">Link1 future use</a>
+    </div>
+    <section>
+  
+    <!--this input is for future use. it will allow user to enter year, which is now set to 2021-->
+    <div style = "background-image: url('./assets/background.jpg');" class="main">
+
+      <p>Date: <input type="text" id="datepicker" onchange = 'getInputValue();'></p>
+      <div id = 'schedule'></div>  
+
+    </div>
+  </section>
+
+    <script src = "./assets/script.js"></script>
+  </body>
+
+</html>

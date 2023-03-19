@@ -17,16 +17,12 @@ h3 {
 }
 p {
 color: rgb(7, 26, 241);
-font-size: 18px;
+font-size: 16px;
 }
-p2 {
-  color: rgb(241, 46, 7);
-  font-size: 11x;
+p1 {
+  color: rgb(241, 26, 37);
+  font-size: 16px;
   }
-  p3 {
-    color: rgb(7, 19, 241);
-    font-size: 11x;
-    }
 
 #input2 {display: inline-block;
 }
@@ -38,7 +34,7 @@ background-blend-mode: red;
 } /* not used*/
 
 .sidenav {
-  height: 230px;
+  height: 100%;
   width: 160px;
   position: fixed;
   z-index: 1;
@@ -74,7 +70,6 @@ height: 128px;
 color: lightblue;
 vertical-align: top;
 margin-right: 20px;
-rotate: -20.2deg;
 }
 
 .yearEntry:hover  {box-shadow: 5px 5px 3px rgb(234, 0, 255);}
