@@ -814,7 +814,7 @@ function getInputValue() {
                 }
                 for (i = 0; i < linesArray2.length/3; i++) {linesArray3[i] = 1;}
                 console.log(linesArray5, linesArray2, linesArray3);
-                console.log(linesArray4[0][360], linesArray4[0][750], linesArray5[1] + 1, linesArray5[7] + 1)
+                // console.log(linesArray4[0][360], linesArray4[0][750], linesArray5[1] + 1, linesArray5[7] + 1)
                 for (i = 0; i < linesArray2.length/3; i++) { 
                   for (j = 1; j < 3; j++) {
                   for (k = 0; k < linesArray5[j].length/5; k++) {if ((linesArray2[3 * i] == linesArray5[j][5 * k + 2] ) && (linesArray2[3 * i + 1] == linesArray5[j][5 * k + 3]) && (linesArray2[3 * i + 2] == linesArray5[j][5 * k + 4])) // && linesArray2[5 * i + 1] == linesArray5[j][3 * k + 3] && linesArray2[3 * i + 2] === linesArray5[j][5 * k + 4]
