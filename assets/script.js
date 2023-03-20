@@ -806,7 +806,7 @@ function getInputValue() {
                
                 for (i = 0; i < 6; i++) { // i is for 3 periods x 2 teams
                   for (j = 0; j < linesArray4[i].length / 5; j++) {
-                      if (linesArray4[i][5 * j] > 120 && linesArray4[i][5 * j + 1] > 3) { linesArray5[i].push(linesArray4[i][5 * j], linesArray4[i][5 * j + 1], linesArray4[i][5 * j + 2], linesArray4[i][5 * j + 3], linesArray4[i][5 * j + 4]) 
+                      if (linesArray4[i][5 * j] > 120 && linesArray4[i][5 * j + 1] > 3) { linesArray5[i].push(linesArray4[i][5 * j], 5 * j, linesArray4[i][5 * j + 1], linesArray4[i][5 * j + 2], linesArray4[i][5 * j + 3], linesArray4[i][5 * j + 4]) 
                       if (i == 0) {linesArray2.push(linesArray4[i][5 * j + 2], linesArray4[i][5 * j + 3], linesArray4[i][5 * j + 4])}
                       else if (i == 3) {linesArray6.push(linesArray4[i][5 * j + 2], linesArray4[i][5 * j + 3], linesArray4[i][5 * j + 4])}
                     }
@@ -814,28 +814,30 @@ function getInputValue() {
                 }
                 for (i = 0; i < linesArray2.length/3; i++) {linesArray3[i] = 1;}
                 console.log(linesArray5, linesArray2, linesArray3);
+                console.log(linesArray4[0][360], linesArray4[0][750], linesArray5[1] + 1, linesArray5[7] + 1)
                 for (i = 0; i < linesArray2.length/3; i++) { 
                   for (j = 1; j < 3; j++) {
                   for (k = 0; k < linesArray5[j].length/5; k++) {if ((linesArray2[3 * i] == linesArray5[j][5 * k + 2] ) && (linesArray2[3 * i + 1] == linesArray5[j][5 * k + 3]) && (linesArray2[3 * i + 2] == linesArray5[j][5 * k + 4])) // && linesArray2[5 * i + 1] == linesArray5[j][3 * k + 3] && linesArray2[3 * i + 2] === linesArray5[j][5 * k + 4]
                     { linesArray3[i] = linesArray3[i] + 1; }
-
                     firstLine.innerHTML = homeRosterArray[homeRosterFIDArray[1 + 2 *linesArray2[0]] - 4] + ' ' + homeRosterArray[homeRosterFIDArray[1 + 2 * linesArray2[0]] - 1] + ' ' + homeRosterArray[homeRosterFIDArray[1 + 2 * linesArray2[0]] - 3] + '<br>' +
                     homeRosterArray[homeRosterFIDArray[1 + 2 *linesArray2[1]] - 4] + ' ' + homeRosterArray[homeRosterFIDArray[1 + 2 * linesArray2[1]] - 1] + ' ' + homeRosterArray[homeRosterFIDArray[1 + 2 * linesArray2[1]] - 3] + '<br>' +
                     homeRosterArray[homeRosterFIDArray[1 + 2 *linesArray2[2]] - 4] + ' ' + homeRosterArray[homeRosterFIDArray[1 + 2 * linesArray2[2]] - 1] + ' ' + homeRosterArray[homeRosterFIDArray[1 + 2 * linesArray2[2]] - 3];
                     secondLine.innerHTML = homeRosterArray[homeRosterFIDArray[1 + 2 *linesArray2[3]] - 4] + ' ' + homeRosterArray[homeRosterFIDArray[1 + 2 * linesArray2[3]] - 1] + ' ' + homeRosterArray[homeRosterFIDArray[1 + 2 * linesArray2[3]] - 3] + '<br>' + 
                     homeRosterArray[homeRosterFIDArray[1 + 2 *linesArray2[4]] - 4] + ' ' + homeRosterArray[homeRosterFIDArray[1 + 2 * linesArray2[4]] - 1] + ' ' + homeRosterArray[homeRosterFIDArray[1 + 2 * linesArray2[4]] - 3] + '<br>' +
                     homeRosterArray[homeRosterFIDArray[1 + 2 *linesArray2[5]] - 4] + ' ' + homeRosterArray[homeRosterFIDArray[1 + 2 * linesArray2[5]] - 1] + ' ' + homeRosterArray[homeRosterFIDArray[1 + 2 * linesArray2[5]] - 3];
-                    firstLineTime.innerHTML = linesArray5[0][1] + 'sh' + linesArray5[0][0] + 's' + '<br>' + linesArray5[1][1] + 'sh' + linesArray5[1][0] + 's' + '<br>' + linesArray5[2][1] + 'sh' + linesArray5[2][0] + 's';
-                    secondLineTime.innerHTML = linesArray5[0][6] + 'sh' + linesArray5[0][5] + 's' + '<br>' + linesArray5[1][6] + 'sh' + linesArray5[1][5] + 's' + '<br>' + linesArray5[2][6] + 'sh' + linesArray5[2][5] + 's';                    
-                    
+                    firstLineTime.innerHTML = linesArray4[0][linesArray5[0][1] + 1] + 'sh' + linesArray4[0][linesArray5[0][1]] + 's' + '<br>' + linesArray4[1][linesArray5[0][1] + 1] + 'sh' + linesArray4[1][linesArray5[0][1]] + 's' + '<br>' + linesArray4[2][linesArray5[0][1] + 1] + 'sh' + linesArray4[2][linesArray5[0][1]] + 's';
+                    secondLineTime.innerHTML = linesArray4[0][linesArray5[0][7] + 1] + 'sh' + linesArray4[0][linesArray5[0][7]] + 's' + '<br>' + linesArray4[1][linesArray5[0][7] + 1] + 'sh' + linesArray4[1][linesArray5[0][7]] + 's' + '<br>' + linesArray4[2][linesArray5[0][7] + 1] + 'sh' + linesArray4[2][linesArray5[0][7]] + 's';                    
+                                        
                     firstLineAway.innerHTML = awayRosterArray[awayRosterFIDArray[1 + 2 *linesArray6[0]] - 4] + ' ' + awayRosterArray[awayRosterFIDArray[1 + 2 * linesArray6[0]] - 1] + ' ' + awayRosterArray[awayRosterFIDArray[1 + 2 * linesArray6[0]] - 3] + '<br>' +
                     awayRosterArray[awayRosterFIDArray[1 + 2 *linesArray6[1]] - 4] + ' ' + awayRosterArray[awayRosterFIDArray[1 + 2 * linesArray6[1]] - 1] + ' ' + awayRosterArray[awayRosterFIDArray[1 + 2 * linesArray6[1]] - 3] + '<br>' +
                     awayRosterArray[awayRosterFIDArray[1 + 2 *linesArray6[2]] - 4] + ' ' + awayRosterArray[homeRosterFIDArray[1 + 2 * linesArray6[2]] - 1] + ' ' + awayRosterArray[awayRosterFIDArray[1 + 2 * linesArray6[2]] - 3];
                     secondLineAway.innerHTML = awayRosterArray[awayRosterFIDArray[1 + 2 *linesArray6[3]] - 4] + ' ' + awayRosterArray[awayRosterFIDArray[1 + 2 * linesArray6[3]] - 1] + ' ' + awayRosterArray[awayRosterFIDArray[1 + 2 * linesArray6[3]] - 3] + '<br>' +
                     awayRosterArray[awayRosterFIDArray[1 + 2 *linesArray6[4]] - 4] + ' ' + awayRosterArray[awayRosterFIDArray[1 + 2 * linesArray6[4]] - 1] + ' ' + awayRosterArray[awayRosterFIDArray[1 + 2 * linesArray6[4]] - 3] + '<br>' +
                     awayRosterArray[awayRosterFIDArray[1 + 2 *linesArray6[5]] - 4] + ' ' + awayRosterArray[awayRosterFIDArray[1 + 2 * linesArray6[5]] - 1] + ' ' + awayRosterArray[awayRosterFIDArray[1 + 2 * linesArray6[5]] - 3];
-                    firstLineTimeAway.innerHTML = linesArray5[3][1] + 'sh' + linesArray5[3][0] + 's' + '<br>' + linesArray5[4][1] + 'sh' + linesArray5[4][0] + 's' + '<br>' + linesArray5[5][1] + 'sh' + linesArray5[5][0] + 's';
-                    secondLineTimeAway.innerHTML = linesArray5[3][6] + 'sh' + linesArray5[3][5] + 's' + '<br>' + linesArray5[4][6] + 'sh' + linesArray5[4][5] + 's' + '<br>' + linesArray5[5][6] + 'sh' + linesArray5[5][5] + 's';
+                    firstLineTimeAway.innerHTML = linesArray4[3][linesArray5[3][1] + 1] + 'sh' + linesArray4[3][linesArray5[3][1]] + 's' + '<br>' + linesArray4[4][linesArray5[3][1] + 1] + 'sh' + linesArray4[4][linesArray5[3][1]] + 's' + '<br>' + linesArray4[5][linesArray5[3][1] + 1] + 'sh' + linesArray4[5][linesArray5[3][1]] + 's';
+                    //linesArray5[3][2] + 'sh' + linesArray5[3][0] + 's' + '<br>' + linesArray5[4][2] + 'sh' + linesArray5[4][0] + 's' + '<br>' + linesArray5[5][1] + 'sh' + linesArray5[5][0] + 's';
+                    secondLineTimeAway.innerHTML = linesArray4[3][linesArray5[3][7] + 1] + 'sh' + linesArray4[3][linesArray5[3][7]] + 's' + '<br>' + linesArray4[4][linesArray5[3][7] + 1] + 'sh' + linesArray4[4][linesArray5[3][7]] + 's' + '<br>' + linesArray4[5][linesArray5[3][7] + 1] + 'sh' + linesArray4[5][linesArray5[3][7]] + 's';
+                    //linesArray5[3][8] + 'sh' + linesArray5[3][6] + 's' + '<br>' + linesArray5[4][8] + 'sh' + linesArray5[4][5] + 's' + '<br>' + linesArray5[5][6] + 'sh' + linesArray5[5][5] + 's';
                  // console.log(linesArray3[i], i, j, k, linesArray2[3 * i], linesArray2[3 * i + 1], linesArray2[3 * i + 2], typeof(linesArray2[3 * i + 2]), linesArray5[j][5 * k + 2], linesArray5[j][5 * k + 3], linesArray5[j][5 * k + 4], typeof( linesArray5[j][5 * k + 2])) 
                   }                  
                 }
