@@ -818,7 +818,7 @@ function getInputValue() {
                 for (i = 0; i < linesArray2.length/3; i++) { 
                   for (j = 1; j < 3; j++) {
                   for (k = 0; k < linesArray5[j].length/5; k++) {if ((linesArray2[3 * i] == linesArray5[j][5 * k + 2] ) && (linesArray2[3 * i + 1] == linesArray5[j][5 * k + 3]) && (linesArray2[3 * i + 2] == linesArray5[j][5 * k + 4])) // && linesArray2[5 * i + 1] == linesArray5[j][3 * k + 3] && linesArray2[3 * i + 2] === linesArray5[j][5 * k + 4]
-                    { linesArray3[i] = linesArray3[i] + 1; }
+                    { linesArray3[i] = linesArray3[i] + 1 }
                     firstLine.innerHTML = homeRosterArray[homeRosterFIDArray[1 + 2 *linesArray2[0]] - 4] + ' ' + homeRosterArray[homeRosterFIDArray[1 + 2 * linesArray2[0]] - 1] + ' ' + homeRosterArray[homeRosterFIDArray[1 + 2 * linesArray2[0]] - 3] + '<br>' +
                     homeRosterArray[homeRosterFIDArray[1 + 2 *linesArray2[1]] - 4] + ' ' + homeRosterArray[homeRosterFIDArray[1 + 2 * linesArray2[1]] - 1] + ' ' + homeRosterArray[homeRosterFIDArray[1 + 2 * linesArray2[1]] - 3] + '<br>' +
                     homeRosterArray[homeRosterFIDArray[1 + 2 *linesArray2[2]] - 4] + ' ' + homeRosterArray[homeRosterFIDArray[1 + 2 * linesArray2[2]] - 1] + ' ' + homeRosterArray[homeRosterFIDArray[1 + 2 * linesArray2[2]] - 3];
