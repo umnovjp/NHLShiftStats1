@@ -774,7 +774,7 @@ function getInputValue() {
                   seventhD2A.innerHTML = secondD7A.innerHTML; seventhD3A.innerHTML = thirdD7A.innerHTML;
                   seventhD4A.innerHTML = forthD7A.innerHTML; seventhD5A.innerHTML = fifthD7A.innerHTML;
                   seventhD6A.innerHTML = sixthD7A.innerHTML;
-                } // end if seven D men
+                } // end if seven D men 
 
                 else if (awayRosterDArray.length == 6) {
                   secondD3A.innerHTML = pairingsArray4[3][11] + ' sh ' + pairingsArray4[3][10] + ' sec ' + '<br>' + pairingsArray4[4][11] + ' sh ' + pairingsArray4[4][10] + ' sec ' + '<br>' + pairingsArray4[5][11] + ' sh ' + pairingsArray4[5][10] + ' sec ';
@@ -793,7 +793,7 @@ function getInputValue() {
                   fifthD6A.innerHTML = pairingsArray4[3][29] + ' sh ' + pairingsArray4[3][28] + ' sec ' + '<br>' + pairingsArray4[4][29] + ' sh ' + pairingsArray4[4][28] + ' sec ' + '<br>' + pairingsArray4[5][29] + ' sh ' + pairingsArray4[5][28] + ' sec ';
                   sixthD2A.innerHTML = secondD6A.innerHTML; sixthD3A.innerHTML = thirdD6A.innerHTML;
                   sixthD4A.innerHTML = forthD6A.innerHTML; sixthD5A.innerHTML = fifthD6A.innerHTML
-                } // end if sixth D men
+                } // end if sixth D men 
 
                 document.getElementById('secondD3A').appendChild(secondD3A); document.getElementById('secondD4A').appendChild(secondD4A);
                 document.getElementById('secondD5A').appendChild(secondD5A); document.getElementById('secondD6A').appendChild(secondD6A);
@@ -812,7 +812,7 @@ function getInputValue() {
                     }
                   }                  
                 }
-                for (i = 0; i < linesArray2.length/3; i++) {linesArray3[i] = 1;}
+                for (i = 0; i < linesArray2.length/3; i++) {linesArray3[i] = 1;} 
                 console.log(linesArray5, linesArray2, linesArray3);
                 // console.log(linesArray4[0][360], linesArray4[0][750], linesArray5[1] + 1, linesArray5[7] + 1)
                 for (i = 0; i < linesArray2.length/3; i++) { 
