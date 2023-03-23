@@ -543,7 +543,7 @@ function getInputValue() {
                     } // end k F loop
                   } // end j F loop
                 } // end i F loop
-                // console.log(pairingsArray, pairingsAwayArray, TOIArray, linesArray);
+                
                 pairingsArray2 = pairingsArray.splice(pairingsArray.length / 3);
                 pairingsArray3 = pairingsArray2.splice(pairingsArray2.length / 2);
                 linesArray2 = linesArray.splice(linesArray.length / 3);
@@ -552,31 +552,24 @@ function getInputValue() {
                 pairingsAwayArray2 = pairingsAwayArray.splice(pairingsAwayArray.length / 3);
                 pairingsAwayArray3 = pairingsAwayArray2.splice(pairingsAwayArray2.length / 2);
                 awayLinesArray2 = awayLinesArray.splice(awayLinesArray.length / 3);
-                awayLinesArray3 = awayLinesArray2.splice(awayLinesArray2.length / 2);
+                awayLinesArray3 = awayLinesArray2.splice(awayLinesArray2.length / 2); 
 
-                pairingsArray4[0] = pairingsArray;
-                pairingsArray4[1] = pairingsArray2;
-                pairingsArray4[2] = pairingsArray3;
+                pairingsArray4[0] = pairingsArray; pairingsArray4[1] = pairingsArray2; pairingsArray4[2] = pairingsArray3;
                 linesArray4 = [];
-                linesArray4[0] = linesArray;
-                linesArray4[1] = linesArray2;
-                linesArray4[2] = linesArray3;
+                linesArray4[0] = linesArray; linesArray4[1] = linesArray2; linesArray4[2] = linesArray3;
                 pairingsArray4[3] = pairingsAwayArray;
                 pairingsArray4[4] = pairingsAwayArray2;
                 pairingsArray4[5] = pairingsAwayArray3;
-                linesArray4[3] = awayLinesArray;
-                linesArray4[4] = awayLinesArray2;
-                linesArray4[5] = awayLinesArray3;
-                console.log(linesArray4, pairingsArray4, tempArray5);
+                linesArray4[3] = awayLinesArray; linesArray4[4] = awayLinesArray2; linesArray4[5] = awayLinesArray3;
+                console.log(linesArray4, pairingsArray4, tempArray5); 
 
-                homeRosterDIDArray = []; homeRosterFIDArray = [];
-                awayRosterDIDArray = []; awayRosterFIDArray = [];
+                homeRosterDIDArray = []; homeRosterFIDArray = []; awayRosterDIDArray = []; awayRosterFIDArray = [];
                 for (i = 0; i < homeRosterDArray.length; i++) {
                   DManIndex = 'ID' + homeRosterDArray[i];
                   homeRosterDIDArray.push(DManIndex);
                   DManIndexZ = homeRosterArray.indexOf(DManIndex);
                   homeRosterDIDArray.push(DManIndexZ);
-                }
+                } 
                 for (i = 0; i < homeRosterFArray.length; i++) {
                   FManIndex = 'ID' + homeRosterFArray[i];
                   homeRosterFIDArray.push(FManIndex);
@@ -812,9 +805,9 @@ function getInputValue() {
                     }
                   }                  
                 }
+                 
                 for (i = 0; i < linesArray2.length/3; i++) {linesArray3[i] = 1;} 
                 console.log(linesArray5, linesArray2, linesArray3);
-                // console.log(linesArray4[0][360], linesArray4[0][750], linesArray5[1] + 1, linesArray5[7] + 1)
                 for (i = 0; i < linesArray2.length/3; i++) { 
                   for (j = 1; j < 3; j++) {
                   for (k = 0; k < linesArray5[j].length/5; k++) {if ((linesArray2[3 * i] == linesArray5[j][5 * k + 2] ) && (linesArray2[3 * i + 1] == linesArray5[j][5 * k + 3]) && (linesArray2[3 * i + 2] == linesArray5[j][5 * k + 4])) // && linesArray2[5 * i + 1] == linesArray5[j][3 * k + 3] && linesArray2[3 * i + 2] === linesArray5[j][5 * k + 4]
@@ -835,10 +828,8 @@ function getInputValue() {
                     awayRosterArray[awayRosterFIDArray[1 + 2 *linesArray6[4]] - 4] + ' ' + awayRosterArray[awayRosterFIDArray[1 + 2 * linesArray6[4]] - 1] + ' ' + awayRosterArray[awayRosterFIDArray[1 + 2 * linesArray6[4]] - 3] + '<br>' +
                     awayRosterArray[awayRosterFIDArray[1 + 2 *linesArray6[5]] - 4] + ' ' + awayRosterArray[awayRosterFIDArray[1 + 2 * linesArray6[5]] - 1] + ' ' + awayRosterArray[awayRosterFIDArray[1 + 2 * linesArray6[5]] - 3];
                     firstLineTimeAway.innerHTML = linesArray4[3][linesArray5[3][1] + 1] + 'sh' + linesArray4[3][linesArray5[3][1]] + 's' + '<br>' + linesArray4[4][linesArray5[3][1] + 1] + 'sh' + linesArray4[4][linesArray5[3][1]] + 's' + '<br>' + linesArray4[5][linesArray5[3][1] + 1] + 'sh' + linesArray4[5][linesArray5[3][1]] + 's';
-                    //linesArray5[3][2] + 'sh' + linesArray5[3][0] + 's' + '<br>' + linesArray5[4][2] + 'sh' + linesArray5[4][0] + 's' + '<br>' + linesArray5[5][1] + 'sh' + linesArray5[5][0] + 's';
                     secondLineTimeAway.innerHTML = linesArray4[3][linesArray5[3][7] + 1] + 'sh' + linesArray4[3][linesArray5[3][7]] + 's' + '<br>' + linesArray4[4][linesArray5[3][7] + 1] + 'sh' + linesArray4[4][linesArray5[3][7]] + 's' + '<br>' + linesArray4[5][linesArray5[3][7] + 1] + 'sh' + linesArray4[5][linesArray5[3][7]] + 's';
-                    //linesArray5[3][8] + 'sh' + linesArray5[3][6] + 's' + '<br>' + linesArray5[4][8] + 'sh' + linesArray5[4][5] + 's' + '<br>' + linesArray5[5][6] + 'sh' + linesArray5[5][5] + 's';
-                 // console.log(linesArray3[i], i, j, k, linesArray2[3 * i], linesArray2[3 * i + 1], linesArray2[3 * i + 2], typeof(linesArray2[3 * i + 2]), linesArray5[j][5 * k + 2], linesArray5[j][5 * k + 3], linesArray5[j][5 * k + 4], typeof( linesArray5[j][5 * k + 2])) 
+                    //linesArray5[3][8] + 'sh' + linesArray5[3][6] + 's' + '<br>' + linesArray5[4][8] + 'sh' + linesArray5[4][5] + 's' + '<br>' + linesArray5[5][6] + 'sh' + linesArray5[5][5] + 's'; 
                   }                  
                 }
               }
