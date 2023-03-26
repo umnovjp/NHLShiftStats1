@@ -771,9 +771,39 @@ function getInputValue() {
                     }
                   }
                 }
+                if (linesArray5[0].length < 18) {linesArray5 = [[],[],[],linesArray5[3],linesArray5[4],linesArray5[5]];
+                  for (i = 0; i < 3; i++) { for (j = 0; j < linesArray4[i].length / 5; j++) {
+                        if (linesArray4[i][5 * j] > 120 && linesArray4[i][5 * j + 1] > 2) { linesArray5[i].push(linesArray4[i][5 * j], 5 * j, linesArray4[i][5 * j + 1], linesArray4[i][5 * j + 2], linesArray4[i][5 * j + 3], linesArray4[i][5 * j + 4]); 
+                          if (i == 0) {linesArray2.push(linesArray4[i][5 * j + 2], linesArray4[i][5 * j + 3], linesArray4[i][5 * j + 4])}}
+                    }
+                  }
+                }
+                if (linesArray5[3].length < 18) {linesArray5 = [linesArray5[0],linesArray5[1],linesArray5[2],[],[],[]];
+                  linesArray6 = [];
+                  for (i = 3; i < 6; i++) { for (j = 0; j < linesArray4[i].length / 5; j++) {
+                        if (linesArray4[i][5 * j] > 120 && linesArray4[i][5 * j + 1] > 2) { linesArray5[i].push(linesArray4[i][5 * j], 5 * j, linesArray4[i][5 * j + 1], linesArray4[i][5 * j + 2], linesArray4[i][5 * j + 3], linesArray4[i][5 * j + 4]); 
+                        if (i == 3) {linesArray6.push(linesArray4[i][5 * j + 2], linesArray4[i][5 * j + 3], linesArray4[i][5 * j + 4])}}
+                    }
+                  }
+                }
+                if (linesArray5[0].length < 18) {for (i = 0; i < linesArray4[0].length / 5; i++)
+              {for (j = 0; j < 24; j++)
+              {if (linesArray4[0][5 * i] > 120 - 5 * j && linesArray4[0][5 * i + 1] > 2){tempArray2 = []
+                tempArray2.push(j);
+                console.log(tempArray2[0])
+              }
+            }
+              }
+              }
+              for (i = 0; i < 3; i++) { for (j = 0; j < linesArray4[i].length / 5; j++) {linesArray5 = [[],[],[],linesArray5[3],linesArray5[4],linesArray5[5]];
+                if (linesArray4[i][5 * j] > 120 - 5 * tempArray2[0] && linesArray4[i][5 * j + 1] > 2) { linesArray5[i].push(linesArray4[i][5 * j], 5 * j, linesArray4[i][5 * j + 1], linesArray4[i][5 * j + 2], linesArray4[i][5 * j + 3], linesArray4[i][5 * j + 4]); 
+                  if (i == 0) {linesArray2.push(linesArray4[i][5 * j + 2], linesArray4[i][5 * j + 3], linesArray4[i][5 * j + 4])}}
+            }
+          }
+        }
                  
                 for (i = 0; i < linesArray2.length/3; i++) {linesArray3[i] = 1;}
-                console.log(linesArray5, linesArray2, linesArray3);
+                console.log(linesArray5, linesArray2, linesArray3, linesArray6);
                 for (i = 0; i < linesArray2.length/3; i++) { 
                   for (j = 1; j < 3; j++) {
                   for (k = 0; k < linesArray5[j].length/5; k++) {if ((linesArray2[3 * i] == linesArray5[j][5 * k + 2] ) && (linesArray2[3 * i + 1] == linesArray5[j][5 * k + 3]) && (linesArray2[3 * i + 2] == linesArray5[j][5 * k + 4])) // && linesArray2[5 * i + 1] == linesArray5[j][3 * k + 3] && linesArray2[3 * i + 2] === linesArray5[j][5 * k + 4]
