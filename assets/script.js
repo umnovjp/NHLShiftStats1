@@ -806,16 +806,15 @@ console.log(linesArray5)
                 if (linesArray5[0].length < 18) { linesArray2 = []; tempArray2 = [];
                   for (i = 0; i < linesArray4[0].length / 5; i++) {
                     for (j = 0; j < 24; j++) {
-                      if (linesArray4[0][5 * i] > 120 - 5 * j && linesArray4[0][5 * i + 1] > 2) {
-                         tempArray2.push(j);                        
+                      if (linesArray4[0][5 * i] > 120 - 5 * j && linesArray4[0][5 * i] < 120 && linesArray4[0][5 * i + 1] > 2) {
+                         tempArray2.push(i, j);                        
                       }
                     }
                   }
-                  console.log(tempArray2[0]);
+                  console.log(tempArray2);
                   linesArray5 = [[], [], [], linesArray5[3], linesArray5[4], linesArray5[5]];
                   for (i = 0; i < 3; i++) {
-                    for (j = 0; j < linesArray4[i].length / 5; j++) {
-                      
+                    for (j = 0; j < linesArray4[i].length / 5; j++) {                       
                       if (linesArray4[i][5 * j] > 120 - 5 * tempArray2[0] && linesArray4[i][5 * j + 1] > 2){
                       linesArray5[i].push(linesArray4[i][5 * j], 5 * j, linesArray4[i][5 * j + 1], linesArray4[i][5 * j + 2], linesArray4[i][5 * j + 3], linesArray4[i][5 * j + 4]);
                       if (i == 0) { linesArray2.push(linesArray4[i][5 * j + 2], linesArray4[i][5 * j + 3], linesArray4[i][5 * j + 4]) }
