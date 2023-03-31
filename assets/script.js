@@ -801,8 +801,8 @@ console.log(linesArray5)
                       }
                     }
                   }
-                }
-                console.log(linesArray5); // 
+                } 
+                console.log(linesArray5);
                 if (linesArray5[0].length < 18) { linesArray2 = []; tempArray2 = [];
                   for (i = 0; i < linesArray4[0].length / 5; i++) {
                     for (j = 0; j < 24; j++) {
@@ -811,7 +811,7 @@ console.log(linesArray5)
                       }
                     }
                   }
-                  console.log(tempArray2); // 
+                  console.log(tempArray2);
                   linesArray5 = [[], [], [], linesArray5[3], linesArray5[4], linesArray5[5]];
                   for (i = 0; i < 3; i++) {
                     for (j = 0; j < linesArray4[i].length / 5; j++) {                       
@@ -822,7 +822,7 @@ console.log(linesArray5)
                     }
                   }
                 }
-                console.log(linesArray5); // 
+                console.log(linesArray5);
                 
                 if (linesArray5[3].length < 18) {
                   linesArray6 = []; tempArray2 = [];
@@ -833,15 +833,14 @@ console.log(linesArray5)
                   }
                   console.log(tempArray2); linesArray5 = [linesArray5[0], linesArray5[1], linesArray5[2], [], [], []];  // 
                   for (i = 3; i < 6; i++) { 
-                    for (j = 0; j < linesArray4[i].length / 5; j++) {
+                    for (j = 0; j < linesArray4[i].length / 5; j++) { 
                       if (linesArray4[i][5 * j] > 120 - 5 * tempArray2[0] && linesArray4[i][5 * j + 1] > 2){
                       linesArray5[i].push(linesArray4[i][5 * j], 5 * j, linesArray4[i][5 * j + 1], linesArray4[i][5 * j + 2], linesArray4[i][5 * j + 3], linesArray4[i][5 * j + 4]);
                       if (i == 3) { linesArray6.push(linesArray4[i][5 * j + 2], linesArray4[i][5 * j + 3], linesArray4[i][5 * j + 4]) }
                       }
                     }
                   }
-                }               
-
+                }
                 console.log(linesArray5, linesArray2, linesArray6); //
      
                 firstLine.innerHTML = homeRosterArray[homeRosterFIDArray[1 + 2 * linesArray2[0]] - 4] + ' ' + homeRosterArray[homeRosterFIDArray[1 + 2 * linesArray2[0]] - 1] + ' ' + homeRosterArray[homeRosterFIDArray[1 + 2 * linesArray2[0]] - 3] + '<br>' +
@@ -869,11 +868,10 @@ console.log(linesArray5)
                 firstLineTimeAway.innerHTML = linesArray4[3][linesArray5[3][1] + 1] + 'sh' + linesArray4[3][linesArray5[3][1]] + 's' + '<br>' + linesArray4[4][linesArray5[3][1] + 1] + 'sh' + linesArray4[4][linesArray5[3][1]] + 's' + '<br>' + linesArray4[5][linesArray5[3][1] + 1] + 'sh' + linesArray4[5][linesArray5[3][1]] + 's';
                 secondLineTimeAway.innerHTML = linesArray4[3][linesArray5[3][7] + 1] + 'sh' + linesArray4[3][linesArray5[3][7]] + 's' + '<br>' + linesArray4[4][linesArray5[3][7] + 1] + 'sh' + linesArray4[4][linesArray5[3][7]] + 's' + '<br>' + linesArray4[5][linesArray5[3][7] + 1] + 'sh' + linesArray4[5][linesArray5[3][7]] + 's';
                 thirdLineTimeAway.innerHTML = linesArray4[3][linesArray5[3][13] + 1] + 'sh' + linesArray4[3][linesArray5[3][13]] + 's' + '<br>' + linesArray4[4][linesArray5[3][13] + 1] + 'sh' + linesArray4[4][linesArray5[3][13]] + 's' + '<br>' + linesArray4[5][linesArray5[3][13] + 1] + 'sh' + linesArray4[5][linesArray5[3][13]] + 's';
-                
               } // end function getDPairs Joel Henley was dressed as F on 11/19 against NYI he missed entire 3rd period
             });
         }
-      } // end displayGameData
+      } // end displayGameData 
     }
     );
 }
