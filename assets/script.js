@@ -516,10 +516,8 @@ function getInputValue() {
                   } // end j F loop
                 } // end i F loop
 
-                pairingsArray2 = pairingsArray.splice(pairingsArray.length / 3);
-                pairingsArray3 = pairingsArray2.splice(pairingsArray2.length / 2);
-                linesArray2 = linesArray.splice(linesArray.length / 3);
-                linesArray3 = linesArray2.splice(linesArray2.length / 2);
+                pairingsArray2 = pairingsArray.splice(pairingsArray.length / 3); pairingsArray3 = pairingsArray2.splice(pairingsArray2.length / 2);
+                linesArray2 = linesArray.splice(linesArray.length / 3); linesArray3 = linesArray2.splice(linesArray2.length / 2);
 
                 pairingsAwayArray2 = pairingsAwayArray.splice(pairingsAwayArray.length / 3);
                 pairingsAwayArray3 = pairingsAwayArray2.splice(pairingsAwayArray2.length / 2);
@@ -529,9 +527,7 @@ function getInputValue() {
                 pairingsArray4[0] = pairingsArray; pairingsArray4[1] = pairingsArray2; pairingsArray4[2] = pairingsArray3;
                 linesArray4 = [];
                 linesArray4[0] = linesArray; linesArray4[1] = linesArray2; linesArray4[2] = linesArray3;
-                pairingsArray4[3] = pairingsAwayArray;
-                pairingsArray4[4] = pairingsAwayArray2;
-                pairingsArray4[5] = pairingsAwayArray3;
+                pairingsArray4[3] = pairingsAwayArray; pairingsArray4[4] = pairingsAwayArray2; pairingsArray4[5] = pairingsAwayArray3;
                 linesArray4[3] = awayLinesArray; linesArray4[4] = awayLinesArray2; linesArray4[5] = awayLinesArray3;
                 console.log(linesArray4, pairingsArray4, tempArray5);
 
