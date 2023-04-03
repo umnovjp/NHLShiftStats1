@@ -775,7 +775,7 @@ function getInputValue() {
                   }
                 }
 console.log(linesArray5)
-                if (linesArray5[0].length < 18) { linesArray2 = []; console.log('home exception')
+                if (linesArray5[0].length < 18) { linesArray2 = []; 
                   linesArray5 = [[], [], [], linesArray5[3], linesArray5[4], linesArray5[5]];
                   for (i = 0; i < 3; i++) {
                     for (j = 0; j < linesArray4[i].length / 5; j++) {
@@ -786,7 +786,7 @@ console.log(linesArray5)
                     }
                   }
                 }
-                if (linesArray5[3].length < 18) { console.log('road exception');
+                if (linesArray5[3].length < 18) { 
                   linesArray5 = [linesArray5[0], linesArray5[1], linesArray5[2], [], [], []];
                   linesArray6 = [];
                   for (i = 3; i < 6; i++) {
@@ -799,15 +799,16 @@ console.log(linesArray5)
                   }
                 } 
                 console.log(linesArray5);
-                if (linesArray5[0].length < 18) { linesArray2 = []; tempArray2 = []; 
+                if (linesArray5[0].length < 18) { linesArray2 = []; tempArray2 = []; console.log('home exception');
                   for (i = 0; i < linesArray4[0].length / 5; i++) {
                     for (j = 0; j < 24; j++) {
                       if (linesArray4[0][5 * i] > 120 - 5 * j && linesArray4[0][5 * i] < 120 && linesArray4[0][5 * i + 1] > 2) {
-                         tempArray2.push(i, j);                        
+                        console.log(linesArray4[0][5 * i]) 
+                        tempArray2.push(i, j);                        
                       }
                     }
                   }
-                  console.log(tempArray2);
+                  console.log(tempArray2); 
                   linesArray5 = [[], [], [], linesArray5[3], linesArray5[4], linesArray5[5]];
                   for (i = 0; i < 3; i++) {
                     for (j = 0; j < linesArray4[i].length / 5; j++) {                       
@@ -820,7 +821,7 @@ console.log(linesArray5)
                 }
                 console.log(linesArray5);
                 
-                if (linesArray5[3].length < 18) {
+                if (linesArray5[3].length < 18) { console.log('road exception');
                   linesArray6 = []; tempArray2 = [];
                   for (i = 0; i < linesArray4[3].length / 5; i++) {
                     for (j = 0; j < 24; j++) {
