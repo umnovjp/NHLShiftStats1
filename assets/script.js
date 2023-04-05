@@ -737,7 +737,7 @@ function getInputValue() {
                   seventhD6A.innerHTML = sixthD7A.innerHTML;
                 } // end if seven D men 
 
-                else if (awayRosterDArray.length == 6) {
+                else if (awayRosterDArray.length == 6) { 
                   secondD3A.innerHTML = pairingsArray4[3][11] + ' sh ' + pairingsArray4[3][10] + ' sec ' + '<br>' + pairingsArray4[4][11] + ' sh ' + pairingsArray4[4][10] + ' sec ' + '<br>' + pairingsArray4[5][11] + ' sh ' + pairingsArray4[5][10] + ' sec ';
                   secondD4A.innerHTML = pairingsArray4[3][13] + ' sh ' + pairingsArray4[3][12] + ' sec ' + '<br>' + pairingsArray4[4][13] + ' sh ' + pairingsArray4[4][12] + ' sec ' + '<br>' + pairingsArray4[5][13] + ' sh ' + pairingsArray4[5][12] + ' sec ';
                   secondD5A.innerHTML = pairingsArray4[3][15] + ' sh ' + pairingsArray4[3][14] + ' sec ' + '<br>' + pairingsArray4[4][15] + ' sh ' + pairingsArray4[4][14] + ' sec ' + '<br>' + pairingsArray4[5][15] + ' sh ' + pairingsArray4[5][14] + ' sec ';
@@ -763,7 +763,7 @@ function getInputValue() {
                 document.getElementById('forthD6A').appendChild(forthD6A); document.getElementById('fifthD6A').appendChild(fifthD6A);
 
                 linesArray5 = [[], [], [], [], [], []]; linesArray2 = []; linesArray6 = []; linesArray3 = [];
-                console.log(linesArray4);
+                console.log(linesArray4); 
 
                 for (i = 0; i < 6; i++) { // i is for 3 periods x 2 teams
                   for (j = 0; j < linesArray4[i].length / 5; j++) {
@@ -774,7 +774,7 @@ function getInputValue() {
                     }
                   }
                 }
-console.log(linesArray5)
+                console.log(linesArray5);
                 if (linesArray5[0].length < 18) { linesArray2 = []; 
                   linesArray5 = [[], [], [], linesArray5[3], linesArray5[4], linesArray5[5]];
                   for (i = 0; i < 3; i++) {
@@ -801,10 +801,10 @@ console.log(linesArray5)
                 console.log(linesArray5);
                 if (linesArray5[0].length < 18) { linesArray2 = []; tempArray2 = []; console.log('home exception');
                   for (i = 0; i < linesArray4[0].length / 5; i++) {
-                    for (j = 0; j < 24; j++) {
+                    for (j = 0; j < 24; j++) { 
                       if (linesArray4[0][5 * i] > 120 - 5 * j && linesArray4[0][5 * i] < 120 && linesArray4[0][5 * i + 1] > 2) {
                         console.log(linesArray4[0][5 * i]) 
-                        tempArray2.push(i, j);                        
+                        tempArray2.push(i, j);                      
                       }
                     }
                   }
@@ -818,17 +818,15 @@ console.log(linesArray5)
                       }
                     }
                   }
-                }
-                console.log(linesArray5);
+                } 
                 
-                if (linesArray5[3].length < 18) { console.log('road exception');
-                  linesArray6 = []; tempArray2 = [];
+                if (linesArray5[3].length < 18) { console.log('road exception'); linesArray6 = []; tempArray2 = [];
                   for (i = 0; i < linesArray4[3].length / 5; i++) {
                     for (j = 0; j < 24; j++) {
                       if (linesArray4[3][5 * i] > 120 - 5 * j && linesArray4[3][5 * i + 1] > 2) { tempArray2.push(j) }
                     }
                   }
-                  console.log(tempArray2); linesArray5 = [linesArray5[0], linesArray5[1], linesArray5[2], [], [], []];  // 
+                  console.log(tempArray2); linesArray5 = [linesArray5[0], linesArray5[1], linesArray5[2], [], [], []];
                   for (i = 3; i < 6; i++) { 
                     for (j = 0; j < linesArray4[i].length / 5; j++) { 
                       if (linesArray4[i][5 * j] > 120 - 5 * tempArray2[0] && linesArray4[i][5 * j + 1] > 2){
@@ -838,7 +836,7 @@ console.log(linesArray5)
                     }
                   }
                 }
-                console.log(linesArray5, linesArray2, linesArray6); //
+                console.log(linesArray5, linesArray2, linesArray6);
      
                 firstLine.innerHTML = homeRosterArray[homeRosterFIDArray[1 + 2 * linesArray2[0]] - 4] + ' ' + homeRosterArray[homeRosterFIDArray[1 + 2 * linesArray2[0]] - 1] + ' ' + homeRosterArray[homeRosterFIDArray[1 + 2 * linesArray2[0]] - 3] + '<br>' +
                   homeRosterArray[homeRosterFIDArray[1 + 2 * linesArray2[1]] - 4] + ' ' + homeRosterArray[homeRosterFIDArray[1 + 2 * linesArray2[1]] - 1] + ' ' + homeRosterArray[homeRosterFIDArray[1 + 2 * linesArray2[1]] - 3] + '<br>' +
