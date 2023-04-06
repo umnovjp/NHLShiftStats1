@@ -803,8 +803,8 @@ function getInputValue() {
                   for (i = 0; i < linesArray4[0].length / 5; i++) {
                     for (j = 0; j < 24; j++) { 
                       if (linesArray4[0][5 * i] > 120 - 5 * j && linesArray4[0][5 * i] < 120 && linesArray4[0][5 * i + 1] > 2) {
-                        console.log(linesArray4[0][5 * i]) 
-                        tempArray2.push(i, j);                      
+                        console.log(linesArray4[0][5 * i]);
+                        tempArray2.push(i, j);
                       }
                     }
                   }
