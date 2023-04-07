@@ -60,8 +60,7 @@ function getInputValue() {
             const gameInfoAway = document.createElement('section');
             gameInfoAway.setAttribute('id', 'gameInfoAway');
             document.getElementById('schedule').appendChild(gameInfoAway);
-            var gameTitle = document.createElement('h2');
-            gameTitle.textContent = '';
+            var gameTitle = document.createElement('h2'); gameTitle.textContent = '';
             gameTitle.innerHTML = 'You are watching stats for ' + data.gameData.teams.away.name + ' at ' + data.gameData.teams.home.name + ' game';
             document.getElementById('gameInfo').appendChild(gameTitle);
           });
@@ -79,7 +78,6 @@ function getInputValue() {
               console.log(data.liveData.boxscore.teams.away.skaters, data.liveData.boxscore.teams.home.skaters, data.gameData.players);
               skatersHome = data.liveData.boxscore.teams.home.skaters; skatersAway = data.liveData.boxscore.teams.away.skaters;
               goaliesHome = data.liveData.boxscore.teams.home.goalies; goaliesAway = data.liveData.boxscore.teams.away.goalies;
-
               var obj = data.gameData.players;
               var keys = Object.keys(obj);
 
@@ -99,12 +97,9 @@ function getInputValue() {
                 }
                 else { console.log(val.id, 'player probably changed team') }
               }
-              console.log(homeRosterArray, skatersHome, goaliesHome);
-              console.log(awayRosterArray, skatersAway, goaliesAway);
-              //console.log(homeRosterIdArray, awayRosterIdArray);
+              console.log(homeRosterArray, skatersHome, goaliesHome, awayRosterArray, skatersAway, goaliesAway);
             });
           // console.log(gameId);
-          //     getRoster();
           var shiftURL = 'https://cors-anywhere.herokuapp.com/https://api.nhle.com/stats/rest/en/shiftcharts?cayenneExp=gameId=' + gameId;
           fetch(shiftURL, {
             "method": "GET", "headers": {}
@@ -113,10 +108,8 @@ function getInputValue() {
               return response.json();
             })
             .then(function (data) {
-              console.log('I am in third then');
-              // console.log(data.data);
-              playerChart1 = []; playerChart2 = [];
-              playerChart3 = []; startingLineup = [];
+              console.log('I am in third then'); // console.log(data.data);
+              playerChart1 = []; playerChart2 = []; playerChart3 = []; startingLineup = [];
               totalChart = []; idChart = [];
               // that's a complex cycle that creates arrays of each player time shifts in each of three periods, also arary of playerIDs who actually played the game, not just were in the roster, also starting lineups are created
               for (i = 0; i < data.data.length - 1; i++) {
@@ -179,8 +172,6 @@ function getInputValue() {
                       seconds = Number(shiftEnd1[1]);
                       shiftEnd2 = minutes * 60 + seconds;
                       playerChart3.push(shiftEnd2)
-                      //playerChart3.push(data.data[i].startTime); 
-                      //      console.log(data.data[i].startTime, data.data[i].typeCode, typeof data.data[i].typeCode, i)
                     }
                     else if (data.data[i].period == 2) {
                       shiftStart = data.data[i].startTime;
@@ -212,17 +203,12 @@ function getInputValue() {
                     }
                     else { console.log('error in adding last shift', data.data[i].period) }
                     totalChart.push(playerChart1, playerChart2, playerChart3);
-                    // totalChart.push(playerChart2);
                     idChart.push(playerId);
-                    // console.log(playerId, idChart.length);
                     playerChart1 = []; playerChart2 = []; playerChart3 = [];
                   }
 
-                  if (i == data.data.length - 2) {// console.log('i = ', i);
-                    totalChart.push(playerChart1, playerChart2, playerChart3);
-                    // totalChart.push(playerChart2);
-                    console.log(i, playerId, idChart.length);
-                    idChart.push(playerId);
+                  if (i == data.data.length - 2) { totalChart.push(playerChart1, playerChart2, playerChart3);
+                    console.log(i, playerId, idChart.length); idChart.push(playerId);
                   }
                 }
               } // end for cycle for shift processing data next six lines just last shift of last pleyer
