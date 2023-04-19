@@ -1,9 +1,8 @@
 var scheduleContent = document.getElementById('schedule'); var gameId; var inputVal = '2021';
-const homeRosterArray = []; const awayRosterArray = [];
-const homeRosterIdArray = []; const awayRosterIdArray = [];
+const homeRosterArray = []; const awayRosterArray = []; const homeRosterIdArray = []; const awayRosterIdArray = [];
 const homeRosterDArray = []; const awayRosterDArray = []; pairingsArray4 = [];
 
-// two lines below will allow user to search by year
+// lines below will allow user to search by year
 function getInputValue() {
   var inputVal = document.getElementById('datepicker').value;
   var date = inputVal.split('/');
@@ -862,4 +861,4 @@ function getInputValue() {
 // -120.00 05/05
 // -120.00 07/06
 // -159.00 09/01
-// -150.00 09/29
+// -150.00 09/29 380-66-628-5465
