@@ -4,10 +4,8 @@ const homeRosterDArray = []; const awayRosterDArray = []; pairingsArray4 = [];
 
 // lines below will allow user to search by year
 function getInputValue() {
-  var inputVal = document.getElementById('datepicker').value;
-  var date = inputVal.split('/');
-  var formatted = date[2] + '-' + date[0] + '-' + date[1];
-  console.log(formatted)
+  var inputVal = document.getElementById('datepicker').value; var date = inputVal.split('/');
+  var formatted = date[2] + '-' + date[0] + '-' + date[1]; console.log(formatted)
   var requestURL = 'https://statsapi.web.nhl.com/api/v1/schedule/?date=' + formatted;
   fetch(requestURL, {
     "method": "GET", "headers": {}
@@ -302,8 +300,7 @@ function getInputValue() {
                   TOIArray.push(totalShiftLength);
                 } // end i TOIArray D loop
                 for (i = 0; i < shiftsFArray.length; i++) {
-                  totalShiftLength = 0;
-                  tempArray = shiftsFArray[i];
+                  totalShiftLength = 0; tempArray = shiftsFArray[i];
                   for (j = 0; j < tempArray.length / 3; j++) {
                     const shiftLength = tempArray[2 * j + 1] - tempArray[2 * j];
                     totalShiftLength = totalShiftLength + shiftLength;
@@ -323,8 +320,7 @@ function getInputValue() {
 
                 tempArray6 = []; tempArray4 = shiftsArray.splice(shiftsArray.length / 3);
                 tempArray5 = tempArray4.splice(tempArray4.length / 2);
-                tempArray6[1] = tempArray4; tempArray6[2] = tempArray5; tempArray6[0] = shiftsArray;
-                console.log(tempArray6);
+                tempArray6[1] = tempArray4; tempArray6[2] = tempArray5; tempArray6[0] = shiftsArray;  console.log(tempArray6);
 
                 for (i = 0; i < tempArray6.length; i++) {
                   for (j = 0; j < tempArray6[i].length; j++) {
@@ -850,8 +846,10 @@ function getInputValue() {
                 thirdLineTimeAway.innerHTML = linesArray4[3][linesArray5[3][13] + 1] + 'sh' + linesArray4[3][linesArray5[3][13]] + 's' + '<br>' + linesArray4[4][linesArray5[3][13] + 1] + 'sh' + linesArray4[4][linesArray5[3][13]] + 's' + '<br>' + linesArray4[5][linesArray5[3][13] + 1] + 'sh' + linesArray4[5][linesArray5[3][13]] + 's';
               } // end function getDPairs Joel Henley was dressed as F on 11/19 against NYI he missed entire 3rd period
             });
-        }
+        } // end getshifts line 68 start
       } // end displayGameData 
-    }
+    } // end second .then from getinputvalue
     );
-} 
+} // end getInput Value function
+// change calendar, check tix casa. pay internet, verify water; climb sierra blanca; split functions
+// nazca drawings Peru; create accounts table with expiration; update resume
