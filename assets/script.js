@@ -850,6 +850,6 @@ function getInputValue() {
       } // end displayGameData 
     } // end second .then from getinputvalue
     );
-} // end getInput Value function
-// change calendar, check tix casa. pay internet, verify water; climb sierra blanca; split functions
+} // end getInput Value function $65k at 4.50% on 3/27
+// check tix casa. climb sierra blanca; split functions
 // nazca drawings Peru; create accounts table with expiration; update resume
