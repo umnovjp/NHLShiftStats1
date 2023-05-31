@@ -776,19 +776,19 @@ function getInputValue() {
                         linesArray5[i].push(linesArray4[i][5 * j], 5 * j, linesArray4[i][5 * j + 1], linesArray4[i][5 * j + 2], linesArray4[i][5 * j + 3], linesArray4[i][5 * j + 4]);
                         if (i == 3) { linesArray6.push(linesArray4[i][5 * j + 2], linesArray4[i][5 * j + 3], linesArray4[i][5 * j + 4]) }
                       }
-                    }
+                    } 
                   }
-                } 
+                }
                 console.log(linesArray5);
                 if (linesArray5[0].length < 18) { linesArray2 = []; tempArray2 = []; console.log('home exception');
-                  for (i = 0; i < linesArray4[0].length / 5; i++) {
-                    for (j = 0; j < 24; j++) { 
+                  for (i = 0; i < linesArray4[0].length / 5; i++) { 
+                    for (j = 0; j < 24; j++) {
                       if (linesArray4[0][5 * i] > 120 - 5 * j && linesArray4[0][5 * i] < 120 && linesArray4[0][5 * i + 1] > 2) {
                         console.log(linesArray4[0][5 * i]);
                         tempArray2.push(i, j);
-                      }
-                    }
-                  }
+                      } 
+                    } 
+                  } 
                   console.log(tempArray2); 
                   linesArray5 = [[], [], [], linesArray5[3], linesArray5[4], linesArray5[5]];
                   for (i = 0; i < 3; i++) {
@@ -798,8 +798,8 @@ function getInputValue() {
                       if (i == 0) { linesArray2.push(linesArray4[i][5 * j + 2], linesArray4[i][5 * j + 3], linesArray4[i][5 * j + 4]) }
                       }
                     }
-                  }
-                } 
+                  } 
+                }
                 
                 if (linesArray5[3].length < 18) { console.log('road exception'); linesArray6 = []; tempArray2 = [];
                   for (i = 0; i < linesArray4[3].length / 5; i++) {
@@ -852,4 +852,4 @@ function getInputValue() {
     );
 } // end getInput Value function $65k at 4.50% on 3/27
 // check tix casa. climb sierra blanca; split functions
-// nazca drawings Peru; create accounts table with expiration; update resume
+// nazca drawings Peru; update resume
