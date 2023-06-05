@@ -16,31 +16,23 @@ function getInputValue() {
     .then(function (data) {
       console.log('I am in schedule then')
       console.log(data.dates[0].games);
-      // console.log(data.dates[0].games[0].teams.away.leagueRecord);
-      var numberOfGames = data.dates[0].games.length;
-      scheduleContent.textContent = '';
+      var numberOfGames = data.dates[0].games.length; scheduleContent.textContent = '';
       for (var i = 0; i < numberOfGames; i++) {
 
         var gameName = document.createElement('button');
-        gameName.setAttribute('id', 'game' + i);
-        var idx = gameName.getAttribute('id');
-        // console.log(idx);
+        gameName.setAttribute('id', 'game' + i); var idx = gameName.getAttribute('id');
         gameName.innerHTML = 'Game ' + i + ': ' + data.dates[0].games[i].teams.away.team.name + ' ' + data.dates[0].games[i].teams.away.leagueRecord.wins + 'W ' + data.dates[0].games[i].teams.away.leagueRecord.losses + 'L ' + data.dates[0].games[i].teams.away.leagueRecord.ot + 'O vs ' + data.dates[0].games[i].teams.home.team.name + ' ' + data.dates[0].games[i].teams.home.leagueRecord.wins + 'W ' + data.dates[0].games[i].teams.home.leagueRecord.losses + 'L ' + data.dates[0].games[i].teams.home.leagueRecord.ot + 'O ';
-        document.getElementById('schedule').appendChild(gameName);
-        gameName.addEventListener('click', displayGameData);
+        document.getElementById('schedule').appendChild(gameName); gameName.addEventListener('click', displayGameData);
       }
 
       function displayGameData(event) {
         idx = event.currentTarget; idxString = event.currentTarget.textContent;
         idxArray = idxString.split(':'); idxNumber = idxArray[0].split(' ');
-        console.log(idxNumber); gameNumber = idxNumber[1];
-        const gameId = data.dates[0].games[gameNumber].gamePk;
+        console.log(idxNumber); gameNumber = idxNumber[1]; const gameId = data.dates[0].games[gameNumber].gamePk;
         console.log(gameId);
         var requestURL = 'https://statsapi.web.nhl.com/api/v1/game/' + gameId + '/feed/live';
         fetch(requestURL, {
           "method": "GET", "headers": {
-            //   "x-rapidapi-host": "data-imdb1.p.rapidapi.com",
-            //   "x-rapidapi-key": "f567ffdbe0msh246ba4a9ef34553p1195c8jsn6e946070d30d"
           }
         })
 
@@ -48,14 +40,10 @@ function getInputValue() {
             return response.json();
           })
           .then(function (data) {
-            const gameInfo = document.createElement('section');
-            gameInfo.setAttribute('id', 'gameInfo');
-            document.getElementById('schedule').appendChild(gameInfo);
-            const gameInfoHome = document.createElement('section');
-            gameInfoHome.setAttribute('id', 'gameInfoHome');
-            document.getElementById('schedule').appendChild(gameInfoHome);
-            const gameInfoAway = document.createElement('section');
-            gameInfoAway.setAttribute('id', 'gameInfoAway');
+            const gameInfo = document.createElement('section'); gameInfo.setAttribute('id', 'gameInfo');
+            document.getElementById('schedule').appendChild(gameInfo); const gameInfoHome = document.createElement('section'); 
+            gameInfoHome.setAttribute('id', 'gameInfoHome'); document.getElementById('schedule').appendChild(gameInfoHome);
+            const gameInfoAway = document.createElement('section'); gameInfoAway.setAttribute('id', 'gameInfoAway');
             document.getElementById('schedule').appendChild(gameInfoAway);
             var gameTitle = document.createElement('h2'); gameTitle.textContent = '';
             gameTitle.innerHTML = 'You are watching stats for ' + data.gameData.teams.away.name + ' at ' + data.gameData.teams.home.name + ' game';
@@ -318,8 +306,7 @@ function getInputValue() {
                   TOIAwayArray.push(totalShiftLength);
                 } // end i TOIArray D loop
 
-                tempArray6 = []; tempArray4 = shiftsArray.splice(shiftsArray.length / 3);
-                tempArray5 = tempArray4.splice(tempArray4.length / 2);
+                tempArray6 = []; tempArray4 = shiftsArray.splice(shiftsArray.length/3); tempArray5 = tempArray4.splice(tempArray4.length / 2);
                 tempArray6[1] = tempArray4; tempArray6[2] = tempArray5; tempArray6[0] = shiftsArray;  console.log(tempArray6);
 
                 for (i = 0; i < tempArray6.length; i++) {
@@ -444,8 +431,7 @@ function getInputValue() {
                   }  // end j loop each D player
                 } // end i loop for 3 periods   
 
-                tempArray4 = awayShiftsFArray.splice(awayShiftsFArray.length / 3);
-                tempArray5 = tempArray4.splice(tempArray4.length / 2);
+                tempArray4 = awayShiftsFArray.splice(awayShiftsFArray.length / 3); tempArray5 = tempArray4.splice(tempArray4.length / 2);
                 tempArray6[1] = tempArray4; tempArray6[2] = tempArray5; tempArray6[0] = awayShiftsFArray;
                 tempArray5 = []; tempTime2 = [];
 
@@ -750,16 +736,16 @@ function getInputValue() {
                   for (j = 0; j < linesArray4[i].length / 5; j++) {
                     if (linesArray4[i][5 * j] > 120 && linesArray4[i][5 * j + 1] > 3) {
                       linesArray5[i].push(linesArray4[i][5 * j], 5 * j, linesArray4[i][5 * j + 1], linesArray4[i][5 * j + 2], linesArray4[i][5 * j + 3], linesArray4[i][5 * j + 4])
-                      if (i == 0) { linesArray2.push(linesArray4[i][5 * j + 2], linesArray4[i][5 * j + 3], linesArray4[i][5 * j + 4]) }
-                      else if (i == 3) { linesArray6.push(linesArray4[i][5 * j + 2], linesArray4[i][5 * j + 3], linesArray4[i][5 * j + 4]) }
+                      if (i == 0) {linesArray2.push(linesArray4[i][5 * j + 2], linesArray4[i][5 * j + 3], linesArray4[i][5 * j + 4]) }
+                      else if (i == 3) {linesArray6.push(linesArray4[i][5 * j + 2], linesArray4[i][5 * j + 3], linesArray4[i][5 * j + 4]) }
                     }
                   }
                 }
                 console.log(linesArray5);
-                if (linesArray5[0].length < 18) { linesArray2 = []; 
+                if (linesArray5[0].length < 18) { linesArray2 = [];
                   linesArray5 = [[], [], [], linesArray5[3], linesArray5[4], linesArray5[5]];
-                  for (i = 0; i < 3; i++) {
-                    for (j = 0; j < linesArray4[i].length / 5; j++) {
+                  for (i = 0; i < 3; i++) { 
+                    for (j = 0; j < linesArray4[i].length / 5; j++) { 
                       if (linesArray4[i][5 * j] > 120 && linesArray4[i][5 * j + 1] > 2) {
                         linesArray5[i].push(linesArray4[i][5 * j], 5 * j, linesArray4[i][5 * j + 1], linesArray4[i][5 * j + 2], linesArray4[i][5 * j + 3], linesArray4[i][5 * j + 4]);
                         if (i == 0) { linesArray2.push(linesArray4[i][5 * j + 2], linesArray4[i][5 * j + 3], linesArray4[i][5 * j + 4]) }
