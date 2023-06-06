@@ -18,7 +18,6 @@ function getInputValue() {
       console.log(data.dates[0].games);
       var numberOfGames = data.dates[0].games.length; scheduleContent.textContent = '';
       for (var i = 0; i < numberOfGames; i++) {
-
         var gameName = document.createElement('button');
         gameName.setAttribute('id', 'game' + i); var idx = gameName.getAttribute('id');
         gameName.innerHTML = 'Game ' + i + ': ' + data.dates[0].games[i].teams.away.team.name + ' ' + data.dates[0].games[i].teams.away.leagueRecord.wins + 'W ' + data.dates[0].games[i].teams.away.leagueRecord.losses + 'L ' + data.dates[0].games[i].teams.away.leagueRecord.ot + 'O vs ' + data.dates[0].games[i].teams.home.team.name + ' ' + data.dates[0].games[i].teams.home.leagueRecord.wins + 'W ' + data.dates[0].games[i].teams.home.leagueRecord.losses + 'L ' + data.dates[0].games[i].teams.home.leagueRecord.ot + 'O ';
@@ -63,8 +62,7 @@ function getInputValue() {
               console.log(data.liveData.boxscore.teams.away.skaters, data.liveData.boxscore.teams.home.skaters, data.gameData.players);
               skatersHome = data.liveData.boxscore.teams.home.skaters; skatersAway = data.liveData.boxscore.teams.away.skaters;
               goaliesHome = data.liveData.boxscore.teams.home.goalies; goaliesAway = data.liveData.boxscore.teams.away.goalies;
-              var obj = data.gameData.players;
-              var keys = Object.keys(obj);
+              var obj = data.gameData.players; var keys = Object.keys(obj);
 
               for (var i = 0; i < keys.length; i++) {
                 var val = obj[keys[i]];
@@ -729,19 +727,32 @@ function getInputValue() {
                 document.getElementById('thirdD6A').appendChild(thirdD6A); document.getElementById('forthD5A').appendChild(forthD5A);
                 document.getElementById('forthD6A').appendChild(forthD6A); document.getElementById('fifthD6A').appendChild(fifthD6A);
 
-                linesArray5 = [[], [], [], [], [], []]; linesArray2 = []; linesArray6 = []; linesArray3 = [];
+                linesArray5 = [[], [], [], [], [], []]; linesArray6 = []; linesArray3 = [];
                 console.log(linesArray4); 
 
                 for (i = 0; i < 6; i++) { // i is for 3 periods x 2 teams
                   for (j = 0; j < linesArray4[i].length / 5; j++) {
                     if (linesArray4[i][5 * j] > 120 && linesArray4[i][5 * j + 1] > 3) {
                       linesArray5[i].push(linesArray4[i][5 * j], 5 * j, linesArray4[i][5 * j + 1], linesArray4[i][5 * j + 2], linesArray4[i][5 * j + 3], linesArray4[i][5 * j + 4])
-                      if (i == 0) {linesArray2.push(linesArray4[i][5 * j + 2], linesArray4[i][5 * j + 3], linesArray4[i][5 * j + 4]) }
-                      else if (i == 3) {linesArray6.push(linesArray4[i][5 * j + 2], linesArray4[i][5 * j + 3], linesArray4[i][5 * j + 4]) }
                     }
                   }
+                }                
+
+                for (i = 2; i > -1; i-- ){
+                  if (linesArray5[i].length === 18 || linesArray5[i].length === 24) { console.log(i); linesArray2 = []; 
+                    for (j = 0; j < linesArray5[i].length / 6; j++) { 
+                    linesArray2.push(linesArray5[i][6 * j + 3], linesArray5[i][6 * j + 4], linesArray5[i][6 * j + 5]) }
+                  }
                 }
-                console.log(linesArray5);
+                for (i = 5; i > 2; i-- ){
+                  if (linesArray5[i].length === 18 || linesArray5[i].length === 24) { console.log(i); linesArray6 = []; 
+                    for (j = 0; j < linesArray5[i].length / 6; j++) {
+                    linesArray6.push(linesArray5[i][6 * j + 3], linesArray5[i][6 * j + 4], linesArray5[i][6 * j + 5]) }
+                  }
+                }
+                console.log(linesArray5, linesArray2, linesArray6);
+                
+                // else if (i == 3) {linesArray6.push(linesArray4[i][5 * j + 2], linesArray4[i][5 * j + 3], linesArray4[i][5 * j + 4]) }
                 if (linesArray5[0].length < 18) { linesArray2 = [];
                   linesArray5 = [[], [], [], linesArray5[3], linesArray5[4], linesArray5[5]];
                   for (i = 0; i < 3; i++) { 
