@@ -751,14 +751,16 @@ function getInputValue() {
                   }
                 }
                 console.log(linesArray5, linesArray2, linesArray6);
-                // const maxLineHome = math.Max(linesArray5[0].length, linesArray5[6].length, linesArray5[2].length)
-                // if (maxLineHome < 18) { const maxLineHomeIndex = indexOf(maxLineHome)
-                //   for ()
-
-                // }
+                const maxLineHome = math.Max(linesArray5[0].length, linesArray5[6].length, linesArray5[2].length)
+                if (maxLineHome < 18) { const maxLineHomeIndex = indexOf(maxLineHome); linesArray3 =[];
+                  for (i = 0; linesArray4[maxLineHomeIndex].length/5; i++)  {linesArray3.push(linesArray4[maxLineHomeIndex][5 * i])}
+                    
+                }
+                linesArray = linesArray3.sort();
+                console.log(linesArray);
                 
                 // else if (i == 3) {linesArray6.push(linesArray4[i][5 * j + 2], linesArray4[i][5 * j + 3], linesArray4[i][5 * j + 4]) }
-                if (linesArray5[0].length < 18) { linesArray2 = [];
+                if (linesArray5[0].length < 18) { linesArray2 = []; 
                   linesArray5 = [[], [], [], linesArray5[3], linesArray5[4], linesArray5[5]];
                   for (i = 0; i < 3; i++) { 
                     for (j = 0; j < linesArray4[i].length / 5; j++) { 
