@@ -751,9 +751,19 @@ function getInputValue() {
                   }
                 }
                 console.log(linesArray5, linesArray2, linesArray6);
-                const maxLineHome = math.Max(linesArray5[0].length, linesArray5[6].length, linesArray5[2].length)
-                if (maxLineHome < 18) { const maxLineHomeIndex = indexOf(maxLineHome); linesArray3 =[];
-                  for (i = 0; linesArray4[maxLineHomeIndex].length/5; i++)  {linesArray3.push(linesArray4[maxLineHomeIndex][5 * i])}
+                const maxLineHome = Math.max(linesArray5[0].length, linesArray5[1].length, linesArray5[2].length);
+                const maxLineAway = Math.max(linesArray5[3].length, linesArray5[4].length, linesArray5[5].length);
+                linesArray3 = [];
+                if (maxLineHome < 18) { const maxLineHomeIndex = [linesArray5[0].length, linesArray5[1].length, linesArray5[2].length].indexOf(maxLineHome); linesArray3 =[];
+                  for (i = 0; i < linesArray4[maxLineHomeIndex].length/5; i++)  {linesArray3.push(linesArray4[maxLineHomeIndex][5 * i])}
+                    
+                }
+                linesArray = linesArray3.sort();
+                console.log(linesArray);
+
+                if (maxLineAway < 18) { const maxLineAwayIndex = [linesArray5[3].length, linesArray5[4].length, linesArray5[5].length].indexOf(maxLineAway); linesArray3 =[];
+                  // console.log(linesArray4[maxLineAwayIndex + 3].length, linesArray4[maxLineAwayIndex + 3]);
+                  for (i = 0; i < linesArray4[maxLineAwayIndex + 3].length/5; i++)  {linesArray3.push(linesArray4[maxLineAwayIndex + 3][5 * i])} //
                     
                 }
                 linesArray = linesArray3.sort();
