@@ -762,12 +762,13 @@ function getInputValue() {
                 console.log(linesArray);
 
                 if (maxLineAway < 18) { const maxLineAwayIndex = [linesArray5[3].length, linesArray5[4].length, linesArray5[5].length].indexOf(maxLineAway); linesArray3 =[];
+                  console.log(maxLineAwayIndex);
                   // console.log(linesArray4[maxLineAwayIndex + 3].length, linesArray4[maxLineAwayIndex + 3]);
                   for (i = 0; i < linesArray4[maxLineAwayIndex + 3].length/5; i++)  {linesArray3.push(linesArray4[maxLineAwayIndex + 3][5 * i])} //
                     
                 }
-                linesArray = linesArray3.sort();
-                console.log(linesArray);
+                // linesArray = linesArray3.sort(); 
+                console.log(linesArray3);
                 
                 // else if (i == 3) {linesArray6.push(linesArray4[i][5 * j + 2], linesArray4[i][5 * j + 3], linesArray4[i][5 * j + 4]) }
                 if (linesArray5[0].length < 18) { linesArray2 = []; 
