@@ -616,7 +616,7 @@ function getInputValue() {
                   fifthD4.innerHTML = forthD5.innerHTML
                   fifthD6.innerHTML = pairingsArray4[0][29] + ' sh ' + pairingsArray4[0][28] + ' sec ' + '<br>' + pairingsArray4[1][29] + ' sh ' + pairingsArray4[1][28] + ' sec ' + '<br>' + pairingsArray4[2][29] + ' sh ' + pairingsArray4[2][28] + ' sec ';
                   sixthD2.innerHTML = secondD6.innerHTML; sixthD3.innerHTML = thirdD6.innerHTML;
-                  sixthD4.innerHTML = forthD6.innerHTML; sixthD5.innerHTML = fifthD6.innerHTML
+                  sixthD4.innerHTML = forthD6.innerHTML; sixthD5.innerHTML = fifthD6.innerHTML;
                 } // end if sixth D men
 
                 document.getElementById('secondD3').appendChild(secondD3); document.getElementById('secondD4').appendChild(secondD4);
@@ -639,9 +639,8 @@ function getInputValue() {
                 var firstD5A = document.createElement('p2');
                 firstD5A.innerHTML = pairingsArray4[3][7] + ' sh ' + pairingsArray4[3][6] + ' sec ' + '<br>' + pairingsArray4[4][7] + ' sh ' + pairingsArray4[4][6] + ' sec ' + '<br>' + pairingsArray4[5][7] + ' sh ' + pairingsArray4[5][6] + ' sec ';
                 document.getElementById('firstD5A').appendChild(firstD5A);
-                var firstD6A = document.createElement('p3');
-                firstD6A.innerHTML = pairingsArray4[3][9] + ' sh ' + pairingsArray4[3][8] + ' sec ' + '<br>' + pairingsArray4[4][9] + ' sh ' + pairingsArray4[4][8] + ' sec ' + '<br>' + pairingsArray4[5][9] + ' sh ' + pairingsArray4[5][8] + ' sec ';
-                document.getElementById('firstD6A').appendChild(firstD6A);
+                
+                
 
                 secondDNumberA.innerHTML = awayRosterArray[awayRosterDIDArray[3] - 4] + ' ' + awayRosterArray[awayRosterDIDArray[3] - 1] + ' ' + awayRosterArray[awayRosterDIDArray[3] - 3];
                 secondD1A.innerHTML = pairingsArray4[3][1] + ' shifts ' + pairingsArray4[3][0] + ' sec ' + '<br>' + pairingsArray4[4][1] + ' sh ' + pairingsArray4[4][0] + ' sec ' + '<br>' + pairingsArray4[5][1] + ' sh ' + pairingsArray4[5][0] + ' sec ';
@@ -655,26 +654,29 @@ function getInputValue() {
                 fifthDNumberA.innerHTML = awayRosterArray[awayRosterDIDArray[9] - 4] + ' ' + awayRosterArray[awayRosterDIDArray[9] - 1] + ' ' + awayRosterArray[awayRosterDIDArray[9] - 3];
                 fifthD1A.innerHTML = pairingsArray4[3][7] + ' sh ' + pairingsArray4[3][6] + ' sec ' + '<br>' + pairingsArray4[4][7] + ' sh ' + pairingsArray4[4][6] + ' sec ' + '<br>' + pairingsArray4[5][7] + ' sh ' + pairingsArray4[5][6] + ' sec ';
                 fifthD5A.innerHTML = 'X' + '<br>' + 'X' + '<br>' + 'X';
-                sixthDNumberA.innerHTML = awayRosterArray[awayRosterDIDArray[11] - 4] + ' ' + awayRosterArray[awayRosterDIDArray[11] - 1] + ' ' + awayRosterArray[awayRosterDIDArray[11] - 3];;
-                sixthD1A.innerHTML = pairingsArray4[3][9] + ' sh ' + pairingsArray4[3][8] + ' sec ' + '<br>' + pairingsArray4[4][9] + ' sh ' + pairingsArray4[4][8] + ' sec ' + '<br>' + pairingsArray4[5][9] + ' sh ' + pairingsArray4[5][8] + ' sec ';
-                sixthD6A.innerHTML = 'X' + '<br>' + 'X' + '<br>' + 'X';
+                
 
                 var secondD3A = document.createElement('p3'); var secondD4A = document.createElement('p2');
-                var secondD5A = document.createElement('p3'); var secondD6A = document.createElement('p2');
+                var secondD5A = document.createElement('p3'); 
                 var thirdD4A = document.createElement('p3'); var thirdD5A = document.createElement('p2');
                 var thirdD6A = document.createElement('p3'); var forthD5A = document.createElement('p3');
                 var forthD6A = document.createElement('p2'); var fifthD6A = document.createElement('p3');
 
                 if (awayRosterDArray.length == 7) {
+                  sixthDNumberA.innerHTML = awayRosterArray[awayRosterDIDArray[11] - 4] + ' ' + awayRosterArray[awayRosterDIDArray[11] - 1] + ' ' + awayRosterArray[awayRosterDIDArray[11] - 3];;
+                  sixthD1A.innerHTML = pairingsArray4[3][9] + ' sh ' + pairingsArray4[3][8] + ' sec ' + '<br>' + pairingsArray4[4][9] + ' sh ' + pairingsArray4[4][8] + ' sec ' + '<br>' + pairingsArray4[5][9] + ' sh ' + pairingsArray4[5][8] + ' sec ';
+                  sixthD6A.innerHTML = 'X' + '<br>' + 'X' + '<br>' + 'X';
                   seventhDNumberA.innerHTML = awayRosterArray[awayRosterDIDArray[13] - 4] + ' ' + awayRosterArray[awayRosterDIDArray[13] - 1] + ' ' + awayRosterArray[awayRosterDIDArray[13] - 3];
+                  var firstD6A = document.createElement('p3');
+                  firstD6A.innerHTML = pairingsArray4[3][9] + ' sh ' + pairingsArray4[3][8] + ' sec ' + '<br>' + pairingsArray4[4][9] + ' sh ' + pairingsArray4[4][8] + ' sec ' + '<br>' + pairingsArray4[5][9] + ' sh ' + pairingsArray4[5][8] + ' sec ';
+                  document.getElementById('firstD6A').appendChild(firstD6A);
+                  var secondD6A = document.createElement('p2'); document.getElementById('secondD6A').appendChild(secondD6A);                  
                   var firstD7A = document.createElement('p2');
                   firstD7A.innerHTML = pairingsArray4[3][11] + ' sh ' + pairingsArray4[3][10] + ' sec ' + '<br>' + pairingsArray4[4][11] + ' sh ' + pairingsArray4[4][10] + ' sec ' + '<br>' + pairingsArray4[5][11] + ' sh ' + pairingsArray4[5][10] + ' sec ';
-                  var thirdD7A = document.createElement('p2'); var fifthD7A = document.createElement('p2');
-                  document.getElementById('firstD7A').appendChild(firstD7A);
+                  var thirdD7A = document.createElement('p2'); var fifthD7A = document.createElement('p2'); document.getElementById('firstD7A').appendChild(firstD7A);
                   seventhD1A.innerHTML = pairingsArray4[3][11] + ' sh ' + pairingsArray4[3][10] + ' sec ' + '<br>' + pairingsArray4[4][11] + ' sh ' + pairingsArray4[4][10] + ' sec ' + '<br>' + pairingsArray4[5][11] + ' sh ' + pairingsArray4[5][10] + ' sec ';
                   var seventhD7A = document.createElement('p2'); seventhD7A.innerHTML = 'X' + '<br>' + 'X' + '<br>' + 'X';
-                  document.getElementById('seventhD7A').appendChild(seventhD7A);
-                  secondD3A.innerHTML = pairingsArray4[3][13] + ' sh ' + pairingsArray4[3][12] + ' sec ' + '<br>' + pairingsArray4[4][13] + ' sh ' + pairingsArray4[4][12] + ' sec ' + '<br>' + pairingsArray4[5][13] + ' sh ' + pairingsArray4[5][12] + ' sec ';
+                  document.getElementById('seventhD7A').appendChild(seventhD7A);                  
                   secondD4A.innerHTML = pairingsArray4[3][15] + ' sh ' + pairingsArray4[3][14] + ' sec ' + '<br>' + pairingsArray4[4][15] + ' sh ' + pairingsArray4[4][14] + ' sec ' + '<br>' + pairingsArray4[5][15] + ' sh ' + pairingsArray4[5][14] + ' sec ';
                   secondD5A.innerHTML = pairingsArray4[3][17] + ' sh ' + pairingsArray4[3][16] + ' sec ' + '<br>' + pairingsArray4[4][17] + ' sh ' + pairingsArray4[4][16] + ' sec ' + '<br>' + pairingsArray4[5][17] + ' sh ' + pairingsArray4[5][16] + ' sec ';
                   secondD6A.innerHTML = pairingsArray4[3][19] + ' sh ' + pairingsArray4[3][18] + ' sec ' + '<br>' + pairingsArray4[4][19] + ' sh ' + pairingsArray4[4][18] + ' sec ' + '<br>' + pairingsArray4[5][19] + ' sh ' + pairingsArray4[5][18] + ' sec ';
@@ -703,6 +705,11 @@ function getInputValue() {
                 } // end if seven D men
 
                 else if (awayRosterDArray.length == 6) {
+                  var firstD6A = document.createElement('p3');
+                  firstD6A.innerHTML = pairingsArray4[3][9] + ' sh ' + pairingsArray4[3][8] + ' sec ' + '<br>' + pairingsArray4[4][9] + ' sh ' + pairingsArray4[4][8] + ' sec ' + '<br>' + pairingsArray4[5][9] + ' sh ' + pairingsArray4[5][8] + ' sec ';
+                document.getElementById('firstD6A').appendChild(firstD6A);
+                var secondD6A = document.createElement('p2'); document.getElementById('secondD6A').appendChild(secondD6A);
+                secondD3A.innerHTML = pairingsArray4[3][13] + ' sh ' + pairingsArray4[3][12] + ' sec ' + '<br>' + pairingsArray4[4][13] + ' sh ' + pairingsArray4[4][12] + ' sec ' + '<br>' + pairingsArray4[5][13] + ' sh ' + pairingsArray4[5][12] + ' sec ';
                   secondD3A.innerHTML = pairingsArray4[3][11] + ' sh ' + pairingsArray4[3][10] + ' sec ' + '<br>' + pairingsArray4[4][11] + ' sh ' + pairingsArray4[4][10] + ' sec ' + '<br>' + pairingsArray4[5][11] + ' sh ' + pairingsArray4[5][10] + ' sec ';
                   secondD4A.innerHTML = pairingsArray4[3][13] + ' sh ' + pairingsArray4[3][12] + ' sec ' + '<br>' + pairingsArray4[4][13] + ' sh ' + pairingsArray4[4][12] + ' sec ' + '<br>' + pairingsArray4[5][13] + ' sh ' + pairingsArray4[5][12] + ' sec ';
                   secondD5A.innerHTML = pairingsArray4[3][15] + ' sh ' + pairingsArray4[3][14] + ' sec ' + '<br>' + pairingsArray4[4][15] + ' sh ' + pairingsArray4[4][14] + ' sec ' + '<br>' + pairingsArray4[5][15] + ' sh ' + pairingsArray4[5][14] + ' sec ';
@@ -717,12 +724,28 @@ function getInputValue() {
                   fifthD2A.innerHTML = secondD5A.innerHTML; fifthD3A.innerHTML = thirdD5A.innerHTML;
                   fifthD4A.innerHTML = forthD5A.innerHTML;
                   fifthD6A.innerHTML = pairingsArray4[3][29] + ' sh ' + pairingsArray4[3][28] + ' sec ' + '<br>' + pairingsArray4[4][29] + ' sh ' + pairingsArray4[4][28] + ' sec ' + '<br>' + pairingsArray4[5][29] + ' sh ' + pairingsArray4[5][28] + ' sec ';
+                  sixthDNumberA.innerHTML = awayRosterArray[awayRosterDIDArray[11] - 4] + ' ' + awayRosterArray[awayRosterDIDArray[11] - 1] + ' ' + awayRosterArray[awayRosterDIDArray[11] - 3];;
+                sixthD1A.innerHTML = pairingsArray4[3][9] + ' sh ' + pairingsArray4[3][8] + ' sec ' + '<br>' + pairingsArray4[4][9] + ' sh ' + pairingsArray4[4][8] + ' sec ' + '<br>' + pairingsArray4[5][9] + ' sh ' + pairingsArray4[5][8] + ' sec ';
+                sixthD6A.innerHTML = 'X' + '<br>' + 'X' + '<br>' + 'X';
                   sixthD2A.innerHTML = secondD6A.innerHTML; sixthD3A.innerHTML = thirdD6A.innerHTML; 
                   sixthD4A.innerHTML = forthD6A.innerHTML; sixthD5A.innerHTML = fifthD6A.innerHTML 
                 } // end if sixth D men 
 
+                else if (awayRosterDArray.length == 5) {
+                  secondD3A.innerHTML = pairingsArray4[3][9] + ' sh ' + pairingsArray4[3][8] + ' sec ' + '<br>' + pairingsArray4[4][9] + ' sh ' + pairingsArray4[4][8] + ' sec ' + '<br>' + pairingsArray4[5][9] + ' sh ' + pairingsArray4[5][8] + ' sec ';
+                  secondD4A.innerHTML = pairingsArray4[3][11] + ' sh ' + pairingsArray4[3][10] + ' sec ' + '<br>' + pairingsArray4[4][11] + ' sh ' + pairingsArray4[4][10] + ' sec ' + '<br>' + pairingsArray4[5][11] + ' sh ' + pairingsArray4[5][10] + ' sec ';
+                  secondD5A.innerHTML = pairingsArray4[3][13] + ' sh ' + pairingsArray4[3][12] + ' sec ' + '<br>' + pairingsArray4[4][13] + ' sh ' + pairingsArray4[4][12] + ' sec ' + '<br>' + pairingsArray4[5][13] + ' sh ' + pairingsArray4[5][12] + ' sec ';
+                  thirdD2A.innerHTML = secondD3A.innerHTML;
+                  thirdD4A.innerHTML = pairingsArray4[3][15] + ' sh ' + pairingsArray4[3][14] + ' sec ' + '<br>' + pairingsArray4[4][15] + ' sh ' + pairingsArray4[4][14] + ' sec ' + '<br>' + pairingsArray4[5][15] + ' sh ' + pairingsArray4[5][14] + ' sec ';
+                  thirdD5A.innerHTML = pairingsArray4[3][17] + ' sh ' + pairingsArray4[3][16] + ' sec ' + '<br>' + pairingsArray4[4][17] + ' sh ' + pairingsArray4[4][16] + ' sec ' + '<br>' + pairingsArray4[5][17] + ' sh ' + pairingsArray4[5][16] + ' sec ';
+                  forthD2A.innerHTML = secondD4A.innerHTML; forthD3A.innerHTML = thirdD4A.innerHTML; 
+                  forthD5A.innerHTML = pairingsArray4[3][19] + ' sh ' + pairingsArray4[3][18] + ' sec ' + '<br>' + pairingsArray4[4][19] + ' sh ' + pairingsArray4[4][18] + ' sec ' + '<br>' + pairingsArray4[5][19] + ' sh ' + pairingsArray4[5][18] + ' sec ';
+                  fifthD2A.innerHTML = secondD5A.innerHTML; fifthD3A.innerHTML = thirdD5A.innerHTML;
+                  fifthD4A.innerHTML = forthD5A.innerHTML;
+                } // end if five D men 
+
                 document.getElementById('secondD3A').appendChild(secondD3A); document.getElementById('secondD4A').appendChild(secondD4A);
-                document.getElementById('secondD5A').appendChild(secondD5A); document.getElementById('secondD6A').appendChild(secondD6A);
+                document.getElementById('secondD5A').appendChild(secondD5A); 
                 document.getElementById('thirdD4A').appendChild(thirdD4A); document.getElementById('thirdD5A').appendChild(thirdD5A);
                 document.getElementById('thirdD6A').appendChild(thirdD6A); document.getElementById('forthD5A').appendChild(forthD5A);
                 document.getElementById('forthD6A').appendChild(forthD6A); document.getElementById('fifthD6A').appendChild(fifthD6A);
