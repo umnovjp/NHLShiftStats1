@@ -81,8 +81,24 @@ function getInputValue() {
                 else { console.log(val.id, 'player probably changed team') }
               }
               console.log(homeRosterArray, skatersHome, goaliesHome, awayRosterArray, skatersAway, goaliesAway);
+              fiveOnFive = [[],[],[]]
+
+              // this function will create an array of time stamps when teams played 5x5 or special teams
+              console.log(data.liveData.plays.penaltyPlays);
+                
+                for (i = 0; i < data.liveData.plays.penaltyPlays.length; i++) {
+                  penaltyPlay = data.liveData.plays.penaltyPlays[i];
+                  // console.log(data.liveData.plays.allPlays[penaltyPlay].about.period, data.liveData.plays.allPlays[penaltyPlay].about.periodTime);
+                  
+                  fiveOnFive[data.liveData.plays.allPlays[penaltyPlay].about.period - 1].push(data.liveData.plays.allPlays[penaltyPlay].about.periodTime)
+
+                  
+                  // fiveOnFive[data.liveData.plays.allPlays[penaltyPlay].about.period].push(data.liveData.plays.allPlays[penaltyPlay].about.periodTime)
+                  
+                }
+                console.log(fiveOnFive)
             });
-          // console.log(gameId);
+          // console.log(gameId);  https://api.nhle.com/stats/rest/en/shiftcharts?cayenneExp=gameId=' + gameId
           var shiftURL = 'https://cors-anywhere.herokuapp.com/https://api.nhle.com/stats/rest/en/shiftcharts?cayenneExp=gameId=' + gameId;
           fetch(shiftURL, {
             "method": "GET", "headers": {}
@@ -93,7 +109,8 @@ function getInputValue() {
             .then(function (data) {
               console.log('I am in third then'); // console.log(data.data);
               playerChart1 = []; playerChart2 = []; playerChart3 = []; startingLineup = [];
-              totalChart = []; idChart = [];
+              totalChart = []; idChart = []; 
+              
               // that's a complex cycle that creates arrays of each player time shifts in each of three periods, also arary of playerIDs who actually played the game, not just were in the roster, also starting lineups are created
               for (i = 0; i < data.data.length - 1; i++) {
                 if (data.data[i].typeCode == 517) {
