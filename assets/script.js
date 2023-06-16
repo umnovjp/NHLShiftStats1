@@ -81,19 +81,25 @@ function getInputValue() {
                 else { console.log(val.id, 'player probably changed team') }
               }
               console.log(homeRosterArray, skatersHome, goaliesHome, awayRosterArray, skatersAway, goaliesAway);
-              fiveOnFive = [[],[],[]]
+              fiveOnFive = [[],[],[],[],[],[]]
 
               // this function will create an array of time stamps when teams played 5x5 or special teams
               console.log(data.liveData.plays.penaltyPlays);
                 
                 for (i = 0; i < data.liveData.plays.penaltyPlays.length; i++) {
                   penaltyPlay = data.liveData.plays.penaltyPlays[i];
-                  // console.log(data.liveData.plays.allPlays[penaltyPlay].about.period, data.liveData.plays.allPlays[penaltyPlay].about.periodTime);
+                  // scoringPlay = data.liveData.plays.scoringPlays[i];
+                  // console.log(data.liveData.plays.allPlays[scoringPlay]);
+                  fiveOnFive[data.liveData.plays.allPlays[penaltyPlay].about.period - 1].push(data.liveData.plays.allPlays[penaltyPlay].about.periodTime);
+                  // fiveOnFive[data.liveData.plays.allPlays[scoringPlay].about.period - 1].push(data.liveData.plays.allPlays[scoringPlay].about.periodTime);
                   
-                  fiveOnFive[data.liveData.plays.allPlays[penaltyPlay].about.period - 1].push(data.liveData.plays.allPlays[penaltyPlay].about.periodTime)
+                }
 
-                  
-                  // fiveOnFive[data.liveData.plays.allPlays[penaltyPlay].about.period].push(data.liveData.plays.allPlays[penaltyPlay].about.periodTime)
+                for (i = 0; i < data.liveData.plays.scoringPlays.length; i++) {
+                  scoringPlay = data.liveData.plays.scoringPlays[i];
+                  console.log(data.liveData.plays.allPlays[scoringPlay]);
+                  // fiveOnFive[data.liveData.plays.allPlays[penaltyPlay].about.period - 1].push(data.liveData.plays.allPlays[penaltyPlay].about.periodTime);
+                fiveOnFive[data.liveData.plays.allPlays[scoringPlay].about.period + 2].push(data.liveData.plays.allPlays[scoringPlay].about.periodTime);
                   
                 }
                 console.log(fiveOnFive)
