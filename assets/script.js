@@ -225,7 +225,7 @@ function getInputValue() {
               else if (data.data[data.data.length - 1].period == 2) { playerChart2.push(data.data[data.data.length - 1].startTime); }
               else if (data.data[data.data.length - 1].period == 1) { playerChart1.push(data.data[data.data.length - 1].startTime); }
               console.log(startingLineup);
-              // console.log(totalChart, idChart);
+              console.log(totalChart, idChart);
               console.log(homeRosterIdArray, awayRosterIdArray);
               // lines 286-302 disabled on 02/05/2023 i do not need starting lineup for now
               // homeStartingLineup = [];
@@ -261,9 +261,9 @@ function getInputValue() {
                   else if (homeRosterArray[tempVariable - 2] == 'C') { homeRosterFArray.push(idChart[i]) }
                   else if (homeRosterArray[tempVariable - 2] == 'RW') { homeRosterFArray.push(idChart[i]) }
                   else if (homeRosterArray[tempVariable - 2] == 'LW') { homeRosterFArray.push(idChart[i]) }
-                  else (console.log('he does not have a position', tempValue))
+                  else (console.log('he does not have a position', tempValue));
                 }
-              } // end for home idChart loop
+              } // end for  hom idChart loop
               for (i = 0; i < idChart.length; i++) {
                 tempValue = 'ID' + idChart[i];
                 if (awayRosterArray.includes(tempValue)) {
@@ -271,10 +271,10 @@ function getInputValue() {
                   //      console.log(tempVariable, homeRosterArray[tempVariable - 3], homeRosterArray[tempVariable - 1])
                   if (awayRosterArray[tempVariable - 2] == 'D') { awayRosterDArray.push(idChart[i]) }
                   else if (awayRosterArray[tempVariable - 2] == 'G') { awayRosterGArray.push(idChart[i]) }
-                  else if (awayRosterArray[tempVariable - 2] == 'C') { awayRosterFArray.push(idChart[i]) }
+                  else if (awayRosterArray[tempVariable - 2] == 'C') { awayRosterFArray.push(idChart[i]) } 
                   else if (awayRosterArray[tempVariable - 2] == 'RW') { awayRosterFArray.push(idChart[i]); }
                   else if (awayRosterArray[tempVariable - 2] == 'LW') { awayRosterFArray.push(idChart[i]); }
-                  else (console.log('he does not have a position', tempValue))
+                  else (console.log('he does not have a position', tempValue)) 
                 }
               } // end for away idChart loop
               console.log(homeRosterDArray, homeRosterGArray, homeRosterFArray);
