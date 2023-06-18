@@ -81,7 +81,7 @@ function getInputValue() {
                 else { console.log(val.id, 'player probably changed team') }
               }
               console.log(homeRosterArray, skatersHome, goaliesHome, awayRosterArray, skatersAway, goaliesAway);
-              fiveOnFive = [[],[],[],[],[],[]]
+              fiveOnFive = [[],[],[],[],[],[],[],[]]
 
               // this function will create an array of time stamps when teams played 5x5 or special teams
               console.log(data.liveData.plays.penaltyPlays);
@@ -254,10 +254,12 @@ function getInputValue() {
               awayRosterGArray = []; awayRosterFArray = [];
               for (i = 0; i < idChart.length; i++) {
                 tempValue = 'ID' + idChart[i];
-                if (homeRosterArray.includes(tempValue)) {
-                  tempVariable = homeRosterArray.indexOf(tempValue);
+                if (homeRosterArray.includes(tempValue)) { tempVariable = homeRosterArray.indexOf(tempValue);
                   if (homeRosterArray[tempVariable - 2] == 'D') { homeRosterDArray.push(idChart[i]) }
-                  else if (homeRosterArray[tempVariable - 2] == 'G') { homeRosterGArray.push(idChart[i]) }
+                  else if (homeRosterArray[tempVariable - 2] == 'G') { homeRosterGArray.push(idChart[i]);
+                    console.log(i, totalChart[3 * i], totalChart[3 * i + 1], totalChart[3 * i + 2])
+                  fiveOnFive[6].push(totalChart[3 * i], totalChart[3 * i + 1], totalChart[3 * i + 2]) 
+                console.log(fiveOnFive[6])}
                   else if (homeRosterArray[tempVariable - 2] == 'C') { homeRosterFArray.push(idChart[i]) }
                   else if (homeRosterArray[tempVariable - 2] == 'RW') { homeRosterFArray.push(idChart[i]) }
                   else if (homeRosterArray[tempVariable - 2] == 'LW') { homeRosterFArray.push(idChart[i]) }
@@ -266,11 +268,11 @@ function getInputValue() {
               } // end for  hom idChart loop
               for (i = 0; i < idChart.length; i++) {
                 tempValue = 'ID' + idChart[i];
-                if (awayRosterArray.includes(tempValue)) {
-                  tempVariable = awayRosterArray.indexOf(tempValue);
+                if (awayRosterArray.includes(tempValue)) { tempVariable = awayRosterArray.indexOf(tempValue);
                   //      console.log(tempVariable, homeRosterArray[tempVariable - 3], homeRosterArray[tempVariable - 1])
                   if (awayRosterArray[tempVariable - 2] == 'D') { awayRosterDArray.push(idChart[i]) }
-                  else if (awayRosterArray[tempVariable - 2] == 'G') { awayRosterGArray.push(idChart[i]) }
+                  else if (awayRosterArray[tempVariable - 2] == 'G') { awayRosterGArray.push(idChart[i]); 
+                    fiveOnFive[7].push(totalChart[3 * i], totalChart[3 * i + 1], totalChart[3 * i + 2]) }
                   else if (awayRosterArray[tempVariable - 2] == 'C') { awayRosterFArray.push(idChart[i]) } 
                   else if (awayRosterArray[tempVariable - 2] == 'RW') { awayRosterFArray.push(idChart[i]); }
                   else if (awayRosterArray[tempVariable - 2] == 'LW') { awayRosterFArray.push(idChart[i]); }
@@ -279,6 +281,21 @@ function getInputValue() {
               } // end for away idChart loop
               console.log(homeRosterDArray, homeRosterGArray, homeRosterFArray);
               console.log(awayRosterDArray, awayRosterGArray, awayRosterFArray);
+              console.log(fiveOnFive);
+
+              if (fiveOnFive[6].length == 6) { for (i = 0; i < 3; i++)
+              {if (fiveOnFive[6][i] == 0)
+              {fiveOnFive[6][i].concat(fiveOnFive[6][i + 3])}  // probably join is the command
+              else if (fiveOnFive[6][i + 3] == 0)
+              {fiveOnFive[6][i + 3].concat(fiveOnFive[6][i]);
+              fiveOnFive[6][i] = fiveOnFive[6][i + 3]}
+              }
+              for (j = 1; j < fiveOnFive[6][i].length / 2; j++) {if (fiveOnFive[6][i][2 * (j + 1)] < fiveOnFive[6][i][2 * j])
+              // to change order to bring it forward
+              console.log('trouble with goalie ordering, home team, period ', i, ' ', fiveOnFive[6][i][2 * (j + 1)]);
+              }
+              }  // end fiveOnFive home G loop
+              console.log(fiveOnFive);
 
               getDPairs();
               function getDPairs() {
