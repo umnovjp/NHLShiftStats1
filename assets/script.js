@@ -251,7 +251,7 @@ function getInputValue() {
               // // homeStartingLineup.push(homeStartingFLineup);
               // console.log(homeStartingLineup);
 
-              homeRosterGArray = []; homeRosterFArray = [];
+              homeRosterGArray = []; homeRosterFArray = []; tempArray7 = [[],[],[]];
               awayRosterGArray = []; awayRosterFArray = [];
               console.log(fiveOnFive[6])
               for (i = 0; i < idChart.length; i++) {
@@ -286,10 +286,10 @@ function getInputValue() {
               console.log(fiveOnFive);
 
               if (fiveOnFive[6].length == 6) { for (i = 0; i < 3; i++)
-              {if (fiveOnFive[6][i] === 0)
-              {fiveOnFive[9] = fiveOnFive[6][i].concat(fiveOnFive[6][i + 3])}  // probably join is the command
+              {if (fiveOnFive[6][i] === 0) 
+              {tempArray7[i] = fiveOnFive[6][i].concat(fiveOnFive[6][i + 3])}  // probably join is the command
               else if (fiveOnFive[6][i + 3] === 0)
-              {fiveOnFive[9] = fiveOnFive[6][i + 3].concat(fiveOnFive[6][i]);
+              {tempArray7[i] = fiveOnFive[6][i + 3].concat(fiveOnFive[6][i]);
               }
               }
               for (j = 1; j < fiveOnFive[6][i].length / 2; j++) {if (fiveOnFive[6][i][2 * (j + 1)] < fiveOnFive[6][i][2 * j])
@@ -297,7 +297,7 @@ function getInputValue() {
               console.log('trouble with goalie ordering, home team, period ', i, ' ', fiveOnFive[6][i][2 * (j + 1)]);
               }
               }  // end fiveOnFive home G loop
-              console.log(fiveOnFive);
+              console.log(tempArray7);
 
               getDPairs();
               function getDPairs() {
