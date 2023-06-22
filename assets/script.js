@@ -297,7 +297,7 @@ function getInputValue() {
               console.log('trouble with goalie ordering, home team, period ', i, ' ', fiveOnFive[6][i][2 * (j + 1)]);
               }
               }  // end fiveOnFive home G loop
-              console.log(tempArray7);
+              console.log(tempArray7); 
 
               getDPairs(); 
               function getDPairs() {
