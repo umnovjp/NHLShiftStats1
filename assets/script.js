@@ -299,7 +299,7 @@ function getInputValue() {
               }  // end fiveOnFive home G loop
               console.log(tempArray7);
 
-              getDPairs();
+              getDPairs(); 
               function getDPairs() {
                 shiftsArray = []; shiftsFArray = []; awayShiftsArray = []; awayShiftsFArray = [];
                 TOIArray = []; TOIFArray = []; TOIAwayArray = [];
