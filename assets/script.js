@@ -81,7 +81,7 @@ function getInputValue() {
                 else { console.log(val.id, 'player probably changed team') }
               }
               console.log(homeRosterArray, skatersHome, goaliesHome, awayRosterArray, skatersAway, goaliesAway);
-              fiveOnFive = [[],[],[],[],[],[],[],[],[]]
+              fiveOnFive = [[],[],[],[],[],[],[],[],[],[],[],[]]
               console.log(fiveOnFive)
 
               // this function will create an array of time stamps when teams played 5x5 or special teams
@@ -90,8 +90,14 @@ function getInputValue() {
                 for (i = 0; i < data.liveData.plays.penaltyPlays.length; i++) {
                   penaltyPlay = data.liveData.plays.penaltyPlays[i];
                   // scoringPlay = data.liveData.plays.scoringPlays[i];
-                  // console.log(data.liveData.plays.allPlays[scoringPlay]);
-                  fiveOnFive[data.liveData.plays.allPlays[penaltyPlay].about.period - 1].push(data.liveData.plays.allPlays[penaltyPlay].about.periodTime);
+                  console.log(data.liveData.plays.allPlays[penaltyPlay], data.liveData.plays.allPlays[penaltyPlay].players[0].player.id, data.gameData.teams);
+                  if (homeRosterArray.includes(data.liveData.plays.allPlays[penaltyPlay].players[0].player.id))
+                  {console.log(homeRosterArray.indexOf(data.liveData.plays.allPlays[penaltyPlay].players[0].player.id));
+                    fiveOnFive[data.liveData.plays.allPlays[penaltyPlay].about.period - 1].push(data.liveData.plays.allPlays[penaltyPlay].about.periodTime);}
+                  else if (awayRosterArray.includes(data.liveData.plays.allPlays[penaltyPlay].players[0].player.id))
+                  {console.log(awayRosterArray.indexOf(data.liveData.plays.allPlays[penaltyPlay].players[0].player.id))}
+                  else (console.log(home))
+                    fiveOnFive[data.liveData.plays.allPlays[penaltyPlay].about.period + 2].push(data.liveData.plays.allPlays[penaltyPlay].about.periodTime);}
                   // fiveOnFive[data.liveData.plays.allPlays[scoringPlay].about.period - 1].push(data.liveData.plays.allPlays[scoringPlay].about.periodTime);
                   
                 }
@@ -100,7 +106,7 @@ function getInputValue() {
                   scoringPlay = data.liveData.plays.scoringPlays[i];
                   console.log(data.liveData.plays.allPlays[scoringPlay]);
                   // fiveOnFive[data.liveData.plays.allPlays[penaltyPlay].about.period - 1].push(data.liveData.plays.allPlays[penaltyPlay].about.periodTime);
-                fiveOnFive[data.liveData.plays.allPlays[scoringPlay].about.period + 2].push(data.liveData.plays.allPlays[scoringPlay].about.periodTime);
+                fiveOnFive[data.liveData.plays.allPlays[scoringPlay].about.period + 5].push(data.liveData.plays.allPlays[scoringPlay].about.periodTime);
                   
                 }
                 console.log(fiveOnFive)
@@ -253,15 +259,15 @@ function getInputValue() {
 
               homeRosterGArray = []; homeRosterFArray = []; tempArray7 = [[],[],[]];
               awayRosterGArray = []; awayRosterFArray = [];
-              console.log(fiveOnFive[6])
+              console.log(fiveOnFive[9])
               for (i = 0; i < idChart.length; i++) {
                 tempValue = 'ID' + idChart[i];
                 if (homeRosterArray.includes(tempValue)) { tempVariable = homeRosterArray.indexOf(tempValue);
                   if (homeRosterArray[tempVariable - 2] == 'D') { homeRosterDArray.push(idChart[i]) }
                   else if (homeRosterArray[tempVariable - 2] == 'G') { homeRosterGArray.push(idChart[i]);
                     console.log(i, totalChart[3 * i], totalChart[3 * i + 1], totalChart[3 * i + 2])
-                  fiveOnFive[6].push(totalChart[3 * i], totalChart[3 * i + 1], totalChart[3 * i + 2]); 
-                console.log(fiveOnFive[6])}
+                  fiveOnFive[9].push(totalChart[3 * i], totalChart[3 * i + 1], totalChart[3 * i + 2]); 
+                console.log(fiveOnFive[9])}
                   else if (homeRosterArray[tempVariable - 2] == 'C') { homeRosterFArray.push(idChart[i]) }
                   else if (homeRosterArray[tempVariable - 2] == 'RW') { homeRosterFArray.push(idChart[i]) }
                   else if (homeRosterArray[tempVariable - 2] == 'LW') { homeRosterFArray.push(idChart[i]) }
@@ -274,7 +280,7 @@ function getInputValue() {
                   //      console.log(tempVariable, homeRosterArray[tempVariable - 3], homeRosterArray[tempVariable - 1])
                   if (awayRosterArray[tempVariable - 2] == 'D') { awayRosterDArray.push(idChart[i]) }
                   else if (awayRosterArray[tempVariable - 2] == 'G') { awayRosterGArray.push(idChart[i]); 
-                    fiveOnFive[7].push(totalChart[3 * i], totalChart[3 * i + 1], totalChart[3 * i + 2]) }
+                    fiveOnFive[10].push(totalChart[3 * i], totalChart[3 * i + 1], totalChart[3 * i + 2]) }
                   else if (awayRosterArray[tempVariable - 2] == 'C') { awayRosterFArray.push(idChart[i]) } 
                   else if (awayRosterArray[tempVariable - 2] == 'RW') { awayRosterFArray.push(idChart[i]); }
                   else if (awayRosterArray[tempVariable - 2] == 'LW') { awayRosterFArray.push(idChart[i]); }
@@ -285,16 +291,16 @@ function getInputValue() {
               console.log(awayRosterDArray, awayRosterGArray, awayRosterFArray);
               console.log(fiveOnFive);
 
-              if (fiveOnFive[6].length == 6) { for (i = 0; i < 3; i++)
-              {if (fiveOnFive[6][i] === 0) 
-              {tempArray7[i] = fiveOnFive[6][i].concat(fiveOnFive[6][i + 3])}  // probably join is the command
-              else if (fiveOnFive[6][i + 3] === 0)
-              {tempArray7[i] = fiveOnFive[6][i + 3].concat(fiveOnFive[6][i]);
+              if (fiveOnFive[9].length == 6) { for (i = 0; i < 3; i++)
+              {if (fiveOnFive[9][i] === 0) 
+              {tempArray7[i] = fiveOnFive[9][i].concat(fiveOnFive[9][i + 3])}  // probably join is the command
+              else if (fiveOnFive[9][i + 3] === 0)
+              {tempArray7[i] = fiveOnFive[9][i + 3].concat(fiveOnFive[9][i]);
               }
               }
-              for (j = 1; j < fiveOnFive[6][i].length / 2; j++) {if (fiveOnFive[6][i][2 * (j + 1)] < fiveOnFive[6][i][2 * j])
+              for (j = 1; j < fiveOnFive[9][i].length / 2; j++) {if (fiveOnFive[9][i][2 * (j + 1)] < fiveOnFive[9][i][2 * j])
               // to change order to bring it forward
-              console.log('trouble with goalie ordering, home team, period ', i, ' ', fiveOnFive[6][i][2 * (j + 1)]);
+              console.log('trouble with goalie ordering, home team, period ', i, ' ', fiveOnFive[9][i][2 * (j + 1)]);
               }
               }  // end fiveOnFive home G loop
               console.log(tempArray7); 
