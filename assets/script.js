@@ -54,7 +54,7 @@ function getInputValue() {
           var rosterURL = 'https://statsapi.web.nhl.com/api/v1/game/' + gameId + '/feed/live';
           fetch(rosterURL, {
             "method": "GET", "headers": {}
-          })
+            })
             .then(function (response) {
               return response.json();
             })
@@ -81,39 +81,37 @@ function getInputValue() {
                 else { console.log(val.id, 'player probably changed team') }
               }
               console.log(homeRosterArray, skatersHome, goaliesHome, awayRosterArray, skatersAway, goaliesAway);
-              fiveOnFive = [[],[],[],[],[],[],[],[],[],[],[],[]]
-              console.log(fiveOnFive)
+              // fiveOnFive structure: array elements 0-2 and 3-5 are home and away team penalties; elements 6-8 and 9-11 are home and away team goals
+              // elements 12 and 13 are each array of 3 or 6; home and away goalie on-ice times for three periods
+              fiveOnFive = [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]
 
               // this function will create an array of time stamps when teams played 5x5 or special teams
               console.log(data.liveData.plays.penaltyPlays);
                 
                 for (i = 0; i < data.liveData.plays.penaltyPlays.length; i++) {
                   penaltyPlay = data.liveData.plays.penaltyPlays[i];
-                  // scoringPlay = data.liveData.plays.scoringPlays[i];
-                  console.log(data.liveData.plays.allPlays[penaltyPlay], data.liveData.plays.allPlays[penaltyPlay].players[0].player.id, data.gameData.teams);
-                  if (homeRosterArray.includes(data.liveData.plays.allPlays[penaltyPlay].players[0].player.id))
-                  {console.log(homeRosterArray.indexOf(data.liveData.plays.allPlays[penaltyPlay].players[0].player.id));
-                    fiveOnFive[data.liveData.plays.allPlays[penaltyPlay].about.period - 1].push(data.liveData.plays.allPlays[penaltyPlay].about.periodTime);}
-                  else if (awayRosterArray.includes(data.liveData.plays.allPlays[penaltyPlay].players[0].player.id))
-                  {console.log(awayRosterArray.indexOf(data.liveData.plays.allPlays[penaltyPlay].players[0].player.id))}
-                  else (console.log(home))
-                    fiveOnFive[data.liveData.plays.allPlays[penaltyPlay].about.period + 2].push(data.liveData.plays.allPlays[penaltyPlay].about.periodTime);}
-                  // fiveOnFive[data.liveData.plays.allPlays[scoringPlay].about.period - 1].push(data.liveData.plays.allPlays[scoringPlay].about.periodTime);
-                  
+                  console.log(data.liveData.plays.allPlays[penaltyPlay], data.liveData.plays.allPlays[penaltyPlay].result);
+                  if (homeRosterIdArray.includes(data.liveData.plays.allPlays[penaltyPlay].players[0].player.id))
+                  { fiveOnFive[data.liveData.plays.allPlays[penaltyPlay].about.period - 1].push(data.liveData.plays.allPlays[penaltyPlay].about.periodTime, data.liveData.plays.allPlays[penaltyPlay].result.penaltyMinutes);}
+                  else if (awayRosterIdArray.includes(data.liveData.plays.allPlays[penaltyPlay].players[0].player.id))
+                  { fiveOnFive[data.liveData.plays.allPlays[penaltyPlay].about.period + 2].push(data.liveData.plays.allPlays[penaltyPlay].about.periodTime, data.liveData.plays.allPlays[penaltyPlay].result.penaltyMinutes);}
+                  else {console.log('home');
+                    }         
                 }
 
                 for (i = 0; i < data.liveData.plays.scoringPlays.length; i++) {
                   scoringPlay = data.liveData.plays.scoringPlays[i];
                   console.log(data.liveData.plays.allPlays[scoringPlay]);
-                  // fiveOnFive[data.liveData.plays.allPlays[penaltyPlay].about.period - 1].push(data.liveData.plays.allPlays[penaltyPlay].about.periodTime);
-                fiveOnFive[data.liveData.plays.allPlays[scoringPlay].about.period + 5].push(data.liveData.plays.allPlays[scoringPlay].about.periodTime);
-                  
+                  if (homeRosterIdArray.includes(data.liveData.plays.allPlays[scoringPlay].players[0].player.id))
+                { fiveOnFive[data.liveData.plays.allPlays[scoringPlay].about.period + 5].push(data.liveData.plays.allPlays[scoringPlay].about.periodTime); }
+                else if (awayRosterIdArray.includes(data.liveData.plays.allPlays[scoringPlay].players[0].player.id))
+                {fiveOnFive[data.liveData.plays.allPlays[scoringPlay].about.period + 8].push(data.liveData.plays.allPlays[scoringPlay].about.periodTime);}
                 }
                 console.log(fiveOnFive)
             });
-          // console.log(gameId);  https://api.nhle.com/stats/rest/en/shiftcharts?cayenneExp=gameId=' + gameId
-          var shiftURL = 'https://cors-anywhere.herokuapp.com/https://api.nhle.com/stats/rest/en/shiftcharts?cayenneExp=gameId=' + gameId;
-          fetch(shiftURL, {
+            // console.log(gameId);  https://api.nhle.com/stats/rest/en/shiftcharts?cayenneExp=gameId=' + gameId
+            var shiftURL = 'https://cors-anywhere.herokuapp.com/https://api.nhle.com/stats/rest/en/shiftcharts?cayenneExp=gameId=' + gameId;
+            fetch(shiftURL, {
             "method": "GET", "headers": {}
           })
             .then(function (response) {
@@ -259,15 +257,15 @@ function getInputValue() {
 
               homeRosterGArray = []; homeRosterFArray = []; tempArray7 = [[],[],[]];
               awayRosterGArray = []; awayRosterFArray = [];
-              console.log(fiveOnFive[9])
+              console.log(fiveOnFive[12])
               for (i = 0; i < idChart.length; i++) {
                 tempValue = 'ID' + idChart[i];
                 if (homeRosterArray.includes(tempValue)) { tempVariable = homeRosterArray.indexOf(tempValue);
                   if (homeRosterArray[tempVariable - 2] == 'D') { homeRosterDArray.push(idChart[i]) }
                   else if (homeRosterArray[tempVariable - 2] == 'G') { homeRosterGArray.push(idChart[i]);
                     console.log(i, totalChart[3 * i], totalChart[3 * i + 1], totalChart[3 * i + 2])
-                  fiveOnFive[9].push(totalChart[3 * i], totalChart[3 * i + 1], totalChart[3 * i + 2]); 
-                console.log(fiveOnFive[9])}
+                  fiveOnFive[12].push(totalChart[3 * i], totalChart[3 * i + 1], totalChart[3 * i + 2]); 
+                console.log(fiveOnFive[12])}
                   else if (homeRosterArray[tempVariable - 2] == 'C') { homeRosterFArray.push(idChart[i]) }
                   else if (homeRosterArray[tempVariable - 2] == 'RW') { homeRosterFArray.push(idChart[i]) }
                   else if (homeRosterArray[tempVariable - 2] == 'LW') { homeRosterFArray.push(idChart[i]) }
@@ -280,7 +278,7 @@ function getInputValue() {
                   //      console.log(tempVariable, homeRosterArray[tempVariable - 3], homeRosterArray[tempVariable - 1])
                   if (awayRosterArray[tempVariable - 2] == 'D') { awayRosterDArray.push(idChart[i]) }
                   else if (awayRosterArray[tempVariable - 2] == 'G') { awayRosterGArray.push(idChart[i]); 
-                    fiveOnFive[10].push(totalChart[3 * i], totalChart[3 * i + 1], totalChart[3 * i + 2]) }
+                    fiveOnFive[13].push(totalChart[3 * i], totalChart[3 * i + 1], totalChart[3 * i + 2]) }
                   else if (awayRosterArray[tempVariable - 2] == 'C') { awayRosterFArray.push(idChart[i]) } 
                   else if (awayRosterArray[tempVariable - 2] == 'RW') { awayRosterFArray.push(idChart[i]); }
                   else if (awayRosterArray[tempVariable - 2] == 'LW') { awayRosterFArray.push(idChart[i]); }
@@ -291,16 +289,16 @@ function getInputValue() {
               console.log(awayRosterDArray, awayRosterGArray, awayRosterFArray);
               console.log(fiveOnFive);
 
-              if (fiveOnFive[9].length == 6) { for (i = 0; i < 3; i++)
-              {if (fiveOnFive[9][i] === 0) 
-              {tempArray7[i] = fiveOnFive[9][i].concat(fiveOnFive[9][i + 3])}  // probably join is the command
-              else if (fiveOnFive[9][i + 3] === 0)
-              {tempArray7[i] = fiveOnFive[9][i + 3].concat(fiveOnFive[9][i]);
+              if (fiveOnFive[12].length == 6) { for (i = 0; i < 3; i++)
+              {if (fiveOnFive[12][i] === 0) 
+              {tempArray7[i] = fiveOnFive[12][i].concat(fiveOnFive[12][i + 3])}  // probably join is the command
+              else if (fiveOnFive[12][i + 3] === 0)
+              {tempArray7[i] = fiveOnFive[12][i + 3].concat(fiveOnFive[12][i]);
               }
               }
-              for (j = 1; j < fiveOnFive[9][i].length / 2; j++) {if (fiveOnFive[9][i][2 * (j + 1)] < fiveOnFive[9][i][2 * j])
+              for (j = 1; j < fiveOnFive[12][i].length / 2; j++) {if (fiveOnFive[12][i][2 * (j + 1)] < fiveOnFive[12][i][2 * j])
               // to change order to bring it forward
-              console.log('trouble with goalie ordering, home team, period ', i, ' ', fiveOnFive[9][i][2 * (j + 1)]);
+              console.log('trouble with goalie ordering, home team, period ', i, ' ', fiveOnFive[12][i][2 * (j + 1)]);
               }
               }  // end fiveOnFive home G loop
               console.log(tempArray7); 
