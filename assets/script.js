@@ -91,9 +91,9 @@ function getInputValue() {
                 for (i = 0; i < data.liveData.plays.penaltyPlays.length; i++) {
                   penaltyPlay = data.liveData.plays.penaltyPlays[i];
                   console.log(data.liveData.plays.allPlays[penaltyPlay], data.liveData.plays.allPlays[penaltyPlay].result);
-                  if (homeRosterIdArray.includes(data.liveData.plays.allPlays[penaltyPlay].players[0].player.id))
+                  if ((homeRosterIdArray.includes(data.liveData.plays.allPlays[penaltyPlay].players[0].player.id)) && (data.liveData.plays.allPlays[scoringPlay].about.period < 3))
                   { fiveOnFive[data.liveData.plays.allPlays[penaltyPlay].about.period - 1].push(data.liveData.plays.allPlays[penaltyPlay].about.periodTime, data.liveData.plays.allPlays[penaltyPlay].result.penaltyMinutes);}
-                  else if (awayRosterIdArray.includes(data.liveData.plays.allPlays[penaltyPlay].players[0].player.id))
+                  else if ((awayRosterIdArray.includes(data.liveData.plays.allPlays[penaltyPlay].players[0].player.id)) && (data.liveData.plays.allPlays[scoringPlay].about.period < 3))
                   { fiveOnFive[data.liveData.plays.allPlays[penaltyPlay].about.period + 2].push(data.liveData.plays.allPlays[penaltyPlay].about.periodTime, data.liveData.plays.allPlays[penaltyPlay].result.penaltyMinutes);}
                   else {console.log('home');
                     }         
@@ -101,10 +101,10 @@ function getInputValue() {
 
                 for (i = 0; i < data.liveData.plays.scoringPlays.length; i++) {
                   scoringPlay = data.liveData.plays.scoringPlays[i];
-                  console.log(data.liveData.plays.allPlays[scoringPlay]);
-                  if (homeRosterIdArray.includes(data.liveData.plays.allPlays[scoringPlay].players[0].player.id))
+                  console.log(data.liveData.plays.allPlays[scoringPlay].result.strength.code, typeof data.liveData.plays.allPlays[scoringPlay].result.strength.code);
+                  if ((homeRosterIdArray.includes(data.liveData.plays.allPlays[scoringPlay].players[0].player.id) && (data.liveData.plays.allPlays[scoringPlay].result.strength.code === 'PPG') && (data.liveData.plays.allPlays[scoringPlay].about.period < 3)))
                 { fiveOnFive[data.liveData.plays.allPlays[scoringPlay].about.period + 5].push(data.liveData.plays.allPlays[scoringPlay].about.periodTime); }
-                else if (awayRosterIdArray.includes(data.liveData.plays.allPlays[scoringPlay].players[0].player.id))
+                else if ((awayRosterIdArray.includes(data.liveData.plays.allPlays[scoringPlay].players[0].player.id) && (data.liveData.plays.allPlays[scoringPlay].result.strength.code === 'PPG' && (data.liveData.plays.allPlays[scoringPlay].about.period))))
                 {fiveOnFive[data.liveData.plays.allPlays[scoringPlay].about.period + 8].push(data.liveData.plays.allPlays[scoringPlay].about.periodTime);}
                 }
                 console.log(fiveOnFive)
