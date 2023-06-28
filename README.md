@@ -10,7 +10,9 @@ User will select one game at a time. That will run a function which determines f
 If you want to view next game analysis reload the page.
 
 ## Special Teams
-After multiple failures to generate reliable results without separating special teams stats as opposed to five on five team stats, I was forced to create script that determined when team played five on five to calculate forward lines. It was always that something did not work when forward lines were determined during situations like power play when usually four forwards are on ice.
+After multiple failures to generate reliable results without separating special teams stats as opposed to five on five team stats, I decided to create script that would determine if teams played five on five to calculate forward lines. It was always that some part of script did not work when forward lines were determined during situations like power play when usually four forwards are on ice. And remember there are 32 teams with 32 coaches who called forward lines.
+
+4 x 4 plays do not get separate treatment because they always play with 2 forwards and 2 defensemen. And our main goal is to determine when teams play with three forwards.
 
 ## Player did not finish game
 In some games, players get injured. Or some players get game misconduct penalty. They cannot finish game. That results in defensive pair of lines of forwards change as game goes by. If a skater did not have a shift during last 10 minutes of the game, a message will appear that he did not finish the game, without specific reason. 

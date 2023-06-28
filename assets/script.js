@@ -40,7 +40,7 @@ function getInputValue() {
           })
           .then(function (data) {
             const gameInfo = document.createElement('section'); gameInfo.setAttribute('id', 'gameInfo');
-            document.getElementById('schedule').appendChild(gameInfo); const gameInfoHome = document.createElement('section'); 
+            document.getElementById('schedule').appendChild(gameInfo); const gameInfoHome = document.createElement('section');
             gameInfoHome.setAttribute('id', 'gameInfoHome'); document.getElementById('schedule').appendChild(gameInfoHome);
             const gameInfoAway = document.createElement('section'); gameInfoAway.setAttribute('id', 'gameInfoAway');
             document.getElementById('schedule').appendChild(gameInfoAway);
@@ -54,7 +54,7 @@ function getInputValue() {
           var rosterURL = 'https://statsapi.web.nhl.com/api/v1/game/' + gameId + '/feed/live';
           fetch(rosterURL, {
             "method": "GET", "headers": {}
-            })
+          })
             .then(function (response) {
               return response.json();
             })
@@ -81,37 +81,45 @@ function getInputValue() {
                 else { console.log(val.id, 'player probably changed team') }
               }
               console.log(homeRosterArray, skatersHome, goaliesHome, awayRosterArray, skatersAway, goaliesAway);
+              console.log(homeRosterIdArray, awayRosterIdArray);
               // fiveOnFive structure: array elements 0-2 and 3-5 are home and away team penalties; elements 6-8 and 9-11 are home and away team goals
               // elements 12 and 13 are each array of 3 or 6; home and away goalie on-ice times for three periods
-              fiveOnFive = [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]
+              fiveOnFive = [[], [], [], [], [], [], [], [], [], [], [], [], [], [], []]
 
               // this function will create an array of time stamps when teams played 5x5 or special teams
               console.log(data.liveData.plays.penaltyPlays);
-                
-                for (i = 0; i < data.liveData.plays.penaltyPlays.length; i++) {
-                  penaltyPlay = data.liveData.plays.penaltyPlays[i];
-                  // console.log(data.liveData.plays.allPlays[penaltyPlay], data.liveData.plays.allPlays[penaltyPlay].result);
-                  if ((homeRosterIdArray.includes(data.liveData.plays.allPlays[penaltyPlay].players[0].player.id)) && (data.liveData.plays.allPlays[scoringPlay].about.period < 3))
-                  { fiveOnFive[data.liveData.plays.allPlays[penaltyPlay].about.period - 1].push(data.liveData.plays.allPlays[penaltyPlay].about.periodTime, data.liveData.plays.allPlays[penaltyPlay].result.penaltyMinutes);}
-                  else if ((awayRosterIdArray.includes(data.liveData.plays.allPlays[penaltyPlay].players[0].player.id)) && (data.liveData.plays.allPlays[scoringPlay].about.period < 3))
-                  { fiveOnFive[data.liveData.plays.allPlays[penaltyPlay].about.period + 2].push(data.liveData.plays.allPlays[penaltyPlay].about.periodTime, data.liveData.plays.allPlays[penaltyPlay].result.penaltyMinutes);}
-                  else {console.log('home');
-                    }         
-                }
 
-                for (i = 0; i < data.liveData.plays.scoringPlays.length; i++) {
-                  scoringPlay = data.liveData.plays.scoringPlays[i];
-                  // console.log(data.liveData.plays.allPlays[scoringPlay].result.strength.code, typeof data.liveData.plays.allPlays[scoringPlay].result.strength.code);
-                  if ((homeRosterIdArray.includes(data.liveData.plays.allPlays[scoringPlay].players[0].player.id) && (data.liveData.plays.allPlays[scoringPlay].result.strength.code === 'PPG') && (data.liveData.plays.allPlays[scoringPlay].about.period < 3)))
-                { fiveOnFive[data.liveData.plays.allPlays[scoringPlay].about.period + 5].push(data.liveData.plays.allPlays[scoringPlay].about.periodTime); }
-                else if ((awayRosterIdArray.includes(data.liveData.plays.allPlays[scoringPlay].players[0].player.id) && (data.liveData.plays.allPlays[scoringPlay].result.strength.code === 'PPG' && (data.liveData.plays.allPlays[scoringPlay].about.period))))
-                {fiveOnFive[data.liveData.plays.allPlays[scoringPlay].about.period + 8].push(data.liveData.plays.allPlays[scoringPlay].about.periodTime);}
+              for (i = 0; i < data.liveData.plays.penaltyPlays.length; i++) {
+                penaltyPlay = data.liveData.plays.penaltyPlays[i];
+                if ((homeRosterIdArray.includes(data.liveData.plays.allPlays[penaltyPlay].players[0].player.id)) && (data.liveData.plays.allPlays[penaltyPlay].about.period < 4)) { fiveOnFive[data.liveData.plays.allPlays[penaltyPlay].about.period - 1].push(data.liveData.plays.allPlays[penaltyPlay].about.periodTime, data.liveData.plays.allPlays[penaltyPlay].result.penaltyMinutes); }
+                else if ((awayRosterIdArray.includes(data.liveData.plays.allPlays[penaltyPlay].players[0].player.id)) && (data.liveData.plays.allPlays[penaltyPlay].about.period < 4)) { fiveOnFive[data.liveData.plays.allPlays[penaltyPlay].about.period + 2].push(data.liveData.plays.allPlays[penaltyPlay].about.periodTime, data.liveData.plays.allPlays[penaltyPlay].result.penaltyMinutes); }
+                else {
+                  console.log('home', data.liveData.plays.allPlays[penaltyPlay].players[0].player.id);
                 }
-                console.log(fiveOnFive)
+              }
+
+              for (i = 0; i < data.liveData.plays.scoringPlays.length; i++) {
+                scoringPlay = data.liveData.plays.scoringPlays[i];
+                // console.log(data.liveData.plays.allPlays[scoringPlay].result.strength.code, typeof data.liveData.plays.allPlays[scoringPlay].result.strength.code);
+                if ((homeRosterIdArray.includes(data.liveData.plays.allPlays[scoringPlay].players[0].player.id) && (data.liveData.plays.allPlays[scoringPlay].result.strength.code === 'PPG') && (data.liveData.plays.allPlays[scoringPlay].about.period < 3))) { fiveOnFive[data.liveData.plays.allPlays[scoringPlay].about.period + 5].push(data.liveData.plays.allPlays[scoringPlay].about.periodTime); }
+                else if ((awayRosterIdArray.includes(data.liveData.plays.allPlays[scoringPlay].players[0].player.id) && (data.liveData.plays.allPlays[scoringPlay].result.strength.code === 'PPG' && (data.liveData.plays.allPlays[scoringPlay].about.period)))) { fiveOnFive[data.liveData.plays.allPlays[scoringPlay].about.period + 8].push(data.liveData.plays.allPlays[scoringPlay].about.periodTime); }
+              }
+              console.log(fiveOnFive);
+              realFiveOnFive = [[],[],[]];
+              for (i = 0; i < 3; i++ ) {
+                for (j = 0; j < fiveOnFive[i].length / 2; j++) {timeStamp = fiveOnFive[i][2 * j].split(':');
+                console.log(typeof timeStamp[0]);
+              timeInSeconds = i * 1200 + Number(timeStamp[0]) * 60 + Number(timeStamp[1]);
+                penaltyLengthSeconds = fiveOnFive[i][2 * j + 1] * 60;
+                if ( timeInSeconds + penaltyLengthSeconds < 3600){
+                realFiveOnFive[0].push(timeInSeconds, timeInSeconds + penaltyLengthSeconds)}
+            }
+                 }
+                 console.log(realFiveOnFive)
             });
-            // console.log(gameId);  https://api.nhle.com/stats/rest/en/shiftcharts?cayenneExp=gameId=' + gameId
-            var shiftURL = 'https://cors-anywhere.herokuapp.com/https://api.nhle.com/stats/rest/en/shiftcharts?cayenneExp=gameId=' + gameId;
-            fetch(shiftURL, {
+          // console.log(gameId);  https://api.nhle.com/stats/rest/en/shiftcharts?cayenneExp=gameId=' + gameId
+          var shiftURL = 'https://cors-anywhere.herokuapp.com/https://api.nhle.com/stats/rest/en/shiftcharts?cayenneExp=gameId=' + gameId;
+          fetch(shiftURL, {
             "method": "GET", "headers": {}
           })
             .then(function (response) {
@@ -120,8 +128,8 @@ function getInputValue() {
             .then(function (data) {
               console.log('I am in third then'); // console.log(data.data);
               playerChart1 = []; playerChart2 = []; playerChart3 = []; startingLineup = [];
-              totalChart = []; idChart = []; 
-              
+              totalChart = []; idChart = [];
+
               // that's a complex cycle that creates arrays of each player time shifts in each of three periods, also arary of playerIDs who actually played the game, not just were in the roster, also starting lineups are created
               for (i = 0; i < data.data.length - 1; i++) {
                 if (data.data[i].typeCode == 517) {
@@ -218,7 +226,8 @@ function getInputValue() {
                     playerChart1 = []; playerChart2 = []; playerChart3 = [];
                   }
 
-                  if (i == data.data.length - 2) { totalChart.push(playerChart1, playerChart2, playerChart3);
+                  if (i == data.data.length - 2) {
+                    totalChart.push(playerChart1, playerChart2, playerChart3);
                     console.log(i, playerId, idChart.length); idChart.push(playerId);
                   }
                 }
@@ -231,7 +240,7 @@ function getInputValue() {
               else if (data.data[data.data.length - 1].period == 1) { playerChart1.push(data.data[data.data.length - 1].startTime); }
               console.log(startingLineup);
               console.log(totalChart, idChart);
-              console.log(homeRosterIdArray, awayRosterIdArray);
+              
               // lines 286-302 disabled on 02/05/2023 i do not need starting lineup for now
               // homeStartingLineup = [];
               // homeStartingDLineup = [];
@@ -255,17 +264,20 @@ function getInputValue() {
               // // homeStartingLineup.push(homeStartingFLineup);
               // console.log(homeStartingLineup);
 
-              homeRosterGArray = []; homeRosterFArray = []; tempArray7 = [[],[],[]];
+              homeRosterGArray = []; homeRosterFArray = []; tempArray7 = [[], [], []];
               awayRosterGArray = []; awayRosterFArray = [];
               console.log(fiveOnFive[12])
               for (i = 0; i < idChart.length; i++) {
                 tempValue = 'ID' + idChart[i];
-                if (homeRosterArray.includes(tempValue)) { tempVariable = homeRosterArray.indexOf(tempValue);
+                if (homeRosterArray.includes(tempValue)) {
+                  tempVariable = homeRosterArray.indexOf(tempValue);
                   if (homeRosterArray[tempVariable - 2] == 'D') { homeRosterDArray.push(idChart[i]) }
-                  else if (homeRosterArray[tempVariable - 2] == 'G') { homeRosterGArray.push(idChart[i]);
+                  else if (homeRosterArray[tempVariable - 2] == 'G') {
+                    homeRosterGArray.push(idChart[i]);
                     console.log(i, totalChart[3 * i], totalChart[3 * i + 1], totalChart[3 * i + 2])
-                  fiveOnFive[12].push(totalChart[3 * i], totalChart[3 * i + 1], totalChart[3 * i + 2]); 
-                console.log(fiveOnFive[12])}
+                    fiveOnFive[12].push(totalChart[3 * i], totalChart[3 * i + 1], totalChart[3 * i + 2]);
+                    console.log(fiveOnFive[12])
+                  }
                   else if (homeRosterArray[tempVariable - 2] == 'C') { homeRosterFArray.push(idChart[i]) }
                   else if (homeRosterArray[tempVariable - 2] == 'RW') { homeRosterFArray.push(idChart[i]) }
                   else if (homeRosterArray[tempVariable - 2] == 'LW') { homeRosterFArray.push(idChart[i]) }
@@ -274,36 +286,40 @@ function getInputValue() {
               } // end for  hom idChart loop
               for (i = 0; i < idChart.length; i++) {
                 tempValue = 'ID' + idChart[i];
-                if (awayRosterArray.includes(tempValue)) { tempVariable = awayRosterArray.indexOf(tempValue);
+                if (awayRosterArray.includes(tempValue)) {
+                  tempVariable = awayRosterArray.indexOf(tempValue);
                   //      console.log(tempVariable, homeRosterArray[tempVariable - 3], homeRosterArray[tempVariable - 1])
                   if (awayRosterArray[tempVariable - 2] == 'D') { awayRosterDArray.push(idChart[i]) }
-                  else if (awayRosterArray[tempVariable - 2] == 'G') { awayRosterGArray.push(idChart[i]); 
-                    fiveOnFive[13].push(totalChart[3 * i], totalChart[3 * i + 1], totalChart[3 * i + 2]) }
-                  else if (awayRosterArray[tempVariable - 2] == 'C') { awayRosterFArray.push(idChart[i]) } 
+                  else if (awayRosterArray[tempVariable - 2] == 'G') {
+                    awayRosterGArray.push(idChart[i]);
+                    fiveOnFive[13].push(totalChart[3 * i], totalChart[3 * i + 1], totalChart[3 * i + 2])
+                  }
+                  else if (awayRosterArray[tempVariable - 2] == 'C') { awayRosterFArray.push(idChart[i]) }
                   else if (awayRosterArray[tempVariable - 2] == 'RW') { awayRosterFArray.push(idChart[i]); }
                   else if (awayRosterArray[tempVariable - 2] == 'LW') { awayRosterFArray.push(idChart[i]); }
-                  else (console.log('he does not have a position', tempValue)) 
+                  else (console.log('he does not have a position', tempValue))
                 }
               } // end for away idChart loop
               console.log(homeRosterDArray, homeRosterGArray, homeRosterFArray);
               console.log(awayRosterDArray, awayRosterGArray, awayRosterFArray);
               console.log(fiveOnFive);
 
-              if (fiveOnFive[12].length == 6) { for (i = 0; i < 3; i++)
-              {if (fiveOnFive[12][i] === 0) 
-              {tempArray7[i] = fiveOnFive[12][i].concat(fiveOnFive[12][i + 3])}  // probably join is the command
-              else if (fiveOnFive[12][i + 3] === 0)
-              {tempArray7[i] = fiveOnFive[12][i + 3].concat(fiveOnFive[12][i]);
-              }
-              }
-              for (j = 1; j < fiveOnFive[12][i].length / 2; j++) {if (fiveOnFive[12][i][2 * (j + 1)] < fiveOnFive[12][i][2 * j])
-              // to change order to bring it forward
-              console.log('trouble with goalie ordering, home team, period ', i, ' ', fiveOnFive[12][i][2 * (j + 1)]);
-              }
+              if (fiveOnFive[12].length == 6) {
+                for (i = 0; i < 3; i++) {
+                  if (fiveOnFive[12][i] === 0) { tempArray7[i] = fiveOnFive[12][i].concat(fiveOnFive[12][i + 3]) }  // probably join is the command
+                  else if (fiveOnFive[12][i + 3] === 0) {
+                    tempArray7[i] = fiveOnFive[12][i + 3].concat(fiveOnFive[12][i]);
+                  }
+                }
+                for (j = 1; j < fiveOnFive[12][i].length / 2; j++) {
+                  if (fiveOnFive[12][i][2 * (j + 1)] < fiveOnFive[12][i][2 * j])
+                    // to change order to bring it forward
+                    console.log('trouble with goalie ordering, home team, period ', i, ' ', fiveOnFive[12][i][2 * (j + 1)]);
+                }
               }  // end fiveOnFive home G loop
-              console.log(tempArray7); 
+              console.log(tempArray7);
 
-              getDPairs(); 
+              getDPairs();
               function getDPairs() {
                 shiftsArray = []; shiftsFArray = []; awayShiftsArray = []; awayShiftsFArray = [];
                 TOIArray = []; TOIFArray = []; TOIAwayArray = [];
@@ -350,8 +366,8 @@ function getInputValue() {
                   TOIAwayArray.push(totalShiftLength);
                 } // end i TOIArray D loop
 
-                tempArray6 = []; tempArray4 = shiftsArray.splice(shiftsArray.length/3); tempArray5 = tempArray4.splice(tempArray4.length / 2);
-                tempArray6[1] = tempArray4; tempArray6[2] = tempArray5; tempArray6[0] = shiftsArray;  console.log(tempArray6);
+                tempArray6 = []; tempArray4 = shiftsArray.splice(shiftsArray.length / 3); tempArray5 = tempArray4.splice(tempArray4.length / 2);
+                tempArray6[1] = tempArray4; tempArray6[2] = tempArray5; tempArray6[0] = shiftsArray; console.log(tempArray6);
 
                 for (i = 0; i < tempArray6.length; i++) {
                   for (j = 0; j < tempArray6[i].length; j++) {
@@ -685,8 +701,8 @@ function getInputValue() {
                 var firstD5A = document.createElement('p2');
                 firstD5A.innerHTML = pairingsArray4[3][7] + ' sh ' + pairingsArray4[3][6] + ' sec ' + '<br>' + pairingsArray4[4][7] + ' sh ' + pairingsArray4[4][6] + ' sec ' + '<br>' + pairingsArray4[5][7] + ' sh ' + pairingsArray4[5][6] + ' sec ';
                 document.getElementById('firstD5A').appendChild(firstD5A);
-                
-                
+
+
 
                 secondDNumberA.innerHTML = awayRosterArray[awayRosterDIDArray[3] - 4] + ' ' + awayRosterArray[awayRosterDIDArray[3] - 1] + ' ' + awayRosterArray[awayRosterDIDArray[3] - 3];
                 secondD1A.innerHTML = pairingsArray4[3][1] + ' shifts ' + pairingsArray4[3][0] + ' sec ' + '<br>' + pairingsArray4[4][1] + ' sh ' + pairingsArray4[4][0] + ' sec ' + '<br>' + pairingsArray4[5][1] + ' sh ' + pairingsArray4[5][0] + ' sec ';
@@ -700,10 +716,10 @@ function getInputValue() {
                 fifthDNumberA.innerHTML = awayRosterArray[awayRosterDIDArray[9] - 4] + ' ' + awayRosterArray[awayRosterDIDArray[9] - 1] + ' ' + awayRosterArray[awayRosterDIDArray[9] - 3];
                 fifthD1A.innerHTML = pairingsArray4[3][7] + ' sh ' + pairingsArray4[3][6] + ' sec ' + '<br>' + pairingsArray4[4][7] + ' sh ' + pairingsArray4[4][6] + ' sec ' + '<br>' + pairingsArray4[5][7] + ' sh ' + pairingsArray4[5][6] + ' sec ';
                 fifthD5A.innerHTML = 'X' + '<br>' + 'X' + '<br>' + 'X';
-                
+
 
                 var secondD3A = document.createElement('p3'); var secondD4A = document.createElement('p2');
-                var secondD5A = document.createElement('p3'); 
+                var secondD5A = document.createElement('p3');
                 var thirdD4A = document.createElement('p3'); var thirdD5A = document.createElement('p2');
                 var thirdD6A = document.createElement('p3'); var forthD5A = document.createElement('p3');
                 var forthD6A = document.createElement('p2'); var fifthD6A = document.createElement('p3');
@@ -716,13 +732,13 @@ function getInputValue() {
                   var firstD6A = document.createElement('p3');
                   firstD6A.innerHTML = pairingsArray4[3][9] + ' sh ' + pairingsArray4[3][8] + ' sec ' + '<br>' + pairingsArray4[4][9] + ' sh ' + pairingsArray4[4][8] + ' sec ' + '<br>' + pairingsArray4[5][9] + ' sh ' + pairingsArray4[5][8] + ' sec ';
                   document.getElementById('firstD6A').appendChild(firstD6A);
-                  var secondD6A = document.createElement('p2'); document.getElementById('secondD6A').appendChild(secondD6A);                  
+                  var secondD6A = document.createElement('p2'); document.getElementById('secondD6A').appendChild(secondD6A);
                   var firstD7A = document.createElement('p2');
                   firstD7A.innerHTML = pairingsArray4[3][11] + ' sh ' + pairingsArray4[3][10] + ' sec ' + '<br>' + pairingsArray4[4][11] + ' sh ' + pairingsArray4[4][10] + ' sec ' + '<br>' + pairingsArray4[5][11] + ' sh ' + pairingsArray4[5][10] + ' sec ';
                   var thirdD7A = document.createElement('p2'); var fifthD7A = document.createElement('p2'); document.getElementById('firstD7A').appendChild(firstD7A);
                   seventhD1A.innerHTML = pairingsArray4[3][11] + ' sh ' + pairingsArray4[3][10] + ' sec ' + '<br>' + pairingsArray4[4][11] + ' sh ' + pairingsArray4[4][10] + ' sec ' + '<br>' + pairingsArray4[5][11] + ' sh ' + pairingsArray4[5][10] + ' sec ';
                   var seventhD7A = document.createElement('p2'); seventhD7A.innerHTML = 'X' + '<br>' + 'X' + '<br>' + 'X';
-                  document.getElementById('seventhD7A').appendChild(seventhD7A);                  
+                  document.getElementById('seventhD7A').appendChild(seventhD7A);
                   secondD4A.innerHTML = pairingsArray4[3][15] + ' sh ' + pairingsArray4[3][14] + ' sec ' + '<br>' + pairingsArray4[4][15] + ' sh ' + pairingsArray4[4][14] + ' sec ' + '<br>' + pairingsArray4[5][15] + ' sh ' + pairingsArray4[5][14] + ' sec ';
                   secondD5A.innerHTML = pairingsArray4[3][17] + ' sh ' + pairingsArray4[3][16] + ' sec ' + '<br>' + pairingsArray4[4][17] + ' sh ' + pairingsArray4[4][16] + ' sec ' + '<br>' + pairingsArray4[5][17] + ' sh ' + pairingsArray4[5][16] + ' sec ';
                   secondD6A.innerHTML = pairingsArray4[3][19] + ' sh ' + pairingsArray4[3][18] + ' sec ' + '<br>' + pairingsArray4[4][19] + ' sh ' + pairingsArray4[4][18] + ' sec ' + '<br>' + pairingsArray4[5][19] + ' sh ' + pairingsArray4[5][18] + ' sec ';
@@ -747,15 +763,15 @@ function getInputValue() {
                   sixthD7A.innerHTML = pairingsArray4[3][41] + ' sh ' + pairingsArray4[3][40] + ' sec ' + '<br>' + pairingsArray4[4][41] + ' sh ' + pairingsArray4[4][40] + ' sec ' + '<br>' + pairingsArray4[5][41] + ' sh ' + pairingsArray4[5][40] + ' sec ';
                   seventhD2A.innerHTML = secondD7A.innerHTML; seventhD3A.innerHTML = thirdD7A.innerHTML;
                   seventhD4A.innerHTML = forthD7A.innerHTML; seventhD5A.innerHTML = fifthD7A.innerHTML;
-                  seventhD6A.innerHTML = sixthD7A.innerHTML; 
+                  seventhD6A.innerHTML = sixthD7A.innerHTML;
                 } // end if seven D men
 
                 else if (awayRosterDArray.length == 6) {
                   var firstD6A = document.createElement('p3');
                   firstD6A.innerHTML = pairingsArray4[3][9] + ' sh ' + pairingsArray4[3][8] + ' sec ' + '<br>' + pairingsArray4[4][9] + ' sh ' + pairingsArray4[4][8] + ' sec ' + '<br>' + pairingsArray4[5][9] + ' sh ' + pairingsArray4[5][8] + ' sec ';
-                document.getElementById('firstD6A').appendChild(firstD6A);
-                var secondD6A = document.createElement('p2'); document.getElementById('secondD6A').appendChild(secondD6A);
-                secondD3A.innerHTML = pairingsArray4[3][13] + ' sh ' + pairingsArray4[3][12] + ' sec ' + '<br>' + pairingsArray4[4][13] + ' sh ' + pairingsArray4[4][12] + ' sec ' + '<br>' + pairingsArray4[5][13] + ' sh ' + pairingsArray4[5][12] + ' sec ';
+                  document.getElementById('firstD6A').appendChild(firstD6A);
+                  var secondD6A = document.createElement('p2'); document.getElementById('secondD6A').appendChild(secondD6A);
+                  secondD3A.innerHTML = pairingsArray4[3][13] + ' sh ' + pairingsArray4[3][12] + ' sec ' + '<br>' + pairingsArray4[4][13] + ' sh ' + pairingsArray4[4][12] + ' sec ' + '<br>' + pairingsArray4[5][13] + ' sh ' + pairingsArray4[5][12] + ' sec ';
                   secondD3A.innerHTML = pairingsArray4[3][11] + ' sh ' + pairingsArray4[3][10] + ' sec ' + '<br>' + pairingsArray4[4][11] + ' sh ' + pairingsArray4[4][10] + ' sec ' + '<br>' + pairingsArray4[5][11] + ' sh ' + pairingsArray4[5][10] + ' sec ';
                   secondD4A.innerHTML = pairingsArray4[3][13] + ' sh ' + pairingsArray4[3][12] + ' sec ' + '<br>' + pairingsArray4[4][13] + ' sh ' + pairingsArray4[4][12] + ' sec ' + '<br>' + pairingsArray4[5][13] + ' sh ' + pairingsArray4[5][12] + ' sec ';
                   secondD5A.innerHTML = pairingsArray4[3][15] + ' sh ' + pairingsArray4[3][14] + ' sec ' + '<br>' + pairingsArray4[4][15] + ' sh ' + pairingsArray4[4][14] + ' sec ' + '<br>' + pairingsArray4[5][15] + ' sh ' + pairingsArray4[5][14] + ' sec ';
@@ -764,17 +780,17 @@ function getInputValue() {
                   thirdD4A.innerHTML = pairingsArray4[3][19] + ' sh ' + pairingsArray4[3][18] + ' sec ' + '<br>' + pairingsArray4[4][19] + ' sh ' + pairingsArray4[4][18] + ' sec ' + '<br>' + pairingsArray4[5][19] + ' sh ' + pairingsArray4[5][18] + ' sec ';
                   thirdD5A.innerHTML = pairingsArray4[3][21] + ' sh ' + pairingsArray4[3][20] + ' sec ' + '<br>' + pairingsArray4[4][21] + ' sh ' + pairingsArray4[4][20] + ' sec ' + '<br>' + pairingsArray4[5][21] + ' sh ' + pairingsArray4[5][20] + ' sec ';
                   thirdD6A.innerHTML = pairingsArray4[3][23] + ' sh ' + pairingsArray4[3][22] + ' sec ' + '<br>' + pairingsArray4[4][23] + ' sh ' + pairingsArray4[4][22] + ' sec ' + '<br>' + pairingsArray4[5][23] + ' sh ' + pairingsArray4[5][22] + ' sec ';
-                  forthD2A.innerHTML = secondD4A.innerHTML; forthD3A.innerHTML = thirdD4A.innerHTML; 
+                  forthD2A.innerHTML = secondD4A.innerHTML; forthD3A.innerHTML = thirdD4A.innerHTML;
                   forthD5A.innerHTML = pairingsArray4[3][25] + ' sh ' + pairingsArray4[3][24] + ' sec ' + '<br>' + pairingsArray4[4][25] + ' sh ' + pairingsArray4[4][24] + ' sec ' + '<br>' + pairingsArray4[5][25] + ' sh ' + pairingsArray4[5][24] + ' sec ';
                   forthD6A.innerHTML = pairingsArray4[3][27] + ' sh ' + pairingsArray4[3][26] + ' sec ' + '<br>' + pairingsArray4[4][27] + ' sh ' + pairingsArray4[4][26] + ' sec ' + '<br>' + pairingsArray4[5][27] + ' sh ' + pairingsArray4[5][26] + ' sec ';
                   fifthD2A.innerHTML = secondD5A.innerHTML; fifthD3A.innerHTML = thirdD5A.innerHTML;
                   fifthD4A.innerHTML = forthD5A.innerHTML;
                   fifthD6A.innerHTML = pairingsArray4[3][29] + ' sh ' + pairingsArray4[3][28] + ' sec ' + '<br>' + pairingsArray4[4][29] + ' sh ' + pairingsArray4[4][28] + ' sec ' + '<br>' + pairingsArray4[5][29] + ' sh ' + pairingsArray4[5][28] + ' sec ';
                   sixthDNumberA.innerHTML = awayRosterArray[awayRosterDIDArray[11] - 4] + ' ' + awayRosterArray[awayRosterDIDArray[11] - 1] + ' ' + awayRosterArray[awayRosterDIDArray[11] - 3];;
-                sixthD1A.innerHTML = pairingsArray4[3][9] + ' sh ' + pairingsArray4[3][8] + ' sec ' + '<br>' + pairingsArray4[4][9] + ' sh ' + pairingsArray4[4][8] + ' sec ' + '<br>' + pairingsArray4[5][9] + ' sh ' + pairingsArray4[5][8] + ' sec ';
-                sixthD6A.innerHTML = 'X' + '<br>' + 'X' + '<br>' + 'X';
-                  sixthD2A.innerHTML = secondD6A.innerHTML; sixthD3A.innerHTML = thirdD6A.innerHTML; 
-                  sixthD4A.innerHTML = forthD6A.innerHTML; sixthD5A.innerHTML = fifthD6A.innerHTML 
+                  sixthD1A.innerHTML = pairingsArray4[3][9] + ' sh ' + pairingsArray4[3][8] + ' sec ' + '<br>' + pairingsArray4[4][9] + ' sh ' + pairingsArray4[4][8] + ' sec ' + '<br>' + pairingsArray4[5][9] + ' sh ' + pairingsArray4[5][8] + ' sec ';
+                  sixthD6A.innerHTML = 'X' + '<br>' + 'X' + '<br>' + 'X';
+                  sixthD2A.innerHTML = secondD6A.innerHTML; sixthD3A.innerHTML = thirdD6A.innerHTML;
+                  sixthD4A.innerHTML = forthD6A.innerHTML; sixthD5A.innerHTML = fifthD6A.innerHTML
                 } // end if sixth D men 
 
                 else if (awayRosterDArray.length == 5) {
@@ -784,20 +800,20 @@ function getInputValue() {
                   thirdD2A.innerHTML = secondD3A.innerHTML;
                   thirdD4A.innerHTML = pairingsArray4[3][15] + ' sh ' + pairingsArray4[3][14] + ' sec ' + '<br>' + pairingsArray4[4][15] + ' sh ' + pairingsArray4[4][14] + ' sec ' + '<br>' + pairingsArray4[5][15] + ' sh ' + pairingsArray4[5][14] + ' sec ';
                   thirdD5A.innerHTML = pairingsArray4[3][17] + ' sh ' + pairingsArray4[3][16] + ' sec ' + '<br>' + pairingsArray4[4][17] + ' sh ' + pairingsArray4[4][16] + ' sec ' + '<br>' + pairingsArray4[5][17] + ' sh ' + pairingsArray4[5][16] + ' sec ';
-                  forthD2A.innerHTML = secondD4A.innerHTML; forthD3A.innerHTML = thirdD4A.innerHTML; 
+                  forthD2A.innerHTML = secondD4A.innerHTML; forthD3A.innerHTML = thirdD4A.innerHTML;
                   forthD5A.innerHTML = pairingsArray4[3][19] + ' sh ' + pairingsArray4[3][18] + ' sec ' + '<br>' + pairingsArray4[4][19] + ' sh ' + pairingsArray4[4][18] + ' sec ' + '<br>' + pairingsArray4[5][19] + ' sh ' + pairingsArray4[5][18] + ' sec ';
                   fifthD2A.innerHTML = secondD5A.innerHTML; fifthD3A.innerHTML = thirdD5A.innerHTML;
                   fifthD4A.innerHTML = forthD5A.innerHTML;
                 } // end if five D men 
 
                 document.getElementById('secondD3A').appendChild(secondD3A); document.getElementById('secondD4A').appendChild(secondD4A);
-                document.getElementById('secondD5A').appendChild(secondD5A); 
+                document.getElementById('secondD5A').appendChild(secondD5A);
                 document.getElementById('thirdD4A').appendChild(thirdD4A); document.getElementById('thirdD5A').appendChild(thirdD5A);
                 document.getElementById('thirdD6A').appendChild(thirdD6A); document.getElementById('forthD5A').appendChild(forthD5A);
                 document.getElementById('forthD6A').appendChild(forthD6A); document.getElementById('fifthD6A').appendChild(fifthD6A);
 
                 linesArray5 = [[], [], [], [], [], []]; linesArray6 = []; linesArray3 = [];
-                console.log(linesArray4); 
+                console.log(linesArray4);
 
                 for (i = 0; i < 6; i++) { // i is for 3 periods x 2 teams
                   for (j = 0; j < linesArray4[i].length / 5; j++) {
@@ -805,45 +821,52 @@ function getInputValue() {
                       linesArray5[i].push(linesArray4[i][5 * j], 5 * j, linesArray4[i][5 * j + 1], linesArray4[i][5 * j + 2], linesArray4[i][5 * j + 3], linesArray4[i][5 * j + 4])
                     }
                   }
-                }                
+                }
 
-                for (i = 2; i > -1; i-- ){ 
-                    if (linesArray5[i].length === 18 || linesArray5[i].length === 24) { console.log(i); linesArray2 = []; 
-                    for (j = 0; j < linesArray5[i].length / 6; j++) { 
-                    linesArray2.push(linesArray5[i][6 * j + 3], linesArray5[i][6 * j + 4], linesArray5[i][6 * j + 5]) }
+                for (i = 2; i > -1; i--) {
+                  if (linesArray5[i].length === 18 || linesArray5[i].length === 24) {
+                    console.log(i); linesArray2 = [];
+                    for (j = 0; j < linesArray5[i].length / 6; j++) {
+                      linesArray2.push(linesArray5[i][6 * j + 3], linesArray5[i][6 * j + 4], linesArray5[i][6 * j + 5])
+                    }
                   }
                 }
-                for (i = 5; i > 2; i-- ){
-                  if (linesArray5[i].length === 18 || linesArray5[i].length === 24) { console.log(i); linesArray6 = []; 
+                for (i = 5; i > 2; i--) {
+                  if (linesArray5[i].length === 18 || linesArray5[i].length === 24) {
+                    console.log(i); linesArray6 = [];
                     for (j = 0; j < linesArray5[i].length / 6; j++) {
-                    linesArray6.push(linesArray5[i][6 * j + 3], linesArray5[i][6 * j + 4], linesArray5[i][6 * j + 5]) }
+                      linesArray6.push(linesArray5[i][6 * j + 3], linesArray5[i][6 * j + 4], linesArray5[i][6 * j + 5])
+                    }
                   }
                 }
                 console.log(linesArray5, linesArray2, linesArray6);
                 const maxLineHome = Math.max(linesArray5[0].length, linesArray5[1].length, linesArray5[2].length);
                 const maxLineAway = Math.max(linesArray5[3].length, linesArray5[4].length, linesArray5[5].length);
                 linesArray3 = [];
-                if (maxLineHome < 18) { const maxLineHomeIndex = [linesArray5[0].length, linesArray5[1].length, linesArray5[2].length].indexOf(maxLineHome); linesArray3 =[];
-                  for (i = 0; i < linesArray4[maxLineHomeIndex].length/5; i++)  {linesArray3.push(linesArray4[maxLineHomeIndex][5 * i])}
-                    
+                if (maxLineHome < 18) {
+                  const maxLineHomeIndex = [linesArray5[0].length, linesArray5[1].length, linesArray5[2].length].indexOf(maxLineHome); linesArray3 = [];
+                  for (i = 0; i < linesArray4[maxLineHomeIndex].length / 5; i++) { linesArray3.push(linesArray4[maxLineHomeIndex][5 * i]) }
+
                 }
                 linesArray = linesArray3.sort();
                 console.log(linesArray);
 
-                if (maxLineAway < 18) { const maxLineAwayIndex = [linesArray5[3].length, linesArray5[4].length, linesArray5[5].length].indexOf(maxLineAway); linesArray3 =[];
+                if (maxLineAway < 18) {
+                  const maxLineAwayIndex = [linesArray5[3].length, linesArray5[4].length, linesArray5[5].length].indexOf(maxLineAway); linesArray3 = [];
                   console.log(maxLineAwayIndex);
                   // console.log(linesArray4[maxLineAwayIndex + 3].length, linesArray4[maxLineAwayIndex + 3]);
-                  for (i = 0; i < linesArray4[maxLineAwayIndex + 3].length/5; i++)  {linesArray3.push(linesArray4[maxLineAwayIndex + 3][5 * i])} //
-                    
+                  for (i = 0; i < linesArray4[maxLineAwayIndex + 3].length / 5; i++) { linesArray3.push(linesArray4[maxLineAwayIndex + 3][5 * i]) } //
+
                 }
                 // linesArray = linesArray3.sort(); 
                 console.log(linesArray3);
-                
+
                 // else if (i == 3) {linesArray6.push(linesArray4[i][5 * j + 2], linesArray4[i][5 * j + 3], linesArray4[i][5 * j + 4]) }
-                if (linesArray5[0].length < 18) { linesArray2 = []; 
+                if (linesArray5[0].length < 18) {
+                  linesArray2 = [];
                   linesArray5 = [[], [], [], linesArray5[3], linesArray5[4], linesArray5[5]];
-                  for (i = 0; i < 3; i++) { 
-                    for (j = 0; j < linesArray4[i].length / 5; j++) { 
+                  for (i = 0; i < 3; i++) {
+                    for (j = 0; j < linesArray4[i].length / 5; j++) {
                       if (linesArray4[i][5 * j] > 120 && linesArray4[i][5 * j + 1] > 2) {
                         linesArray5[i].push(linesArray4[i][5 * j], 5 * j, linesArray4[i][5 * j + 1], linesArray4[i][5 * j + 2], linesArray4[i][5 * j + 3], linesArray4[i][5 * j + 4]);
                         if (i == 0) { linesArray2.push(linesArray4[i][5 * j + 2], linesArray4[i][5 * j + 3], linesArray4[i][5 * j + 4]) }
@@ -851,7 +874,7 @@ function getInputValue() {
                     }
                   }
                 }
-                if (linesArray5[3].length < 18) { 
+                if (linesArray5[3].length < 18) {
                   linesArray5 = [linesArray5[0], linesArray5[1], linesArray5[2], [], [], []];
                   linesArray6 = [];
                   for (i = 3; i < 6; i++) {
@@ -860,32 +883,34 @@ function getInputValue() {
                         linesArray5[i].push(linesArray4[i][5 * j], 5 * j, linesArray4[i][5 * j + 1], linesArray4[i][5 * j + 2], linesArray4[i][5 * j + 3], linesArray4[i][5 * j + 4]);
                         if (i == 3) { linesArray6.push(linesArray4[i][5 * j + 2], linesArray4[i][5 * j + 3], linesArray4[i][5 * j + 4]) }
                       }
-                    } 
+                    }
                   }
                 }
                 console.log(linesArray5);
-                if (linesArray5[0].length < 18) { linesArray2 = []; tempArray2 = []; console.log('home exception');
-                  for (i = 0; i < linesArray4[0].length / 5; i++) { 
+                if (linesArray5[0].length < 18) {
+                  linesArray2 = []; tempArray2 = []; console.log('home exception');
+                  for (i = 0; i < linesArray4[0].length / 5; i++) {
                     for (j = 0; j < 24; j++) {
                       if (linesArray4[0][5 * i] > 120 - 5 * j && linesArray4[0][5 * i] < 120 && linesArray4[0][5 * i + 1] > 2) {
                         console.log(linesArray4[0][5 * i]);
                         tempArray2.push(i, j);
-                      } 
-                    } 
-                  } 
-                  console.log(tempArray2); 
-                  linesArray5 = [[], [], [], linesArray5[3], linesArray5[4], linesArray5[5]];
-                  for (i = 0; i < 3; i++) {
-                    for (j = 0; j < linesArray4[i].length / 5; j++) {                       
-                      if (linesArray4[i][5 * j] > 120 - 5 * tempArray2[0] && linesArray4[i][5 * j + 1] > 2){
-                      linesArray5[i].push(linesArray4[i][5 * j], 5 * j, linesArray4[i][5 * j + 1], linesArray4[i][5 * j + 2], linesArray4[i][5 * j + 3], linesArray4[i][5 * j + 4]);
-                      if (i == 0) { linesArray2.push(linesArray4[i][5 * j + 2], linesArray4[i][5 * j + 3], linesArray4[i][5 * j + 4]) }
                       }
                     }
-                  } 
+                  }
+                  console.log(tempArray2);
+                  linesArray5 = [[], [], [], linesArray5[3], linesArray5[4], linesArray5[5]];
+                  for (i = 0; i < 3; i++) {
+                    for (j = 0; j < linesArray4[i].length / 5; j++) {
+                      if (linesArray4[i][5 * j] > 120 - 5 * tempArray2[0] && linesArray4[i][5 * j + 1] > 2) {
+                        linesArray5[i].push(linesArray4[i][5 * j], 5 * j, linesArray4[i][5 * j + 1], linesArray4[i][5 * j + 2], linesArray4[i][5 * j + 3], linesArray4[i][5 * j + 4]);
+                        if (i == 0) { linesArray2.push(linesArray4[i][5 * j + 2], linesArray4[i][5 * j + 3], linesArray4[i][5 * j + 4]) }
+                      }
+                    }
+                  }
                 }
-                
-                if (linesArray5[3].length < 18) { console.log('road exception'); linesArray6 = []; tempArray2 = [];
+
+                if (linesArray5[3].length < 18) {
+                  console.log('road exception'); linesArray6 = []; tempArray2 = [];
                   for (i = 0; i < linesArray4[3].length / 5; i++) {
                     for (j = 0; j < 24; j++) {
                       if (linesArray4[3][5 * i] > 120 - 5 * j && linesArray4[3][5 * i + 1] > 2) { tempArray2.push(j) }
@@ -894,15 +919,15 @@ function getInputValue() {
                   console.log(tempArray2); linesArray5 = [linesArray5[0], linesArray5[1], linesArray5[2], [], [], []];
                   for (i = 3; i < 6; i++) {
                     for (j = 0; j < linesArray4[i].length / 5; j++) {
-                      if (linesArray4[i][5 * j] > 120 - 5 * tempArray2[0] && linesArray4[i][5 * j + 1] > 2){
-                      linesArray5[i].push(linesArray4[i][5 * j], 5 * j, linesArray4[i][5 * j + 1], linesArray4[i][5 * j + 2], linesArray4[i][5 * j + 3], linesArray4[i][5 * j + 4]);
-                      if (i == 3) { linesArray6.push(linesArray4[i][5 * j + 2], linesArray4[i][5 * j + 3], linesArray4[i][5 * j + 4]) }
+                      if (linesArray4[i][5 * j] > 120 - 5 * tempArray2[0] && linesArray4[i][5 * j + 1] > 2) {
+                        linesArray5[i].push(linesArray4[i][5 * j], 5 * j, linesArray4[i][5 * j + 1], linesArray4[i][5 * j + 2], linesArray4[i][5 * j + 3], linesArray4[i][5 * j + 4]);
+                        if (i == 3) { linesArray6.push(linesArray4[i][5 * j + 2], linesArray4[i][5 * j + 3], linesArray4[i][5 * j + 4]) }
                       }
                     }
                   }
                 }
                 console.log(linesArray5, linesArray2, linesArray6);
-     
+
                 firstLine.innerHTML = homeRosterArray[homeRosterFIDArray[1 + 2 * linesArray2[0]] - 4] + ' ' + homeRosterArray[homeRosterFIDArray[1 + 2 * linesArray2[0]] - 1] + ' ' + homeRosterArray[homeRosterFIDArray[1 + 2 * linesArray2[0]] - 3] + '<br>' +
                   homeRosterArray[homeRosterFIDArray[1 + 2 * linesArray2[1]] - 4] + ' ' + homeRosterArray[homeRosterFIDArray[1 + 2 * linesArray2[1]] - 1] + ' ' + homeRosterArray[homeRosterFIDArray[1 + 2 * linesArray2[1]] - 3] + '<br>' +
                   homeRosterArray[homeRosterFIDArray[1 + 2 * linesArray2[2]] - 4] + ' ' + homeRosterArray[homeRosterFIDArray[1 + 2 * linesArray2[2]] - 1] + ' ' + homeRosterArray[homeRosterFIDArray[1 + 2 * linesArray2[2]] - 3];
