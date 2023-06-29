@@ -101,21 +101,40 @@ function getInputValue() {
               for (i = 0; i < data.liveData.plays.scoringPlays.length; i++) {
                 scoringPlay = data.liveData.plays.scoringPlays[i];
                 // console.log(data.liveData.plays.allPlays[scoringPlay].result.strength.code, typeof data.liveData.plays.allPlays[scoringPlay].result.strength.code);
-                if ((homeRosterIdArray.includes(data.liveData.plays.allPlays[scoringPlay].players[0].player.id) && (data.liveData.plays.allPlays[scoringPlay].result.strength.code === 'PPG') && (data.liveData.plays.allPlays[scoringPlay].about.period < 3))) { fiveOnFive[data.liveData.plays.allPlays[scoringPlay].about.period + 5].push(data.liveData.plays.allPlays[scoringPlay].about.periodTime); }
-                else if ((awayRosterIdArray.includes(data.liveData.plays.allPlays[scoringPlay].players[0].player.id) && (data.liveData.plays.allPlays[scoringPlay].result.strength.code === 'PPG' && (data.liveData.plays.allPlays[scoringPlay].about.period)))) { fiveOnFive[data.liveData.plays.allPlays[scoringPlay].about.period + 8].push(data.liveData.plays.allPlays[scoringPlay].about.periodTime); }
+                if ((homeRosterIdArray.includes(data.liveData.plays.allPlays[scoringPlay].players[0].player.id) && (data.liveData.plays.allPlays[scoringPlay].result.strength.code === 'PPG') && (data.liveData.plays.allPlays[scoringPlay].about.period < 4))) { fiveOnFive[data.liveData.plays.allPlays[scoringPlay].about.period + 5].push(data.liveData.plays.allPlays[scoringPlay].about.periodTime); }
+                else if ((awayRosterIdArray.includes(data.liveData.plays.allPlays[scoringPlay].players[0].player.id) && (data.liveData.plays.allPlays[scoringPlay].result.strength.code === 'PPG' && (data.liveData.plays.allPlays[scoringPlay].about.period < 4)))) { fiveOnFive[data.liveData.plays.allPlays[scoringPlay].about.period + 8].push(data.liveData.plays.allPlays[scoringPlay].about.periodTime); }
               }
               console.log(fiveOnFive);
-              realFiveOnFive = [[],[],[]];
-              for (i = 0; i < 3; i++ ) {
+              realFiveOnFive = [[],[],[],[]];
+              for (i = 0; i < 3; i++ ) { // home penalties
                 for (j = 0; j < fiveOnFive[i].length / 2; j++) {timeStamp = fiveOnFive[i][2 * j].split(':');
-                console.log(typeof timeStamp[0]);
               timeInSeconds = i * 1200 + Number(timeStamp[0]) * 60 + Number(timeStamp[1]);
                 penaltyLengthSeconds = fiveOnFive[i][2 * j + 1] * 60;
                 if ( timeInSeconds + penaltyLengthSeconds < 3600){
                 realFiveOnFive[0].push(timeInSeconds, timeInSeconds + penaltyLengthSeconds)}
             }
                  }
-                 console.log(realFiveOnFive)
+                 for (i = 3; i < 6; i++ ) { // away penalties
+                  for (j = 0; j < fiveOnFive[i].length / 2; j++) {timeStamp = fiveOnFive[i][2 * j].split(':');
+                timeInSeconds = (i - 3) * 1200 + Number(timeStamp[0]) * 60 + Number(timeStamp[1]);
+                  penaltyLengthSeconds = fiveOnFive[i][2 * j + 1] * 60;
+                  if ( timeInSeconds + penaltyLengthSeconds < 3600){
+                  realFiveOnFive[1].push(timeInSeconds, timeInSeconds + penaltyLengthSeconds)}
+              }
+                   }
+                 for (i = 9; i < 12; i++ ) { // away PPG
+                  for (j = 0; j < fiveOnFive[i].length; j++) {timeStamp = fiveOnFive[i][j].split(':');
+                timeInSeconds = (i - 9) * 1200 + Number(timeStamp[0]) * 60 + Number(timeStamp[1]);
+                realFiveOnFive[2].push(timeInSeconds, timeInSeconds + penaltyLengthSeconds)
+              }
+                   }
+                  for (i = 6; i < 1; i++ ) { // home PPG
+                    for (j = 0; j < fiveOnFive[i].length; j++) {timeStamp = fiveOnFive[i][j].split(':');
+                  timeInSeconds = (i - 6) * 1200 + Number(timeStamp[0]) * 60 + Number(timeStamp[1]);
+                  realFiveOnFive[3].push(timeInSeconds, timeInSeconds + penaltyLengthSeconds)
+                }
+                     }
+                   console.log(realFiveOnFive);
             });
           // console.log(gameId);  https://api.nhle.com/stats/rest/en/shiftcharts?cayenneExp=gameId=' + gameId
           var shiftURL = 'https://cors-anywhere.herokuapp.com/https://api.nhle.com/stats/rest/en/shiftcharts?cayenneExp=gameId=' + gameId;
