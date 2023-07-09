@@ -1,37 +1,58 @@
-var scheduleContent = document.getElementById('schedule'); var gameId; var inputVal = '2021';
-const homeRosterArray = []; const awayRosterArray = []; const homeRosterIdArray = []; const awayRosterIdArray = [];
+var scheduleContent = document.getElementById('schedule');
+var gameId;
+var inputVal = '2021';
+const homeRosterArray = []; const awayRosterArray = [];
+const homeRosterIdArray = []; const awayRosterIdArray = [];
 const homeRosterDArray = []; const awayRosterDArray = []; pairingsArray4 = [];
 
-// lines below will allow user to search by year
+// two lines below will allow user to search by year
 function getInputValue() {
-  var inputVal = document.getElementById('datepicker').value; var date = inputVal.split('/');
-  var formatted = date[2] + '-' + date[0] + '-' + date[1]; console.log(formatted)
+  var inputVal = document.getElementById('datepicker').value;
+  var date = inputVal.split('/');
+  var formatted = date[2] + '-' + date[0] + '-' + date[1];
+  console.log(formatted)
   var requestURL = 'https://statsapi.web.nhl.com/api/v1/schedule/?date=' + formatted;
   fetch(requestURL, {
-    "method": "GET", "headers": {}
+    "method": "GET", "headers": {    }
   })
-    .then(function (response) { 
+
+    .then(function (response) {
       return response.json();
     })
     .then(function (data) {
       console.log('I am in schedule then')
       console.log(data.dates[0].games);
-      var numberOfGames = data.dates[0].games.length; scheduleContent.textContent = '';
+      // console.log(data.dates[0].games[0].teams.away.leagueRecord);
+      var numberOfGames = data.dates[0].games.length;
+      // var obj = data.gameData.players;
+      // var keys = Object.keys(obj);
+      scheduleContent.textContent = '';
       for (var i = 0; i < numberOfGames; i++) {
+
         var gameName = document.createElement('button');
-        gameName.setAttribute('id', 'game' + i); var idx = gameName.getAttribute('id');
+        gameName.setAttribute('id', 'game' + i);
+        var idx = gameName.getAttribute('id');
+        // console.log(idx);
         gameName.innerHTML = 'Game ' + i + ': ' + data.dates[0].games[i].teams.away.team.name + ' ' + data.dates[0].games[i].teams.away.leagueRecord.wins + 'W ' + data.dates[0].games[i].teams.away.leagueRecord.losses + 'L ' + data.dates[0].games[i].teams.away.leagueRecord.ot + 'O vs ' + data.dates[0].games[i].teams.home.team.name + ' ' + data.dates[0].games[i].teams.home.leagueRecord.wins + 'W ' + data.dates[0].games[i].teams.home.leagueRecord.losses + 'L ' + data.dates[0].games[i].teams.home.leagueRecord.ot + 'O ';
-        document.getElementById('schedule').appendChild(gameName); gameName.addEventListener('click', displayGameData);
+        document.getElementById('schedule').appendChild(gameName);
+        gameName.addEventListener('click', displayGameData);
       }
 
       function displayGameData(event) {
-        idx = event.currentTarget; idxString = event.currentTarget.textContent;
-        idxArray = idxString.split(':'); idxNumber = idxArray[0].split(' ');
-        console.log(idxNumber); gameNumber = idxNumber[1]; const gameId = data.dates[0].games[gameNumber].gamePk;
+        idx = event.currentTarget;
+        idxString = event.currentTarget.textContent;
+        idxArray = idxString.split(':');
+        idxNumber = idxArray[0].split(' ');
+        console.log(idxNumber);
+        gameNumber = idxNumber[1];
+
+        const gameId = data.dates[0].games[gameNumber].gamePk;
         console.log(gameId);
         var requestURL = 'https://statsapi.web.nhl.com/api/v1/game/' + gameId + '/feed/live';
         fetch(requestURL, {
           "method": "GET", "headers": {
+            //   "x-rapidapi-host": "data-imdb1.p.rapidapi.com",
+            //   "x-rapidapi-key": "f567ffdbe0msh246ba4a9ef34553p1195c8jsn6e946070d30d"
           }
         })
 
@@ -39,18 +60,24 @@ function getInputValue() {
             return response.json();
           })
           .then(function (data) {
-            const gameInfo = document.createElement('section'); gameInfo.setAttribute('id', 'gameInfo');
-            document.getElementById('schedule').appendChild(gameInfo); const gameInfoHome = document.createElement('section');
-            gameInfoHome.setAttribute('id', 'gameInfoHome'); document.getElementById('schedule').appendChild(gameInfoHome);
-            const gameInfoAway = document.createElement('section'); gameInfoAway.setAttribute('id', 'gameInfoAway');
+            const gameInfo = document.createElement('section');
+            gameInfo.setAttribute('id', 'gameInfo');
+            document.getElementById('schedule').appendChild(gameInfo);
+            const gameInfoHome = document.createElement('section');
+            gameInfoHome.setAttribute('id', 'gameInfoHome');
+            document.getElementById('schedule').appendChild(gameInfoHome);
+            const gameInfoAway = document.createElement('section');
+            gameInfoAway.setAttribute('id', 'gameInfoAway');
             document.getElementById('schedule').appendChild(gameInfoAway);
-            var gameTitle = document.createElement('h2'); gameTitle.textContent = '';
+            var gameTitle = document.createElement('h2');
+            gameTitle.textContent = '';
             gameTitle.innerHTML = 'You are watching stats for ' + data.gameData.teams.away.name + ' at ' + data.gameData.teams.home.name + ' game';
             document.getElementById('gameInfo').appendChild(gameTitle);
           });
 
         getShifts();
         function getShifts(event) {
+          // lines 235-277 generate home roster and away roster line number may change
           var rosterURL = 'https://statsapi.web.nhl.com/api/v1/game/' + gameId + '/feed/live';
           fetch(rosterURL, {
             "method": "GET", "headers": {}
@@ -60,83 +87,49 @@ function getInputValue() {
             })
             .then(function (data) {
               console.log(data.liveData.boxscore.teams.away.skaters, data.liveData.boxscore.teams.home.skaters, data.gameData.players);
-              skatersHome = data.liveData.boxscore.teams.home.skaters; skatersAway = data.liveData.boxscore.teams.away.skaters;
-              goaliesHome = data.liveData.boxscore.teams.home.goalies; goaliesAway = data.liveData.boxscore.teams.away.goalies;
-              var obj = data.gameData.players; var keys = Object.keys(obj);
+              skatersHome = data.liveData.boxscore.teams.home.skaters;
+              skatersAway = data.liveData.boxscore.teams.away.skaters;
+              goaliesHome = data.liveData.boxscore.teams.home.goalies;
+              goaliesAway = data.liveData.boxscore.teams.away.goalies;
+
+              var obj = data.gameData.players;
+              var keys = Object.keys(obj);
 
               for (var i = 0; i < keys.length; i++) {
                 var val = obj[keys[i]];
+                // console.log(val.id, val.currentTeam.id, data.gameData.teams.away.id);
+                // console.log(val.currentTeam, data.gameData.teams.away.id, val.fullName)
                 if (skatersAway.includes(val.id) || goaliesAway.includes(val.id))// if (val.currentTeam.id == data.gameData.teams.away.id) 
                 {
-                  awayRosterArray.push(val.primaryNumber); awayRosterArray.push(val.fullName);
-                  awayRosterArray.push(val.primaryPosition.abbreviation); awayRosterArray.push(val.shootsCatches);
-                  awayRosterArray.push(keys[i]); awayRosterIdArray.push(val.id);
+                  //  document.getElementById('awayTeamId').appendChild(playerName);
+                  awayRosterArray.push(val.primaryNumber);
+                  awayRosterArray.push(val.fullName);
+                  awayRosterArray.push(val.primaryPosition.abbreviation);
+                  awayRosterArray.push(val.shootsCatches);
+                  awayRosterArray.push(keys[i]);
+                  // hId = keys[i].split('ID');
+                  //  hIdNumber = Number(hId[1]);
+                  awayRosterIdArray.push(val.id);
                 }
                 else if (skatersHome.includes(val.id) || goaliesHome.includes(val.id))// else if (val.currentTeam.id == data.gameData.teams.home.id) 
                 {
-                  homeRosterArray.push(val.primaryNumber); homeRosterArray.push(val.fullName);
-                  homeRosterArray.push(val.primaryPosition.abbreviation); homeRosterArray.push(val.shootsCatches);
-                  homeRosterArray.push(keys[i]); homeRosterIdArray.push(val.id);
+                  homeRosterArray.push(val.primaryNumber);
+                  homeRosterArray.push(val.fullName);
+                  homeRosterArray.push(val.primaryPosition.abbreviation);
+                  homeRosterArray.push(val.shootsCatches);
+                  homeRosterArray.push(keys[i]);
+                  // hId = keys[i].split('ID');
+                  //   hIdNumber = Number(hId[1]);
+                  homeRosterIdArray.push(val.id);
                 }
                 else { console.log(val.id, 'player probably changed team') }
               }
-              console.log(homeRosterArray, skatersHome, goaliesHome, awayRosterArray, skatersAway, goaliesAway);
-              console.log(homeRosterIdArray, awayRosterIdArray);
-              // fiveOnFive structure: array elements 0-2 and 3-5 are home and away team penalties; elements 6-8 and 9-11 are home and away team goals
-              // elements 12 and 13 are each array of 3 or 6; home and away goalie on-ice times for three periods
-              fiveOnFive = [[], [], [], [], [], [], [], [], [], [], [], [], [], [], []]
-
-              // this function will create an array of time stamps when teams played 5x5 or special teams
-              console.log(data.liveData.plays.penaltyPlays);
-
-              for (i = 0; i < data.liveData.plays.penaltyPlays.length; i++) {
-                penaltyPlay = data.liveData.plays.penaltyPlays[i];
-                if ((homeRosterIdArray.includes(data.liveData.plays.allPlays[penaltyPlay].players[0].player.id)) && (data.liveData.plays.allPlays[penaltyPlay].about.period < 4)) { fiveOnFive[data.liveData.plays.allPlays[penaltyPlay].about.period - 1].push(data.liveData.plays.allPlays[penaltyPlay].about.periodTime, data.liveData.plays.allPlays[penaltyPlay].result.penaltyMinutes); }
-                else if ((awayRosterIdArray.includes(data.liveData.plays.allPlays[penaltyPlay].players[0].player.id)) && (data.liveData.plays.allPlays[penaltyPlay].about.period < 4)) { fiveOnFive[data.liveData.plays.allPlays[penaltyPlay].about.period + 2].push(data.liveData.plays.allPlays[penaltyPlay].about.periodTime, data.liveData.plays.allPlays[penaltyPlay].result.penaltyMinutes); }
-                else {
-                  console.log('home', data.liveData.plays.allPlays[penaltyPlay].players[0].player.id);
-                }
-              }
-
-              for (i = 0; i < data.liveData.plays.scoringPlays.length; i++) {
-                scoringPlay = data.liveData.plays.scoringPlays[i];
-                // console.log(data.liveData.plays.allPlays[scoringPlay].result.strength.code, typeof data.liveData.plays.allPlays[scoringPlay].result.strength.code);
-                if ((homeRosterIdArray.includes(data.liveData.plays.allPlays[scoringPlay].players[0].player.id) && (data.liveData.plays.allPlays[scoringPlay].result.strength.code === 'PPG') && (data.liveData.plays.allPlays[scoringPlay].about.period < 4))) { fiveOnFive[data.liveData.plays.allPlays[scoringPlay].about.period + 5].push(data.liveData.plays.allPlays[scoringPlay].about.periodTime); }
-                else if ((awayRosterIdArray.includes(data.liveData.plays.allPlays[scoringPlay].players[0].player.id) && (data.liveData.plays.allPlays[scoringPlay].result.strength.code === 'PPG' && (data.liveData.plays.allPlays[scoringPlay].about.period < 4)))) { fiveOnFive[data.liveData.plays.allPlays[scoringPlay].about.period + 8].push(data.liveData.plays.allPlays[scoringPlay].about.periodTime); }
-              }
-              console.log(fiveOnFive);
-              realFiveOnFive = [[],[],[],[]];
-              for (i = 0; i < 3; i++ ) { // home penalties
-                for (j = 0; j < fiveOnFive[i].length / 2; j++) {timeStamp = fiveOnFive[i][2 * j].split(':');
-              timeInSeconds = i * 1200 + Number(timeStamp[0]) * 60 + Number(timeStamp[1]);
-                penaltyLengthSeconds = fiveOnFive[i][2 * j + 1] * 60;
-                if ( timeInSeconds + penaltyLengthSeconds < 3600){
-                realFiveOnFive[0].push(timeInSeconds, timeInSeconds + penaltyLengthSeconds)}
-            }
-                 }
-                 for (i = 3; i < 6; i++ ) { // away penalties
-                  for (j = 0; j < fiveOnFive[i].length / 2; j++) {timeStamp = fiveOnFive[i][2 * j].split(':');
-                timeInSeconds = (i - 3) * 1200 + Number(timeStamp[0]) * 60 + Number(timeStamp[1]);
-                  penaltyLengthSeconds = fiveOnFive[i][2 * j + 1] * 60;
-                  if ( timeInSeconds + penaltyLengthSeconds < 3600){
-                  realFiveOnFive[1].push(timeInSeconds, timeInSeconds + penaltyLengthSeconds)}
-              }
-                   }
-                 for (i = 9; i < 12; i++ ) { // away PPG
-                  for (j = 0; j < fiveOnFive[i].length; j++) {timeStamp = fiveOnFive[i][j].split(':');
-                timeInSeconds = (i - 9) * 1200 + Number(timeStamp[0]) * 60 + Number(timeStamp[1]);
-                realFiveOnFive[2].push(timeInSeconds, timeInSeconds + penaltyLengthSeconds)
-              }
-                   }
-                  for (i = 6; i < 1; i++ ) { // home PPG
-                    for (j = 0; j < fiveOnFive[i].length; j++) {timeStamp = fiveOnFive[i][j].split(':');
-                  timeInSeconds = (i - 6) * 1200 + Number(timeStamp[0]) * 60 + Number(timeStamp[1]);
-                  realFiveOnFive[3].push(timeInSeconds, timeInSeconds + penaltyLengthSeconds)
-                }
-                     }
-                   console.log(realFiveOnFive);
+              console.log(homeRosterArray, skatersHome, goaliesHome);
+              console.log(awayRosterArray, skatersAway, goaliesAway);
+              //console.log(homeRosterIdArray, awayRosterIdArray);
             });
-          // console.log(gameId);  https://api.nhle.com/stats/rest/en/shiftcharts?cayenneExp=gameId=' + gameId
+          // console.log(gameId);
+          //     getRoster();
           var shiftURL = 'https://cors-anywhere.herokuapp.com/https://api.nhle.com/stats/rest/en/shiftcharts?cayenneExp=gameId=' + gameId;
           fetch(shiftURL, {
             "method": "GET", "headers": {}
@@ -145,22 +138,32 @@ function getInputValue() {
               return response.json();
             })
             .then(function (data) {
-              console.log('I am in third then'); // console.log(data.data);
-              playerChart1 = []; playerChart2 = []; playerChart3 = []; startingLineup = [];
-              totalChart = []; idChart = [];
-
+              console.log('I am in third then');
+              // console.log(data.data);
+              playerChart1 = [];
+              playerChart2 = [];
+              playerChart3 = [];
+              startingLineup = [];
+              totalChart = [];
+              idChart = [];
               // that's a complex cycle that creates arrays of each player time shifts in each of three periods, also arary of playerIDs who actually played the game, not just were in the roster, also starting lineups are created
               for (i = 0; i < data.data.length - 1; i++) {
                 if (data.data[i].typeCode == 517) {
                   const playerId = data.data[i].playerId;
                   if (data.data[i].playerId == data.data[i + 1].playerId) {
                     if (data.data[i].period == 1) {
-                      shiftStart = data.data[i].startTime; shiftStart1 = shiftStart.split(':');
-                      minutes = Number(shiftStart1[0]); seconds = Number(shiftStart1[1]);
-                      shiftStart2 = minutes * 60 + seconds; playerChart1.push(shiftStart2);
-                      shiftEnd = data.data[i].endTime; shiftEnd1 = shiftEnd.split(':');
-                      minutes = Number(shiftEnd1[0]); seconds = Number(shiftEnd1[1]);
-                      shiftEnd2 = minutes * 60 + seconds; playerChart1.push(shiftEnd2)
+                      shiftStart = data.data[i].startTime;
+                      shiftStart1 = shiftStart.split(':');
+                      minutes = Number(shiftStart1[0]);
+                      seconds = Number(shiftStart1[1]);
+                      shiftStart2 = minutes * 60 + seconds;
+                      playerChart1.push(shiftStart2);
+                      shiftEnd = data.data[i].endTime;
+                      shiftEnd1 = shiftEnd.split(':');
+                      minutes = Number(shiftEnd1[0]);
+                      seconds = Number(shiftEnd1[1]);
+                      shiftEnd2 = minutes * 60 + seconds;
+                      playerChart1.push(shiftEnd2)
                       if (shiftStart2 == 0) { startingLineup.push(data.data[i].playerId) }
                     }
 
@@ -194,6 +197,9 @@ function getInputValue() {
                       playerChart3.push(shiftEnd2)
                     }
                     else { console.log('shift not added') }
+                    // if (data.data[i+1].period == 5 && i < data.data.length - 2) { console.log(data.data[i+1].lastName, i, data.data.length)
+                    //   totalChart.push(playerChart1, playerChart2, playerChart3);
+                    //   idChart.push(playerId);}
                   }
 
                   else {
@@ -210,6 +216,8 @@ function getInputValue() {
                       seconds = Number(shiftEnd1[1]);
                       shiftEnd2 = minutes * 60 + seconds;
                       playerChart3.push(shiftEnd2)
+                      //playerChart3.push(data.data[i].startTime); 
+                      //      console.log(data.data[i].startTime, data.data[i].typeCode, typeof data.data[i].typeCode, i)
                     }
                     else if (data.data[i].period == 2) {
                       shiftStart = data.data[i].startTime;
@@ -241,13 +249,20 @@ function getInputValue() {
                     }
                     else { console.log('error in adding last shift', data.data[i].period) }
                     totalChart.push(playerChart1, playerChart2, playerChart3);
+                    // totalChart.push(playerChart2);
+                    // totalChart.push(playerChart3);
                     idChart.push(playerId);
-                    playerChart1 = []; playerChart2 = []; playerChart3 = [];
+                    // console.log(playerId, idChart.length);
+                    playerChart1 = [];
+                    playerChart2 = [];
+                    playerChart3 = [];
                   }
 
-                  if (i == data.data.length - 2) {
+                  if (i == data.data.length - 2) {// console.log('i = ', i);
                     totalChart.push(playerChart1, playerChart2, playerChart3);
-                    console.log(i, playerId, idChart.length); idChart.push(playerId);
+                    // totalChart.push(playerChart2);
+                    console.log(i, playerId, idChart.length);
+                    idChart.push(playerId);
                   }
                 }
               } // end for cycle for shift processing data next six lines just last shift of last pleyer
@@ -259,7 +274,7 @@ function getInputValue() {
               else if (data.data[data.data.length - 1].period == 1) { playerChart1.push(data.data[data.data.length - 1].startTime); }
               console.log(startingLineup);
               console.log(totalChart, idChart);
-              
+              console.log(homeRosterIdArray, awayRosterIdArray);
               // lines 286-302 disabled on 02/05/2023 i do not need starting lineup for now
               // homeStartingLineup = [];
               // homeStartingDLineup = [];
@@ -283,36 +298,30 @@ function getInputValue() {
               // // homeStartingLineup.push(homeStartingFLineup);
               // console.log(homeStartingLineup);
 
-              homeRosterGArray = []; homeRosterFArray = []; tempArray7 = [[], [], []];
-              awayRosterGArray = []; awayRosterFArray = [];
-              console.log(fiveOnFive[12])
+              homeRosterGArray = [];
+              homeRosterFArray = [];
+              awayRosterGArray = [];
+              awayRosterFArray = [];
               for (i = 0; i < idChart.length; i++) {
+
                 tempValue = 'ID' + idChart[i];
                 if (homeRosterArray.includes(tempValue)) {
                   tempVariable = homeRosterArray.indexOf(tempValue);
                   if (homeRosterArray[tempVariable - 2] == 'D') { homeRosterDArray.push(idChart[i]) }
-                  else if (homeRosterArray[tempVariable - 2] == 'G') {
-                    homeRosterGArray.push(idChart[i]);
-                    console.log(i, totalChart[3 * i], totalChart[3 * i + 1], totalChart[3 * i + 2])
-                    fiveOnFive[12].push(totalChart[3 * i], totalChart[3 * i + 1], totalChart[3 * i + 2]);
-                    console.log(fiveOnFive[12])
-                  }
+                  else if (homeRosterArray[tempVariable - 2] == 'G') { homeRosterGArray.push(idChart[i]) }
                   else if (homeRosterArray[tempVariable - 2] == 'C') { homeRosterFArray.push(idChart[i]) }
                   else if (homeRosterArray[tempVariable - 2] == 'RW') { homeRosterFArray.push(idChart[i]) }
                   else if (homeRosterArray[tempVariable - 2] == 'LW') { homeRosterFArray.push(idChart[i]) }
-                  else (console.log('he does not have a position', tempValue));
+                  else (console.log('he does not have a position', tempValue))
                 }
-              } // end for  hom idChart loop
+              } // end for home idChart loop
               for (i = 0; i < idChart.length; i++) {
                 tempValue = 'ID' + idChart[i];
                 if (awayRosterArray.includes(tempValue)) {
                   tempVariable = awayRosterArray.indexOf(tempValue);
                   //      console.log(tempVariable, homeRosterArray[tempVariable - 3], homeRosterArray[tempVariable - 1])
                   if (awayRosterArray[tempVariable - 2] == 'D') { awayRosterDArray.push(idChart[i]) }
-                  else if (awayRosterArray[tempVariable - 2] == 'G') {
-                    awayRosterGArray.push(idChart[i]);
-                    fiveOnFive[13].push(totalChart[3 * i], totalChart[3 * i + 1], totalChart[3 * i + 2])
-                  }
+                  else if (awayRosterArray[tempVariable - 2] == 'G') { awayRosterGArray.push(idChart[i]) }
                   else if (awayRosterArray[tempVariable - 2] == 'C') { awayRosterFArray.push(idChart[i]) }
                   else if (awayRosterArray[tempVariable - 2] == 'RW') { awayRosterFArray.push(idChart[i]); }
                   else if (awayRosterArray[tempVariable - 2] == 'LW') { awayRosterFArray.push(idChart[i]); }
@@ -321,40 +330,48 @@ function getInputValue() {
               } // end for away idChart loop
               console.log(homeRosterDArray, homeRosterGArray, homeRosterFArray);
               console.log(awayRosterDArray, awayRosterGArray, awayRosterFArray);
-              console.log(fiveOnFive);
-
-              if (fiveOnFive[12].length == 6) {
-                for (i = 0; i < 3; i++) {
-                  if (fiveOnFive[12][i] === 0) { tempArray7[i] = fiveOnFive[12][i].concat(fiveOnFive[12][i + 3]) }  // probably join is the command
-                  else if (fiveOnFive[12][i + 3] === 0) {
-                    tempArray7[i] = fiveOnFive[12][i + 3].concat(fiveOnFive[12][i]);
-                  }
-                }
-                for (j = 1; j < fiveOnFive[12][i].length / 2; j++) {
-                  if (fiveOnFive[12][i][2 * (j + 1)] < fiveOnFive[12][i][2 * j])
-                    // to change order to bring it forward
-                    console.log('trouble with goalie ordering, home team, period ', i, ' ', fiveOnFive[12][i][2 * (j + 1)]);
-                }
-              }  // end fiveOnFive home G loop
-              console.log(tempArray7);
-
+              // for (i = 0; i < 3; i++) {
+              //   tempVar1 = homeRosterFArray.indexOf(homeStartingFLineup[i]);
+              //   homeStartingLineup.push(tempVar1)
+              // }
+              //     }
               getDPairs();
               function getDPairs() {
-                shiftsArray = []; shiftsFArray = []; awayShiftsArray = []; awayShiftsFArray = [];
-                TOIArray = []; TOIFArray = []; TOIAwayArray = [];
-                pairingsArray = []; pairingsAwayArray = []; linesArray = []; awayLinesArray = [];
-                for (i = 0; i < homeRosterDArray.length; i++) { shiftsArray.push(totalChart[3 * idChart.indexOf(homeRosterDArray[i])]) }
-                for (i = 0; i < homeRosterDArray.length; i++) { shiftsArray.push(totalChart[3 * idChart.indexOf(homeRosterDArray[i]) + 1]) }
-                for (i = 0; i < homeRosterDArray.length; i++) { shiftsArray.push(totalChart[3 * idChart.indexOf(homeRosterDArray[i]) + 2]) } // end first three for defense loops
-                for (i = 0; i < awayRosterDArray.length; i++) { awayShiftsArray.push(totalChart[3 * idChart.indexOf(awayRosterDArray[i])]) }
-                for (i = 0; i < awayRosterDArray.length; i++) { awayShiftsArray.push(totalChart[3 * idChart.indexOf(awayRosterDArray[i]) + 1]) }
-                for (i = 0; i < awayRosterDArray.length; i++) { awayShiftsArray.push(totalChart[3 * idChart.indexOf(awayRosterDArray[i]) + 2]) } // end first three for defense loops
-                for (i = 0; i < homeRosterFArray.length; i++) { shiftsFArray.push(totalChart[3 * idChart.indexOf(homeRosterFArray[i])]) }
-                for (i = 0; i < homeRosterFArray.length; i++) { shiftsFArray.push(totalChart[3 * idChart.indexOf(homeRosterFArray[i]) + 1]) }
-                for (i = 0; i < homeRosterFArray.length; i++) { shiftsFArray.push(totalChart[3 * idChart.indexOf(homeRosterFArray[i]) + 2]) } // end first three for forward loops
-                for (i = 0; i < awayRosterFArray.length; i++) { awayShiftsFArray.push(totalChart[3 * idChart.indexOf(awayRosterFArray[i])]) }
-                for (i = 0; i < awayRosterFArray.length; i++) { awayShiftsFArray.push(totalChart[3 * idChart.indexOf(awayRosterFArray[i]) + 1]) }
-                for (i = 0; i < awayRosterFArray.length; i++) { awayShiftsFArray.push(totalChart[3 * idChart.indexOf(awayRosterFArray[i]) + 2]) } // end first three for forward loops
+                shiftsArray = [];
+                shiftsFArray = [];
+                awayShiftsArray = [];
+                awayShiftsFArray = [];
+                TOIArray = [];
+                TOIFArray = [];
+                TOIAwayArray = [];
+                pairingsArray = [];
+                pairingsAwayArray = [];
+                linesArray = [];
+                for (i = 0; i < homeRosterDArray.length; i++) {
+                  shiftsArray.push(totalChart[3 * idChart.indexOf(homeRosterDArray[i])]);
+                  awayShiftsArray.push(totalChart[3 * idChart.indexOf(awayRosterDArray[i])])
+                }
+                for (i = 0; i < homeRosterDArray.length; i++) {
+                  shiftsArray.push(totalChart[3 * idChart.indexOf(homeRosterDArray[i]) + 1]);
+                  awayShiftsArray.push(totalChart[3 * idChart.indexOf(awayRosterDArray[i]) + 1])
+                }
+                for (i = 0; i < homeRosterDArray.length; i++) {
+                  shiftsArray.push(totalChart[3 * idChart.indexOf(homeRosterDArray[i]) + 2]);
+                  awayShiftsArray.push(totalChart[3 * idChart.indexOf(awayRosterDArray[i]) + 2])
+                } // end first three for defense loops
+                for (i = 0; i < homeRosterFArray.length; i++) {
+                  shiftsFArray.push(totalChart[3 * idChart.indexOf(homeRosterFArray[i])]);
+                  awayShiftsFArray.push(totalChart[3 * idChart.indexOf(awayRosterFArray[i])])
+                }
+                for (i = 0; i < homeRosterFArray.length; i++) {
+                  shiftsFArray.push(totalChart[3 * idChart.indexOf(homeRosterFArray[i]) + 1]);
+                  awayShiftsFArray.push(totalChart[3 * idChart.indexOf(awayRosterFArray[i]) + 1])
+                }
+                for (i = 0; i < homeRosterFArray.length; i++) {
+                  shiftsFArray.push(totalChart[3 * idChart.indexOf(homeRosterFArray[i]) + 2]);
+                  awayShiftsFArray.push(totalChart[3 * idChart.indexOf(awayRosterFArray[i]) + 2])
+                } // end first three for forward loops
+                console.log(shiftsArray, shiftsFArray, awayShiftsArray, awayShiftsFArray);
                 //TOIArray is not used currently later in the script. May be deleted along with TOIFarray, TOIAwayArray
                 for (i = 0; i < shiftsArray.length; i++) {
                   totalShiftLength = 0;
@@ -367,7 +384,8 @@ function getInputValue() {
                   TOIArray.push(totalShiftLength);
                 } // end i TOIArray D loop
                 for (i = 0; i < shiftsFArray.length; i++) {
-                  totalShiftLength = 0; tempArray = shiftsFArray[i];
+                  totalShiftLength = 0;
+                  tempArray = shiftsFArray[i];
                   for (j = 0; j < tempArray.length / 3; j++) {
                     const shiftLength = tempArray[2 * j + 1] - tempArray[2 * j];
                     totalShiftLength = totalShiftLength + shiftLength;
@@ -377,20 +395,25 @@ function getInputValue() {
                 for (i = 0; i < awayShiftsArray.length; i++) {
                   totalShiftLength = 0;
                   tempArray = awayShiftsArray[i];
-                  // console.log(tempArray);
                   for (j = 0; j < tempArray.length / 3; j++) {
                     const shiftLength = tempArray[2 * j + 1] - tempArray[2 * j];
                     totalShiftLength = totalShiftLength + shiftLength;
                   } // end j loop
                   TOIAwayArray.push(totalShiftLength);
                 } // end i TOIArray D loop
+                console.log(TOIFArray, TOIAwayArray);
 
-                tempArray6 = []; tempArray4 = shiftsArray.splice(shiftsArray.length / 3); tempArray5 = tempArray4.splice(tempArray4.length / 2);
-                tempArray6[1] = tempArray4; tempArray6[2] = tempArray5; tempArray6[0] = shiftsArray; console.log(tempArray6);
+                tempArray6 = [];
+                tempArray4 = shiftsArray.splice(shiftsArray.length / 3);
+                tempArray5 = tempArray4.splice(tempArray4.length / 2);
+                tempArray6[1] = tempArray4;
+                tempArray6[2] = tempArray5;
+                tempArray6[0] = shiftsArray;
+                console.log(tempArray6);
 
                 for (i = 0; i < tempArray6.length; i++) {
                   for (j = 0; j < tempArray6[i].length; j++) {
-
+                    
                     tempArray5 = tempArray6[i];
                     // player1 = tempArray5[j]
                     for (k = j + 1; k < tempArray6[i].length; k++) {
@@ -420,63 +443,60 @@ function getInputValue() {
                     }
                   }  // end j loop each D player
                 } // end i loop for 3 periods
-
-                tempArray4 = shiftsFArray.splice(shiftsFArray.length / 3); tempArray5 = tempArray4.splice(tempArray4.length / 2);
-                tempArray6[1] = tempArray4; tempArray6[2] = tempArray5; tempArray6[0] = shiftsFArray;
-                tempArray5 = []; tempTime2 = [];
+                console.log(pairingsArray);
+                tempArray4 = shiftsFArray.splice(shiftsFArray.length / 3);
+                tempArray5 = tempArray4.splice(tempArray4.length / 2);
+                tempArray6[1] = tempArray4;
+                tempArray6[2] = tempArray5;
+                tempArray6[0] = shiftsFArray;
 
                 console.log(shiftsFArray, tempArray4, tempArray5, tempArray6);
-                for (i = 0; i < 3; i++) { // i < tempArray6.length
-                  for (j = 0; j < tempArray6[i].length - 2; j++) {
+                for (i = 0; i < tempArray6.length; i++) {
+                  for (j = 0; j < tempArray6[i].length; j++) {
                     tempArray5 = tempArray6[i];
-                    for (k = j + 1; k < tempArray6[i].length - 1; k++) {
-                      shiftsPair = [];
+                    for (k = j + 1; k < tempArray6[i].length; k++) {shiftsPair =[];
+                      tempTime = [];
                       for (l = 0; l < 0.5 * tempArray5[j].length; l++) {
                         tempArray = tempArray5[j];
                         for (m = 0; m < 0.5 * tempArray5[k].length; m++) {
                           tempArray2 = tempArray5[k];
                           if (tempArray2[2 * m] >= tempArray[2 * l] && tempArray2[2 * m] < tempArray[2 * l + 1]) {
-                            if (tempArray2[2 * m + 1] >= tempArray[2 * l + 1]) { shiftsPair.push(tempArray2[2 * m], tempArray[2 * l + 1]) }
-                            else { shiftsPair.push(tempArray2[2 * m], tempArray2[2 * m + 1]) }
+                            if (tempArray2[2 * m + 1] >= tempArray[2 * l + 1]) { tempTime.push(tempArray[2 * l + 1] - tempArray2[2 * m]);
+                              shiftsPair.push(tempArray2[2 * m], tempArray[2 * l + 1]) }
+                            else { tempTime.push(tempArray2[2 * m + 1] - tempArray2[2 * m]);
+                              shiftsPair.push(tempArray2[2 * m], tempArray2[2 * m + 1]) }
                           }
-                          else if (tempArray2[2 * m] <= tempArray[2 * l] && tempArray2[2 * m + 1] > tempArray[2 * l]) {
-                            if (tempArray2[2 * m + 1] >= tempArray[2 * l + 1]) { shiftsPair.push(tempArray[2 * l], tempArray[2 * l + 1]) }
-                            else { shiftsPair.push(tempArray[2 * l], tempArray2[2 * m + 1]) }
+                          else if (tempArray2[2 * m] <= tempArray[2 * l] && tempArray2[2 * m + 1] > tempArray[2 * l]) { if (tempArray2[2 * m + 1] >= tempArray[2 * l + 1]) {
+                              tempTime.push(tempArray[2 * l + 1] - tempArray[2 * l]);
+                              shiftsPair.push(tempArray[2 * l], tempArray[2 * l + 1]) }
+                            else { tempTime.push(tempArray2[2 * m + 1] - tempArray[2 * l]);
+                              shiftsPair.push(tempArray[2 * l], tempArray2[2 * m + 1]) }
                           }
                         }
                       } // end l F loop 
-                      for (l = k + 1; l < tempArray6[i].length; l++) {//shiftsPair =[]; this is player #3 compared to pair
-                        tempTime = [];
-                        for (m = 0; m < 0.5 * shiftsPair.length; m++) {
-                          for (n = 0; n < 0.5 * tempArray5[l].length; n++) {
-                            tempArray3 = tempArray5[l];
-                            if (tempArray3[2 * n] >= shiftsPair[2 * m] && tempArray3[2 * n] < shiftsPair[2 * m + 1]) {
-                              if (tempArray3[2 * n + 1] >= shiftsPair[2 * m + 1]) { tempTime.push(shiftsPair[2 * m + 1] - tempArray3[2 * n],) }
-                              else { tempTime.push(tempArray3[2 * n + 1] - tempArray3[2 * n]) }
-                            }
-                            else if (tempArray3[2 * n] <= shiftsPair[2 * m] && tempArray3[2 * n + 1] > shiftsPair[2 * m]) {
-                              if (tempArray3[2 * n + 1] >= shiftsPair[2 * m + 1]) { tempTime.push(shiftsPair[2 * m + 1] - shiftsPair[2 * m]) }
-                              else { tempTime.push(tempArray3[2 * n + 1] - shiftsPair[2 * m]) }
-                            }
-                          } // end n F loop
-                        } // end m F loop 
-                        shifts = 0;
-                        const sum = tempTime.reduce((partialSum, a) => partialSum + a, 0);
-                        for (n = 0; n < tempTime.length; n++) {
-                          if (tempTime[n] >= 10) {
-                            shifts = shifts + 1;
-                            tempTime2.push(tempTime[n])
-                          }
-                        }
-                        linesArray.push(sum, shifts, j, k, l);
-                      } // end l F loop
+                      console.log(k, shiftsPair);
                     } // end k F loop
                   } // end j F loop
                 } // end i F loop
 
-                tempArray6 = []; tempArray4 = awayShiftsArray.splice(awayShiftsArray.length / 3);
+                      // shifts = 0;
+                      // const sum = tempTime.reduce((partialSum, a) => partialSum + a, 0);
+                      // tempTime2 = [];
+                      // for (n = 0; n < tempTime.length; n++) {
+                      //   if (tempTime[n] >= 10) {
+                      //     shifts = shifts + 1
+                      //     tempTime2.push(tempTime[n]);
+                      //   }
+                      // }
+                      // linesArray.push(sum);
+                      // linesArray.push(shifts);
+
+                tempArray6 = [];
+                tempArray4 = awayShiftsArray.splice(awayShiftsArray.length / 3);
                 tempArray5 = tempArray4.splice(tempArray4.length / 2);
-                tempArray6[1] = tempArray4; tempArray6[2] = tempArray5; tempArray6[0] = awayShiftsArray;
+                tempArray6[1] = tempArray4;
+                tempArray6[2] = tempArray5;
+                tempArray6[0] = awayShiftsArray;
 
                 for (i = 0; i < tempArray6.length; i++) { // for each period
                   for (j = 0; j < tempArray6[i].length; j++) { // for each player
@@ -508,87 +528,36 @@ function getInputValue() {
                       pairingsAwayArray.push(shifts);
                     }
                   }  // end j loop each D player
-                } // end i loop for 3 periods   
+                } // end i loop for 3 periods                
+                console.log(pairingsArray, pairingsAwayArray, TOIArray, linesArray);
+                pairingsArray2 = pairingsArray.splice(pairingsArray.length / 3);
+                pairingsArray3 = pairingsArray2.splice(pairingsArray2.length / 2)
 
-                tempArray4 = awayShiftsFArray.splice(awayShiftsFArray.length / 3); tempArray5 = tempArray4.splice(tempArray4.length / 2);
-                tempArray6[1] = tempArray4; tempArray6[2] = tempArray5; tempArray6[0] = awayShiftsFArray;
-                tempArray5 = []; tempTime2 = [];
-
-                for (i = 0; i < 3; i++) { // i < tempArray6.length
-                  for (j = 0; j < tempArray6[i].length - 2; j++) {
-                    tempArray5 = tempArray6[i];
-                    for (k = j + 1; k < tempArray6[i].length - 1; k++) {
-                      shiftsPair = [];
-                      for (l = 0; l < 0.5 * tempArray5[j].length; l++) {
-                        tempArray = tempArray5[j];
-                        for (m = 0; m < 0.5 * tempArray5[k].length; m++) {
-                          tempArray2 = tempArray5[k];
-                          if (tempArray2[2 * m] >= tempArray[2 * l] && tempArray2[2 * m] < tempArray[2 * l + 1]) {
-                            if (tempArray2[2 * m + 1] >= tempArray[2 * l + 1]) { shiftsPair.push(tempArray2[2 * m], tempArray[2 * l + 1]) }
-                            else { shiftsPair.push(tempArray2[2 * m], tempArray2[2 * m + 1]) }
-                          }
-                          else if (tempArray2[2 * m] <= tempArray[2 * l] && tempArray2[2 * m + 1] > tempArray[2 * l]) {
-                            if (tempArray2[2 * m + 1] >= tempArray[2 * l + 1]) { shiftsPair.push(tempArray[2 * l], tempArray[2 * l + 1]) }
-                            else { shiftsPair.push(tempArray[2 * l], tempArray2[2 * m + 1]) }
-                          }
-                        }
-                      } // end l F loop 
-                      for (l = k + 1; l < tempArray6[i].length; l++) {//shiftsPair =[]; this is player #3 compared to pair
-                        tempTime = [];
-                        for (m = 0; m < 0.5 * shiftsPair.length; m++) {
-                          for (n = 0; n < 0.5 * tempArray5[l].length; n++) {
-                            tempArray3 = tempArray5[l];
-                            if (tempArray3[2 * n] >= shiftsPair[2 * m] && tempArray3[2 * n] < shiftsPair[2 * m + 1]) {
-                              if (tempArray3[2 * n + 1] >= shiftsPair[2 * m + 1]) { tempTime.push(shiftsPair[2 * m + 1] - tempArray3[2 * n],) }
-                              else { tempTime.push(tempArray3[2 * n + 1] - tempArray3[2 * n]) }
-                            }
-                            else if (tempArray3[2 * n] <= shiftsPair[2 * m] && tempArray3[2 * n + 1] > shiftsPair[2 * m]) {
-                              if (tempArray3[2 * n + 1] >= shiftsPair[2 * m + 1]) { tempTime.push(shiftsPair[2 * m + 1] - shiftsPair[2 * m]) }
-                              else { tempTime.push(tempArray3[2 * n + 1] - shiftsPair[2 * m]) }
-                            }
-                          } // end n F loop
-                        } // end m F loop 
-                        shifts = 0;
-                        const sum = tempTime.reduce((partialSum, a) => partialSum + a, 0);
-                        for (n = 0; n < tempTime.length; n++) {
-                          if (tempTime[n] >= 10) {
-                            shifts = shifts + 1;
-                            tempTime2.push(tempTime[n])
-                          }
-                        }
-                        awayLinesArray.push(sum, shifts, j, k, l);
-                      } // end l F loop
-                    } // end k F loop
-                  } // end j F loop
-                } // end i F loop
-
-                pairingsArray2 = pairingsArray.splice(pairingsArray.length / 3); pairingsArray3 = pairingsArray2.splice(pairingsArray2.length / 2);
-                linesArray2 = linesArray.splice(linesArray.length / 3); linesArray3 = linesArray2.splice(linesArray2.length / 2);
+                linesArray2 = linesArray.splice(linesArray.length / 3);
+                linesArray3 = linesArray2.splice(linesArray2.length / 2);
 
                 pairingsAwayArray2 = pairingsAwayArray.splice(pairingsAwayArray.length / 3);
-                pairingsAwayArray3 = pairingsAwayArray2.splice(pairingsAwayArray2.length / 2);
-                awayLinesArray2 = awayLinesArray.splice(awayLinesArray.length / 3);
-                awayLinesArray3 = awayLinesArray2.splice(awayLinesArray2.length / 2);
+                pairingsAwayArray3 = pairingsAwayArray2.splice(pairingsAwayArray2.length / 2)
 
-                pairingsArray4[0] = pairingsArray; pairingsArray4[1] = pairingsArray2; pairingsArray4[2] = pairingsArray3;
+                pairingsArray4[0] = pairingsArray;
+                pairingsArray4[1] = pairingsArray2;
+                pairingsArray4[2] = pairingsArray3;
                 linesArray4 = [];
-                linesArray4[0] = linesArray; linesArray4[1] = linesArray2; linesArray4[2] = linesArray3;
-                pairingsArray4[3] = pairingsAwayArray; pairingsArray4[4] = pairingsAwayArray2; pairingsArray4[5] = pairingsAwayArray3;
-                linesArray4[3] = awayLinesArray; linesArray4[4] = awayLinesArray2; linesArray4[5] = awayLinesArray3;
-                console.log(linesArray4, pairingsArray4, tempArray5);
+                linesArray4[0] = linesArray;
+                linesArray4[1] = linesArray2;
+                linesArray4[2] = linesArray3;
+                pairingsArray4[3] = pairingsAwayArray;
+                pairingsArray4[4] = pairingsAwayArray2;
+                pairingsArray4[5] = pairingsAwayArray3;
+                console.log(linesArray4, pairingsArray4, TOIArray);
 
-                homeRosterDIDArray = []; homeRosterFIDArray = []; awayRosterDIDArray = []; awayRosterFIDArray = [];
+                homeRosterDIDArray = [];
+                awayRosterDIDArray = [];
                 for (i = 0; i < homeRosterDArray.length; i++) {
                   DManIndex = 'ID' + homeRosterDArray[i];
                   homeRosterDIDArray.push(DManIndex);
                   DManIndexZ = homeRosterArray.indexOf(DManIndex);
                   homeRosterDIDArray.push(DManIndexZ);
-                }
-                for (i = 0; i < homeRosterFArray.length; i++) {
-                  FManIndex = 'ID' + homeRosterFArray[i];
-                  homeRosterFIDArray.push(FManIndex);
-                  FManIndexZ = homeRosterArray.indexOf(FManIndex);
-                  homeRosterFIDArray.push(FManIndexZ);
                 }
                 for (i = 0; i < awayRosterDArray.length; i++) {
                   DManIndex = 'ID' + awayRosterDArray[i];
@@ -596,13 +565,7 @@ function getInputValue() {
                   DManIndexZ = awayRosterArray.indexOf(DManIndex);
                   awayRosterDIDArray.push(DManIndexZ);
                 }
-                for (i = 0; i < awayRosterFArray.length; i++) {
-                  FManIndex = 'ID' + awayRosterFArray[i];
-                  awayRosterFIDArray.push(FManIndex);
-                  FManIndexZ = awayRosterArray.indexOf(FManIndex);
-                  awayRosterFIDArray.push(FManIndexZ);
-                }
-                console.log(homeRosterDIDArray, awayRosterDIDArray, homeRosterFIDArray, awayRosterFIDArray);
+                console.log(homeRosterDIDArray, awayRosterDIDArray);
 
                 firstDNumber.innerHTML = homeRosterArray[homeRosterDIDArray[1] - 4] + ' ' + homeRosterArray[homeRosterDIDArray[1] - 1] + ' ' + homeRosterArray[homeRosterDIDArray[1] - 3];
                 firstD1.innerHTML = 'X' + '<br>' + 'X' + '<br>' + 'X';
@@ -697,7 +660,7 @@ function getInputValue() {
                   fifthD4.innerHTML = forthD5.innerHTML
                   fifthD6.innerHTML = pairingsArray4[0][29] + ' sh ' + pairingsArray4[0][28] + ' sec ' + '<br>' + pairingsArray4[1][29] + ' sh ' + pairingsArray4[1][28] + ' sec ' + '<br>' + pairingsArray4[2][29] + ' sh ' + pairingsArray4[2][28] + ' sec ';
                   sixthD2.innerHTML = secondD6.innerHTML; sixthD3.innerHTML = thirdD6.innerHTML;
-                  sixthD4.innerHTML = forthD6.innerHTML; sixthD5.innerHTML = fifthD6.innerHTML;
+                  sixthD4.innerHTML = forthD6.innerHTML; sixthD5.innerHTML = fifthD6.innerHTML
                 } // end if sixth D men
 
                 document.getElementById('secondD3').appendChild(secondD3); document.getElementById('secondD4').appendChild(secondD4);
@@ -720,8 +683,9 @@ function getInputValue() {
                 var firstD5A = document.createElement('p2');
                 firstD5A.innerHTML = pairingsArray4[3][7] + ' sh ' + pairingsArray4[3][6] + ' sec ' + '<br>' + pairingsArray4[4][7] + ' sh ' + pairingsArray4[4][6] + ' sec ' + '<br>' + pairingsArray4[5][7] + ' sh ' + pairingsArray4[5][6] + ' sec ';
                 document.getElementById('firstD5A').appendChild(firstD5A);
-
-
+                var firstD6A = document.createElement('p3');
+                firstD6A.innerHTML = pairingsArray4[3][9] + ' sh ' + pairingsArray4[3][8] + ' sec ' + '<br>' + pairingsArray4[4][9] + ' sh ' + pairingsArray4[4][8] + ' sec ' + '<br>' + pairingsArray4[5][9] + ' sh ' + pairingsArray4[5][8] + ' sec ';
+                document.getElementById('firstD6A').appendChild(firstD6A);
 
                 secondDNumberA.innerHTML = awayRosterArray[awayRosterDIDArray[3] - 4] + ' ' + awayRosterArray[awayRosterDIDArray[3] - 1] + ' ' + awayRosterArray[awayRosterDIDArray[3] - 3];
                 secondD1A.innerHTML = pairingsArray4[3][1] + ' shifts ' + pairingsArray4[3][0] + ' sec ' + '<br>' + pairingsArray4[4][1] + ' sh ' + pairingsArray4[4][0] + ' sec ' + '<br>' + pairingsArray4[5][1] + ' sh ' + pairingsArray4[5][0] + ' sec ';
@@ -735,29 +699,26 @@ function getInputValue() {
                 fifthDNumberA.innerHTML = awayRosterArray[awayRosterDIDArray[9] - 4] + ' ' + awayRosterArray[awayRosterDIDArray[9] - 1] + ' ' + awayRosterArray[awayRosterDIDArray[9] - 3];
                 fifthD1A.innerHTML = pairingsArray4[3][7] + ' sh ' + pairingsArray4[3][6] + ' sec ' + '<br>' + pairingsArray4[4][7] + ' sh ' + pairingsArray4[4][6] + ' sec ' + '<br>' + pairingsArray4[5][7] + ' sh ' + pairingsArray4[5][6] + ' sec ';
                 fifthD5A.innerHTML = 'X' + '<br>' + 'X' + '<br>' + 'X';
-
+                sixthDNumberA.innerHTML = awayRosterArray[awayRosterDIDArray[11] - 4] + ' ' + awayRosterArray[awayRosterDIDArray[11] - 1] + ' ' + awayRosterArray[awayRosterDIDArray[11] - 3];;
+                sixthD1A.innerHTML = pairingsArray4[3][9] + ' sh ' + pairingsArray4[3][8] + ' sec ' + '<br>' + pairingsArray4[4][9] + ' sh ' + pairingsArray4[4][8] + ' sec ' + '<br>' + pairingsArray4[5][9] + ' sh ' + pairingsArray4[5][8] + ' sec ';
+                sixthD6A.innerHTML = 'X' + '<br>' + 'X' + '<br>' + 'X';
 
                 var secondD3A = document.createElement('p3'); var secondD4A = document.createElement('p2');
-                var secondD5A = document.createElement('p3');
+                var secondD5A = document.createElement('p3'); var secondD6A = document.createElement('p2');
                 var thirdD4A = document.createElement('p3'); var thirdD5A = document.createElement('p2');
                 var thirdD6A = document.createElement('p3'); var forthD5A = document.createElement('p3');
                 var forthD6A = document.createElement('p2'); var fifthD6A = document.createElement('p3');
 
-                if (awayRosterDArray.length == 7) {
-                  sixthDNumberA.innerHTML = awayRosterArray[awayRosterDIDArray[11] - 4] + ' ' + awayRosterArray[awayRosterDIDArray[11] - 1] + ' ' + awayRosterArray[awayRosterDIDArray[11] - 3];;
-                  sixthD1A.innerHTML = pairingsArray4[3][9] + ' sh ' + pairingsArray4[3][8] + ' sec ' + '<br>' + pairingsArray4[4][9] + ' sh ' + pairingsArray4[4][8] + ' sec ' + '<br>' + pairingsArray4[5][9] + ' sh ' + pairingsArray4[5][8] + ' sec ';
-                  sixthD6A.innerHTML = 'X' + '<br>' + 'X' + '<br>' + 'X';
+                if (homeRosterDArray.length == 7) {
                   seventhDNumberA.innerHTML = awayRosterArray[awayRosterDIDArray[13] - 4] + ' ' + awayRosterArray[awayRosterDIDArray[13] - 1] + ' ' + awayRosterArray[awayRosterDIDArray[13] - 3];
-                  var firstD6A = document.createElement('p3');
-                  firstD6A.innerHTML = pairingsArray4[3][9] + ' sh ' + pairingsArray4[3][8] + ' sec ' + '<br>' + pairingsArray4[4][9] + ' sh ' + pairingsArray4[4][8] + ' sec ' + '<br>' + pairingsArray4[5][9] + ' sh ' + pairingsArray4[5][8] + ' sec ';
-                  document.getElementById('firstD6A').appendChild(firstD6A);
-                  var secondD6A = document.createElement('p2'); document.getElementById('secondD6A').appendChild(secondD6A);
                   var firstD7A = document.createElement('p2');
                   firstD7A.innerHTML = pairingsArray4[3][11] + ' sh ' + pairingsArray4[3][10] + ' sec ' + '<br>' + pairingsArray4[4][11] + ' sh ' + pairingsArray4[4][10] + ' sec ' + '<br>' + pairingsArray4[5][11] + ' sh ' + pairingsArray4[5][10] + ' sec ';
-                  var thirdD7A = document.createElement('p2'); var fifthD7A = document.createElement('p2'); document.getElementById('firstD7A').appendChild(firstD7A);
+                  var thirdD7A = document.createElement('p2'); var fifthD7A = document.createElement('p2');
+                  document.getElementById('firstD7A').appendChild(firstD7A);
                   seventhD1A.innerHTML = pairingsArray4[3][11] + ' sh ' + pairingsArray4[3][10] + ' sec ' + '<br>' + pairingsArray4[4][11] + ' sh ' + pairingsArray4[4][10] + ' sec ' + '<br>' + pairingsArray4[5][11] + ' sh ' + pairingsArray4[5][10] + ' sec ';
                   var seventhD7A = document.createElement('p2'); seventhD7A.innerHTML = 'X' + '<br>' + 'X' + '<br>' + 'X';
                   document.getElementById('seventhD7A').appendChild(seventhD7A);
+                  secondD3A.innerHTML = pairingsArray4[3][13] + ' sh ' + pairingsArray4[3][12] + ' sec ' + '<br>' + pairingsArray4[4][13] + ' sh ' + pairingsArray4[4][12] + ' sec ' + '<br>' + pairingsArray4[5][13] + ' sh ' + pairingsArray4[5][12] + ' sec ';
                   secondD4A.innerHTML = pairingsArray4[3][15] + ' sh ' + pairingsArray4[3][14] + ' sec ' + '<br>' + pairingsArray4[4][15] + ' sh ' + pairingsArray4[4][14] + ' sec ' + '<br>' + pairingsArray4[5][15] + ' sh ' + pairingsArray4[5][14] + ' sec ';
                   secondD5A.innerHTML = pairingsArray4[3][17] + ' sh ' + pairingsArray4[3][16] + ' sec ' + '<br>' + pairingsArray4[4][17] + ' sh ' + pairingsArray4[4][16] + ' sec ' + '<br>' + pairingsArray4[5][17] + ' sh ' + pairingsArray4[5][16] + ' sec ';
                   secondD6A.innerHTML = pairingsArray4[3][19] + ' sh ' + pairingsArray4[3][18] + ' sec ' + '<br>' + pairingsArray4[4][19] + ' sh ' + pairingsArray4[4][18] + ' sec ' + '<br>' + pairingsArray4[5][19] + ' sh ' + pairingsArray4[5][18] + ' sec ';
@@ -771,26 +732,21 @@ function getInputValue() {
                   forthD2A.innerHTML = secondD4A.innerHTML; forthD3A.innerHTML = thirdD4A.innerHTML;
                   forthD5A.innerHTML = pairingsArray4[3][31] + ' sh ' + pairingsArray4[3][30] + ' sec ' + '<br>' + pairingsArray4[4][31] + ' sh ' + pairingsArray4[4][30] + ' sec ' + '<br>' + pairingsArray4[5][31] + ' sh ' + pairingsArray4[5][30] + ' sec ';
                   forthD6A.innerHTML = pairingsArray4[3][33] + ' sh ' + pairingsArray4[3][32] + ' sec ' + '<br>' + pairingsArray4[4][33] + ' sh ' + pairingsArray4[4][32] + ' sec ' + '<br>' + pairingsArray4[5][33] + ' sh ' + pairingsArray4[5][32] + ' sec ';
-                  forthD7A.innerHTML = pairingsArray4[3][35] + ' sh ' + pairingsArray4[3][34] + ' sec ' + '<br>' + pairingsArray4[4][35] + ' sh ' + pairingsArray4[4][34] + ' sec ' + '<br>' + pairingsArray4[5][35] + ' sh ' + pairingsArray4[5][34] + ' sec ';
+                  forthD7A.innerHTML = pairingsArray4[1][35] + ' sh ' + pairingsArray4[1][34] + ' sec ' + '<br>' + pairingsArray4[4][35] + ' sh ' + pairingsArray4[4][34] + ' sec ' + '<br>' + pairingsArray4[5][35] + ' sh ' + pairingsArray4[5][34] + ' sec ';
                   fifthD2A.innerHTML = secondD5A.innerHTML; fifthD3A.innerHTML = thirdD5A.innerHTML;
-                  fifthD4A.innerHTML = forthD5A.innerHTML;
-                  fifthD6A.innerHTML = pairingsArray4[3][37] + ' sh ' + pairingsArray4[3][36] + ' sec ' + '<br>' + pairingsArray4[4][37] + ' sh ' + pairingsArray4[4][36] + ' sec ' + '<br>' + pairingsArray4[5][37] + ' sh ' + pairingsArray4[5][36] + ' sec ';
-                  fifthD7A.innerHTML = pairingsArray4[3][39] + ' sh ' + pairingsArray4[3][38] + ' sec ' + '<br>' + pairingsArray4[4][39] + ' sh ' + pairingsArray4[4][38] + ' sec ' + '<br>' + pairingsArray4[5][39] + ' sh ' + pairingsArray4[5][38] + ' sec ';
+                  fifthD4A.innerHTML = forthD5A.innerHTML
+                  fifthD6A.innerHTML = pairingsArray4[1][37] + ' sh ' + pairingsArray4[1][36] + ' sec ' + '<br>' + pairingsArray4[4][37] + ' sh ' + pairingsArray4[4][36] + ' sec ' + '<br>' + pairingsArray4[5][37] + ' sh ' + pairingsArray4[5][36] + ' sec ';
+                  fifthD7A.innerHTML = pairingsArray4[1][39] + ' sh ' + pairingsArray4[1][38] + ' sec ' + '<br>' + pairingsArray4[4][39] + ' sh ' + pairingsArray4[4][38] + ' sec ' + '<br>' + pairingsArray4[5][39] + ' sh ' + pairingsArray4[5][38] + ' sec ';
                   document.getElementById('fifthD7A').appendChild(fifthD7A);
                   sixthD2A.innerHTML = secondD6A.innerHTML; sixthD3A.innerHTML = thirdD6A.innerHTML;
                   sixthD4A.innerHTML = forthD6A.innerHTML; sixthD5A.innerHTML = fifthD6A.innerHTML;
-                  sixthD7A.innerHTML = pairingsArray4[3][41] + ' sh ' + pairingsArray4[3][40] + ' sec ' + '<br>' + pairingsArray4[4][41] + ' sh ' + pairingsArray4[4][40] + ' sec ' + '<br>' + pairingsArray4[5][41] + ' sh ' + pairingsArray4[5][40] + ' sec ';
+                  sixthD7A.innerHTML = pairingsArray4[1][41] + ' sh ' + pairingsArray4[1][40] + ' sec ' + '<br>' + pairingsArray4[4][41] + ' sh ' + pairingsArray4[4][40] + ' sec ' + '<br>' + pairingsArray4[5][41] + ' sh ' + pairingsArray4[5][40] + ' sec ';
                   seventhD2A.innerHTML = secondD7A.innerHTML; seventhD3A.innerHTML = thirdD7A.innerHTML;
                   seventhD4A.innerHTML = forthD7A.innerHTML; seventhD5A.innerHTML = fifthD7A.innerHTML;
                   seventhD6A.innerHTML = sixthD7A.innerHTML;
                 } // end if seven D men
 
-                else if (awayRosterDArray.length == 6) {
-                  var firstD6A = document.createElement('p3');
-                  firstD6A.innerHTML = pairingsArray4[3][9] + ' sh ' + pairingsArray4[3][8] + ' sec ' + '<br>' + pairingsArray4[4][9] + ' sh ' + pairingsArray4[4][8] + ' sec ' + '<br>' + pairingsArray4[5][9] + ' sh ' + pairingsArray4[5][8] + ' sec ';
-                  document.getElementById('firstD6A').appendChild(firstD6A);
-                  var secondD6A = document.createElement('p2'); document.getElementById('secondD6A').appendChild(secondD6A);
-                  secondD3A.innerHTML = pairingsArray4[3][13] + ' sh ' + pairingsArray4[3][12] + ' sec ' + '<br>' + pairingsArray4[4][13] + ' sh ' + pairingsArray4[4][12] + ' sec ' + '<br>' + pairingsArray4[5][13] + ' sh ' + pairingsArray4[5][12] + ' sec ';
+                else if (homeRosterDArray.length == 6) {
                   secondD3A.innerHTML = pairingsArray4[3][11] + ' sh ' + pairingsArray4[3][10] + ' sec ' + '<br>' + pairingsArray4[4][11] + ' sh ' + pairingsArray4[4][10] + ' sec ' + '<br>' + pairingsArray4[5][11] + ' sh ' + pairingsArray4[5][10] + ' sec ';
                   secondD4A.innerHTML = pairingsArray4[3][13] + ' sh ' + pairingsArray4[3][12] + ' sec ' + '<br>' + pairingsArray4[4][13] + ' sh ' + pairingsArray4[4][12] + ' sec ' + '<br>' + pairingsArray4[5][13] + ' sh ' + pairingsArray4[5][12] + ' sec ';
                   secondD5A.innerHTML = pairingsArray4[3][15] + ' sh ' + pairingsArray4[3][14] + ' sec ' + '<br>' + pairingsArray4[4][15] + ' sh ' + pairingsArray4[4][14] + ' sec ' + '<br>' + pairingsArray4[5][15] + ' sh ' + pairingsArray4[5][14] + ' sec ';
@@ -803,181 +759,30 @@ function getInputValue() {
                   forthD5A.innerHTML = pairingsArray4[3][25] + ' sh ' + pairingsArray4[3][24] + ' sec ' + '<br>' + pairingsArray4[4][25] + ' sh ' + pairingsArray4[4][24] + ' sec ' + '<br>' + pairingsArray4[5][25] + ' sh ' + pairingsArray4[5][24] + ' sec ';
                   forthD6A.innerHTML = pairingsArray4[3][27] + ' sh ' + pairingsArray4[3][26] + ' sec ' + '<br>' + pairingsArray4[4][27] + ' sh ' + pairingsArray4[4][26] + ' sec ' + '<br>' + pairingsArray4[5][27] + ' sh ' + pairingsArray4[5][26] + ' sec ';
                   fifthD2A.innerHTML = secondD5A.innerHTML; fifthD3A.innerHTML = thirdD5A.innerHTML;
-                  fifthD4A.innerHTML = forthD5A.innerHTML;
+                  fifthD4A.innerHTML = forthD5A.innerHTML
                   fifthD6A.innerHTML = pairingsArray4[3][29] + ' sh ' + pairingsArray4[3][28] + ' sec ' + '<br>' + pairingsArray4[4][29] + ' sh ' + pairingsArray4[4][28] + ' sec ' + '<br>' + pairingsArray4[5][29] + ' sh ' + pairingsArray4[5][28] + ' sec ';
-                  sixthDNumberA.innerHTML = awayRosterArray[awayRosterDIDArray[11] - 4] + ' ' + awayRosterArray[awayRosterDIDArray[11] - 1] + ' ' + awayRosterArray[awayRosterDIDArray[11] - 3];;
-                  sixthD1A.innerHTML = pairingsArray4[3][9] + ' sh ' + pairingsArray4[3][8] + ' sec ' + '<br>' + pairingsArray4[4][9] + ' sh ' + pairingsArray4[4][8] + ' sec ' + '<br>' + pairingsArray4[5][9] + ' sh ' + pairingsArray4[5][8] + ' sec ';
-                  sixthD6A.innerHTML = 'X' + '<br>' + 'X' + '<br>' + 'X';
                   sixthD2A.innerHTML = secondD6A.innerHTML; sixthD3A.innerHTML = thirdD6A.innerHTML;
                   sixthD4A.innerHTML = forthD6A.innerHTML; sixthD5A.innerHTML = fifthD6A.innerHTML
-                } // end if sixth D men 
-
-                else if (awayRosterDArray.length == 5) {
-                  secondD3A.innerHTML = pairingsArray4[3][9] + ' sh ' + pairingsArray4[3][8] + ' sec ' + '<br>' + pairingsArray4[4][9] + ' sh ' + pairingsArray4[4][8] + ' sec ' + '<br>' + pairingsArray4[5][9] + ' sh ' + pairingsArray4[5][8] + ' sec ';
-                  secondD4A.innerHTML = pairingsArray4[3][11] + ' sh ' + pairingsArray4[3][10] + ' sec ' + '<br>' + pairingsArray4[4][11] + ' sh ' + pairingsArray4[4][10] + ' sec ' + '<br>' + pairingsArray4[5][11] + ' sh ' + pairingsArray4[5][10] + ' sec ';
-                  secondD5A.innerHTML = pairingsArray4[3][13] + ' sh ' + pairingsArray4[3][12] + ' sec ' + '<br>' + pairingsArray4[4][13] + ' sh ' + pairingsArray4[4][12] + ' sec ' + '<br>' + pairingsArray4[5][13] + ' sh ' + pairingsArray4[5][12] + ' sec ';
-                  thirdD2A.innerHTML = secondD3A.innerHTML;
-                  thirdD4A.innerHTML = pairingsArray4[3][15] + ' sh ' + pairingsArray4[3][14] + ' sec ' + '<br>' + pairingsArray4[4][15] + ' sh ' + pairingsArray4[4][14] + ' sec ' + '<br>' + pairingsArray4[5][15] + ' sh ' + pairingsArray4[5][14] + ' sec ';
-                  thirdD5A.innerHTML = pairingsArray4[3][17] + ' sh ' + pairingsArray4[3][16] + ' sec ' + '<br>' + pairingsArray4[4][17] + ' sh ' + pairingsArray4[4][16] + ' sec ' + '<br>' + pairingsArray4[5][17] + ' sh ' + pairingsArray4[5][16] + ' sec ';
-                  forthD2A.innerHTML = secondD4A.innerHTML; forthD3A.innerHTML = thirdD4A.innerHTML;
-                  forthD5A.innerHTML = pairingsArray4[3][19] + ' sh ' + pairingsArray4[3][18] + ' sec ' + '<br>' + pairingsArray4[4][19] + ' sh ' + pairingsArray4[4][18] + ' sec ' + '<br>' + pairingsArray4[5][19] + ' sh ' + pairingsArray4[5][18] + ' sec ';
-                  fifthD2A.innerHTML = secondD5A.innerHTML; fifthD3A.innerHTML = thirdD5A.innerHTML;
-                  fifthD4A.innerHTML = forthD5A.innerHTML;
-                } // end if five D men 
+                } // end if sixth D men
 
                 document.getElementById('secondD3A').appendChild(secondD3A); document.getElementById('secondD4A').appendChild(secondD4A);
-                document.getElementById('secondD5A').appendChild(secondD5A);
+                document.getElementById('secondD5A').appendChild(secondD5A); document.getElementById('secondD6A').appendChild(secondD6A);
                 document.getElementById('thirdD4A').appendChild(thirdD4A); document.getElementById('thirdD5A').appendChild(thirdD5A);
                 document.getElementById('thirdD6A').appendChild(thirdD6A); document.getElementById('forthD5A').appendChild(forthD5A);
                 document.getElementById('forthD6A').appendChild(forthD6A); document.getElementById('fifthD6A').appendChild(fifthD6A);
-
-                linesArray5 = [[], [], [], [], [], []]; linesArray6 = []; linesArray3 = [];
-                console.log(linesArray4);
-
-                for (i = 0; i < 6; i++) { // i is for 3 periods x 2 teams
-                  for (j = 0; j < linesArray4[i].length / 5; j++) {
-                    if (linesArray4[i][5 * j] > 120 && linesArray4[i][5 * j + 1] > 3) {
-                      linesArray5[i].push(linesArray4[i][5 * j], 5 * j, linesArray4[i][5 * j + 1], linesArray4[i][5 * j + 2], linesArray4[i][5 * j + 3], linesArray4[i][5 * j + 4])
-                    }
-                  }
-                }
-
-                for (i = 2; i > -1; i--) {
-                  if (linesArray5[i].length === 18 || linesArray5[i].length === 24) {
-                    console.log(i); linesArray2 = [];
-                    for (j = 0; j < linesArray5[i].length / 6; j++) {
-                      linesArray2.push(linesArray5[i][6 * j + 3], linesArray5[i][6 * j + 4], linesArray5[i][6 * j + 5])
-                    }
-                  }
-                }
-                for (i = 5; i > 2; i--) {
-                  if (linesArray5[i].length === 18 || linesArray5[i].length === 24) {
-                    console.log(i); linesArray6 = [];
-                    for (j = 0; j < linesArray5[i].length / 6; j++) {
-                      linesArray6.push(linesArray5[i][6 * j + 3], linesArray5[i][6 * j + 4], linesArray5[i][6 * j + 5])
-                    }
-                  }
-                }
-                console.log(linesArray5, linesArray2, linesArray6);
-                const maxLineHome = Math.max(linesArray5[0].length, linesArray5[1].length, linesArray5[2].length);
-                const maxLineAway = Math.max(linesArray5[3].length, linesArray5[4].length, linesArray5[5].length);
-                linesArray3 = [];
-                if (maxLineHome < 18) {
-                  const maxLineHomeIndex = [linesArray5[0].length, linesArray5[1].length, linesArray5[2].length].indexOf(maxLineHome); linesArray3 = [];
-                  for (i = 0; i < linesArray4[maxLineHomeIndex].length / 5; i++) { linesArray3.push(linesArray4[maxLineHomeIndex][5 * i]) }
-
-                }
-                linesArray = linesArray3.sort();
-                console.log(linesArray);
-
-                if (maxLineAway < 18) {
-                  const maxLineAwayIndex = [linesArray5[3].length, linesArray5[4].length, linesArray5[5].length].indexOf(maxLineAway); linesArray3 = [];
-                  console.log(maxLineAwayIndex);
-                  // console.log(linesArray4[maxLineAwayIndex + 3].length, linesArray4[maxLineAwayIndex + 3]);
-                  for (i = 0; i < linesArray4[maxLineAwayIndex + 3].length / 5; i++) { linesArray3.push(linesArray4[maxLineAwayIndex + 3][5 * i]) } //
-
-                }
-                // linesArray = linesArray3.sort(); 
-                console.log(linesArray3);
-
-                // else if (i == 3) {linesArray6.push(linesArray4[i][5 * j + 2], linesArray4[i][5 * j + 3], linesArray4[i][5 * j + 4]) }
-                if (linesArray5[0].length < 18) {
-                  linesArray2 = [];
-                  linesArray5 = [[], [], [], linesArray5[3], linesArray5[4], linesArray5[5]];
-                  for (i = 0; i < 3; i++) {
-                    for (j = 0; j < linesArray4[i].length / 5; j++) {
-                      if (linesArray4[i][5 * j] > 120 && linesArray4[i][5 * j + 1] > 2) {
-                        linesArray5[i].push(linesArray4[i][5 * j], 5 * j, linesArray4[i][5 * j + 1], linesArray4[i][5 * j + 2], linesArray4[i][5 * j + 3], linesArray4[i][5 * j + 4]);
-                        if (i == 0) { linesArray2.push(linesArray4[i][5 * j + 2], linesArray4[i][5 * j + 3], linesArray4[i][5 * j + 4]) }
-                      }
-                    }
-                  }
-                }
-                if (linesArray5[3].length < 18) {
-                  linesArray5 = [linesArray5[0], linesArray5[1], linesArray5[2], [], [], []];
-                  linesArray6 = [];
-                  for (i = 3; i < 6; i++) {
-                    for (j = 0; j < linesArray4[i].length / 5; j++) {
-                      if (linesArray4[i][5 * j] > 120 && linesArray4[i][5 * j + 1] > 2) {
-                        linesArray5[i].push(linesArray4[i][5 * j], 5 * j, linesArray4[i][5 * j + 1], linesArray4[i][5 * j + 2], linesArray4[i][5 * j + 3], linesArray4[i][5 * j + 4]);
-                        if (i == 3) { linesArray6.push(linesArray4[i][5 * j + 2], linesArray4[i][5 * j + 3], linesArray4[i][5 * j + 4]) }
-                      }
-                    }
-                  }
-                }
-                console.log(linesArray5);
-                if (linesArray5[0].length < 18) {
-                  linesArray2 = []; tempArray2 = []; console.log('home exception');
-                  for (i = 0; i < linesArray4[0].length / 5; i++) {
-                    for (j = 0; j < 24; j++) {
-                      if (linesArray4[0][5 * i] > 120 - 5 * j && linesArray4[0][5 * i] < 120 && linesArray4[0][5 * i + 1] > 2) {
-                        console.log(linesArray4[0][5 * i]);
-                        tempArray2.push(i, j);
-                      }
-                    }
-                  }
-                  console.log(tempArray2);
-                  linesArray5 = [[], [], [], linesArray5[3], linesArray5[4], linesArray5[5]];
-                  for (i = 0; i < 3; i++) {
-                    for (j = 0; j < linesArray4[i].length / 5; j++) {
-                      if (linesArray4[i][5 * j] > 120 - 5 * tempArray2[0] && linesArray4[i][5 * j + 1] > 2) {
-                        linesArray5[i].push(linesArray4[i][5 * j], 5 * j, linesArray4[i][5 * j + 1], linesArray4[i][5 * j + 2], linesArray4[i][5 * j + 3], linesArray4[i][5 * j + 4]);
-                        if (i == 0) { linesArray2.push(linesArray4[i][5 * j + 2], linesArray4[i][5 * j + 3], linesArray4[i][5 * j + 4]) }
-                      }
-                    }
-                  }
-                }
-
-                if (linesArray5[3].length < 18) {
-                  console.log('road exception'); linesArray6 = []; tempArray2 = [];
-                  for (i = 0; i < linesArray4[3].length / 5; i++) {
-                    for (j = 0; j < 24; j++) {
-                      if (linesArray4[3][5 * i] > 120 - 5 * j && linesArray4[3][5 * i + 1] > 2) { tempArray2.push(j) }
-                    }
-                  }
-                  console.log(tempArray2); linesArray5 = [linesArray5[0], linesArray5[1], linesArray5[2], [], [], []];
-                  for (i = 3; i < 6; i++) {
-                    for (j = 0; j < linesArray4[i].length / 5; j++) {
-                      if (linesArray4[i][5 * j] > 120 - 5 * tempArray2[0] && linesArray4[i][5 * j + 1] > 2) {
-                        linesArray5[i].push(linesArray4[i][5 * j], 5 * j, linesArray4[i][5 * j + 1], linesArray4[i][5 * j + 2], linesArray4[i][5 * j + 3], linesArray4[i][5 * j + 4]);
-                        if (i == 3) { linesArray6.push(linesArray4[i][5 * j + 2], linesArray4[i][5 * j + 3], linesArray4[i][5 * j + 4]) }
-                      }
-                    }
-                  }
-                }
-                console.log(linesArray5, linesArray2, linesArray6);
-
-                firstLine.innerHTML = homeRosterArray[homeRosterFIDArray[1 + 2 * linesArray2[0]] - 4] + ' ' + homeRosterArray[homeRosterFIDArray[1 + 2 * linesArray2[0]] - 1] + ' ' + homeRosterArray[homeRosterFIDArray[1 + 2 * linesArray2[0]] - 3] + '<br>' +
-                  homeRosterArray[homeRosterFIDArray[1 + 2 * linesArray2[1]] - 4] + ' ' + homeRosterArray[homeRosterFIDArray[1 + 2 * linesArray2[1]] - 1] + ' ' + homeRosterArray[homeRosterFIDArray[1 + 2 * linesArray2[1]] - 3] + '<br>' +
-                  homeRosterArray[homeRosterFIDArray[1 + 2 * linesArray2[2]] - 4] + ' ' + homeRosterArray[homeRosterFIDArray[1 + 2 * linesArray2[2]] - 1] + ' ' + homeRosterArray[homeRosterFIDArray[1 + 2 * linesArray2[2]] - 3];
-                secondLine.innerHTML = homeRosterArray[homeRosterFIDArray[1 + 2 * linesArray2[3]] - 4] + ' ' + homeRosterArray[homeRosterFIDArray[1 + 2 * linesArray2[3]] - 1] + ' ' + homeRosterArray[homeRosterFIDArray[1 + 2 * linesArray2[3]] - 3] + '<br>' +
-                  homeRosterArray[homeRosterFIDArray[1 + 2 * linesArray2[4]] - 4] + ' ' + homeRosterArray[homeRosterFIDArray[1 + 2 * linesArray2[4]] - 1] + ' ' + homeRosterArray[homeRosterFIDArray[1 + 2 * linesArray2[4]] - 3] + '<br>' +
-                  homeRosterArray[homeRosterFIDArray[1 + 2 * linesArray2[5]] - 4] + ' ' + homeRosterArray[homeRosterFIDArray[1 + 2 * linesArray2[5]] - 1] + ' ' + homeRosterArray[homeRosterFIDArray[1 + 2 * linesArray2[5]] - 3];
-                thirdLine.innerHTML = homeRosterArray[homeRosterFIDArray[1 + 2 * linesArray2[6]] - 4] + ' ' + homeRosterArray[homeRosterFIDArray[1 + 2 * linesArray2[6]] - 1] + ' ' + homeRosterArray[homeRosterFIDArray[1 + 2 * linesArray2[6]] - 3] + '<br>' +
-                  homeRosterArray[homeRosterFIDArray[1 + 2 * linesArray2[7]] - 4] + ' ' + homeRosterArray[homeRosterFIDArray[1 + 2 * linesArray2[7]] - 1] + ' ' + homeRosterArray[homeRosterFIDArray[1 + 2 * linesArray2[7]] - 3] + '<br>' +
-                  homeRosterArray[homeRosterFIDArray[1 + 2 * linesArray2[8]] - 4] + ' ' + homeRosterArray[homeRosterFIDArray[1 + 2 * linesArray2[8]] - 1] + ' ' + homeRosterArray[homeRosterFIDArray[1 + 2 * linesArray2[8]] - 3];
-                firstLineTime.innerHTML = linesArray4[0][linesArray5[0][1] + 1] + 'sh' + linesArray4[0][linesArray5[0][1]] + 's' + '<br>' + linesArray4[1][linesArray5[0][1] + 1] + 'sh' + linesArray4[1][linesArray5[0][1]] + 's' + '<br>' + linesArray4[2][linesArray5[0][1] + 1] + 'sh' + linesArray4[2][linesArray5[0][1]] + 's';
-                secondLineTime.innerHTML = linesArray4[0][linesArray5[0][7] + 1] + 'sh' + linesArray4[0][linesArray5[0][7]] + 's' + '<br>' + linesArray4[1][linesArray5[0][7] + 1] + 'sh' + linesArray4[1][linesArray5[0][7]] + 's' + '<br>' + linesArray4[2][linesArray5[0][7] + 1] + 'sh' + linesArray4[2][linesArray5[0][7]] + 's';
-                thirdLineTime.innerHTML = linesArray4[0][linesArray5[0][13] + 1] + 'sh' + linesArray4[0][linesArray5[0][13]] + 's' + '<br>' + linesArray4[1][linesArray5[0][13] + 1] + 'sh' + linesArray4[1][linesArray5[0][13]] + 's' + '<br>' + linesArray4[2][linesArray5[0][13] + 1] + 'sh' + linesArray4[2][linesArray5[0][13]] + 's';
-
-                firstLineAway.innerHTML = awayRosterArray[awayRosterFIDArray[1 + 2 * linesArray6[0]] - 4] + ' ' + awayRosterArray[awayRosterFIDArray[1 + 2 * linesArray6[0]] - 1] + ' ' + awayRosterArray[awayRosterFIDArray[1 + 2 * linesArray6[0]] - 3] + '<br>' +
-                  awayRosterArray[awayRosterFIDArray[1 + 2 * linesArray6[1]] - 4] + ' ' + awayRosterArray[awayRosterFIDArray[1 + 2 * linesArray6[1]] - 1] + ' ' + awayRosterArray[awayRosterFIDArray[1 + 2 * linesArray6[1]] - 3] + '<br>' +
-                  awayRosterArray[awayRosterFIDArray[1 + 2 * linesArray6[2]] - 4] + ' ' + awayRosterArray[homeRosterFIDArray[1 + 2 * linesArray6[2]] - 1] + ' ' + awayRosterArray[awayRosterFIDArray[1 + 2 * linesArray6[2]] - 3];
-                secondLineAway.innerHTML = awayRosterArray[awayRosterFIDArray[1 + 2 * linesArray6[3]] - 4] + ' ' + awayRosterArray[awayRosterFIDArray[1 + 2 * linesArray6[3]] - 1] + ' ' + awayRosterArray[awayRosterFIDArray[1 + 2 * linesArray6[3]] - 3] + '<br>' +
-                  awayRosterArray[awayRosterFIDArray[1 + 2 * linesArray6[4]] - 4] + ' ' + awayRosterArray[awayRosterFIDArray[1 + 2 * linesArray6[4]] - 1] + ' ' + awayRosterArray[awayRosterFIDArray[1 + 2 * linesArray6[4]] - 3] + '<br>' +
-                  awayRosterArray[awayRosterFIDArray[1 + 2 * linesArray6[5]] - 4] + ' ' + awayRosterArray[awayRosterFIDArray[1 + 2 * linesArray6[5]] - 1] + ' ' + awayRosterArray[awayRosterFIDArray[1 + 2 * linesArray6[5]] - 3];
-                thirdLineAway.innerHTML = awayRosterArray[awayRosterFIDArray[1 + 2 * linesArray6[6]] - 4] + ' ' + awayRosterArray[awayRosterFIDArray[1 + 2 * linesArray6[6]] - 1] + ' ' + awayRosterArray[awayRosterFIDArray[1 + 2 * linesArray6[6]] - 3] + '<br>' +
-                  awayRosterArray[awayRosterFIDArray[1 + 2 * linesArray6[7]] - 4] + ' ' + awayRosterArray[awayRosterFIDArray[1 + 2 * linesArray6[7]] - 1] + ' ' + awayRosterArray[awayRosterFIDArray[1 + 2 * linesArray6[7]] - 3] + '<br>' +
-                  awayRosterArray[awayRosterFIDArray[1 + 2 * linesArray6[8]] - 4] + ' ' + awayRosterArray[homeRosterFIDArray[1 + 2 * linesArray6[8]] - 1] + ' ' + awayRosterArray[awayRosterFIDArray[1 + 2 * linesArray6[8]] - 3];
-                firstLineTimeAway.innerHTML = linesArray4[3][linesArray5[3][1] + 1] + 'sh' + linesArray4[3][linesArray5[3][1]] + 's' + '<br>' + linesArray4[4][linesArray5[3][1] + 1] + 'sh' + linesArray4[4][linesArray5[3][1]] + 's' + '<br>' + linesArray4[5][linesArray5[3][1] + 1] + 'sh' + linesArray4[5][linesArray5[3][1]] + 's';
-                secondLineTimeAway.innerHTML = linesArray4[3][linesArray5[3][7] + 1] + 'sh' + linesArray4[3][linesArray5[3][7]] + 's' + '<br>' + linesArray4[4][linesArray5[3][7] + 1] + 'sh' + linesArray4[4][linesArray5[3][7]] + 's' + '<br>' + linesArray4[5][linesArray5[3][7] + 1] + 'sh' + linesArray4[5][linesArray5[3][7]] + 's';
-                thirdLineTimeAway.innerHTML = linesArray4[3][linesArray5[3][13] + 1] + 'sh' + linesArray4[3][linesArray5[3][13]] + 's' + '<br>' + linesArray4[4][linesArray5[3][13] + 1] + 'sh' + linesArray4[4][linesArray5[3][13]] + 's' + '<br>' + linesArray4[5][linesArray5[3][13] + 1] + 'sh' + linesArray4[5][linesArray5[3][13]] + 's';
+                // if (homeRosterFArray.length == 12) {fArray = [[0,1],[0,2],[0,3],[0,4],[0.5],[0,6],[0,7],[0,8],[0,9],[0,10],[0,11],[0,12],[1,2],[1,3],[1,4],[1,5],[1,6],[1,7],[1,8],[1,9],[1,10],[1,11],[1,12],[2,3],[2,4],[2,5],[2,6],[2,7],[2,8],[2,9],[2,10],[2,11],[2,12],[3,4],[3,5],[3,6],[3,7],[3,8],[3,9],[3,10],[3,11],[3,12],[4,5],[4,6],[4,7],[4,8],[4,9],[4,10],[4,11],[4,12],[5,6],[5,7],[5,8],[5,9],[5.10],[5,11],[5.12],[6,7],[6,8],[6,9],[6,10],[6,11],[6,12],[7,8],[7,9],[7,10],[7,11],[7,12],[8,9],[8,10],[8,11],[8,12],[9,10],[9,11],[9,12],[10,11],[10,12],[11,12]]}
+                 fArray = []; newArray2 = [];
+              //   for (i = 0; i < homeRosterFArray.length; i++){for (j = i + 1; j < homeRosterFArray; j++) {newArray2 = [i,j];
+              //   fArray.push([i,j]);
+              // console.log(i, j)}}
+              //   console.log(fArray);
+              for (i = 0; i < linesArray4[0].length; i++){if (linesArray4[0][i] > 100 ) {tempArray6 = linesArray4[0];
+              newArray2.push(linesArray4[0][i], linesArray4[0][i+1], tempArray6.indexOf(linesArray4[0][i]))}}
+              console.log(newArray2)
               } // end function getDPairs Joel Henley was dressed as F on 11/19 against NYI he missed entire 3rd period
             });
-        } // end getshifts line 68 start
-      } // end displayGameData 
-    } // end second .then from getinputvalue
+        }
+      }
+    }
     );
-} // end getInput Value function $65k at 4.50% on 3/27
-// check tix casa. climb sierra blanca; split functions
-// nazca drawings Peru; update resume
+}
