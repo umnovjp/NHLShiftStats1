@@ -50,12 +50,18 @@ height: 128px;
 color: lightblue;
 vertical-align: top;
 margin-right: 20px;
-rotate: -20.2deg;
+rotate: -20.2deg; 
 }
 
 .yearEntry:hover  {box-shadow: 5px 5px 3px rgb(234, 0, 255);}
 
+path:hover { fill: yellow; stroke: blue; pointer-events:all; }
 
+path { fill: red; stroke: green; pointer-events:all; }
+
+#ch { fill: green; stroke: orange; pointer-events:all; }
+#ch path:hover {fill: yellow; stroke: purple; pointer-events:all; }
+.landxx_ch path:hover {fill: yellow; stroke: blue; pointer-events:all; }
 
 /*.landxx coast ca {color: #818181}
 .yearEntry2{float:center;

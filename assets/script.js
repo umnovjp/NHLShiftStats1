@@ -7,11 +7,11 @@ function getInputValue() {
   var inputVal = document.getElementById('datepicker').value; var date = inputVal.split('/');
   var formatted = date[2] + '-' + date[0] + '-' + date[1]; console.log(formatted)
   var requestURL = 'https://statsapi.web.nhl.com/api/v1/schedule/?date=' + formatted;
-  fetch(requestURL, {
+  fetch(requestURL, { 
     "method": "GET", "headers": {}
   })
-    .then(function (response) { 
-      return response.json();
+    .then(function (response) {
+      return response.json(); 
     })
     .then(function (data) {
       console.log('I am in schedule then');
