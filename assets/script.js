@@ -14,8 +14,8 @@ function getInputValue() {
       return response.json();
     })
     .then(function (data) {
-      console.log('I am in schedule then')
-      console.log(data.dates[0].games);
+      console.log('I am in schedule then');
+      console.log(data.dates[0].games); 
       var numberOfGames = data.dates[0].games.length; scheduleContent.textContent = '';
       for (var i = 0; i < numberOfGames; i++) {
         var gameName = document.createElement('button');
