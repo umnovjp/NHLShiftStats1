@@ -11,7 +11,7 @@ function getInputValue() {
     "method": "GET", "headers": {}
   })
     .then(function (response) {
-      return response.json(); 
+      return response.json();
     })
     .then(function (data) {
       console.log('I am in schedule then');
