@@ -322,6 +322,8 @@ function getInputValue() {
               console.log(homeRosterDArray, homeRosterGArray, homeRosterFArray);
               console.log(awayRosterDArray, awayRosterGArray, awayRosterFArray);
               console.log(fiveOnFive);
+              // fiveOnFive structure: [12] and [13] is goalie minutes; 
+              // [0...11] are penalties and PPG for home and away teams
 
               if (fiveOnFive[12].length == 6) {
                 for (i = 0; i < 3; i++) {
