@@ -125,16 +125,17 @@ function getInputValue() {
                  for (i = 9; i < 12; i++ ) { // away PPG
                   for (j = 0; j < fiveOnFive[i].length; j++) {timeStamp = fiveOnFive[i][j].split(':');
                 timeInSeconds = (i - 9) * 1200 + Number(timeStamp[0]) * 60 + Number(timeStamp[1]);
-                realFiveOnFive[2].push(timeInSeconds, timeInSeconds + penaltyLengthSeconds)
+                realFiveOnFive[2].push(timeInSeconds)
               }
                    }
-                  for (i = 6; i < 1; i++ ) { // home PPG
+                  for (i = 6; i < 9; i++ ) { // home PPG
                     for (j = 0; j < fiveOnFive[i].length; j++) {timeStamp = fiveOnFive[i][j].split(':');
                   timeInSeconds = (i - 6) * 1200 + Number(timeStamp[0]) * 60 + Number(timeStamp[1]);
-                  realFiveOnFive[3].push(timeInSeconds, timeInSeconds + penaltyLengthSeconds)
+                  realFiveOnFive[3].push(timeInSeconds)
                 }
                      }
                    console.log(realFiveOnFive);
+                   // realFiveonFive structute [0] home penalties, [1] away penalties, [2] home PPGs [3] away PPG
             });
           // console.log(gameId);  https://api.nhle.com/stats/rest/en/shiftcharts?cayenneExp=gameId=' + gameId
           var shiftURL = 'https://cors-anywhere.herokuapp.com/https://api.nhle.com/stats/rest/en/shiftcharts?cayenneExp=gameId=' + gameId;
@@ -323,7 +324,14 @@ function getInputValue() {
               console.log(awayRosterDArray, awayRosterGArray, awayRosterFArray);
               console.log(fiveOnFive);
               // fiveOnFive structure: [12] and [13] is goalie minutes; 
-              // [0...11] are penalties and PPG for home and away teams
+              // [0...5] are penalties and [6...11] PPG for home and away teams
+
+              for (i = 0; i < 3; i++) {for (j = 0; j < fiveOnFive[i].length/2; j++){for (k = 0; k < fiveOnFive[i + 3].length/2; k++){
+                if (fiveOnFive[i][2 * j] === fiveOnFive[i+3][2 * k]) {console.log('mutual penalty', i, j, k);
+              }
+              }
+              }
+              }
 
               if (fiveOnFive[12].length == 6) {
                 for (i = 0; i < 3; i++) {
