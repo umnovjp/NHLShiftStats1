@@ -327,12 +327,13 @@ function getInputValue() {
               // [0...5] are penalties and [6...11] PPG for home and away teams
 
               for (i = 0; i < 3; i++) {for (j = 0; j < fiveOnFive[i].length/2; j++){for (k = 0; k < fiveOnFive[i + 3].length/2; k++){
-                if (fiveOnFive[i][2 * j] === fiveOnFive[i+3][2 * k]) {console.log('mutual penalty', i, j, k);
+                if ((fiveOnFive[i][2 * j] === fiveOnFive[i+3][2 * k]) && (fiveOnFive[i][2 * j + 1] === fiveOnFive[i+3][2 * k + 1])) {console.log('mutual penalty', i, j, k);
               }
               }
               }
               }
 
+              // for some reason only [12] is included but not [13] at this time
               if (fiveOnFive[12].length == 6) {
                 for (i = 0; i < 3; i++) {
                   if (fiveOnFive[12][i] === 0) { tempArray7[i] = fiveOnFive[12][i].concat(fiveOnFive[12][i + 3]) }  // probably join is the command
