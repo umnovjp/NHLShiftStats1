@@ -355,6 +355,17 @@ function getInputValue() {
               {console.log('mutual penalty again', i, j)}
               }            
             }
+            
+            if (fiveOnFive[12].length == 6) { 
+            for (i = 0; i < 3; i++) {if ((fiveOnFive[12][i].length === 0) || (fiveOnFive[12][i + 3].length === 0)) {goalieTimeIn = []
+              console.log(fiveOnFive[12][i], fiveOnFive[12][i + 3])
+              goalieTimeIn.push(fiveOnFive[12][i], fiveOnFive[12][i + 3])
+              console.log(goalieTimeIn)
+              const tempValue2 = goalieTimeIn.filter(function (noEmpty) {return noEmpty !== '[]'})
+              console.log(tempValue2, noEmpty)
+            }
+            }
+            }
 
               // for some reason only [12] is included but not [13] at this time
               if (fiveOnFive[12].length == 6) {
