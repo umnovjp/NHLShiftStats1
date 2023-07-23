@@ -361,13 +361,22 @@ function getInputValue() {
               console.log(fiveOnFive[12][i], fiveOnFive[12][i + 3])
 
               goalieTimeIn.push(fiveOnFive[12][i], fiveOnFive[12][i + 3])
-              console.log(goalieTimeIn)
+              console.log(goalieTimeIn);
               const tempArray = [];
               if (goalieTimeIn[1] === '[]') {tempArray = goalieTimeIn[0]}
               else if (goalieTimeIn[0] === '[]') {tempArray = goalieTimeIn[1]}
               // const tempValue2 = goalieTimeIn.filter(function (noEmpty) {return noEmpty !== '[]'})
               console.log(tempArray)
             }
+            else if ((fiveOnFive[12][i].length > 0) && (fiveOnFive[12][i + 3].length > 0)) {if (fiveOnFive[12][i] === 0) {
+              tempArray = fiveOnFive[12][i]} else if (fiveOnFive[12][i+3] === 0) {tempArray = fiveOnFive[12][i+3]}
+              console.log(tempArray);
+              for (j = 0; j < tempArray.length / 2; j++) {for (k = 0; k < tempArray2.length / 2; k++)
+              { if (tempArray[2 * j + 1] = tempArray2[2 * k + 1] ) {tempArray2}
+              }
+            }
+              
+          }
             }
             }
 
