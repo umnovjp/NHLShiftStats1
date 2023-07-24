@@ -355,24 +355,25 @@ function getInputValue() {
               {console.log('mutual penalty again', i, j)}
               }            
             }
+            const tempArray8 = [];
             
-            if (fiveOnFive[12].length == 6) { 
+            if (fiveOnFive[12].length === 6) {
             for (i = 0; i < 3; i++) {if ((fiveOnFive[12][i].length === 0) || (fiveOnFive[12][i + 3].length === 0)) {goalieTimeIn = []
               console.log(fiveOnFive[12][i], fiveOnFive[12][i + 3])
-
               goalieTimeIn.push(fiveOnFive[12][i], fiveOnFive[12][i + 3])
               console.log(goalieTimeIn);
-              const tempArray = [];
-              if (goalieTimeIn[1] === '[]') {tempArray = goalieTimeIn[0]}
-              else if (goalieTimeIn[0] === '[]') {tempArray = goalieTimeIn[1]}
+              if (goalieTimeIn[1] === '[]') {tempArray8 = goalieTimeIn[0]}
+              else if (goalieTimeIn[0] === '[]') {tempArray8 = goalieTimeIn[1]}
               // const tempValue2 = goalieTimeIn.filter(function (noEmpty) {return noEmpty !== '[]'})
-              console.log(tempArray)
+              console.log(tempArray8)
             }
-            else if ((fiveOnFive[12][i].length > 0) && (fiveOnFive[12][i + 3].length > 0)) {if (fiveOnFive[12][i] === 0) {
-              tempArray = fiveOnFive[12][i]} else if (fiveOnFive[12][i+3] === 0) {tempArray = fiveOnFive[12][i+3]}
-              console.log(tempArray);
-              for (j = 0; j < tempArray.length / 2; j++) {for (k = 0; k < tempArray2.length / 2; k++)
-              { if (tempArray[2 * j + 1] = tempArray2[2 * k + 1] ) {tempArray2}
+            else if ((fiveOnFive[12][i].length > 0) && (fiveOnFive[12][i + 3].length > 0)) {
+              console.log(fiveOnFive[12][i], fiveOnFive[12][i + 3]);
+              if (fiveOnFive[12][i][0] === 0) {
+              tempArray8 = fiveOnFive[12][i]} else if (fiveOnFive[12][i+3][0] === 0) {tempArray8 = fiveOnFive[12][i+3]}
+              console.log(tempArray8);
+              for (j = 0; j < tempArray8.length / 2; j++) {for (k = 0; k < tempArray2.length / 2; k++)
+              { if (tempArray8[2 * j + 1] = tempArray2[2 * k + 1] ) {tempArray2}
               }
             }
               
