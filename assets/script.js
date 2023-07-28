@@ -370,7 +370,12 @@ function getInputValue() {
             else if ((fiveOnFive[12][i].length > 0) && (fiveOnFive[12][i + 3].length > 0)) {
               console.log(fiveOnFive[12][i], fiveOnFive[12][i + 3]);
               if (fiveOnFive[12][i][0] === 0) {
-              tempArray8.push(fiveOnFive[12][i], fiveOnFive[12][i+3])} else if (fiveOnFive[12][i+3][0] === 0) {tempArray8.push(fiveOnFive[12][i+3], fiveOnFive[12][0])}
+                tempArray8 = [...fiveOnFive[12][i], ...fiveOnFive[12][i+3]]
+                // merge array1 and array2
+// const mergeResult = [...array1, ...array2];
+             // tempArray8.push(fiveOnFive[12][i], fiveOnFive[12][i+3])
+            } else if (fiveOnFive[12][i+3][0] === 0) { //tempArray8.push(fiveOnFive[12][i+3], fiveOnFive[12][0])
+              tempArray8 = [...fiveOnFive[12][i + 3], ...fiveOnFive[12][i]]}
               console.log(tempArray8);
               for (j = 0; j < tempArray8.length / 2; j++) {for (k = 0; k < tempArray8.length / 2; k++)
               { if (tempArray8[2 * j + 1] = tempArray8[2 * k + 1] ) {console.log(tempArray8)}
