@@ -7,7 +7,7 @@ function getInputValue() {
   var inputVal = document.getElementById('datepicker').value; var date = inputVal.split('/');
   var formatted = date[2] + '-' + date[0] + '-' + date[1]; console.log(formatted)
   var requestURL = 'https://statsapi.web.nhl.com/api/v1/schedule/?date=' + formatted;
-  fetch(requestURL, { 
+  fetch(requestURL, {
     "method": "GET", "headers": {}
   })
     .then(function (response) {
@@ -15,7 +15,7 @@ function getInputValue() {
     })
     .then(function (data) {
       console.log('I am in schedule then');
-      console.log(data.dates[0].games); 
+      console.log(data.dates[0].games);
       var numberOfGames = data.dates[0].games.length; scheduleContent.textContent = '';
       for (var i = 0; i < numberOfGames; i++) {
         var gameName = document.createElement('button');
@@ -105,45 +105,51 @@ function getInputValue() {
                 else if ((awayRosterIdArray.includes(data.liveData.plays.allPlays[scoringPlay].players[0].player.id) && (data.liveData.plays.allPlays[scoringPlay].result.strength.code === 'PPG' && (data.liveData.plays.allPlays[scoringPlay].about.period < 4)))) { fiveOnFive[data.liveData.plays.allPlays[scoringPlay].about.period + 8].push(data.liveData.plays.allPlays[scoringPlay].about.periodTime); }
               }
               console.log(fiveOnFive);
-              realFiveOnFive = [[],[],[],[]];
-              for (i = 0; i < 3; i++ ) { // home penalties
-                for (j = 0; j < fiveOnFive[i].length / 2; j++) {timeStamp = fiveOnFive[i][2 * j].split(':');
-              timeInSeconds = i * 1200 + Number(timeStamp[0]) * 60 + Number(timeStamp[1]);
-                penaltyLengthSeconds = fiveOnFive[i][2 * j + 1] * 60;
-                if ( timeInSeconds + penaltyLengthSeconds < 3600){
-                realFiveOnFive[0].push(timeInSeconds, timeInSeconds + penaltyLengthSeconds)}
-            }
-                 }
-                 for (i = 3; i < 6; i++ ) { // away penalties
-                  for (j = 0; j < fiveOnFive[i].length / 2; j++) {timeStamp = fiveOnFive[i][2 * j].split(':');
-                timeInSeconds = (i - 3) * 1200 + Number(timeStamp[0]) * 60 + Number(timeStamp[1]);
+              realFiveOnFive = [[], [], [], []];
+              for (i = 0; i < 3; i++) { // home penalties
+                for (j = 0; j < fiveOnFive[i].length / 2; j++) {
+                  timeStamp = fiveOnFive[i][2 * j].split(':');
+                  timeInSeconds = i * 1200 + Number(timeStamp[0]) * 60 + Number(timeStamp[1]);
                   penaltyLengthSeconds = fiveOnFive[i][2 * j + 1] * 60;
-                  if ( timeInSeconds + penaltyLengthSeconds < 3600){
-                  realFiveOnFive[1].push(timeInSeconds, timeInSeconds + penaltyLengthSeconds)}
+                  if (timeInSeconds + penaltyLengthSeconds < 3600) {
+                    realFiveOnFive[0].push(timeInSeconds, timeInSeconds + penaltyLengthSeconds)
+                  }
+                }
               }
-                   }
-                 for (i = 9; i < 12; i++ ) { // away PPG
-                  for (j = 0; j < fiveOnFive[i].length; j++) {timeStamp = fiveOnFive[i][j].split(':');
-                timeInSeconds = (i - 9) * 1200 + Number(timeStamp[0]) * 60 + Number(timeStamp[1]);
-                realFiveOnFive[2].push(timeInSeconds)
+              for (i = 3; i < 6; i++) { // away penalties
+                for (j = 0; j < fiveOnFive[i].length / 2; j++) {
+                  timeStamp = fiveOnFive[i][2 * j].split(':');
+                  timeInSeconds = (i - 3) * 1200 + Number(timeStamp[0]) * 60 + Number(timeStamp[1]);
+                  penaltyLengthSeconds = fiveOnFive[i][2 * j + 1] * 60;
+                  if (timeInSeconds + penaltyLengthSeconds < 3600) {
+                    realFiveOnFive[1].push(timeInSeconds, timeInSeconds + penaltyLengthSeconds)
+                  }
+                }
               }
-                   }
-                  for (i = 6; i < 9; i++ ) { // home PPG
-                    for (j = 0; j < fiveOnFive[i].length; j++) {timeStamp = fiveOnFive[i][j].split(':');
+              for (i = 9; i < 12; i++) { // away PPG
+                for (j = 0; j < fiveOnFive[i].length; j++) {
+                  timeStamp = fiveOnFive[i][j].split(':');
+                  timeInSeconds = (i - 9) * 1200 + Number(timeStamp[0]) * 60 + Number(timeStamp[1]);
+                  realFiveOnFive[2].push(timeInSeconds)
+                }
+              }
+              for (i = 6; i < 9; i++) { // home PPG
+                for (j = 0; j < fiveOnFive[i].length; j++) {
+                  timeStamp = fiveOnFive[i][j].split(':');
                   timeInSeconds = (i - 6) * 1200 + Number(timeStamp[0]) * 60 + Number(timeStamp[1]);
                   realFiveOnFive[3].push(timeInSeconds)
                 }
-                     }
-                     // Goalie time will be here 
-                    //  if (fiveOnFive[12].length === 3){for (i = 0; i < 3; i++) {for (j = 0; j < fiveOnFive[12].length/2; j++){
-                    //   timeStamp = fiveOnFive[i][j].split(':');
-                    //  timeInSeconds = i * 1200 + Number(timeStamp[0]) * 60 + Number(timeStamp[1]);
-                    //  realFiveOnFive[4].push(timeInSeconds)}}}
-                    //  else if (fiveOnFive[12].length === 6) {}
-                    
+              }
+              // Goalie time will be here 
+              //  if (fiveOnFive[12].length === 3){for (i = 0; i < 3; i++) {for (j = 0; j < fiveOnFive[12].length/2; j++){
+              //   timeStamp = fiveOnFive[i][j].split(':');
+              //  timeInSeconds = i * 1200 + Number(timeStamp[0]) * 60 + Number(timeStamp[1]);
+              //  realFiveOnFive[4].push(timeInSeconds)}}}
+              //  else if (fiveOnFive[12].length === 6) {}
 
-                   console.log(realFiveOnFive);
-                   // realFiveonFive structute [0] home penalties, [1] away penalties, [2] home PPGs [3] away PPG
+
+              console.log(realFiveOnFive);
+              // realFiveonFive structute [0] home penalties, [1] away penalties, [2] home PPGs [3] away PPG
             });
           // console.log(gameId);  https://api.nhle.com/stats/rest/en/shiftcharts?cayenneExp=gameId=' + gameId
           var shiftURL = 'https://cors-anywhere.herokuapp.com/https://api.nhle.com/stats/rest/en/shiftcharts?cayenneExp=gameId=' + gameId;
@@ -268,7 +274,7 @@ function getInputValue() {
               else if (data.data[data.data.length - 1].period == 1) { playerChart1.push(data.data[data.data.length - 1].startTime); }
               console.log(startingLineup);
               console.log(totalChart, idChart);
-              
+
               // lines 286-302 disabled on 02/05/2023 i do not need starting lineup for now
               // homeStartingLineup = [];
               // homeStartingDLineup = [];
@@ -315,7 +321,7 @@ function getInputValue() {
 
               // for (i = 0; i < fiveOnFive[12].length; i++) {console.log(fiveOnFive[12][i])
               //   for (j = 0; fiveOnFive[12][i].length; j++)  {
-                
+
               //   timeStamp = fiveOnFive[12][i][j].split(':');
               //    timeInSeconds = i * 1200 + Number(timeStamp[0]) * 60 + Number(timeStamp[1]);
               //    realFiveOnFive[4].push(timeInSeconds)}
@@ -350,41 +356,42 @@ function getInputValue() {
               // }
               // }
 
-              for (i = 0; i < realFiveOnFive[0].length/2; i++) {for (j = 0; j < realFiveOnFive[1].length/2; j++) {
-                if ((realFiveOnFive[0][2 * i] === realFiveOnFive[1][2 * j]) && (realFiveOnFive[0][2 * i + 1] === realFiveOnFive[1][2 * j + 1]) )  // 
-              {console.log('mutual penalty again', i, j)}
-              }            
-            }
-            const tempArray8 = [];
-            
-            if (fiveOnFive[12].length === 6) {
-            for (i = 0; i < 3; i++) {if ((fiveOnFive[12][i].length === 0) || (fiveOnFive[12][i + 3].length === 0)) {goalieTimeIn = []
-              console.log(fiveOnFive[12][i], fiveOnFive[12][i + 3])
-              goalieTimeIn.push(fiveOnFive[12][i], fiveOnFive[12][i + 3])
-              console.log(goalieTimeIn);
-              if (goalieTimeIn[1] === '[]') {tempArray8 = goalieTimeIn[0]}
-              else if (goalieTimeIn[0] === '[]') {tempArray8 = goalieTimeIn[1]}
-              // const tempValue2 = goalieTimeIn.filter(function (noEmpty) {return noEmpty !== '[]'})
-              console.log(tempArray8)
-            }
-            else if ((fiveOnFive[12][i].length > 0) && (fiveOnFive[12][i + 3].length > 0)) {
-              console.log(fiveOnFive[12][i], fiveOnFive[12][i + 3]);
-              if (fiveOnFive[12][i][0] === 0) {
-                tempArray8 = [...fiveOnFive[12][i], ...fiveOnFive[12][i+3]]
-                // merge array1 and array2
-// const mergeResult = [...array1, ...array2];
-             // tempArray8.push(fiveOnFive[12][i], fiveOnFive[12][i+3])
-            } else if (fiveOnFive[12][i+3][0] === 0) { //tempArray8.push(fiveOnFive[12][i+3], fiveOnFive[12][0])
-              tempArray8 = [...fiveOnFive[12][i + 3], ...fiveOnFive[12][i]]}
-              console.log(tempArray8);
-              for (j = 0; j < tempArray8.length / 2; j++) {for (k = 0; k < tempArray8.length / 2; k++)
-              { if (tempArray8[2 * j + 1] = tempArray8[2 * k + 1] ) {console.log(tempArray8)}
+              for (i = 0; i < realFiveOnFive[0].length / 2; i++) {
+                for (j = 0; j < realFiveOnFive[1].length / 2; j++) {
+                  if ((realFiveOnFive[0][2 * i] === realFiveOnFive[1][2 * j]) && (realFiveOnFive[0][2 * i + 1] === realFiveOnFive[1][2 * j + 1]))  // 
+                  { console.log('mutual penalty again', i, j) }
+                }
               }
-            }
-              
-          }
-            }
-            }
+              let tempArray8 = [[], [], []];
+
+              if (fiveOnFive[12].length === 6) {
+                for (i = 0; i < 3; i++) {
+                  if ((fiveOnFive[12][i].length === 0) || (fiveOnFive[12][i + 3].length === 0)) {
+                    //goalieTimeIn = []
+                    console.log(fiveOnFive[12][i], fiveOnFive[12][i + 3])
+                    // goalieTimeIn.push(fiveOnFive[12][i], fiveOnFive[12][i + 3])
+                    // console.log(goalieTimeIn[0], typeof goalieTimeIn[0], goalieTimeIn[1], typeof goalieTimeIn[1]);
+                    if (fiveOnFive[12][i].length === 0) { tempArray8[i] = fiveOnFive[12][i+3] }
+                    else if (fiveOnFive[12][i+3].length === 0) { tempArray8[i] === fiveOnFive[12][i] }
+                    else (console.log('did not push'))
+                    console.log(i, tempArray8[i])
+                  }
+                  else if ((fiveOnFive[12][i].length > 0) && (fiveOnFive[12][i + 3].length > 0)) {
+                    console.log(fiveOnFive[12][i], fiveOnFive[12][i + 3]);
+                    if (fiveOnFive[12][i][0] === 0) {
+                      tempArray8[i] = fiveOnFive[12][i].concat(fiveOnFive[12][i + 3])
+                    } else if (fiveOnFive[12][i + 3][0] === 0) { tempArray8[i] = fiveOnFive[12][i + 3].concat(fiveOnFive[12][i]) }
+                    
+                    // for (j = 0; j < tempArray8.length / 2; j++) {
+                    //   for (k = 0; k < tempArray8.length / 2; k++) {
+                    //     if (tempArray8[2 * j + 1] = tempArray8[2 * k + 1]) { console.log(tempArray8) }
+                    //   }
+                    // }
+
+                  }
+                }
+                console.log(tempArray8);
+              }
 
               // for some reason only [12] is included but not [13] at this time
               if (fiveOnFive[12].length == 6) {
