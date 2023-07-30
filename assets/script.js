@@ -298,8 +298,7 @@ function getInputValue() {
               // // homeStartingLineup.push(homeStartingFLineup);
               // console.log(homeStartingLineup);
 
-              homeRosterGArray = []; homeRosterFArray = []; tempArray7 = [[], [], []];
-              awayRosterGArray = []; awayRosterFArray = [];
+              homeRosterGArray = []; homeRosterFArray = []; awayRosterGArray = []; awayRosterFArray = [];
               console.log(fiveOnFive[12])
               for (i = 0; i < idChart.length; i++) {
                 tempValue = 'ID' + idChart[i];
@@ -361,53 +360,20 @@ function getInputValue() {
                   if ((realFiveOnFive[0][2 * i] === realFiveOnFive[1][2 * j]) && (realFiveOnFive[0][2 * i + 1] === realFiveOnFive[1][2 * j + 1]))  // 
                   { console.log('mutual penalty again', i, j) }
                 }
-              }
-              let tempArray8 = [[], [], []];
+              }              
 
-              if (fiveOnFive[12].length === 6) {
-                for (i = 0; i < 3; i++) {
-                  if ((fiveOnFive[12][i].length === 0) || (fiveOnFive[12][i + 3].length === 0)) {
-                    //goalieTimeIn = []
-                    console.log(fiveOnFive[12][i], fiveOnFive[12][i + 3])
-                    // goalieTimeIn.push(fiveOnFive[12][i], fiveOnFive[12][i + 3])
-                    // console.log(goalieTimeIn[0], typeof goalieTimeIn[0], goalieTimeIn[1], typeof goalieTimeIn[1]);
-                    if (fiveOnFive[12][i].length === 0) { tempArray8[i] = fiveOnFive[12][i+3] }
-                    else if (fiveOnFive[12][i+3].length === 0) { tempArray8[i] === fiveOnFive[12][i] }
-                    else (console.log('did not push'))
-                    console.log(i, tempArray8[i])
-                  }
-                  else if ((fiveOnFive[12][i].length > 0) && (fiveOnFive[12][i + 3].length > 0)) {
+              if (fiveOnFive[12].length === 6) { let tempArray8 = [];
+                for (i = 0; i < 3; i++) { console.log(fiveOnFive[12][i], fiveOnFive[12][i + 3])
+                    if (fiveOnFive[12][i].length === 0) { tempArray8.push(fiveOnFive[12][i+3]) }
+                    else if (fiveOnFive[12][i+3].length === 0) { tempArray8.push(fiveOnFive[12][i]) }
+                    else if ((fiveOnFive[12][i].length > 0) && (fiveOnFive[12][i + 3].length > 0)) {
                     console.log(fiveOnFive[12][i], fiveOnFive[12][i + 3]);
-                    if (fiveOnFive[12][i][0] === 0) {
-                      tempArray8[i] = fiveOnFive[12][i].concat(fiveOnFive[12][i + 3])
-                    } else if (fiveOnFive[12][i + 3][0] === 0) { tempArray8[i] = fiveOnFive[12][i + 3].concat(fiveOnFive[12][i]) }
-                    
-                    // for (j = 0; j < tempArray8.length / 2; j++) {
-                    //   for (k = 0; k < tempArray8.length / 2; k++) {
-                    //     if (tempArray8[2 * j + 1] = tempArray8[2 * k + 1]) { console.log(tempArray8) }
-                    //   }
-                    // }
-
-                  }
-                }
+                    if (fiveOnFive[12][i][0] === 0) { tempArray8[i] = fiveOnFive[12][i].concat(fiveOnFive[12][i + 3]) } 
+                    else if (fiveOnFive[12][i + 3][0] === 0) { tempArray8[i] = fiveOnFive[12][i + 3].concat(fiveOnFive[12][i]) }
+                    }
+                } // end period goalies changes loop
                 console.log(tempArray8);
               }
-
-              // for some reason only [12] is included but not [13] at this time
-              if (fiveOnFive[12].length == 6) {
-                for (i = 0; i < 3; i++) {
-                  if (fiveOnFive[12][i] === 0) { tempArray7[i] = fiveOnFive[12][i].concat(fiveOnFive[12][i + 3]) }  // probably join is the command
-                  else if (fiveOnFive[12][i + 3] === 0) {
-                    tempArray7[i] = fiveOnFive[12][i + 3].concat(fiveOnFive[12][i]);
-                  }
-                }
-                for (j = 1; j < fiveOnFive[12][i].length / 2; j++) {
-                  if (fiveOnFive[12][i][2 * (j + 1)] < fiveOnFive[12][i][2 * j])
-                    // to change order to bring it forward
-                    console.log('trouble with goalie ordering, home team, period ', i, ' ', fiveOnFive[12][i][2 * (j + 1)]);
-                }
-              }  // end fiveOnFive home G loop
-              console.log(tempArray7);
 
               getDPairs();
               function getDPairs() {
