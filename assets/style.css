@@ -64,6 +64,7 @@ path { fill: red; stroke: green; pointer-events:all; }
 .landxx_ch path:hover {fill: yellow; stroke: blue; pointer-events:all; }
 #es:hover {fill: yellow; stroke: purple; pointer-events:all; }
 #es {fill: yellow; stroke: purple; pointer-events:all; }
+#ru { background-image: url('./Flag_of_Russia.png');}
 
 /*.landxx coast ca {color: #818181}
 .yearEntry2{float:center;

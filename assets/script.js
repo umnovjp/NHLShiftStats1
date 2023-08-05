@@ -106,6 +106,7 @@ function getInputValue() {
               }
               console.log(fiveOnFive);
               realFiveOnFive = [[], [], [], []];
+              realFiveOnFive2 = [[], [], [], []];
               for (i = 0; i < 3; i++) { // home penalties
                 for (j = 0; j < fiveOnFive[i].length / 2; j++) {
                   timeStamp = fiveOnFive[i][2 * j].split(':');
@@ -113,6 +114,7 @@ function getInputValue() {
                   penaltyLengthSeconds = fiveOnFive[i][2 * j + 1] * 60;
                   if (timeInSeconds + penaltyLengthSeconds < 3600) {
                     realFiveOnFive[0].push(timeInSeconds, timeInSeconds + penaltyLengthSeconds)
+                    realFiveOnFive2[0].push(timeInSeconds, timeInSeconds + penaltyLengthSeconds)
                   }
                 }
               }
@@ -122,7 +124,8 @@ function getInputValue() {
                   timeInSeconds = (i - 3) * 1200 + Number(timeStamp[0]) * 60 + Number(timeStamp[1]);
                   penaltyLengthSeconds = fiveOnFive[i][2 * j + 1] * 60;
                   if (timeInSeconds + penaltyLengthSeconds < 3600) {
-                    realFiveOnFive[1].push(timeInSeconds, timeInSeconds + penaltyLengthSeconds)
+                    realFiveOnFive[1].push(timeInSeconds, timeInSeconds + penaltyLengthSeconds);
+                    realFiveOnFive2[1].push(timeInSeconds, timeInSeconds + penaltyLengthSeconds)
                   }
                 }
               }
@@ -130,14 +133,16 @@ function getInputValue() {
                 for (j = 0; j < fiveOnFive[i].length; j++) {
                   timeStamp = fiveOnFive[i][j].split(':');
                   timeInSeconds = (i - 9) * 1200 + Number(timeStamp[0]) * 60 + Number(timeStamp[1]);
-                  realFiveOnFive[2].push(timeInSeconds)
+                  realFiveOnFive[2].push(timeInSeconds);
+                  realFiveOnFive2[2].push(timeInSeconds)
                 }
               }
               for (i = 6; i < 9; i++) { // home PPG
                 for (j = 0; j < fiveOnFive[i].length; j++) {
                   timeStamp = fiveOnFive[i][j].split(':');
                   timeInSeconds = (i - 6) * 1200 + Number(timeStamp[0]) * 60 + Number(timeStamp[1]);
-                  realFiveOnFive[3].push(timeInSeconds)
+                  realFiveOnFive[3].push(timeInSeconds);
+                  realFiveOnFive2[3].push(timeInSeconds)
                 }
               }
               // Goalie time will be here 
@@ -354,12 +359,12 @@ function getInputValue() {
               // }
               // }
               // }
-              const tempPenaltyArray = [realFiveOnFive[0], realFiveOnFive[1]]
+              // const tempPenaltyArray = [realFiveOnFive[0], realFiveOnFive[1]]
 
               for (i = 0; i < realFiveOnFive[0].length / 2; i++) {
                 for (j = 0; j < realFiveOnFive[1].length / 2; j++) {
                   if ((realFiveOnFive[0][2 * i] === realFiveOnFive[1][2 * j]) && (realFiveOnFive[0][2 * i + 1] === realFiveOnFive[1][2 * j + 1]))  // 
-                  { countHome = 0; countAway = 0; 
+                  { countHome = 0; countAway = 0;
                 for (k = 0; k < realFiveOnFive[0].length / 2; k++) {if (realFiveOnFive[0][2 * k] === realFiveOnFive[0][2 * i]) {countHome++}}
                 for (l = 0; l < realFiveOnFive[1].length / 2; l++) {if (realFiveOnFive[1][2 * l] === realFiveOnFive[1][2 * j]) {countAway++}}
                 console.log('mutual penalty again', i, j, countHome, countAway)
