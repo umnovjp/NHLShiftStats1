@@ -58,6 +58,8 @@ rotate: -20.2deg;
 path:hover { fill: yellow; stroke: blue; pointer-events:all; }
 
 path { fill: red; stroke: green; pointer-events:all; }
+circle { fill: red; stroke: green; pointer-events:all}
+circle:hover { fill: yellow; stroke: blue; pointer-events:all; }
 
 #ch { fill: green; stroke: orange; pointer-events:all; }
 #ch path:hover {fill: yellow; stroke: purple; pointer-events:all; }
