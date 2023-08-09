@@ -368,10 +368,21 @@ function getInputValue() {
                 for (k = 0; k < realFiveOnFive[0].length / 2; k++) {if (realFiveOnFive[0][2 * k] === realFiveOnFive[0][2 * i]) {countHome++}}
                 for (l = 0; l < realFiveOnFive[1].length / 2; l++) {if (realFiveOnFive[1][2 * l] === realFiveOnFive[1][2 * j]) {countAway++}}
                 
-                const realFiveOnFiveBefore = realFiveOnFive[0].slice(0, 2 * k);
-                const realFiveOnFiveAfter = realFiveOnFive[0].slice(2 * k + 2);
-                const newFiveonFive = realFiveOnFiveBefore.concat(realFiveOnFiveAfter);
-                console.log('mutual penalty again', i, j, countHome, countAway, newFiveonFive, realFiveOnFiveBefore, realFiveOnFiveAfter)
+                
+                const finalCountDown = Math.min(countHome, countAway);
+                console.log(finalCountDown)
+
+                finalCountDown2 = finalCountDown;
+                while (finalCountDown2 > 0) {realFiveOnFiveBefore = realFiveOnFive[0].slice(0, 2 * i);
+                  realFiveOnFiveAfter = realFiveOnFive[0].slice(2 * i + 2);
+                  newFiveonFive = realFiveOnFiveBefore.concat(realFiveOnFiveAfter);
+                  realFiveOnFiveBefore = realFiveOnFive[1].slice(0, 2 * j);
+                  realFiveOnFiveAfter = realFiveOnFive[1].slice(2 * j + 2);
+                  newFiveonFive2 = realFiveOnFiveBefore.concat(realFiveOnFiveAfter);
+                  finalCountDown2--
+                }
+
+                console.log('mutual penalty again', i, j, countHome, countAway, finalCountDown, newFiveonFive, newFiveonFive2, realFiveOnFive)
                   }
                 }
               }              
