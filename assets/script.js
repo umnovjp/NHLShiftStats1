@@ -380,7 +380,7 @@ function getInputValue() {
                   realFiveOnFiveAfter = realFiveOnFive2[1].slice(2 * j + 2);
                   realFiveOnFive2[1] = realFiveOnFiveBefore.concat(realFiveOnFiveAfter);
                   finalCountDown2--
-                  console.log(realFiveOnFive2, finalCountDown2)
+                  console.log(realFiveOnFive2, finalCountDown2, i, j)
                   // realFiveOnFive2[0] = newFiveonFive;
                   // realFiveOnFive2[1] = newFiveonFive2
                 }
