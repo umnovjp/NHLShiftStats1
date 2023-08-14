@@ -62,6 +62,7 @@ circle { fill: red; stroke: green; pointer-events:all}
 circle:hover { fill: yellow; stroke: blue; pointer-events:all; }
 
 #ch { fill: green; stroke: orange; pointer-events:all; }
+#dz {fill: green; stroke: orange; pointer-events:all; }
 #ch path:hover {fill: yellow; stroke: purple; pointer-events:all; }
 .landxx_ch path:hover {fill: yellow; stroke: blue; pointer-events:all; }
 #es:hover {fill: yellow; stroke: purple; pointer-events:all; }
