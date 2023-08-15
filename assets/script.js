@@ -390,9 +390,10 @@ function getInputValue() {
               }
               //for (i = realFiveOnFive2[0].length / 2; i = 0; i--) {}
               for (i = 0; i < 2; i++) { for (j = counterArray[i].length - 1; j > -1; j--) {
-                if ((counterArray[i][j] != counterArray[i][j - 1]) && (j > -1)) { console.log(i,j)
-                realFiveOnFiveBefore = realFiveOnFive2[i].slice(0, 2 * j);
-                realFiveOnFiveAfter = realFiveOnFive2[i].slice(2 * j + 2); 
+                if ((counterArray[i][j] != counterArray[i][j - 1]) && (j > -1)) { 
+                realFiveOnFiveBefore = realFiveOnFive2[i].slice(0, 2 * counterArray[i][j]);
+                realFiveOnFiveAfter = realFiveOnFive2[i].slice(2 * counterArray[i][j] + 2); 
+                console.log(i, counterArray[i][j], realFiveOnFiveBefore, realFiveOnFiveAfter)
                 realFiveOnFive2[i] = realFiveOnFiveBefore.concat(realFiveOnFiveAfter);
               }
               }
