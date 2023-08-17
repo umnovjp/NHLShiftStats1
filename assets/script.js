@@ -381,10 +381,10 @@ function getInputValue() {
                   // // realFiveOnFive2[0] = newFiveonFive;
                   // // realFiveOnFive2[1] = newFiveonFive2
                 //}
-                if (counterArray[0].includes(i)) {} else {counterArray[0].push(i);}
+                if (counterArray[0].includes(i)) {} else {counterArray[0].push(i);} 
                 if (counterArray[1].includes(j)) {} else {counterArray[1].push(j);}
 
-                console.log('mutual penalty again', i, j, countHome, countAway, realFiveOnFive2, counterArray)
+                console.log('mutual penalty again', i, j, countHome, countAway, realFiveOnFive2, counterArray) 
                   }
                 }
               }
