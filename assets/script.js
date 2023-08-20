@@ -360,7 +360,7 @@ function getInputValue() {
               // }
               // }
               // const tempPenaltyArray = [realFiveOnFive[0], realFiveOnFive[1]]
-              counterArray = [[],[]]
+              counterArray = [[],[],[],[]]
 
               for (i = 0; i < realFiveOnFive[0].length / 2; i++) {
                 for (j = 0; j < realFiveOnFive[1].length / 2; j++) {
@@ -381,15 +381,26 @@ function getInputValue() {
                   // // realFiveOnFive2[0] = newFiveonFive;
                   // // realFiveOnFive2[1] = newFiveonFive2
                 //}
-                if (counterArray[0].includes(i)) {} else {counterArray[0].push(i);} 
-                if (counterArray[1].includes(j)) {} else {counterArray[1].push(j);}
+                // if (counterArray[0].includes(i)) {} else {;} 
+                // if (counterArray[1].includes(j)) {} else {;}
+                counterArray[0].push(i)
+                counterArray[1].push(j)
 
                 console.log('mutual penalty again', i, j, countHome, countAway, realFiveOnFive2, counterArray) 
                   } 
                 } 
               }
-              //for (i = realFiveOnFive2[0].length / 2; i = 0; i--) {}
-              for (i = 0; i < 2; i++) { for (j = counterArray[i].length - 1; j > -1; j--) {
+
+              // for (i = 0; i < 1; i++) 
+               for (i = 0; i < counterArray[0].length; i++) 
+                {for (j = i + 1; j < counterArray[0].length; j++)
+                {if (counterArray[0][i] === counterArray[0][j]) {counterArray[2].push(counterArray[0][i])
+                counterArray[3].push(counterArray[1][i])}
+                }
+                }
+              console.log(counterArray)
+
+                for (i = 0; i < 2; i++) { for (j = counterArray[i].length - 1; j > -1; j--) {
                 if ((counterArray[i][j] != counterArray[i][j - 1]) && (j > -1)) { 
                 realFiveOnFiveBefore = realFiveOnFive2[i].slice(0, 2 * counterArray[i][j]);
                 realFiveOnFiveAfter = realFiveOnFive2[i].slice(2 * counterArray[i][j] + 2); 
