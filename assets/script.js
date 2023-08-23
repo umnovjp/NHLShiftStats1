@@ -388,11 +388,11 @@ function getInputValue() {
 
                 console.log('mutual penalty again', i, j, countHome, countAway, realFiveOnFive2, counterArray) 
                   } 
-                } 
+                }
               }
 
               // for (i = 0; i < 1; i++) 
-               for (i = 0; i < counterArray[0].length; i++) 
+               for (i = 0; i < counterArray[0].length; i++)
                 {for (j = i + 1; j < counterArray[0].length; j++)
                 {if (counterArray[0][i] === counterArray[0][j]) {counterArray[2].push(counterArray[0][i])
                 counterArray[3].push(counterArray[1][i])}
