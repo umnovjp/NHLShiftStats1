@@ -398,7 +398,7 @@ function getInputValue() {
                 counterArray[3].push(counterArray[1][i])}
                 }
                 }
-              console.log(counterArray)
+              console.log(counterArray);
 
                 for (i = 0; i < 2; i++) { for (j = counterArray[i].length - 1; j > -1; j--) {
                 if ((counterArray[i][j] != counterArray[i][j - 1]) && (j > -1)) { 
