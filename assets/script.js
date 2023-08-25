@@ -398,13 +398,13 @@ function getInputValue() {
                 counterArray[3].push(counterArray[1][i])}
                 }
                 }
-              console.log(counterArray);
+              console.log(counterArray); 
 
                 for (i = 0; i < 2; i++) { for (j = counterArray[i].length - 1; j > -1; j--) {
                 if ((counterArray[i][j] != counterArray[i][j - 1]) && (j > -1)) { 
                 realFiveOnFiveBefore = realFiveOnFive2[i].slice(0, 2 * counterArray[i][j]);
                 realFiveOnFiveAfter = realFiveOnFive2[i].slice(2 * counterArray[i][j] + 2); 
-                console.log(i, counterArray[i][j], realFiveOnFiveBefore, realFiveOnFiveAfter)
+                console.log(i, counterArray[i][j], realFiveOnFiveBefore, realFiveOnFiveAfter);
                 realFiveOnFive2[i] = realFiveOnFiveBefore.concat(realFiveOnFiveAfter);
                 }
                 }
