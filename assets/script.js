@@ -58,8 +58,7 @@ function getInputValue() {
             .then(function (response) {
               return response.json();
             })
-            .then(function (data) {
-              console.log(data.liveData.boxscore.teams.away.skaters, data.liveData.boxscore.teams.home.skaters, data.gameData.players);
+            .then(function (data) { console.log(data.liveData.boxscore.teams.away.skaters, data.liveData.boxscore.teams.home.skaters, data.gameData.players);
               skatersHome = data.liveData.boxscore.teams.home.skaters; skatersAway = data.liveData.boxscore.teams.away.skaters;
               goaliesHome = data.liveData.boxscore.teams.home.goalies; goaliesAway = data.liveData.boxscore.teams.away.goalies;
               var obj = data.gameData.players; var keys = Object.keys(obj);
@@ -67,14 +66,12 @@ function getInputValue() {
               for (var i = 0; i < keys.length; i++) {
                 var val = obj[keys[i]];
                 if (skatersAway.includes(val.id) || goaliesAway.includes(val.id))// if (val.currentTeam.id == data.gameData.teams.away.id) 
-                {
-                  awayRosterArray.push(val.primaryNumber); awayRosterArray.push(val.fullName);
+                { awayRosterArray.push(val.primaryNumber); awayRosterArray.push(val.fullName);
                   awayRosterArray.push(val.primaryPosition.abbreviation); awayRosterArray.push(val.shootsCatches);
                   awayRosterArray.push(keys[i]); awayRosterIdArray.push(val.id);
                 }
                 else if (skatersHome.includes(val.id) || goaliesHome.includes(val.id))// else if (val.currentTeam.id == data.gameData.teams.home.id) 
-                {
-                  homeRosterArray.push(val.primaryNumber); homeRosterArray.push(val.fullName);
+                { homeRosterArray.push(val.primaryNumber); homeRosterArray.push(val.fullName);
                   homeRosterArray.push(val.primaryPosition.abbreviation); homeRosterArray.push(val.shootsCatches);
                   homeRosterArray.push(keys[i]); homeRosterIdArray.push(val.id);
                 }
@@ -386,18 +383,24 @@ function getInputValue() {
                 counterArray[0].push(i, realFiveOnFive[0][2*i] )
                 counterArray[1].push(j, realFiveOnFive[1][2*j] )
 
-                console.log('mutual penalty again', i, j, countHome, countAway, realFiveOnFive2, counterArray) 
+                // console.log('mutual penalty again', i, j, countHome, countAway, realFiveOnFive2, counterArray) 
                   } 
                 }
               }
-
+              console.log(counterArray);
               // for (i = 0; i < 1; i++) 
-               for (i = 0; i < counterArray[0].length; i++)
-                {for (j = i + 1; j < counterArray[0].length; j++)
-                {if (counterArray[0][i] === counterArray[0][j]) {counterArray[2].push(counterArray[0][i])
-                counterArray[3].push(counterArray[1][i])}
+               for (i = 0; i < counterArray[0].length / 2; i++)
+                {for (j = 0; j < counterArray[1].length / 2; j++)
+                // {if (counterArray[0][2 * i + 1] === counterArray[1][2 * j + 1]) {counterArray[2].push(counterArray[0][2 * i])
+                // counterArray[3].push(counterArray[1][2 * j])}
+                // }
+                {counterArray[2].push(counterArray[0][2 * i])
+                 counterArray[3].push(counterArray[1][2 * j])
                 }
                 }
+                for (i = 0; counterArray[2].length; i++) {for (j = i + 1; counterArray[2].length; j++)
+                {if (counterArray[2][i] === counterArray[2][j])
+                {}}}
               console.log(counterArray); 
 
                 for (i = 0; i < 2; i++) { for (j = counterArray[i].length - 1; j > -1; j--) {
