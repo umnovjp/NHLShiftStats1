@@ -398,9 +398,9 @@ function getInputValue() {
                  counterArray[3].push(counterArray[1][2 * j])
                 }
                 }
-                for (i = 0; counterArray[2].length; i++) {for (j = i + 1; counterArray[2].length; j++)
-                {if (counterArray[2][i] === counterArray[2][j])
-                {}}}
+                // for (i = 0; counterArray[2].length; i++) {for (j = i + 1; counterArray[2].length; j++)
+                // {if (counterArray[2][i] === counterArray[2][j])
+                // {}}}
               console.log(counterArray); 
 
                 for (i = 0; i < 2; i++) { for (j = counterArray[i].length - 1; j > -1; j--) {
