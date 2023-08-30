@@ -394,9 +394,12 @@ function getInputValue() {
                 // {if (counterArray[0][2 * i + 1] === counterArray[1][2 * j + 1]) {counterArray[2].push(counterArray[0][2 * i])
                 // counterArray[3].push(counterArray[1][2 * j])}
                 // }
-                {counterArray[2].push(counterArray[0][2 * i])
+                if (counterArray[0][2 * i + 1] === counterArray[1][2 * j + 1])
+                  
+                 { counterArray[2].push(counterArray[0][2 * i])
                  counterArray[3].push(counterArray[1][2 * j])
                 }
+                
                 }
                 // for (i = 0; counterArray[2].length; i++) {for (j = i + 1; counterArray[2].length; j++)
                 // {if (counterArray[2][i] === counterArray[2][j])
