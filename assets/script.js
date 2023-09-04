@@ -387,48 +387,34 @@ function getInputValue() {
                   } 
                 }
               }
-              console.log(counterArray);
-              tempArray9 = [];
+              console.log(counterArray); tempArray9 = [];
               for (i = 0; i < counterArray[0].length / 2; i++) {
               if (tempArray9.includes(counterArray[0][2 * i + 1])) {}
               else {tempArray9.push(counterArray[0][2 * i + 1])}
               }
-              for (i = 0; i < tempArray9.length; i++)
-              {for (j = 0; j < counterArray[0].length / 2; j++)
-              {if (counterArray[0][2 * j + 1] === tempArray9[i]) {
-              if (counterArray[2].includes(counterArray[0][2 * i])) {}
-              else {counterArray[2].push(counterArray[0][2 * i])}
-              }  
+          
+              for (i = 0; i < tempArray9.length; i++) {tempArray10 = []; tempArray1 = [];
+                for (j = 0; j < counterArray[0].length / 2; j++) { 
+                if (counterArray[0][2 * j + 1] === tempArray9[i]) { if (tempArray10.includes(counterArray[0][2 * j])) {}
+                else {tempArray10.push(counterArray[0][2 * j] )}
+                }                
+                }
+                for (j = 0; j < counterArray[1].length / 2; j++) { 
+                  if (counterArray[1][2 * j + 1] === tempArray9[i]) { if (tempArray1.includes(counterArray[1][2 * j])) {}
+                  else {tempArray1.push(counterArray[1][2 * j] )}              
+                  }                
+                  }
+                counterArray[2].push(tempArray10);
+                counterArray[3].push(tempArray1);
               }
-                    }
                     console.log(counterArray);
-              // for (i = 0; i < 1; i++) 
-              //  for (i = 0; i < counterArray[0].length / 2; i++)
-              //   {for (j = 0; j < counterArray[1].length / 2; j++)
-              //     // {if (counterArray[0][2 * i + 1] === counterArray[1][2 * j + 1]) {counterArray[2].push(counterArray[0][2 * i])
-              //     // counterArray[3].push(counterArray[1][2 * j])}
-              //     // }
-              //     {if (counterArray[0][2 * i + 1] === counterArray[1][2 * j + 1])
-                  
-              //    { if (counterArray[2].includes(counterArray[0][2 * i + 1])) {}
-              //    else {counterArray[2].push(counterArray[0][2 * i + 1])}
-              //     }
-              //     if (tempArray9.includes(counterArray[0][2 * i])) {}
-              //     else {tempArray9.push(counterArray[0][2 * i])}
-                  
-              //     }
-              //     counterArray[3].push(tempArray9);
-              //   }
-                // for (i = 0; counterArray[2].length; i++) {for (j = i + 1; counterArray[2].length; j++)
-                // {if (counterArray[2][i] === counterArray[2][j])
-                // {}}}
-              console.log(counterArray); 
+
 
                 for (i = 0; i < 2; i++) { for (j = counterArray[i].length - 1; j > -1; j--) {
                 if ((counterArray[i][j] != counterArray[i][j - 1]) && (j > -1)) { 
                 realFiveOnFiveBefore = realFiveOnFive2[i].slice(0, 2 * counterArray[i][j]);
                 realFiveOnFiveAfter = realFiveOnFive2[i].slice(2 * counterArray[i][j] + 2); 
-                console.log(i, counterArray[i][j], realFiveOnFiveBefore, realFiveOnFiveAfter);
+                // console.log(i, counterArray[i][j], realFiveOnFiveBefore, realFiveOnFiveAfter);
                 realFiveOnFive2[i] = realFiveOnFiveBefore.concat(realFiveOnFiveAfter);
                 }
                 }
