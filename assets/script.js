@@ -347,16 +347,7 @@ function getInputValue() {
               console.log(homeRosterDArray, homeRosterGArray, homeRosterFArray);
               console.log(awayRosterDArray, awayRosterGArray, awayRosterFArray);
               console.log(fiveOnFive, realFiveOnFive);
-              // fiveOnFive structure: [12] and [13] is goalie minutes; 
-              // [0...5] are penalties and [6...11] PPG for home and away teams
-
-              // for (i = 0; i < 3; i++) {for (j = 0; j < fiveOnFive[i].length/2; j++){for (k = 0; k < fiveOnFive[i + 3].length/2; k++){
-              //   if ((fiveOnFive[i][2 * j] === fiveOnFive[i+3][2 * k]) && (fiveOnFive[i][2 * j + 1] === fiveOnFive[i+3][2 * k + 1])) {console.log('mutual penalty', i, j, k);
-              // }
-              // }
-              // }
-              // }
-              // const tempPenaltyArray = [realFiveOnFive[0], realFiveOnFive[1]]
+             
               counterArray = [[],[],[],[]]
 
               for (i = 0; i < realFiveOnFive[0].length / 2; i++) {
@@ -427,7 +418,10 @@ function getInputValue() {
                   if (counterArray[2][i].length >= counterArray[3][i].length) {for (j = counterArray[3][i].length -1; j > -1; j--)
                     {realFiveOnFiveBefore = realFiveOnFive2[0].slice(0, 2 * counterArray[2][i][j]);
                     realFiveOnFiveAfter = realFiveOnFive2[0].slice(2 * counterArray[2][i][j] + 2); 
-                    realFiveOnFive2[0] = realFiveOnFiveBefore.concat(realFiveOnFiveAfter)
+                    realFiveOnFive2[0] = realFiveOnFiveBefore.concat(realFiveOnFiveAfter);
+                    tempIndex = counterArray.lastIndexOf(counterArray[3][i][j]);
+                    realFiveOnFiveBefore = realFiveOnFive2[0].slice(0, 2 * counterArray[2][i][j]);
+                    realFiveOnFiveAfter = realFiveOnFive2[0].slice(2 * counterArray[2][i][j] + 2); 
                   }
                   }
             
