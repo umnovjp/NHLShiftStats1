@@ -411,17 +411,28 @@ function getInputValue() {
               //   }
               //   console.log(counterArray[i])
               // }
-              console.log('realFiveOnFive2', realFiveOnFive2);
+              console.log('realFiveOnFive2', realFiveOnFive, 'tempArray9', tempArray9);
 
               for (i = tempArray9.length -1; i > -1; i--) { //tempIndex = Math.min(counterArray[2][i].length, counterArray[3][i].length)
-                  // comsole.log(tempIndex)
+                  // tempArray11 = []; 
+                // comsole.log(tempIndex)
                   if (counterArray[2][i].length >= counterArray[3][i].length) {for (j = counterArray[3][i].length -1; j > -1; j--)
                     {realFiveOnFiveBefore = realFiveOnFive2[0].slice(0, 2 * counterArray[2][i][j]);
                     realFiveOnFiveAfter = realFiveOnFive2[0].slice(2 * counterArray[2][i][j] + 2); 
                     realFiveOnFive2[0] = realFiveOnFiveBefore.concat(realFiveOnFiveAfter);
-                    tempIndex = counterArray.lastIndexOf(counterArray[3][i][j]);
-                    realFiveOnFiveBefore = realFiveOnFive2[0].slice(0, 2 * counterArray[2][i][j]);
-                    realFiveOnFiveAfter = realFiveOnFive2[0].slice(2 * counterArray[2][i][j] + 2); 
+                    // tempIndex = counterArray.lastIndexOf(counterArray[3][i][j]);
+                    tempArray11 = []; 
+                    for (k = counterArray[2][i].length - 1; k > -1; k--) { 
+                      
+                      if ((realFiveOnFive[0][2 * counterArray[2][i][k]] === realFiveOnFive[1][2 * counterArray[3][i][j]]) 
+                      && (realFiveOnFive[0][2 * counterArray[2][i][k] + 1] === realFiveOnFive[1][2 * counterArray[3][i][j] + 1]))
+                      {console.log(counterArray[2][i][k], counterArray[3][i][j])
+                        tempArray11.push(counterArray[2][i][k]);
+                      }
+                    }
+                    console.log(tempArray11);
+                    // realFiveOnFiveBefore = realFiveOnFive2[0].slice(0, 2 * counterArray[2][i][j]);
+                    // realFiveOnFiveAfter = realFiveOnFive2[0].slice(2 * counterArray[2][i][j] + 2); 
                   }
                   }
             
