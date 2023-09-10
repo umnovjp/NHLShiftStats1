@@ -421,7 +421,7 @@ function getInputValue() {
                     realFiveOnFiveAfter = realFiveOnFive2[0].slice(2 * counterArray[2][i][j] + 2); 
                     realFiveOnFive2[0] = realFiveOnFiveBefore.concat(realFiveOnFiveAfter);
                     // tempIndex = counterArray.lastIndexOf(counterArray[3][i][j]);
-                    tempArray11 = []; 
+                    tempArray11 = []; tempArray12 = [];
                     for (k = counterArray[2][i].length - 1; k > -1; k--) { 
                       
                       if ((realFiveOnFive[0][2 * counterArray[2][i][k]] === realFiveOnFive[1][2 * counterArray[3][i][j]]) 
