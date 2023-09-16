@@ -383,34 +383,48 @@ function getInputValue() {
               if (tempArray9.includes(counterArray[0][2 * i + 1])) {}
               else {tempArray9.push(counterArray[0][2 * i + 1])}
               }
+              console.log(tempArray9)
           
-              for (i = 0; i < tempArray9.length; i++) {tempArray10 = []; tempArray1 = [];
+               for (i = 0; i < tempArray9.length; i++) {tempArray10 = []; tempArray1 = []; tempArray12 = []; tempArray11 = [0]
                 for (j = 0; j < counterArray[0].length / 2; j++) { 
                 if (counterArray[0][2 * j + 1] === tempArray9[i]) { if (tempArray10.includes(counterArray[0][2 * j])) {}
-                else {tempArray10.push(counterArray[0][2 * j] )}
+                else { if (realFiveOnFive[0][2 * j + 1] - realFiveOnFive[0][2 * j] === 120 ) {
+                tempArray10.push(counterArray[0][2 * j] );
+                console.log('2 minutes', j, tempArray10);}
+                else if (realFiveOnFive[0][2 * j + 1] - realFiveOnFive[0][2 * j] === 300 ) {
+                tempArray11.push(counterArray[0][2 * j] );
+                console.log('5 minutes', j, tempArray11);}
+                else {console.log('not 2 or 5 minutes')}
                 }                
+                }
                 }
                 for (j = 0; j < counterArray[1].length / 2; j++) { 
                   if (counterArray[1][2 * j + 1] === tempArray9[i]) { if (tempArray1.includes(counterArray[1][2 * j])) {}
-                  else {tempArray1.push(counterArray[1][2 * j] )}
+                  else { if (realFiveOnFive[1][2 * j + 1] - realFiveOnFive[1][2 * j] === 120 ) {
+                    tempArray1.push(counterArray[1][2 * j] );
+                    console.log('2 minutes', j, tempArray1);}
+                    else if (realFiveOnFive[1][2 * j + 1] - realFiveOnFive[1][2 * j] === 300 ) {
+                    tempArray12.push(counterArray[1][2 * j] );
+                    console.log('5 minutes', j, tempArray12)}
+                    else {console.log('not 2 or 5 minutes')}
+                  }
                   }                
                   }
-                counterArray[2].push(tempArray10);
-                counterArray[3].push(tempArray1);
-              }
+                counterArray[2].push(tempArray10, tempArray11);
+                counterArray[3].push(tempArray1, tempArray12);
+                }
                     console.log('CounterArray', counterArray);
 
-
-              //   for (i = 0; i < 2; i++) { for (j = counterArray[i].length - 1; j > -1; j--) {
-              //   if ((counterArray[i][j] != counterArray[i][j - 1]) && (j > -1)) { 
-              //   realFiveOnFiveBefore = realFiveOnFive2[i].slice(0, 2 * counterArray[i][j]);
-              //   realFiveOnFiveAfter = realFiveOnFive2[i].slice(2 * counterArray[i][j] + 2); 
-              //   // console.log(i, counterArray[i][j], realFiveOnFiveBefore, realFiveOnFiveAfter);
-              //   realFiveOnFive2[i] = realFiveOnFiveBefore.concat(realFiveOnFiveAfter);
-              //   }
-              //   }
-              //   console.log(counterArray[i])
-              // }
+                //   for (i = 0; i < 2; i++) { for (j = counterArray[i].length - 1; j > -1; j--) {
+                //   if ((counterArray[i][j] != counterArray[i][j - 1]) && (j > -1)) { 
+                //   realFiveOnFiveBefore = realFiveOnFive2[i].slice(0, 2 * counterArray[i][j]);
+                //   realFiveOnFiveAfter = realFiveOnFive2[i].slice(2 * counterArray[i][j] + 2); 
+                //   // console.log(i, counterArray[i][j], realFiveOnFiveBefore, realFiveOnFiveAfter);
+                //   realFiveOnFive2[i] = realFiveOnFiveBefore.concat(realFiveOnFiveAfter);
+                //   }
+                //   }
+                //   console.log(counterArray[i])
+                // }
               console.log('realFiveOnFive2', realFiveOnFive, 'tempArray9', tempArray9);
 
               for (i = tempArray9.length -1; i > -1; i--) { //tempIndex = Math.min(counterArray[2][i].length, counterArray[3][i].length)
@@ -421,7 +435,8 @@ function getInputValue() {
                     realFiveOnFiveAfter = realFiveOnFive2[0].slice(2 * counterArray[2][i][j] + 2); 
                     realFiveOnFive2[0] = realFiveOnFiveBefore.concat(realFiveOnFiveAfter);
                     // tempIndex = counterArray.lastIndexOf(counterArray[3][i][j]);
-                    tempArray11 = []; tempArray12 = [];
+                    tempArray11 = []; tempArray12 = []; 
+                    // reviewed performance during long flight'
                     for (k = counterArray[2][i].length - 1; k > -1; k--) { 
                       
                       if ((realFiveOnFive[0][2 * counterArray[2][i][k]] === realFiveOnFive[1][2 * counterArray[3][i][j]]) 
