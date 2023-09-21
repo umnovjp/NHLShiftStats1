@@ -387,7 +387,8 @@ function getInputValue() {
           
                for (i = 0; i < tempArray9.length; i++) {tempArray10 = []; tempArray1 = []; tempArray12 = []; tempArray11 = []; tempArray13 =[]; tempArray14 = [];
                 for (j = 0; j < counterArray[0].length / 2; j++) { 
-                if (counterArray[0][2 * j + 1] === tempArray9[i]) { if (tempArray10.includes(counterArray[0][2 * j])) {}
+                if (counterArray[0][2 * j + 1] === tempArray9[i]) { console.log(j, counterArray[1][2 * j], tempArray9[i]);
+                  if (tempArray10.includes(counterArray[0][2 * j])) {}
                 else { if (realFiveOnFive[0][2 * counterArray[1][2 * j] + 1] - realFiveOnFive[0][2 * counterArray[1][2 * j]] === 120 ) {
                 tempArray10.push(counterArray[0][2 * j]);
                 tempArray11.push(counterArray[0][2 * j]);
@@ -396,7 +397,7 @@ function getInputValue() {
                 tempArray13.push(counterArray[0][2 * j]);
                 tempArray10.push(counterArray[0][2 * j]);
                 console.log('5 minutes', j);}
-                else {console.log('not 2 or 5 minutes')}
+                else {console.log('not 2 or 5 minutes')} 
                 }                
                 }
                 }
@@ -404,9 +405,9 @@ function getInputValue() {
                   if (counterArray[1][2 * j + 1] === tempArray9[i]) { console.log(j, counterArray[1][2 * j], tempArray9[i]);
                     if (tempArray1.includes(counterArray[1][2 * j])) {}
                   else { if (realFiveOnFive[1][2 * counterArray[1][2 * j] + 1] - realFiveOnFive[1][2 * counterArray[1][2 * j]] === 120 ) {
-                    tempArray1.push(counterArray[1][2 * j]);
+                    tempArray1.push(counterArray[1][2 * j]); 
                     tempArray12.push(counterArray[1][2 * j]);
-                    console.log('2 minutes', counterArray[1][2*j]);}
+                    console.log('2 minutes', counterArray[1][2*j]);} 
                     else if (realFiveOnFive[1][2 * counterArray[1][2 * j] + 1] - realFiveOnFive[1][2 * counterArray[1][2 * j]] === 300 ) {
                     tempArray1.push(counterArray[1][2 * j]);
                     tempArray14.push(counterArray[1][2 * j]);
