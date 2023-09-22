@@ -391,13 +391,13 @@ function getInputValue() {
                   if (tempArray10.includes(counterArray[0][2 * j])) {}
                 else { if (realFiveOnFive[0][2 * counterArray[1][2 * j] + 1] - realFiveOnFive[0][2 * counterArray[1][2 * j]] === 120 ) {
                 tempArray10.push(counterArray[0][2 * j]);
-                tempArray11.push(counterArray[0][2 * j]);
+                tempArray11.push(counterArray[0][2 * j]); 
                 console.log('2 minutes', j);}
                 else if (realFiveOnFive[0][2 * counterArray[1][2 * j] + 1] - realFiveOnFive[0][2 * counterArray[1][2 * j]] === 300 ) {
                 tempArray13.push(counterArray[0][2 * j]);
-                tempArray10.push(counterArray[0][2 * j]);
+                tempArray10.push(counterArray[0][2 * j]); 
                 console.log('5 minutes', j);}
-                else {console.log('not 2 or 5 minutes')} 
+                else {console.log('not 2 or 5 minutes')}
                 }                
                 }
                 }
