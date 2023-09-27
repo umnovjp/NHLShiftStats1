@@ -389,11 +389,11 @@ function getInputValue() {
                 for (j = 0; j < counterArray[0].length / 2; j++) { 
                 if (counterArray[0][2 * j + 1] === tempArray9[i]) { console.log(j, counterArray[1][2 * j], tempArray9[i]);
                   if (tempArray10.includes(counterArray[0][2 * j])) {}
-                else { if (realFiveOnFive[0][2 * counterArray[1][2 * j] + 1] - realFiveOnFive[0][2 * counterArray[1][2 * j]] === 120 ) {
+                else { if (realFiveOnFive[0][2 * counterArray[0][2 * j] + 1] - realFiveOnFive[0][2 * counterArray[0][2 * j]] === 120 ) {
                 tempArray10.push(counterArray[0][2 * j]);
                 tempArray11.push(counterArray[0][2 * j]); 
                 console.log('2 minutes', j);}
-                else if (realFiveOnFive[0][2 * counterArray[1][2 * j] + 1] - realFiveOnFive[0][2 * counterArray[1][2 * j]] === 300 ) {
+                else if (realFiveOnFive[0][2 * counterArray[0][2 * j] + 1] - realFiveOnFive[0][2 * counterArray[0][2 * j]] === 300 ) {
                 tempArray13.push(counterArray[0][2 * j]);
                 tempArray10.push(counterArray[0][2 * j]); 
                 console.log('5 minutes', j);}
