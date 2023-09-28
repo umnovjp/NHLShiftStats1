@@ -88,6 +88,7 @@ function getInputValue() {
 
               for (i = 0; i < data.liveData.plays.penaltyPlays.length; i++) {
                 penaltyPlay = data.liveData.plays.penaltyPlays[i];
+                console.log(data.liveData.plays.allPlays[penaltyPlay].players[0].player.id);
                 if ((homeRosterIdArray.includes(data.liveData.plays.allPlays[penaltyPlay].players[0].player.id)) && (data.liveData.plays.allPlays[penaltyPlay].about.period < 4)) { fiveOnFive[data.liveData.plays.allPlays[penaltyPlay].about.period - 1].push(data.liveData.plays.allPlays[penaltyPlay].about.periodTime, data.liveData.plays.allPlays[penaltyPlay].result.penaltyMinutes); }
                 else if ((awayRosterIdArray.includes(data.liveData.plays.allPlays[penaltyPlay].players[0].player.id)) && (data.liveData.plays.allPlays[penaltyPlay].about.period < 4)) { fiveOnFive[data.liveData.plays.allPlays[penaltyPlay].about.period + 2].push(data.liveData.plays.allPlays[penaltyPlay].about.periodTime, data.liveData.plays.allPlays[penaltyPlay].result.penaltyMinutes); }
                 else {
@@ -398,8 +399,8 @@ function getInputValue() {
                 tempArray10.push(counterArray[0][2 * j]); 
                 console.log('5 minutes', j);}
                 else {console.log('not 2 or 5 minutes')}
-                }                
-                }
+                  }                
+                  }
                 }
                 for (j = 0; j < counterArray[1].length / 2; j++) { 
                   if (counterArray[1][2 * j + 1] === tempArray9[i]) { console.log(j, counterArray[1][2 * j], tempArray9[i]);
@@ -420,6 +421,7 @@ function getInputValue() {
                 counterArray[3].push(tempArray12, tempArray14);
                 }
                     console.log('CounterArray', counterArray);
+                    console.log('realFiveOnFive', realFiveOnFive2)
 
                 //   for (i = 0; i < 2; i++) { for (j = counterArray[i].length - 1; j > -1; j--) {
                 //   if ((counterArray[i][j] != counterArray[i][j - 1]) && (j > -1)) { 
