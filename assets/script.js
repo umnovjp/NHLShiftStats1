@@ -430,10 +430,8 @@ function getInputValue() {
                 // }
               // console.log('realFiveOnFive2', realFiveOnFive, 'tempArray9', tempArray9);
 
-              for (i = tempArray9.length -1; i > -1; i--) { //tempIndex = Math.min(counterArray[2][i].length, counterArray[3][i].length)
-                  // tempArray11 = []; 
-                // comsole.log(tempIndex)
-                  if (counterArray[2][i].length >= counterArray[3][i].length) {for (j = counterArray[3][i].length -1; j > -1; j--)
+              for (i = tempArray9.length - 1; i > -1; i--) { if (counterArray[2][i].length >= counterArray[3][i].length) 
+                {for (j = counterArray[3][i].length - 1; j > -1; j--)
                     {realFiveOnFiveBefore = realFiveOnFive2[0].slice(0, 2 * counterArray[2][i][j]);
                     realFiveOnFiveAfter = realFiveOnFive2[0].slice(2 * counterArray[2][i][j] + 2); 
                     realFiveOnFive2[0] = realFiveOnFiveBefore.concat(realFiveOnFiveAfter);
