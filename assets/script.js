@@ -430,31 +430,46 @@ function getInputValue() {
                 // }
               // console.log('realFiveOnFive2', realFiveOnFive, 'tempArray9', tempArray9);
 
-              for (i = tempArray9.length - 1; i > -1; i--) { if (counterArray[2][i].length >= counterArray[3][i].length) 
-                {for (j = counterArray[3][i].length - 1; j > -1; j--)
-                    {realFiveOnFiveBefore = realFiveOnFive2[0].slice(0, 2 * counterArray[2][i][j]);
-                    realFiveOnFiveAfter = realFiveOnFive2[0].slice(2 * counterArray[2][i][j] + 2); 
-                    realFiveOnFive2[0] = realFiveOnFiveBefore.concat(realFiveOnFiveAfter);
-                    // tempIndex = counterArray.lastIndexOf(counterArray[3][i][j]);
-                    tempArray11 = []; tempArray12 = []; 
-                    // reviewed performance during long flight'
-                    for (k = counterArray[2][i].length - 1; k > -1; k--) { 
+              for (i = tempArray9.length - 1; i > -1; i--) { console.log(i, counterArray[2][2*i].length, counterArray[3][2*i].length);
+                if (counterArray[2][2*i].length >= counterArray[3][2*i].length) 
+                { tempArray11 = counterArray[2][2*i].slice(counterArray[3][2*i].length);
+                  tempArray12 = counterArray[3][2*i]}
+                  else if (counterArray[2][2*i].length < counterArray[3][2*i].length)
+                  {tempArray11 = counterArray[2][2*i];
+                  tempArray12 = counterArray[3][2*i].slice(counterArray[2][2*i].length)}
+                  if (counterArray[2][2*i + 1].length >= counterArray[3][2*i + 1].length) 
+                { tempArray13 = counterArray[2][2*i + 1].splice(counterArray[3][2*i + 1].length);
+                  tempArray14 = counterArray[3][2*i + 1]}
+                  else if (counterArray[2][2*i + 1].length < counterArray[3][2*i + 1].length)
+                  {tempArray13 = counterArray[2][2*i + 1];
+                  tempArray14 = counterArray[3][2*i + 1].splice(counterArray[2][2*i + 1].length)}
+                  tempArray7 = tempArray11.concat(tempArray13);
+                  tempArray8 = tempArray12.concat(tempArray14);
+                  tempArray7.sort(function(a, b){return a - b});
+                  tempArray8.sort(function(a, b){return a - b});
+                  console.log(tempArray11, tempArray12, tempArray13, tempArray14, counterArray[3][2*i].length, counterArray[2][2*i].length);
+                //{for (j = counterArray[3][i].length / 2 - 1; j > -1; j--)
+                    
                       
-                      if ((realFiveOnFive[0][2 * counterArray[2][i][k]] === realFiveOnFive[1][2 * counterArray[3][i][j]]) 
-                      && (realFiveOnFive[0][2 * counterArray[2][i][k] + 1] === realFiveOnFive[1][2 * counterArray[3][i][j] + 1]))
-                      {console.log(counterArray[2][i][k], counterArray[3][i][j])
-                        tempArray11.push(counterArray[2][i][k]);
-                      }
-                    }
-                    console.log(tempArray11);
-                    // realFiveOnFiveBefore = realFiveOnFive2[0].slice(0, 2 * counterArray[2][i][j]);
+                    //   realFiveOnFiveBefore = realFiveOnFive2[0].slice(0, 2 * counterArray[2][i][j]);
                     // realFiveOnFiveAfter = realFiveOnFive2[0].slice(2 * counterArray[2][i][j] + 2); 
-                  }
-                  }
+                    // realFiveOnFive2[0] = realFiveOnFiveBefore.concat(realFiveOnFiveAfter);
+                    // // tempIndex = counterArray.lastIndexOf(counterArray[3][i][j]);
+                    // tempArray11 = []; tempArray12 = []; 
+                    // // reviewed performance during long flight'
+                    // for (k = counterArray[2][i].length - 1; k > -1; k--) { 
+                      
+                    //   if ((realFiveOnFive[0][2 * counterArray[2][i][k]] === realFiveOnFive[1][2 * counterArray[3][i][j]]) 
+                    //   && (realFiveOnFive[0][2 * counterArray[2][i][k] + 1] === realFiveOnFive[1][2 * counterArray[3][i][j] + 1]))
+                    //   {console.log(counterArray[2][i][k], counterArray[3][i][j])
+                    //     tempArray11.push(counterArray[2][i][k]);
+                    //   }
+                    // }
+                    // console.log(tempArray11);
+                    //}
+                    }
             
-            console.log(realFiveOnFive2)
-                  }
-
+                    console.log(realFiveOnFive2)
               console.log(realFiveOnFive, realFiveOnFive2);
 
               if (fiveOnFive[12].length === 6) { let tempArray8 = [];
