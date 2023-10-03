@@ -297,8 +297,6 @@ function getInputValue() {
               //   else { console.log(tempVariable, 'fatal') }
               // } // end for cycle starting Lineup
               // homeStartingLineup.push(homeStartingDLineup, homeStartingFLineup);
-              // // homeStartingLineup.push(homeStartingFLineup);
-              // console.log(homeStartingLineup);
 
               homeRosterGArray = []; homeRosterFArray = []; awayRosterGArray = []; awayRosterFArray = [];
               console.log(fiveOnFive[12])
@@ -318,16 +316,8 @@ function getInputValue() {
                   else if (homeRosterArray[tempVariable - 2] == 'LW') { homeRosterFArray.push(idChart[i]) }
                   else (console.log('he does not have a position', tempValue));
                 }
-              } // end for  hom idChart loop
+              } // end for  home idChart loop
 
-              // for (i = 0; i < fiveOnFive[12].length; i++) {console.log(fiveOnFive[12][i])
-              //   for (j = 0; fiveOnFive[12][i].length; j++)  {
-
-              //   timeStamp = fiveOnFive[12][i][j].split(':');
-              //    timeInSeconds = i * 1200 + Number(timeStamp[0]) * 60 + Number(timeStamp[1]);
-              //    realFiveOnFive[4].push(timeInSeconds)}
-              //   }
-              //   console,log(realFiveOnFive);
               for (i = 0; i < idChart.length; i++) {
                 tempValue = 'ID' + idChart[i];
                 if (awayRosterArray.includes(tempValue)) {
@@ -416,7 +406,7 @@ function getInputValue() {
                 counterArray[3].push(tempArray12, tempArray14);
                 }
                     console.log('CounterArray', counterArray);
-                    console.log('realFiveOnFive', realFiveOnFive, realFiveOnFive2)
+                    
 
                 //   for (i = 0; i < 2; i++) { for (j = counterArray[i].length - 1; j > -1; j--) {
                 //   if ((counterArray[i][j] != counterArray[i][j - 1]) && (j > -1)) { 
@@ -455,7 +445,8 @@ function getInputValue() {
                     realFiveOnFive2[1] = realFiveOnFiveBefore.concat(realFiveOnFiveAfter);
                   }                    
                   }
-                    console.log(realFiveOnFive, realFiveOnFive2);
+                  console.log('realFiveOnFive', realFiveOnFive, realFiveOnFive2);
+                  
 
                     if (fiveOnFive[12].length === 6) { let tempArray8 = [];
                     for (i = 0; i < 3; i++) { console.log(fiveOnFive[12][i], fiveOnFive[12][i + 3]);
