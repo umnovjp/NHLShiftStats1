@@ -351,14 +351,10 @@ function getInputValue() {
                   // realFiveOnFiveAfter = realFiveOnFive2[1].slice(2 * j + 2);
                   // realFiveOnFive2[1] = realFiveOnFiveBefore.concat(realFiveOnFiveAfter);
                   // finalCountDown2--
-                  // console.log(realFiveOnFive2, finalCountDown2, i, j);
-                  // // realFiveOnFive2[0] = newFiveonFive;
-                  // // realFiveOnFive2[1] = newFiveonFive2
+                  // console.log(realFiveOnFive2, finalCountDown2, i, j
                 //}
                 counterArray[0].push(i, realFiveOnFive[0][2*i] )
                 counterArray[1].push(j, realFiveOnFive[1][2*j] )
-
-                // console.log('mutual penalty again', i, j, countHome, countAway, realFiveOnFive2, counterArray) 
                   } 
                 }
               }
@@ -431,7 +427,7 @@ function getInputValue() {
                     realFiveOnFive2[1] = realFiveOnFiveBefore.concat(realFiveOnFiveAfter);
                   }                    
                   }
-                  console.log('realFiveOnFive', realFiveOnFive, realFiveOnFive2);
+                  console.log('realFiveOnFive', realFiveOnFive, realFiveOnFive2); 
                 
                   for (i = 0; i < realFiveOnFive[2].length; i++) {countHome = 0; countAway = 0
                     for (j = 0; j < realFiveOnFive[0].length; j++){if ((realFiveOnFive[2][i] > realFiveOnFive[0][2*j])&&(realFiveOnFive[2][i] < realFiveOnFive[0][2*j + 1]))
@@ -441,7 +437,7 @@ function getInputValue() {
                     for (j = 0; j < realFiveOnFive[1].length; j++){if ((realFiveOnFive[2][i] > realFiveOnFive[1][2*j])&&(realFiveOnFive[2][i] < realFiveOnFive[1][2*j + 1]))
                     {countAway++}}
                     
-                    console.log(i, 'home', countHome, countAway)
+                    console.log(i, 'home', countHome, countAway) 
                     }
                   for (i = 0; i < realFiveOnFive[3].length; i++) {countHome = 0; countAway = 0
                     for (j = 0; j < realFiveOnFive[1].length; j++){if ((realFiveOnFive[3][i] > realFiveOnFive[1][2*j])&&(realFiveOnFive[3][i] < realFiveOnFive[1][2*j + 1]))
