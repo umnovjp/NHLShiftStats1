@@ -432,19 +432,22 @@ function getInputValue() {
                   for (i = 0; i < realFiveOnFive[2].length; i++) {countHome = 0; countAway = 0
                     for (j = 0; j < realFiveOnFive[0].length; j++){if ((realFiveOnFive[2][i] > realFiveOnFive[0][2*j])&&(realFiveOnFive[2][i] < realFiveOnFive[0][2*j + 1]))
                     {countHome++} 
+                    tempIndex = realFiveOnFive.indexOf(j);
                     // if (realFiveOnFive[0][2*j+1] - realFiveOnFive[0][2*j] === 120 ) to be continued
                   }
                     for (j = 0; j < realFiveOnFive[1].length; j++){if ((realFiveOnFive[2][i] > realFiveOnFive[1][2*j])&&(realFiveOnFive[2][i] < realFiveOnFive[1][2*j + 1]))
                     {countAway++}}
                     
-                    console.log(i, 'home', countHome, countAway) 
+                    console.log(i, tempIndex, 'home', countHome, countAway) 
                     }
                   for (i = 0; i < realFiveOnFive[3].length; i++) {countHome = 0; countAway = 0
                     for (j = 0; j < realFiveOnFive[1].length; j++){if ((realFiveOnFive[3][i] > realFiveOnFive[1][2*j])&&(realFiveOnFive[3][i] < realFiveOnFive[1][2*j + 1]))
-                    {countAway++}}
+                    {countAway++}
+                    tempIndex = realFiveOnFive.indexOf(j);
+                    }
                     for (j = 0; j < realFiveOnFive[0].length; j++){if ((realFiveOnFive[3][i] > realFiveOnFive[0][2*j])&&(realFiveOnFive[3][i] < realFiveOnFive[0][2*j + 1]))
                     {countHome++}}
-                    console.log(i, 'road', countAway, countHome)
+                    console.log(i, tempIndex, 'road', countAway, countHome)
                     }
 
                     if (fiveOnFive[12].length === 6) { let tempArray8 = [];
@@ -494,7 +497,7 @@ function getInputValue() {
                     const shiftLength = tempArray[2 * j + 1] - tempArray[2 * j];
                     totalShiftLength = totalShiftLength + shiftLength;
                   } // end j loop
-                  TOIFArray.push(totalShiftLength);
+                  TOIFArray.push(totalShiftLength); 
                 } // end i TOIFArray loop
                 for (i = 0; i < awayShiftsArray.length; i++) {
                   totalShiftLength = 0;
