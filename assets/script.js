@@ -424,28 +424,27 @@ function getInputValue() {
                   }
                   console.log('realFiveOnFive', realFiveOnFive, realFiveOnFive2); 
                 
-                  for (i = 0; i < realFiveOnFive[2].length; i++) {countHome = 0; countAway = 0; tempArray11 = [];
-                    for (j = 0; j < realFiveOnFive[0].length; j++){if ((realFiveOnFive[2][i] > realFiveOnFive[0][2*j])&&(realFiveOnFive[2][i] < realFiveOnFive[0][2*j + 1]))
-                    {countHome++} 
-                    tempArray11.push(j);
+                  for (i = 0; i < realFiveOnFive2[2].length; i++) {countHome = 0; countAway = 0; tempArray11 = [];
+                    for (j = 0; j < realFiveOnFive2[0].length/2; j++){if ((realFiveOnFive2[2][i] > realFiveOnFive2[0][2*j])&&(realFiveOnFive2[2][i] < realFiveOnFive2[0][2*j + 1]))
+                    {if (realFiveOnFive2[0][2*j+1] - realFiveOnFive2[0][2*j] === 120){tempArray11.push(j)}}                     
                     // if (realFiveOnFive[0][2*j+1] - realFiveOnFive[0][2*j] === 120 ) to be continued
                     }
                     tempArray12 = []
-                    for (j = 0; j < realFiveOnFive[1].length; j++){if ((realFiveOnFive[2][i] > realFiveOnFive[1][2*j])&&(realFiveOnFive[2][i] < realFiveOnFive[1][2*j + 1]))
-                    {countAway++}
-                    tempArray12.push(j)}                    
-                    console.log(i, tempArray11, tempArray12) 
+                    for (j = 0; j < realFiveOnFive2[1].length/2; j++){if ((realFiveOnFive2[2][i] > realFiveOnFive2[1][2*j])&&(realFiveOnFive2[2][i] < realFiveOnFive2[1][2*j + 1]))
+                    {if (realFiveOnFive2[1][2*j+1] - realFiveOnFive2[1][2*j] === 120) {tempArray12.push(j)}}
                     }
-                  for (i = 0; i < realFiveOnFive[3].length; i++) {countHome = 0; countAway = 0; tempArray13 = [];
-                    for (j = 0; j < realFiveOnFive[1].length; j++){if ((realFiveOnFive[3][i] > realFiveOnFive[1][2*j])&&(realFiveOnFive[3][i] < realFiveOnFive[1][2*j + 1]))
-                    {countAway++}
-                    tempArray13.push(j);
+                    console.log(i, tempArray11, tempArray12)
+                    }
+                  for (i = 0; i < realFiveOnFive2[3].length; i++) {countHome = 0; countAway = 0; tempArray13 = [];
+                    for (j = 0; j < realFiveOnFive2[1].length/2; j++){if ((realFiveOnFive2[3][i] > realFiveOnFive2[1][2*j])&&(realFiveOnFive2[3][i] < realFiveOnFive2[1][2*j + 1]))
+                    {if (realFiveOnFive2[1][2*j+1] - realFiveOnFive2[1][2*j] === 120) {tempArray13.push(j)}}
+                    
                     }
                     tempArray14 = [];
-                    for (j = 0; j < realFiveOnFive[0].length; j++){if ((realFiveOnFive[3][i] > realFiveOnFive[0][2*j])&&(realFiveOnFive[3][i] < realFiveOnFive[0][2*j + 1]))
-                    {countHome++}
-                    tempArray14.push(j)}
-                    console.log(i, tempArray13, tempArray14) 
+                    for (j = 0; j < realFiveOnFive2[0].length/2; j++){if ((realFiveOnFive2[3][i] > realFiveOnFive2[0][2*j])&&(realFiveOnFive2[3][i] < realFiveOnFive2[0][2*j + 1]))
+                    {if (realFiveOnFive2[0][2*j+1] - realFiveOnFive2[0][2*j] === 120) {tempArray14.push(j)}}
+                    }
+                    console.log(i, tempArray13, tempArray14)
                     }
 
                     if (fiveOnFive[12].length === 6) { let tempArray8 = [];
