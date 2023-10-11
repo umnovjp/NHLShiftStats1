@@ -238,7 +238,7 @@ function getInputValue() {
                       playerChart1.push(shiftStart2);
                       shiftEnd = data.data[i].endTime;
                       shiftEnd1 = shiftEnd.split(':');
-                      minutes = Number(shiftEnd1[0]);
+                      minutes = Number(shiftEnd1[0]); 
                       seconds = Number(shiftEnd1[1]);
                       shiftEnd2 = minutes * 60 + seconds;
                       playerChart1.push(shiftEnd2)
@@ -263,7 +263,6 @@ function getInputValue() {
               else if (data.data[data.data.length - 1].period == 1) { playerChart1.push(data.data[data.data.length - 1].startTime); }
               console.log(startingLineup);
               console.log(totalChart, idChart);
-
               // lines 286-302 disabled on 02/05/2023 i do not need starting lineup for now
               // homeStartingLineup = [];
               // homeStartingDLineup = [];
@@ -413,8 +412,8 @@ function getInputValue() {
                     }
                     for (j = 0; j < realFiveOnFive2[1].length/2; j++){if ((realFiveOnFive2[2][i] > realFiveOnFive2[1][2*j])&&(realFiveOnFive2[2][i] < realFiveOnFive2[1][2*j + 1]))
                     {if (realFiveOnFive2[1][2*j+1] - realFiveOnFive2[1][2*j] === 120) {tempArray12.push(j)}}
-                    }
-                    console.log(i, tempArray11, tempArray12)
+                    } 
+                    console.log(i, tempArray11, tempArray12) 
                     }
                   for (i = 0; i < realFiveOnFive2[3].length; i++) {tempArray13 = []; tempArray14 = [];
                     for (j = 0; j < realFiveOnFive2[1].length/2; j++){if ((realFiveOnFive2[3][i] > realFiveOnFive2[1][2*j])&&(realFiveOnFive2[3][i] < realFiveOnFive2[1][2*j + 1]))
@@ -423,9 +422,9 @@ function getInputValue() {
                     for (j = 0; j < realFiveOnFive2[0].length/2; j++){if ((realFiveOnFive2[3][i] > realFiveOnFive2[0][2*j])&&(realFiveOnFive2[3][i] < realFiveOnFive2[0][2*j + 1]))
                     {if (realFiveOnFive2[0][2*j+1] - realFiveOnFive2[0][2*j] === 120) {tempArray14.push(j)}}
                     }
-                    console.log(i, tempArray13, tempArray14);                    
+                    console.log(i, tempArray13, tempArray14); 
                     }
-                    console.log('realFiveOnFive', realFiveOnFive, realFiveOnFive2); 
+                    console.log('realFiveOnFive', realFiveOnFive, realFiveOnFive2);
 
                     if (fiveOnFive[12].length === 6) { let tempArray8 = [];
                     for (i = 0; i < 3; i++) { console.log(fiveOnFive[12][i], fiveOnFive[12][i + 3]);
@@ -463,7 +462,6 @@ function getInputValue() {
                   tempArray = shiftsArray[i];
                   for (j = 0; j < tempArray.length / 3; j++) {
                     const shiftLength = tempArray[2 * j + 1] - tempArray[2 * j];
-                    //      console.log(shiftLength);
                     totalShiftLength = totalShiftLength + shiftLength;
                   } // end j loop
                   TOIArray.push(totalShiftLength);
