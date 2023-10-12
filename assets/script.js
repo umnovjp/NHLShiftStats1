@@ -276,11 +276,6 @@ function getInputValue() {
               //     else if (homeRosterArray[4 * homeRosterIdArray.indexOf(tempString) + 2] == 'G') { homeStartingLineup.push(tempVariable) }
               //     else { homeStartingFLineup.push(tempVariable) }
               //   }
-
-              //   else if (awayRosterIdArray.includes(tempVariable)) {
-              //     //console.log(awayRosterIdArray.indexOf(tempString), 'away', awayRosterArray[4 * awayRosterIdArray.indexOf(tempString) + 1], awayRosterArray[4 * awayRosterIdArray.indexOf(tempString) + 2])
-              //   }
-              //   else { console.log(tempVariable, 'fatal') }
               // } // end for cycle starting Lineup
               // homeStartingLineup.push(homeStartingDLineup, homeStartingFLineup);
 
@@ -406,22 +401,26 @@ function getInputValue() {
                   }                    
                   }                  
                   console.log('realFiveOnFive', realFiveOnFive, realFiveOnFive2); 
-                  for (i = 0; i < realFiveOnFive2[2].length; i++) {tempArray11 = []; tempArray12 = [];
+                  for (i = 0; i < realFiveOnFive2[2].length; i++) {tempArray11 = []; tempArray12 = []; // Road PPG
                     for (j = 0; j < realFiveOnFive2[0].length/2; j++){if ((realFiveOnFive2[2][i] > realFiveOnFive2[0][2*j])&&(realFiveOnFive2[2][i] < realFiveOnFive2[0][2*j + 1]))
                     {if (realFiveOnFive2[0][2*j+1] - realFiveOnFive2[0][2*j] === 120){tempArray11.push(j)}}
                     }
                     for (j = 0; j < realFiveOnFive2[1].length/2; j++){if ((realFiveOnFive2[2][i] > realFiveOnFive2[1][2*j])&&(realFiveOnFive2[2][i] < realFiveOnFive2[1][2*j + 1]))
                     {if (realFiveOnFive2[1][2*j+1] - realFiveOnFive2[1][2*j] === 120) {tempArray12.push(j)}}
                     } 
+                    if (tempArray11[0] === []) {}
+                    else {realFiveOnFive2[0][2*tempArray11[0]+1] = realFiveOnFive2[2][i]}
                     console.log(i, tempArray11, tempArray12) 
                     }
-                  for (i = 0; i < realFiveOnFive2[3].length; i++) {tempArray13 = []; tempArray14 = [];
+                  for (i = 0; i < realFiveOnFive2[3].length; i++) {tempArray13 = []; tempArray14 = []; // home PPG
                     for (j = 0; j < realFiveOnFive2[1].length/2; j++){if ((realFiveOnFive2[3][i] > realFiveOnFive2[1][2*j])&&(realFiveOnFive2[3][i] < realFiveOnFive2[1][2*j + 1]))
                     {if (realFiveOnFive2[1][2*j+1] - realFiveOnFive2[1][2*j] === 120) {tempArray13.push(j)}}
                     }
                     for (j = 0; j < realFiveOnFive2[0].length/2; j++){if ((realFiveOnFive2[3][i] > realFiveOnFive2[0][2*j])&&(realFiveOnFive2[3][i] < realFiveOnFive2[0][2*j + 1]))
                     {if (realFiveOnFive2[0][2*j+1] - realFiveOnFive2[0][2*j] === 120) {tempArray14.push(j)}}
                     }
+                    if (tempArray13[0] === []) {}
+                    else {realFiveOnFive2[1][2*tempArray13[0]+1] = realFiveOnFive2[3][i]}
                     console.log(i, tempArray13, tempArray14); 
                     }
                     console.log('realFiveOnFive', realFiveOnFive, realFiveOnFive2);
