@@ -261,26 +261,19 @@ function getInputValue() {
               }
               else if (data.data[data.data.length - 1].period == 2) { playerChart2.push(data.data[data.data.length - 1].startTime); }
               else if (data.data[data.data.length - 1].period == 1) { playerChart1.push(data.data[data.data.length - 1].startTime); }
-              console.log(startingLineup);
-              console.log(totalChart, idChart);
+              // console.log(startingLineup);
+              // console.log(totalChart, idChart);
               // lines 286-302 disabled on 02/05/2023 i do not need starting lineup for now
               // homeStartingLineup = [];
               // homeStartingDLineup = [];
               // homeStartingFLineup = [];
               // for (i = 0; i < 12; i++) {lines 286-302 disabled on 02/05/2023 i do not need starting lineup for now
-              //   tempVariable = startingLineup[i];
-              //   // tempString = tempVariable.toString();
-              //   if (homeRosterIdArray.includes(tempVariable)) {
-              //     // console.log(homeRosterIdArray.indexOf(tempString), 'home', homeRosterArray[4 * homeRosterIdArray.indexOf(tempString) + 1], homeRosterArray[4 * homeRosterIdArray.indexOf(tempString) + 2])
-              //     if (homeRosterArray[4 * homeRosterIdArray.indexOf(tempString) + 2] == 'D') { homeStartingDLineup.push(tempVariable) }
-              //     else if (homeRosterArray[4 * homeRosterIdArray.indexOf(tempString) + 2] == 'G') { homeStartingLineup.push(tempVariable) }
-              //     else { homeStartingFLineup.push(tempVariable) }
               //   }
               // } // end for cycle starting Lineup
               // homeStartingLineup.push(homeStartingDLineup, homeStartingFLineup);
 
               homeRosterGArray = []; homeRosterFArray = []; awayRosterGArray = []; awayRosterFArray = [];
-              console.log(fiveOnFive[12])
+            //  console.log(fiveOnFive[12])
               for (i = 0; i < idChart.length; i++) {
                 tempValue = 'ID' + idChart[i];
                 if (homeRosterArray.includes(tempValue)) {
@@ -327,9 +320,6 @@ function getInputValue() {
                   { countHome = 0; countAway = 0;
                   for (k = 0; k < realFiveOnFive[0].length / 2; k++) {if ((realFiveOnFive[0][2 * k] === realFiveOnFive[0][2 * i]) && (realFiveOnFive[0][2 * k + 1] === realFiveOnFive[0][2 * i + 1])) {countHome++}}
                   for (l = 0; l < realFiveOnFive[1].length / 2; l++) {if ((realFiveOnFive[1][2 * l] === realFiveOnFive[1][2 * j]) && (realFiveOnFive[1][2 * l + 1] === realFiveOnFive[1][2 * j + 1])) {countAway++}}
-
-                  // finalCountDown2 = finalCountDown;
-                  // while (finalCountDown2 > 0) {
                 //}
                 counterArray[0].push(i, realFiveOnFive[0][2*i] )
                 counterArray[1].push(j, realFiveOnFive[1][2*j] )
@@ -425,7 +415,7 @@ function getInputValue() {
                     }
                     console.log('realFiveOnFive', realFiveOnFive, realFiveOnFive2);
 
-                    if (fiveOnFive[12].length === 6) { let tempArray8 = [];
+                    if (fiveOnFive[12].length > 3) { let tempArray8 = [];
                     for (i = 0; i < 3; i++) { console.log(fiveOnFive[12][i], fiveOnFive[12][i + 3]);
                     if (fiveOnFive[12][i].length === 0) { tempArray8.push(fiveOnFive[12][i+3]) }
                     else if (fiveOnFive[12][i+3].length === 0) { tempArray8.push(fiveOnFive[12][i]) }
