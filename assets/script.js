@@ -77,26 +77,19 @@ function getInputValue() {
                 }
                 else { console.log(val.id, 'player probably changed team') }
               }
-              console.log(homeRosterArray, skatersHome, goaliesHome, awayRosterArray, skatersAway, goaliesAway);
-              console.log(homeRosterIdArray, awayRosterIdArray);
+              // console.log(homeRosterArray, skatersHome, goaliesHome, awayRosterArray, skatersAway, goaliesAway);
+              // console.log(homeRosterIdArray, awayRosterIdArray);
               // fiveOnFive structure: array elements 0-2 and 3-5 are home and away team penalties; elements 6-8 and 9-11 are home and away team goals
               // elements 12 and 13 are each array of 3 or 6; home and away goalie on-ice times for three periods
-              fiveOnFive = [[], [], [], [], [], [], [], [], [], [], [], [], [], [], []]
+              fiveOnFive = [[], [], [], [], [], [], [], [], [], [], [], [], [], [], []];
 
-              // this function will create an array of time stamps when teams played 5x5 or special teams
-              console.log(data.liveData.plays.penaltyPlays);
-
-              for (i = 0; i < data.liveData.plays.penaltyPlays.length; i++) {
-                penaltyPlay = data.liveData.plays.penaltyPlays[i];
+              for (i = 0; i < data.liveData.plays.penaltyPlays.length; i++) { penaltyPlay = data.liveData.plays.penaltyPlays[i];
                 if ((homeRosterIdArray.includes(data.liveData.plays.allPlays[penaltyPlay].players[0].player.id)) && (data.liveData.plays.allPlays[penaltyPlay].about.period < 4)) { fiveOnFive[data.liveData.plays.allPlays[penaltyPlay].about.period - 1].push(data.liveData.plays.allPlays[penaltyPlay].about.periodTime, data.liveData.plays.allPlays[penaltyPlay].result.penaltyMinutes); }
                 else if ((awayRosterIdArray.includes(data.liveData.plays.allPlays[penaltyPlay].players[0].player.id)) && (data.liveData.plays.allPlays[penaltyPlay].about.period < 4)) { fiveOnFive[data.liveData.plays.allPlays[penaltyPlay].about.period + 2].push(data.liveData.plays.allPlays[penaltyPlay].about.periodTime, data.liveData.plays.allPlays[penaltyPlay].result.penaltyMinutes); }
-                else {
-                  console.log('home', data.liveData.plays.allPlays[penaltyPlay].players[0].player.id);
-                }
+                else { console.log('home', data.liveData.plays.allPlays[penaltyPlay].players[0].player.id) }
               }
 
-              for (i = 0; i < data.liveData.plays.scoringPlays.length; i++) {
-                scoringPlay = data.liveData.plays.scoringPlays[i];
+              for (i = 0; i < data.liveData.plays.scoringPlays.length; i++) { scoringPlay = data.liveData.plays.scoringPlays[i];
                 if ((homeRosterIdArray.includes(data.liveData.plays.allPlays[scoringPlay].players[0].player.id) && (data.liveData.plays.allPlays[scoringPlay].result.strength.code === 'PPG') && (data.liveData.plays.allPlays[scoringPlay].about.period < 4))) { fiveOnFive[data.liveData.plays.allPlays[scoringPlay].about.period + 5].push(data.liveData.plays.allPlays[scoringPlay].about.periodTime); }
                 else if ((awayRosterIdArray.includes(data.liveData.plays.allPlays[scoringPlay].players[0].player.id) && (data.liveData.plays.allPlays[scoringPlay].result.strength.code === 'PPG' && (data.liveData.plays.allPlays[scoringPlay].about.period < 4)))) { fiveOnFive[data.liveData.plays.allPlays[scoringPlay].about.period + 8].push(data.liveData.plays.allPlays[scoringPlay].about.periodTime); }
               }
@@ -414,19 +407,19 @@ function getInputValue() {
                     console.log(i, tempArray13, tempArray14); 
                     }
                     console.log('realFiveOnFive', realFiveOnFive, realFiveOnFive2);
-
-                    if (fiveOnFive[12].length > 3) { let tempArray8 = [];
-                    for (i = 0; i < 3; i++) { console.log(fiveOnFive[12][i], fiveOnFive[12][i + 3]);
-                    if (fiveOnFive[12][i].length === 0) { tempArray8.push(fiveOnFive[12][i+3]) }
-                    else if (fiveOnFive[12][i+3].length === 0) { tempArray8.push(fiveOnFive[12][i]) }
-                    else if ((fiveOnFive[12][i].length > 0) && (fiveOnFive[12][i + 3].length > 0)) {
-                    console.log(fiveOnFive[12][i], fiveOnFive[12][i + 3]);
-                    if (fiveOnFive[12][i][0] === 0) { tempArray8[i] = fiveOnFive[12][i].concat(fiveOnFive[12][i + 3]) } 
-                    else if (fiveOnFive[12][i + 3][0] === 0) { tempArray8[i] = fiveOnFive[12][i + 3].concat(fiveOnFive[12][i]) }
+                    tempArray9 = [];
+                    for (i = 12; i < 14; i++) { if (fiveOnFive[i].length > 3) { let tempArray8 = []; 
+                    for (j = 0; j < 3; j++) { if (fiveOnFive[i][j].length === 0) { tempArray8.push(fiveOnFive[i][j+3]) }
+                    else if (fiveOnFive[i][j+3].length === 0) { tempArray8.push(fiveOnFive[i][j]) }
+                    else if ((fiveOnFive[i][j].length > 0) && (fiveOnFive[i][j + 3].length > 0)) { if (fiveOnFive[i][j][0] === 0) { tempArray8[j] = fiveOnFive[i][j].concat(fiveOnFive[i][j + 3]) } 
+                    else if (fiveOnFive[i][j + 3][0] === 0) { tempArray8[j] = fiveOnFive[i][j + 3].concat(fiveOnFive[i][j]) }
                     }
-                } // end period goalies changes loop
-                console.log(tempArray8);
+                } // end j loop period goalies changes loop
+                // for (j = 0; j < 3; j++) {if }
+                tempArray9.push[tempArray8]
                 }
+              }
+              console.log(i, tempArray9);
 
               getDPairs();
               function getDPairs() {

@@ -15,7 +15,7 @@ After multiple failures to generate reliable results without separating special 
 4 x 4 plays do not get separate treatment because they always play with 2 forwards and 2 defensemen. And our main goal is to determine when teams play with three forwards. Maybe I can fix it later but this is not a high priority right now.
 
 ## Player did not finish game
-In some games, players get injured. Or some players get game misconduct penalty. They cannot finish game. That results in defensive pair of lines of forwards change as game goes by. If a skater did not have a shift during last 10 minutes of the game, a message will appear that he did not finish the game, without specific reason.
+In some games, players get injured. Or some players get game misconduct penalty. They cannot finish game. That results in defensive pair of lines of forwards change as game goes by. If a skater did not have a shift during last 10 minutes of the game, a message will appear that he did not finish the game, without specific reason. Case when both goalies were injured and emergency goalie is required was not tested. Most likely script will not handle this case. 
 
 ## Game data do not display
 In very rare cases, data do not display. An example is game 2 on 04/06/2023 when coach of road team was assessed a game misconduct penalty. Script stopped because coach was not in the players' list. I will fix it some time later. Because it does not happen frequently. Therefor priority is low.
