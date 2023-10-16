@@ -407,19 +407,21 @@ function getInputValue() {
                     console.log(i, tempArray13, tempArray14); 
                     }
                     console.log('realFiveOnFive', realFiveOnFive, realFiveOnFive2);
-                    tempArray9 = [];
                     for (i = 12; i < 14; i++) { if (fiveOnFive[i].length > 3) { let tempArray8 = []; 
                     for (j = 0; j < 3; j++) { if (fiveOnFive[i][j].length === 0) { tempArray8.push(fiveOnFive[i][j+3]) }
                     else if (fiveOnFive[i][j+3].length === 0) { tempArray8.push(fiveOnFive[i][j]) }
-                    else if ((fiveOnFive[i][j].length > 0) && (fiveOnFive[i][j + 3].length > 0)) { if (fiveOnFive[i][j][0] === 0) { tempArray8[j] = fiveOnFive[i][j].concat(fiveOnFive[i][j + 3]) } 
-                    else if (fiveOnFive[i][j + 3][0] === 0) { tempArray8[j] = fiveOnFive[i][j + 3].concat(fiveOnFive[i][j]) }
-                    }
+                    else if ((fiveOnFive[i][j].length > 0) && (fiveOnFive[i][j + 3].length > 0)) { 
+                    if (fiveOnFive[i][j][0] === 0) { tempArray8[j] = fiveOnFive[i][j].concat(fiveOnFive[i][j + 3]) } 
+                    else if (fiveOnFive[i][j + 3][0] === 0) { tempArray8[j] = fiveOnFive[i][j + 3].concat(fiveOnFive[i][j])
+                  }
+                }
+                  for (k = 0; k < tempArray8[j].length/2 - 1; k++) {if (tempArray8[j][2*k+1] === tempArray8[j][2*k+2]){tempArray9 = tempArray8[j].splice(2*k+1, 2)}}
+                  // for (k = 0; k < )
                 } // end j loop period goalies changes loop
-                // for (j = 0; j < 3; j++) {if }
-                tempArray9.push[tempArray8]
+                console.log(i, tempArray8);
                 }
               }
-              console.log(i, tempArray9);
+              // console.log(i, tempArray9);
 
               getDPairs();
               function getDPairs() {
