@@ -123,15 +123,8 @@ function getInputValue() {
                   timeInSeconds = (i - 6) * 1200 + Number(timeStamp[0]) * 60 + Number(timeStamp[1]);
                   realFiveOnFive[3].push(timeInSeconds); realFiveOnFive2[3].push(timeInSeconds)}
               }
-              // Goalie time will be here 
-              //  if (fiveOnFive[12].length === 3){for (i = 0; i < 3; i++) {for (j = 0; j < fiveOnFive[12].length/2; j++){
-              //   timeStamp = fiveOnFive[i][j].split(':');
-              //  timeInSeconds = i * 1200 + Number(timeStamp[0]) * 60 + Number(timeStamp[1]);
-              //  realFiveOnFive[4].push(timeInSeconds)}}}
-              //  else if (fiveOnFive[12].length === 6) {}
-
+   
               console.log(realFiveOnFive);
-              // realFiveonFive structute [0] home penalties, [1] away penalties, [2] home PPGs [3] away PPG
             });
           // console.log(gameId);  https://api.nhle.com/stats/rest/en/shiftcharts?cayenneExp=gameId=' + gameId
           var shiftURL = 'https://cors-anywhere.herokuapp.com/https://api.nhle.com/stats/rest/en/shiftcharts?cayenneExp=gameId=' + gameId;
@@ -416,12 +409,12 @@ function getInputValue() {
                   }
                 }
                   for (k = 0; k < tempArray8[j].length/2 - 1; k++) {if (tempArray8[j][2*k+1] === tempArray8[j][2*k+2]){tempArray9 = tempArray8[j].splice(2*k+1, 2)}}
-                  // for (k = 0; k < )
+                  fiveOnFive[i][j] = tempArray8[j]
                 } // end j loop period goalies changes loop
                 console.log(i, tempArray8);
                 }
               }
-              // console.log(i, tempArray9);
+              console.log(fiveOnFive[12], fiveOnFive[13]);
 
               getDPairs();
               function getDPairs() {
