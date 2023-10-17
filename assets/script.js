@@ -186,8 +186,7 @@ function getInputValue() {
                     else { console.log('shift not added') }
                   }
 
-                  else {
-                    if (data.data[i].period == 3) {
+                  else {if (data.data[i].period == 3) {
                       shiftStart = data.data[i].startTime;
                       shiftStart1 = shiftStart.split(':');
                       minutes = Number(shiftStart1[0]);
@@ -245,10 +244,8 @@ function getInputValue() {
                 playerChart3.push(data.data[data.data.length - 1].startTime);
                 console.log(data.data[data.data.length - 1].startTime)
               }
-              else if (data.data[data.data.length - 1].period == 2) { playerChart2.push(data.data[data.data.length - 1].startTime); }
-              else if (data.data[data.data.length - 1].period == 1) { playerChart1.push(data.data[data.data.length - 1].startTime); }
-              // console.log(startingLineup);
-              // console.log(totalChart, idChart);
+              else if (data.data[data.data.length - 1].period == 2) {playerChart2.push(data.data[data.data.length - 1].startTime)}
+              else if (data.data[data.data.length - 1].period == 1) {playerChart1.push(data.data[data.data.length - 1].startTime)}
               // lines 286-302 disabled on 02/05/2023 i do not need starting lineup for now
               // homeStartingLineup = [];
               // homeStartingDLineup = [];
@@ -282,7 +279,6 @@ function getInputValue() {
                 tempValue = 'ID' + idChart[i];
                 if (awayRosterArray.includes(tempValue)) {
                   tempVariable = awayRosterArray.indexOf(tempValue);
-                  //      console.log(tempVariable, homeRosterArray[tempVariable - 3], homeRosterArray[tempVariable - 1])
                   if (awayRosterArray[tempVariable - 2] == 'D') { awayRosterDArray.push(idChart[i]) }
                   else if (awayRosterArray[tempVariable - 2] == 'G') {
                     awayRosterGArray.push(idChart[i]);
@@ -317,18 +313,15 @@ function getInputValue() {
               if (tempArray9.includes(counterArray[0][2 * i + 1])) {}
               else {tempArray9.push(counterArray[0][2 * i + 1])}
               }
-              console.log(tempArray9); // array of mitial penalties
+              console.log(tempArray9); // array of mutual penalties
           
                for (i = 0; i < tempArray9.length; i++) {tempArray10 = []; tempArray1 = []; tempArray12 = []; tempArray11 = []; tempArray13 =[]; tempArray14 = [];
                 for (j = 0; j < counterArray[0].length / 2; j++) { 
-                if (counterArray[0][2 * j + 1] === tempArray9[i]) { // console.log(j, counterArray[1][2 * j], tempArray9[i]);
-                  if (tempArray10.includes(counterArray[0][2 * j])) {}
+                if (counterArray[0][2 * j + 1] === tempArray9[i]) {if (tempArray10.includes(counterArray[0][2 * j])) {}
                 else { if (realFiveOnFive[0][2 * counterArray[0][2 * j] + 1] - realFiveOnFive[0][2 * counterArray[0][2 * j]] === 120 ) {
-                tempArray10.push(counterArray[0][2 * j]); tempArray11.push(counterArray[0][2 * j]); // console.log('2 minutes', j);
-                }
+                tempArray10.push(counterArray[0][2 * j]); tempArray11.push(counterArray[0][2 * j])}
                 else if (realFiveOnFive[0][2 * counterArray[0][2 * j] + 1] - realFiveOnFive[0][2 * counterArray[0][2 * j]] === 300 ) {
-                tempArray13.push(counterArray[0][2 * j]); tempArray10.push(counterArray[0][2 * j]); // console.log('5 minutes', j);
-                }
+                tempArray13.push(counterArray[0][2 * j]); tempArray10.push(counterArray[0][2 * j])}
                 else {console.log('not 2 or 5 minutes')}
                   }                
                   }
@@ -400,6 +393,7 @@ function getInputValue() {
                     console.log(i, tempArray13, tempArray14); 
                     }
                     console.log('realFiveOnFive', realFiveOnFive, realFiveOnFive2);
+
                     for (i = 12; i < 14; i++) { if (fiveOnFive[i].length > 3) { let tempArray8 = []; 
                     for (j = 0; j < 3; j++) { if (fiveOnFive[i][j].length === 0) { tempArray8.push(fiveOnFive[i][j+3]) }
                     else if (fiveOnFive[i][j+3].length === 0) { tempArray8.push(fiveOnFive[i][j]) }
@@ -411,10 +405,19 @@ function getInputValue() {
                   for (k = 0; k < tempArray8[j].length/2 - 1; k++) {if (tempArray8[j][2*k+1] === tempArray8[j][2*k+2]){tempArray9 = tempArray8[j].splice(2*k+1, 2)}}
                   fiveOnFive[i][j] = tempArray8[j]
                 } // end j loop period goalies changes loop
-                console.log(i, tempArray8);
                 }
               }
               console.log(fiveOnFive[12], fiveOnFive[13]);
+              tempArray11 = []; tempArray12 = [];
+              for (i = 12; i < 14; i++) {
+                for (j = 1; j < 3; j++) { for (k = 0; k < fiveOnFive[12][j].length/2; k++)
+                  { fiveOnFive[12][j][2*k] = fiveOnFive[12][j][2*k]+600*j;
+                    fiveOnFive[12][j][2*k+1] = fiveOnFive[12][j][2*k+1]+600*j;
+                  }
+                  }
+                tempArray11 = fiveOnFive[12][0].concat(fiveOnFive[12][1]);
+              tempArray12 = tempArray11.concat(fiveOnFive[12][2]) }
+              console.log(tempArray12)
 
               getDPairs();
               function getDPairs() {
