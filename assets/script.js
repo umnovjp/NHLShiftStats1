@@ -77,7 +77,6 @@ function getInputValue() {
                 }
                 else { console.log(val.id, 'player probably changed team') }
               }
-              // console.log(homeRosterArray, skatersHome, goaliesHome, awayRosterArray, skatersAway, goaliesAway);
               // console.log(homeRosterIdArray, awayRosterIdArray);
               // fiveOnFive structure: array elements 0-2 and 3-5 are home and away team penalties; elements 6-8 and 9-11 are home and away team goals
               // elements 12 and 13 are each array of 3 or 6; home and away goalie on-ice times for three periods
@@ -122,8 +121,7 @@ function getInputValue() {
                 for (j = 0; j < fiveOnFive[i].length; j++) { timeStamp = fiveOnFive[i][j].split(':');
                   timeInSeconds = (i - 6) * 1200 + Number(timeStamp[0]) * 60 + Number(timeStamp[1]);
                   realFiveOnFive[3].push(timeInSeconds); realFiveOnFive2[3].push(timeInSeconds)}
-              }
-   
+              }   
               console.log(realFiveOnFive);
             });
           // console.log(gameId);  https://api.nhle.com/stats/rest/en/shiftcharts?cayenneExp=gameId=' + gameId
@@ -135,8 +133,7 @@ function getInputValue() {
               return response.json();
             })
             .then(function (data) {
-              console.log('I am in third then'); // console.log(data.data);
-              playerChart1 = []; playerChart2 = []; playerChart3 = []; startingLineup = [];
+              console.log('I am in third then'); playerChart1 = []; playerChart2 = []; playerChart3 = []; startingLineup = [];
               totalChart = []; idChart = [];
 
               // that's a complex cycle that creates arrays of each player time shifts in each of three periods, also arary of playerIDs who actually played the game, not just were in the roster, also starting lineups are created
@@ -251,9 +248,6 @@ function getInputValue() {
               // homeStartingDLineup = [];
               // homeStartingFLineup = [];
               // for (i = 0; i < 12; i++) {lines 286-302 disabled on 02/05/2023 i do not need starting lineup for now
-              //   }
-              // } // end for cycle starting Lineup
-              // homeStartingLineup.push(homeStartingDLineup, homeStartingFLineup);
 
               homeRosterGArray = []; homeRosterFArray = []; awayRosterGArray = []; awayRosterFArray = [];
             //  console.log(fiveOnFive[12])
@@ -409,15 +403,20 @@ function getInputValue() {
               }
               console.log(fiveOnFive[12], fiveOnFive[13]);
               tempArray11 = []; tempArray12 = [];
-              for (i = 12; i < 14; i++) {
-                for (j = 1; j < 3; j++) { for (k = 0; k < fiveOnFive[12][j].length/2; k++)
-                  { fiveOnFive[12][j][2*k] = fiveOnFive[12][j][2*k]+600*j;
-                    fiveOnFive[12][j][2*k+1] = fiveOnFive[12][j][2*k+1]+600*j;
+              for (i = 12; i < 14; i++) { for (j = 0; j < fiveOnFive[i][1].length; j++) {fiveOnFive[i][1][j] = fiveOnFive[i][1][j] + 1200}
+              for (j = 0; j < fiveOnFive[i][2].length; j++) {fiveOnFive[i][2][j] = fiveOnFive[i][2][j] + 2400}
+                tempArray11 = fiveOnFive[i][0].concat(fiveOnFive[i][1]);
+              tempArray12 = tempArray11.concat(fiveOnFive[i][2]) 
+                  for (j = tempArray12.length/2-1; j > 0; j--) {if (tempArray12[2*j+1] === tempArray12[2*j+2])
+                  {realFiveOnFiveBefore = tempArray12.slice(2*j+3);
+                  realFiveOnFiveAfter = tempArray12.slice(0,2*j+1);
+                  console.log(j, realFiveOnFiveBefore, realFiveOnFiveAfter)
+                  tempArray12=realFiveOnFiveAfter.concat(realFiveOnFiveBefore)}
+                  
                   }
-                  }
-                tempArray11 = fiveOnFive[12][0].concat(fiveOnFive[12][1]);
-              tempArray12 = tempArray11.concat(fiveOnFive[12][2]) }
-              console.log(tempArray12)
+                  console.log(i, tempArray12)
+              }
+              
 
               getDPairs();
               function getDPairs() {
