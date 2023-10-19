@@ -132,55 +132,33 @@ function getInputValue() {
             .then(function (response) {
               return response.json();
             })
-            .then(function (data) {
-              console.log('I am in third then'); playerChart1 = []; playerChart2 = []; playerChart3 = []; startingLineup = [];
-              totalChart = []; idChart = [];
+            .then(function (data) {console.log('I am in third then'); playerChart1 = []; playerChart2 = []; 
+              playerChart3 = []; startingLineup = []; totalChart = []; idChart = [];
 
-              // that's a complex cycle that creates arrays of each player time shifts in each of three periods, also arary of playerIDs who actually played the game, not just were in the roster, also starting lineups are created
+              // that's a complex loop that creates arrays of each player time shifts in each of three periods, also array of playerIDs who actually played the game, not just were in the roster, also starting lineups are created
               for (i = 0; i < data.data.length - 1; i++) {
                 if (data.data[i].typeCode == 517) {
                   const playerId = data.data[i].playerId;
                   if (data.data[i].playerId == data.data[i + 1].playerId) {
-                    if (data.data[i].period == 1) {
-                      shiftStart = data.data[i].startTime; shiftStart1 = shiftStart.split(':');
-                      minutes = Number(shiftStart1[0]); seconds = Number(shiftStart1[1]);
-                      shiftStart2 = minutes * 60 + seconds; playerChart1.push(shiftStart2);
-                      shiftEnd = data.data[i].endTime; shiftEnd1 = shiftEnd.split(':');
-                      minutes = Number(shiftEnd1[0]); seconds = Number(shiftEnd1[1]);
-                      shiftEnd2 = minutes * 60 + seconds; playerChart1.push(shiftEnd2)
+                    if (data.data[i].period == 1) {shiftStart = data.data[i].startTime; shiftStart1 = shiftStart.split(':'); minutes = Number(shiftStart1[0]); 
+                      seconds = Number(shiftStart1[1]); shiftStart2 = minutes * 60 + seconds; playerChart1.push(shiftStart2);
+                      shiftEnd = data.data[i].endTime; shiftEnd1 = shiftEnd.split(':'); minutes = Number(shiftEnd1[0]); 
+                      seconds = Number(shiftEnd1[1]); shiftEnd2 = minutes * 60 + seconds; playerChart1.push(shiftEnd2)
                       if (shiftStart2 == 0) { startingLineup.push(data.data[i].playerId) }
                     }
 
-                    else if (data.data[i].period == 2) {
-                      shiftStart = data.data[i].startTime;
-                      shiftStart1 = shiftStart.split(':');
-                      minutes = Number(shiftStart1[0]);
-                      seconds = Number(shiftStart1[1]);
-                      shiftStart2 = minutes * 60 + seconds;
-                      playerChart2.push(shiftStart2);
-                      shiftEnd = data.data[i].endTime;
-                      shiftEnd1 = shiftEnd.split(':');
-                      minutes = Number(shiftEnd1[0]);
-                      seconds = Number(shiftEnd1[1]);
-                      shiftEnd2 = minutes * 60 + seconds;
-                      playerChart2.push(shiftEnd2)
+                    else if (data.data[i].period == 2) {shiftStart = data.data[i].startTime; shiftStart1 = shiftStart.split(':');
+                      minutes = Number(shiftStart1[0]); seconds = Number(shiftStart1[1]); shiftStart2 = minutes * 60 + seconds;
+                      playerChart2.push(shiftStart2); shiftEnd = data.data[i].endTime; shiftEnd1 = shiftEnd.split(':'); minutes = Number(shiftEnd1[0]);
+                      seconds = Number(shiftEnd1[1]); shiftEnd2 = minutes * 60 + seconds; playerChart2.push(shiftEnd2)
                     }
 
-                    else if (data.data[i].period == 3) {
-                      shiftStart = data.data[i].startTime;
-                      shiftStart1 = shiftStart.split(':');
-                      minutes = Number(shiftStart1[0]);
-                      seconds = Number(shiftStart1[1]);
-                      shiftStart2 = minutes * 60 + seconds;
-                      playerChart3.push(shiftStart2);
-                      shiftEnd = data.data[i].endTime;
-                      shiftEnd1 = shiftEnd.split(':');
-                      minutes = Number(shiftEnd1[0]);
-                      seconds = Number(shiftEnd1[1]);
-                      shiftEnd2 = minutes * 60 + seconds;
-                      playerChart3.push(shiftEnd2)
+                    else if (data.data[i].period == 3) {shiftStart = data.data[i].startTime; shiftStart1 = shiftStart.split(':');
+                      minutes = Number(shiftStart1[0]); seconds = Number(shiftStart1[1]); shiftStart2 = minutes * 60 + seconds;
+                      playerChart3.push(shiftStart2); shiftEnd = data.data[i].endTime; shiftEnd1 = shiftEnd.split(':'); minutes = Number(shiftEnd1[0]);
+                      seconds = Number(shiftEnd1[1]); shiftEnd2 = minutes * 60 + seconds; playerChart3.push(shiftEnd2)
                     }
-                    else { console.log('shift not added') }
+                    else { console.log('overtime shift not added') }
                   }
 
                   else {if (data.data[i].period == 3) {
@@ -236,9 +214,8 @@ function getInputValue() {
                     console.log(i, playerId, idChart.length); idChart.push(playerId);
                   }
                 }
-              } // end for cycle for shift processing data next six lines just last shift of last pleyer
-              if (data.data[data.data.length - 1].period == 3) {
-                playerChart3.push(data.data[data.data.length - 1].startTime);
+              } // end for cycle for shift processing data next five lines just last shift of last pleyer
+              if (data.data[data.data.length - 1].period == 3) {playerChart3.push(data.data[data.data.length - 1].startTime);
                 console.log(data.data[data.data.length - 1].startTime)
               }
               else if (data.data[data.data.length - 1].period == 2) {playerChart2.push(data.data[data.data.length - 1].startTime)}
@@ -247,7 +224,6 @@ function getInputValue() {
               // homeStartingLineup = [];
               // homeStartingDLineup = [];
               // homeStartingFLineup = [];
-              // for (i = 0; i < 12; i++) {lines 286-302 disabled on 02/05/2023 i do not need starting lineup for now
 
               homeRosterGArray = []; homeRosterFArray = []; awayRosterGArray = []; awayRosterFArray = [];
             //  console.log(fiveOnFive[12])
@@ -405,15 +381,20 @@ function getInputValue() {
               tempArray11 = []; tempArray12 = [];
               for (i = 12; i < 14; i++) { for (j = 0; j < fiveOnFive[i][1].length; j++) {fiveOnFive[i][1][j] = fiveOnFive[i][1][j] + 1200}
               for (j = 0; j < fiveOnFive[i][2].length; j++) {fiveOnFive[i][2][j] = fiveOnFive[i][2][j] + 2400}
+              if ((fiveOnFive[i][0][fiveOnFive[i][0].length-1] === 1200)&&(fiveOnFive[i][1][0] === 1200)) {fiveOnFive[i][0].pop();
+              fiveOnFive[i][1].shift()}
+              if ((fiveOnFive[i][1][fiveOnFive[i][1].length-1] === 2400)&&(fiveOnFive[i][2][0] === 2400)) {fiveOnFive[i][1].pop();
+                fiveOnFive[i][2].shift()}
                 tempArray11 = fiveOnFive[i][0].concat(fiveOnFive[i][1]);
-              tempArray12 = tempArray11.concat(fiveOnFive[i][2]) 
-                  for (j = tempArray12.length/2-1; j > 0; j--) {if (tempArray12[2*j+1] === tempArray12[2*j+2])
-                  {realFiveOnFiveBefore = tempArray12.slice(2*j+3);
-                  realFiveOnFiveAfter = tempArray12.slice(0,2*j+1);
-                  console.log(j, realFiveOnFiveBefore, realFiveOnFiveAfter)
-                  tempArray12=realFiveOnFiveAfter.concat(realFiveOnFiveBefore)}
+              tempArray12 = tempArray11.concat(fiveOnFive[i][2]);
+
+                  // for (j = tempArray12.length/2-1; j > 0; j--) {if (tempArray12[2*j+1] === tempArray12[2*j+2])
+                  // {realFiveOnFiveBefore = tempArray12.slice(2*j+3);
+                  // realFiveOnFiveAfter = tempArray12.slice(0,2*j+1);
+                  // console.log(j, realFiveOnFiveBefore, realFiveOnFiveAfter)
+                  // tempArray12=realFiveOnFiveAfter.concat(realFiveOnFiveBefore)}
                   
-                  }
+                  // }
                   console.log(i, tempArray12)
               }
               
