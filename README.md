@@ -21,7 +21,7 @@ In some games, players get injured. Or some players get game misconduct penalty.
 In very rare cases, data do not display. An example is game 2 on 04/06/2023 when coach of road team was assessed a game misconduct penalty. Script stopped because coach was not in the players' list. I will fix it some time later. Because it does not happen frequently. Therefor priority is low.
 
 ## Kind of known bug 
-If teams played shutout there is known bug when if a player scored shutout goal he is not added to team's roster. It will be fixed eventually
+If teams played shutout there is known bug when if a player scored shutout goal he is not added to team's roster. Instead his shifts are added to next player's shifts. Next player's shift stats are incorrect. It will be fixed eventually.
 
 ## Teams playing with 7 Dmen and 11 Forwards
 Not much analysis is done to investigate teams playing with 7 defensemen and 11 forwards. I just add third pair and 7th Dman. But I do not make great job analyzing how their pair are actually rotated. Main reason is that Stars are not playing this way. Tampa Bay, Colorado, Philly, some games of St Louis, maybe New Jersey are playing. It will be more interesting to check how 11 forwards rotate

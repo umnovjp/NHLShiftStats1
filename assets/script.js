@@ -93,14 +93,14 @@ function getInputValue() {
                 else if ((awayRosterIdArray.includes(data.liveData.plays.allPlays[scoringPlay].players[0].player.id) && (data.liveData.plays.allPlays[scoringPlay].result.strength.code === 'PPG' && (data.liveData.plays.allPlays[scoringPlay].about.period < 4)))) { fiveOnFive[data.liveData.plays.allPlays[scoringPlay].about.period + 8].push(data.liveData.plays.allPlays[scoringPlay].about.periodTime); }
               }
               console.log('fiveOnFive', fiveOnFive);
-              realFiveOnFive = [[], [], [], []]; // penalties for home and road team, PPG for road and home teams: unmutable
-              realFiveOnFive2 = [[], [], [], []]; // mutable copy of realFiveOnFive
+              realFiveOnFive = [[[],[],[]], [[],[],[]], [[],[],[]], [[],[],[]]]; // penalties for home and road team, PPG for road and home teams: unmutable
+              realFiveOnFive2 = [[[],[],[]], [[],[],[]], [[],[],[]], [[],[],[]]]; // mutable copy of realFiveOnFive
               for (i = 0; i < 3; i++) { // home penalties
                 for (j = 0; j < fiveOnFive[i].length / 2; j++) { timeStamp = fiveOnFive[i][2 * j].split(':');
                   timeInSeconds = i * 1200 + Number(timeStamp[0]) * 60 + Number(timeStamp[1]);
                   penaltyLengthSeconds = fiveOnFive[i][2 * j + 1] * 60;
-                  if (timeInSeconds + penaltyLengthSeconds < 3600) {realFiveOnFive[0].push(timeInSeconds, timeInSeconds + penaltyLengthSeconds)
-                    realFiveOnFive2[0].push(timeInSeconds, timeInSeconds + penaltyLengthSeconds)}
+                  if (timeInSeconds + penaltyLengthSeconds < 3600) {realFiveOnFive[0][i].push(timeInSeconds, timeInSeconds + penaltyLengthSeconds)
+                    realFiveOnFive2[0][i].push(timeInSeconds, timeInSeconds + penaltyLengthSeconds)}
                 }
               }
               for (i = 3; i < 6; i++) { // away penalties
@@ -108,19 +108,19 @@ function getInputValue() {
                   timeInSeconds = (i - 3) * 1200 + Number(timeStamp[0]) * 60 + Number(timeStamp[1]);
                   penaltyLengthSeconds = fiveOnFive[i][2 * j + 1] * 60;
                   if (timeInSeconds + penaltyLengthSeconds < 3600) {
-                    realFiveOnFive[1].push(timeInSeconds, timeInSeconds + penaltyLengthSeconds);
-                    realFiveOnFive2[1].push(timeInSeconds, timeInSeconds + penaltyLengthSeconds)}
+                    realFiveOnFive[1][i-3].push(timeInSeconds, timeInSeconds + penaltyLengthSeconds);
+                    realFiveOnFive2[1][i-3].push(timeInSeconds, timeInSeconds + penaltyLengthSeconds)}
                 }
               }
               for (i = 9; i < 12; i++) { // away PPG
                 for (j = 0; j < fiveOnFive[i].length; j++) {timeStamp = fiveOnFive[i][j].split(':');
                   timeInSeconds = (i - 9) * 1200 + Number(timeStamp[0]) * 60 + Number(timeStamp[1]);
-                  realFiveOnFive[2].push(timeInSeconds); realFiveOnFive2[2].push(timeInSeconds)}
+                  realFiveOnFive[2][i-9].push(timeInSeconds); realFiveOnFive2[2].push(timeInSeconds)}
               }
               for (i = 6; i < 9; i++) { // home PPG
                 for (j = 0; j < fiveOnFive[i].length; j++) { timeStamp = fiveOnFive[i][j].split(':');
                   timeInSeconds = (i - 6) * 1200 + Number(timeStamp[0]) * 60 + Number(timeStamp[1]);
-                  realFiveOnFive[3].push(timeInSeconds); realFiveOnFive2[3].push(timeInSeconds)}
+                  realFiveOnFive[3][i-6].push(timeInSeconds); realFiveOnFive2[3].push(timeInSeconds)}
               }   
               console.log(realFiveOnFive);
             });
@@ -261,29 +261,30 @@ function getInputValue() {
               } // end for away idChart loop
               console.log(homeRosterDArray, homeRosterGArray, homeRosterFArray);
               console.log(awayRosterDArray, awayRosterGArray, awayRosterFArray);
-              console.log(fiveOnFive, realFiveOnFive);
-              console.log(totalChart)
+              console.log(fiveOnFive, realFiveOnFive); console.log(totalChart)
              
               counterArray = [[],[],[],[]] // this array collects data on mutual penalties; it is empty if there were no mutual penalties
 
-              for (i = 0; i < realFiveOnFive[0].length / 2; i++) {
-                for (j = 0; j < realFiveOnFive[1].length / 2; j++) {
-                  if ((realFiveOnFive[0][2 * i] === realFiveOnFive[1][2 * j]) && (realFiveOnFive[0][2 * i + 1] === realFiveOnFive[1][2 * j + 1]))  // 
+              for (m = 0; m < 3; m++) {
+              for (i = 0; i < realFiveOnFive[0][m].length / 2; i++) {
+                for (j = 0; j < realFiveOnFive[1][m].length / 2; j++) {
+                  if ((realFiveOnFive[0][m][2 * i] === realFiveOnFive[1][m][2 * j]) && (realFiveOnFive[0][m][2 * i + 1] === realFiveOnFive[1][m][2 * j + 1]))  // 
                   { countHome = 0; countAway = 0;
-                  for (k = 0; k < realFiveOnFive[0].length / 2; k++) {if ((realFiveOnFive[0][2 * k] === realFiveOnFive[0][2 * i]) && (realFiveOnFive[0][2 * k + 1] === realFiveOnFive[0][2 * i + 1])) {countHome++}}
-                  for (l = 0; l < realFiveOnFive[1].length / 2; l++) {if ((realFiveOnFive[1][2 * l] === realFiveOnFive[1][2 * j]) && (realFiveOnFive[1][2 * l + 1] === realFiveOnFive[1][2 * j + 1])) {countAway++}}
+                  for (k = 0; k < realFiveOnFive[0][m].length / 2; k++) {if ((realFiveOnFive[0][m][2 * k] === realFiveOnFive[0][m][2 * i]) && (realFiveOnFive[0][m][2 * k + 1] === realFiveOnFive[0][m][2 * i + 1])) {countHome++}}
+                  for (l = 0; l < realFiveOnFive[1][m].length / 2; l++) {if ((realFiveOnFive[1][m][2 * l] === realFiveOnFive[1][m][2 * j]) && (realFiveOnFive[1][m][2 * l + 1] === realFiveOnFive[1][m][2 * j + 1])) {countAway++}}
                 //}
-                counterArray[0].push(i, realFiveOnFive[0][2*i] )
-                counterArray[1].push(j, realFiveOnFive[1][2*j] )
+                counterArray[0].push(i, realFiveOnFive[0][m][2*i] )
+                counterArray[1].push(j, realFiveOnFive[1][m][2*j] )
                   } 
                 }
               }
+            }
               tempArray9 = [];
               for (i = 0; i < counterArray[0].length / 2; i++) {
               if (tempArray9.includes(counterArray[0][2 * i + 1])) {}
               else {tempArray9.push(counterArray[0][2 * i + 1])}
               }
-              console.log(tempArray9); // array of mutual penalties
+              console.log(tempArray9); // array of mutual penalties TO START HERE ON MONDAY
           
                for (i = 0; i < tempArray9.length; i++) {tempArray10 = []; tempArray1 = []; tempArray12 = []; tempArray11 = []; tempArray13 =[]; tempArray14 = [];
                 for (j = 0; j < counterArray[0].length / 2; j++) { 
@@ -392,20 +393,21 @@ function getInputValue() {
                   // {realFiveOnFiveBefore = tempArray12.slice(2*j+3);
                   // realFiveOnFiveAfter = tempArray12.slice(0,2*j+1);
                   // }
-                 console.log(i, tempArray12)
+                // console.log(i, tempArray12)
               }              
 
               getDPairs();
-              function getDPairs() {shiftsArray = []; shiftsFArray = []; awayShiftsArray = []; awayShiftsFArray = [];
+              function getDPairs() {shiftsFArray = []; awayShiftsFArray = [];
                 TOIArray = []; TOIFArray = []; TOIAwayArray = []; shiftsArray2 = [[],[],[]];
-                pairingsArray = []; pairingsAwayArray = []; linesArray = []; awayLinesArray = [];
-                for (i = 0; i < homeRosterDArray.length; i++) { shiftsArray.push(totalChart[3 * idChart.indexOf(homeRosterDArray[i])]) }
-                for (i = 0; i < homeRosterDArray.length; i++) { shiftsArray.push(totalChart[3 * idChart.indexOf(homeRosterDArray[i]) + 1]) }
-                for (i = 0; i < homeRosterDArray.length; i++) { shiftsArray.push(totalChart[3 * idChart.indexOf(homeRosterDArray[i]) + 2]) } // end first three for defense loops
+                pairingsArray = []; pairingsAwayArray = []; linesArray = []; awayLinesArray = []; awayShiftsArray2 = [[],[],[]]
+                // for (i = 0; i < homeRosterDArray.length; i++) { shiftsArray.push(totalChart[3 * idChart.indexOf(homeRosterDArray[i])]) }
+                // for (i = 0; i < homeRosterDArray.length; i++) { shiftsArray.push(totalChart[3 * idChart.indexOf(homeRosterDArray[i]) + 1]) }
+                // for (i = 0; i < homeRosterDArray.length; i++) { shiftsArray.push(totalChart[3 * idChart.indexOf(homeRosterDArray[i]) + 2]) } // end first three for defense loops
                 for (i = 0; i < 3; i++) {for (j = 0; j < homeRosterDArray.length; j++) {shiftsArray2[i].push(totalChart[3 * idChart.indexOf(homeRosterDArray[j])+i])}}
-                for (i = 0; i < awayRosterDArray.length; i++) { awayShiftsArray.push(totalChart[3 * idChart.indexOf(awayRosterDArray[i])]) }
-                for (i = 0; i < awayRosterDArray.length; i++) { awayShiftsArray.push(totalChart[3 * idChart.indexOf(awayRosterDArray[i]) + 1]) }
-                for (i = 0; i < awayRosterDArray.length; i++) { awayShiftsArray.push(totalChart[3 * idChart.indexOf(awayRosterDArray[i]) + 2]) } // end first three for defense loops
+                // for (i = 0; i < awayRosterDArray.length; i++) { awayShiftsArray.push(totalChart[3 * idChart.indexOf(awayRosterDArray[i])]) }
+                // for (i = 0; i < awayRosterDArray.length; i++) { awayShiftsArray.push(totalChart[3 * idChart.indexOf(awayRosterDArray[i]) + 1]) }
+                // for (i = 0; i < awayRosterDArray.length; i++) { awayShiftsArray.push(totalChart[3 * idChart.indexOf(awayRosterDArray[i]) + 2]) } // end first three for defense loops
+                for (i = 0; i < 3; i++) {for (j = 0; j < awayRosterDArray.length; j++) {awayShiftsArray2[i].push(totalChart[3 * idChart.indexOf(awayRosterDArray[j])+i])}}
                 for (i = 0; i < homeRosterFArray.length; i++) { shiftsFArray.push(totalChart[3 * idChart.indexOf(homeRosterFArray[i])]) }
                 for (i = 0; i < homeRosterFArray.length; i++) { shiftsFArray.push(totalChart[3 * idChart.indexOf(homeRosterFArray[i]) + 1]) }
                 for (i = 0; i < homeRosterFArray.length; i++) { shiftsFArray.push(totalChart[3 * idChart.indexOf(homeRosterFArray[i]) + 2]) } // end first three for forward loops
@@ -414,9 +416,9 @@ function getInputValue() {
                 for (i = 0; i < awayRosterFArray.length; i++) { awayShiftsFArray.push(totalChart[3 * idChart.indexOf(awayRosterFArray[i]) + 2]) } // end first three for forward loops
                 //TOIArray is not used currently later in the script. May be deleted along with TOIFarray, TOIAwayArray
                 
-                for (i = 0; i < shiftsArray.length; i++) {
+                for (i = 0; i < shiftsArray2.length; i++) {
                   totalShiftLength = 0;
-                  tempArray = shiftsArray[i];
+                  tempArray = shiftsArray2[i];
                   for (j = 0; j < tempArray.length / 3; j++) {
                     const shiftLength = tempArray[2 * j + 1] - tempArray[2 * j];
                     totalShiftLength = totalShiftLength + shiftLength;
@@ -431,9 +433,9 @@ function getInputValue() {
                   } // end j loop
                   TOIFArray.push(totalShiftLength); 
                 } // end i TOIFArray loop
-                for (i = 0; i < awayShiftsArray.length; i++) {
+                for (i = 0; i < awayShiftsArray2.length; i++) {
                   totalShiftLength = 0;
-                  tempArray = awayShiftsArray[i];
+                  tempArray = awayShiftsArray2[i];
                   // console.log(tempArray);
                   for (j = 0; j < tempArray.length / 3; j++) {
                     const shiftLength = tempArray[2 * j + 1] - tempArray[2 * j];
@@ -442,9 +444,9 @@ function getInputValue() {
                   TOIAwayArray.push(totalShiftLength);
                 } // end i TOIArray D loop
 
-                tempArray6 = []; tempArray4 = shiftsArray.splice(shiftsArray.length / 3); tempArray5 = tempArray4.splice(tempArray4.length / 2);
-                tempArray6[1] = tempArray4; tempArray6[2] = tempArray5; tempArray6[0] = shiftsArray; 
-                console.log('tempArray6', tempArray6, 'shiftsArray', shiftsArray);
+                // tempArray6 = []; tempArray4 = shiftsArray.splice(shiftsArray.length / 3); tempArray5 = tempArray4.splice(tempArray4.length / 2);
+                // tempArray6[1] = tempArray4; tempArray6[2] = tempArray5; tempArray6[0] = shiftsArray; 
+                // console.log('tempArray6', tempArray6, 'shiftsArray', shiftsArray);
                 console.log('shiftsarray2', shiftsArray2);
                 for (i = 0; i < 3; i++) {for (j = 0; j < shiftsArray2[i].length; j++)
                 {for (k = j + 1; k < shiftsArray2[i].length; k++) {tempTime = [];
@@ -461,8 +463,27 @@ function getInputValue() {
                 shifts = 0; const sum = tempTime.reduce((partialSum, a) => partialSum + a, 0);
                       for (n = 0; n < tempTime.length; n++) { if (tempTime[n] >= 10) { shifts = shifts + 1 }
                       }
-                      pairingsArray.push(sum); pairingsArray.push(shifts); console.log('tempTime', i, j, k, tempTime)    
+                      pairingsArray.push(sum); pairingsArray.push(shifts); // console.log(i, j, k, tempTime);
                 }}} // end i loop
+                
+                // pairingsArray = [];
+                for (i = 0; i < 3; i++) {for (j = 0; j < awayShiftsArray2[i].length; j++)
+                  {for (k = j + 1; k < awayShiftsArray2[i].length; k++) {tempTime = [];
+                    for (l = 0; l < awayShiftsArray2[i][j].length/2; l++) {
+                    for (m = 0; m < awayShiftsArray2[i][k].length/2; m++)
+                    {if ((awayShiftsArray2[i][k][2*m] >= awayShiftsArray2[i][j][2*l]) && (awayShiftsArray2[i][k][2*m] <= awayShiftsArray2[i][j][2*l+1])) {
+                      if (awayShiftsArray2[i][k][2*m+1] >= awayShiftsArray2[i][j][2*l + 1]) {tempTime.push(awayShiftsArray2[i][j][2*l + 1] -awayShiftsArray2[i][k][2*m])}
+                      else {tempTime.push(awayShiftsArray2[i][k][2*m + 1] - awayShiftsArray2[i][k][2*m])}   
+                    }
+                    else if ((awayShiftsArray2[i][k][2*m] <= awayShiftsArray2[i][j][2*l]) && (awayShiftsArray2[i][k][2*m+1] >= awayShiftsArray2[i][j][2*l])) {
+                      if (awayShiftsArray2[i][k][2*m+1] >= awayShiftsArray2[i][j][2*l+1]) {tempTime.push(awayShiftsArray2[i][j][2*l+1] - awayShiftsArray2[i][j][2*l])}
+                      else {tempTime.push(awayShiftsArray2[i][k][2*m+1] - awayShiftsArray2[i][j][2*l])}
+                    }}}   // end l loop
+                  shifts = 0; const sum = tempTime.reduce((partialSum, a) => partialSum + a, 0);
+                        for (n = 0; n < tempTime.length; n++) { if (tempTime[n] >= 10) { shifts = shifts + 1 }
+                        }
+                        pairingsAwayArray.push(sum); pairingsAwayArray.push(shifts);   
+                  }}} // end i loop
                 //pairingsArray = [];                
                 // for (i = 0; i < tempArray6.length; i++) {
                 //   for (j = 0; j < tempArray6[i].length; j++) {
@@ -648,7 +669,7 @@ function getInputValue() {
                 linesArray4[0] = linesArray; linesArray4[1] = linesArray2; linesArray4[2] = linesArray3;
                 pairingsArray4[3] = pairingsAwayArray; pairingsArray4[4] = pairingsAwayArray2; pairingsArray4[5] = pairingsAwayArray3;
                 linesArray4[3] = awayLinesArray; linesArray4[4] = awayLinesArray2; linesArray4[5] = awayLinesArray3;
-                console.log(linesArray4, pairingsArray4, tempArray5);
+                // console.log(linesArray4, pairingsArray4, tempArray5);
 
                 homeRosterDIDArray = []; homeRosterFIDArray = []; awayRosterDIDArray = []; awayRosterFIDArray = [];
                 for (i = 0; i < homeRosterDArray.length; i++) {
