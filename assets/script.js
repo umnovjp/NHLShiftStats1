@@ -263,7 +263,7 @@ function getInputValue() {
               console.log(awayRosterDArray, awayRosterGArray, awayRosterFArray);
               console.log(fiveOnFive, realFiveOnFive); console.log(totalChart)
              
-              counterArray = [[],[],[],[]] // this array collects data on mutual penalties; it is empty if there were no mutual penalties
+              counterArray = [[[],[],[]],[[],[],[]],[[],[],[]],[[],[],[]]] // this array collects data on mutual penalties; it is empty if there were no mutual penalties
 
               for (m = 0; m < 3; m++) {
               for (i = 0; i < realFiveOnFive[0][m].length / 2; i++) {
@@ -273,47 +273,50 @@ function getInputValue() {
                   for (k = 0; k < realFiveOnFive[0][m].length / 2; k++) {if ((realFiveOnFive[0][m][2 * k] === realFiveOnFive[0][m][2 * i]) && (realFiveOnFive[0][m][2 * k + 1] === realFiveOnFive[0][m][2 * i + 1])) {countHome++}}
                   for (l = 0; l < realFiveOnFive[1][m].length / 2; l++) {if ((realFiveOnFive[1][m][2 * l] === realFiveOnFive[1][m][2 * j]) && (realFiveOnFive[1][m][2 * l + 1] === realFiveOnFive[1][m][2 * j + 1])) {countAway++}}
                 //}
-                counterArray[0].push(i, realFiveOnFive[0][m][2*i] )
-                counterArray[1].push(j, realFiveOnFive[1][m][2*j] )
+                counterArray[0][m].push(i, realFiveOnFive[0][m][2*i] )
+                counterArray[1][m].push(j, realFiveOnFive[1][m][2*j] )
                   } 
                 }
               }
             }
-              tempArray9 = [];
-              for (i = 0; i < counterArray[0].length / 2; i++) {
-              if (tempArray9.includes(counterArray[0][2 * i + 1])) {}
-              else {tempArray9.push(counterArray[0][2 * i + 1])}
+            console.log('counterArray', counterArray)
+              tempArray9 = [[],[],[]];
+              for (m = 0; m < 3; m++) {for (i = 0; i < counterArray[0][m].length / 2; i++)  { if (tempArray9[m].includes(counterArray[0][m][2 * i + 1])) {}
+              else {tempArray9[m].push(counterArray[0][m][2 * i + 1])}
               }
-              console.log(tempArray9); // array of mutual penalties TO START HERE ON MONDAY
+              }
+              console.log(tempArray9); // array of mutual penalties TO START HERE ON TUESDAY
           
-               for (i = 0; i < tempArray9.length; i++) {tempArray10 = []; tempArray1 = []; tempArray12 = []; tempArray11 = []; tempArray13 =[]; tempArray14 = [];
-                for (j = 0; j < counterArray[0].length / 2; j++) { 
-                if (counterArray[0][2 * j + 1] === tempArray9[i]) {if (tempArray10.includes(counterArray[0][2 * j])) {}
-                else { if (realFiveOnFive[0][2 * counterArray[0][2 * j] + 1] - realFiveOnFive[0][2 * counterArray[0][2 * j]] === 120 ) {
-                tempArray10.push(counterArray[0][2 * j]); tempArray11.push(counterArray[0][2 * j])}
-                else if (realFiveOnFive[0][2 * counterArray[0][2 * j] + 1] - realFiveOnFive[0][2 * counterArray[0][2 * j]] === 300 ) {
-                tempArray13.push(counterArray[0][2 * j]); tempArray10.push(counterArray[0][2 * j])}
+              for (m = 0; m < 3; m++)  {
+              for (i = 0; i < tempArray9[m].length; i++) {tempArray10 = []; tempArray1 = []; tempArray12 = []; tempArray11 = []; tempArray13 =[]; tempArray14 = [];
+                for (j = 0; j < counterArray[0][m].length / 2; j++) {
+                if (counterArray[0][m][2 * j + 1] === tempArray9[m][i]) {if (tempArray10.includes(counterArray[0][m][2 * j])) {}
+                else { if (realFiveOnFive[0][m][2 * counterArray[0][m][2 * j] + 1] - realFiveOnFive[0][m][2 * counterArray[0][m][2 * j]] === 120 ) {
+                tempArray10.push(counterArray[0][m][2 * j]); tempArray11.push(counterArray[0][m][2 * j])}
+                else if (realFiveOnFive[0][m][2 * counterArray[0][m][2 * j] + 1] - realFiveOnFive[0][m][2 * counterArray[0][m][2 * j]] === 300 ) {
+                tempArray13.push(counterArray[0][m][2 * j]); tempArray10.push(counterArray[0][m][2 * j])}
                 else {console.log('not 2 or 5 minutes')}
                   }                
                   }
                 }
-                for (j = 0; j < counterArray[1].length / 2; j++) { 
-                  if (counterArray[1][2 * j + 1] === tempArray9[i]) { // console.log(j, counterArray[1][2 * j], tempArray9[i]);
-                    if (tempArray1.includes(counterArray[1][2 * j])) {}
-                  else { if (realFiveOnFive[1][2 * counterArray[1][2 * j] + 1] - realFiveOnFive[1][2 * counterArray[1][2 * j]] === 120 ) {
-                    tempArray1.push(counterArray[1][2 * j]); tempArray12.push(counterArray[1][2 * j]); // console.log('2 minutes', counterArray[1][2*j]);
+                for (j = 0; j < counterArray[1][m].length / 2; j++) { 
+                  if (counterArray[1][m][2 * j + 1] === tempArray9[i][m]) { // console.log(j, counterArray[1][2 * j], tempArray9[i]);
+                    if (tempArray1.includes(counterArray[1][m][2 * j])) {}
+                  else { if (realFiveOnFive[1][m][2 * counterArray[1][m][2 * j] + 1] - realFiveOnFive[1][m][2 * counterArray[1][m][2 * j]] === 120 ) {
+                    tempArray1.push(counterArray[1][m][2 * j]); tempArray12.push(counterArray[1][m][2 * j]); // console.log('2 minutes', counterArray[1][2*j]);
                     } 
-                    else if (realFiveOnFive[1][2 * counterArray[1][2 * j] + 1] - realFiveOnFive[1][2 * counterArray[1][2 * j]] === 300 ) {
-                    tempArray1.push(counterArray[1][2 * j]); tempArray14.push(counterArray[1][2 * j]); // console.log('5 minutes', j)
+                    else if (realFiveOnFive[1][m][2 * counterArray[1][m][2 * j] + 1] - realFiveOnFive[1][m][2 * counterArray[1][m][2 * j]] === 300 ) {
+                    tempArray1.push(counterArray[1][m][2 * j]); tempArray14.push(counterArray[1][m][2 * j]); // console.log('5 minutes', j)
                     }
                     else {console.log('not 2 or 5 minutes')}
                   }
                   }                
                   }
-                counterArray[2].push(tempArray11, tempArray13);
-                counterArray[3].push(tempArray12, tempArray14);
-                }
-                    console.log('CounterArray', counterArray);                    
+                counterArray[2][m].push(tempArray11, tempArray13);
+                counterArray[3][m].push(tempArray12, tempArray14);
+                } // end i loop
+              } // end m loop
+                    console.log('CounterArray', counterArray);                
 
               for (i = tempArray9.length - 1; i > -1; i--) { if (counterArray[2][2*i].length >= counterArray[3][2*i].length) 
                 { tempArray11 = counterArray[2][2*i].slice(0,counterArray[3][2*i].length);
