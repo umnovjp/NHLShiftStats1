@@ -290,8 +290,11 @@ function getInputValue() {
               for (m = 0; m < 3; m++)  {
               for (i = 0; i < tempArray9[m].length; i++) {tempArray10 = []; tempArray1 = []; tempArray12 = []; tempArray11 = []; tempArray13 =[]; tempArray14 = [];
                 for (j = 0; j < counterArray[0][m].length / 2; j++) {
-                if (counterArray[0][m][2 * j + 1] === tempArray9[m][i]) {if (tempArray10.includes(counterArray[0][m][2 * j])) {}
-                else { if (realFiveOnFive[0][m][2 * counterArray[0][m][2 * j] + 1] - realFiveOnFive[0][m][2 * counterArray[0][m][2 * j]] === 120 ) {
+                if (counterArray[0][m][2 * j + 1] === tempArray9[m][i]) {console.log(m, j, tempArray9[m][i], counterArray[0][m][2 * j + 1], realFiveOnFive[0][m][2 * counterArray[0][m][2 * j] + 1])
+                  if (tempArray10.includes(counterArray[0][m][2 * j])) {}
+                
+                else { 
+                  if (realFiveOnFive[0][m][2 * counterArray[0][m][2 * j] + 1] - realFiveOnFive[0][m][2 * counterArray[0][m][2 * j]] === 120 ) {
                 tempArray10.push(counterArray[0][m][2 * j]); tempArray11.push(counterArray[0][m][2 * j])}
                 else if (realFiveOnFive[0][m][2 * counterArray[0][m][2 * j] + 1] - realFiveOnFive[0][m][2 * counterArray[0][m][2 * j]] === 300 ) {
                 tempArray13.push(counterArray[0][m][2 * j]); tempArray10.push(counterArray[0][m][2 * j])}
