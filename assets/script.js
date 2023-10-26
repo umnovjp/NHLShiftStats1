@@ -83,11 +83,12 @@ function getInputValue() {
               fiveOnFive = [[], [], [], [], [], [], [], [], [], [], [], [], [], [], []];
 
               for (i = 0; i < data.liveData.plays.penaltyPlays.length; i++) { penaltyPlay = data.liveData.plays.penaltyPlays[i];
+                console.log(data.liveData.plays.allPlays[penaltyPlay].players[0].player.id);
                 if ((homeRosterIdArray.includes(data.liveData.plays.allPlays[penaltyPlay].players[0].player.id)) && (data.liveData.plays.allPlays[penaltyPlay].about.period < 4)) { fiveOnFive[data.liveData.plays.allPlays[penaltyPlay].about.period - 1].push(data.liveData.plays.allPlays[penaltyPlay].about.periodTime, data.liveData.plays.allPlays[penaltyPlay].result.penaltyMinutes); }
                 else if ((awayRosterIdArray.includes(data.liveData.plays.allPlays[penaltyPlay].players[0].player.id)) && (data.liveData.plays.allPlays[penaltyPlay].about.period < 4)) { fiveOnFive[data.liveData.plays.allPlays[penaltyPlay].about.period + 2].push(data.liveData.plays.allPlays[penaltyPlay].about.periodTime, data.liveData.plays.allPlays[penaltyPlay].result.penaltyMinutes); }
                 else { console.log('home', data.liveData.plays.allPlays[penaltyPlay].players[0].player.id) }
               }
-
+                
               for (i = 0; i < data.liveData.plays.scoringPlays.length; i++) { scoringPlay = data.liveData.plays.scoringPlays[i];
                 if ((homeRosterIdArray.includes(data.liveData.plays.allPlays[scoringPlay].players[0].player.id) && (data.liveData.plays.allPlays[scoringPlay].result.strength.code === 'PPG') && (data.liveData.plays.allPlays[scoringPlay].about.period < 4))) { fiveOnFive[data.liveData.plays.allPlays[scoringPlay].about.period + 5].push(data.liveData.plays.allPlays[scoringPlay].about.periodTime); }
                 else if ((awayRosterIdArray.includes(data.liveData.plays.allPlays[scoringPlay].players[0].player.id) && (data.liveData.plays.allPlays[scoringPlay].result.strength.code === 'PPG' && (data.liveData.plays.allPlays[scoringPlay].about.period < 4)))) { fiveOnFive[data.liveData.plays.allPlays[scoringPlay].about.period + 8].push(data.liveData.plays.allPlays[scoringPlay].about.periodTime); }
@@ -207,8 +208,7 @@ function getInputValue() {
                     totalChart.push(playerChart1, playerChart2, playerChart3);
                     idChart.push(playerId);
                     playerChart1 = []; playerChart2 = []; playerChart3 = [];
-                  }
-                  
+                  }                  
 
                   if (i == data.data.length - 2) {
                     totalChart.push(playerChart1, playerChart2, playerChart3);
@@ -222,7 +222,6 @@ function getInputValue() {
               else if (data.data[data.data.length - 1].period == 2) {playerChart2.push(data.data[data.data.length - 1].startTime)}
               else if (data.data[data.data.length - 1].period == 1) {playerChart1.push(data.data[data.data.length - 1].startTime)}
               // lines 286-302 disabled on 02/05/2023 i do not need starting lineup for now
-              // homeStartingLineup = [];
 
               homeRosterGArray = []; homeRosterFArray = []; awayRosterGArray = []; awayRosterFArray = [];
             //  console.log(fiveOnFive[12])
@@ -261,7 +260,7 @@ function getInputValue() {
               } // end for away idChart loop
               console.log(homeRosterDArray, homeRosterGArray, homeRosterFArray);
               console.log(awayRosterDArray, awayRosterGArray, awayRosterFArray);
-              console.log(fiveOnFive, realFiveOnFive); console.log(totalChart)
+              console.log(fiveOnFive, realFiveOnFive)
              
               counterArray = [[[],[],[]],[[],[],[]],[[],[],[]],[[],[],[]]] // this array collects data on mutual penalties; it is empty if there were no mutual penalties
 
@@ -290,63 +289,60 @@ function getInputValue() {
               for (m = 0; m < 3; m++)  {
               for (i = 0; i < tempArray9[m].length; i++) {tempArray10 = []; tempArray1 = []; tempArray12 = []; tempArray11 = []; tempArray13 =[]; tempArray14 = [];
                 for (j = 0; j < counterArray[0][m].length / 2; j++) {
-                if (counterArray[0][m][2 * j + 1] === tempArray9[m][i]) {console.log(m, j, tempArray9[m][i], counterArray[0][m][2 * j + 1], realFiveOnFive[0][m][2 * counterArray[0][m][2 * j] + 1])
-                  if (tempArray10.includes(counterArray[0][m][2 * j])) {}
-                
+                if (counterArray[0][m][2 * j + 1] === tempArray9[m][i]) {
+                  if (tempArray10.includes(counterArray[0][m][2 * j])) {}                
                 else { 
                   if (realFiveOnFive[0][m][2 * counterArray[0][m][2 * j] + 1] - realFiveOnFive[0][m][2 * counterArray[0][m][2 * j]] === 120 ) {
-                tempArray10.push(counterArray[0][m][2 * j]); tempArray11.push(counterArray[0][m][2 * j])}
+                tempArray10.push(counterArray[0][m][2 * j]); tempArray11.push(counterArray[0][m][2 * j])
+              console.log(tempArray10, tempArray11)}
                 else if (realFiveOnFive[0][m][2 * counterArray[0][m][2 * j] + 1] - realFiveOnFive[0][m][2 * counterArray[0][m][2 * j]] === 300 ) {
                 tempArray13.push(counterArray[0][m][2 * j]); tempArray10.push(counterArray[0][m][2 * j])}
                 else {console.log('not 2 or 5 minutes')}
-                  }                
-                  }
-                }
+                  }}}
                 for (j = 0; j < counterArray[1][m].length / 2; j++) { 
-                  if (counterArray[1][m][2 * j + 1] === tempArray9[i][m]) { // console.log(j, counterArray[1][2 * j], tempArray9[i]);
+                  if (counterArray[1][m][2 * j + 1] === tempArray9[m][i]) {
                     if (tempArray1.includes(counterArray[1][m][2 * j])) {}
                   else { if (realFiveOnFive[1][m][2 * counterArray[1][m][2 * j] + 1] - realFiveOnFive[1][m][2 * counterArray[1][m][2 * j]] === 120 ) {
-                    tempArray1.push(counterArray[1][m][2 * j]); tempArray12.push(counterArray[1][m][2 * j]); // console.log('2 minutes', counterArray[1][2*j]);
+                    tempArray1.push(counterArray[1][m][2 * j]); tempArray12.push(counterArray[1][m][2 * j]);
                     } 
                     else if (realFiveOnFive[1][m][2 * counterArray[1][m][2 * j] + 1] - realFiveOnFive[1][m][2 * counterArray[1][m][2 * j]] === 300 ) {
-                    tempArray1.push(counterArray[1][m][2 * j]); tempArray14.push(counterArray[1][m][2 * j]); // console.log('5 minutes', j)
+                    tempArray1.push(counterArray[1][m][2 * j]); tempArray14.push(counterArray[1][m][2 * j]);
                     }
                     else {console.log('not 2 or 5 minutes')}
-                  }
-                  }                
-                  }
+                  }}}
                 counterArray[2][m].push(tempArray11, tempArray13);
                 counterArray[3][m].push(tempArray12, tempArray14);
                 } // end i loop
               } // end m loop
                     console.log('CounterArray', counterArray);                
-
-              for (i = tempArray9.length - 1; i > -1; i--) { if (counterArray[2][2*i].length >= counterArray[3][2*i].length) 
-                { tempArray11 = counterArray[2][2*i].slice(0,counterArray[3][2*i].length);
-                  tempArray12 = counterArray[3][2*i] }
-                  else if (counterArray[2][2*i].length < counterArray[3][2*i].length)
-                  {tempArray11 = counterArray[2][2*i];
-                  tempArray12 = counterArray[3][2*i].slice(0,counterArray[2][2*i].length)}
-                  if (counterArray[2][2*i + 1].length >= counterArray[3][2*i + 1].length) 
-                { tempArray13 = counterArray[2][2*i + 1].slice(0,counterArray[3][2*i + 1].length);
-                  tempArray14 = counterArray[3][2*i + 1]}
-                  else if (counterArray[2][2*i + 1].length < counterArray[3][2*i + 1].length)
-                  {tempArray13 = counterArray[2][2*i + 1];
-                  tempArray14 = counterArray[3][2*i + 1].slice(0,counterArray[2][2*i + 1].length)}
+                for (m = 2; m > -1; m--){
+              for (i = tempArray9[m].length - 1; i > -1; i--) { if (counterArray[2][m][2*i].length >= counterArray[3][m][2*i].length) 
+                { tempArray11 = counterArray[2][m][2*i].slice(0,counterArray[3][m][2*i].length);
+                  tempArray12 = counterArray[3][m][2*i] }
+                  else if (counterArray[2][m][2*i].length < counterArray[3][m][2*i].length)
+                  {tempArray11 = counterArray[2][m][2*i];
+                  tempArray12 = counterArray[3][m][2*i].slice(0,counterArray[2][m][2*i].length)}
+                  if (counterArray[2][m][2*i + 1].length >= counterArray[3][m][2*i + 1].length) 
+                { tempArray13 = counterArray[2][m][2*i + 1].slice(0,counterArray[3][m][2*i + 1].length);
+                  tempArray14 = counterArray[3][m][2*i + 1]}
+                  else if (counterArray[2][m][2*i + 1].length < counterArray[3][m][2*i + 1].length)
+                  {tempArray13 = counterArray[2][m][2*i + 1];
+                  tempArray14 = counterArray[3][m][2*i + 1].slice(0,counterArray[2][m][2*i + 1].length)}
                   tempArray7 = tempArray11.concat(tempArray13);
                   tempArray8 = tempArray12.concat(tempArray14);
                   tempArray7.sort(function(a, b){return a - b});
                   tempArray8.sort(function(a, b){return a - b});
                     for (j = tempArray7.length - 1; j > -1; j--){
-                    realFiveOnFiveBefore = realFiveOnFive2[0].slice(0, 2 * tempArray7[j]);
-                    realFiveOnFiveAfter = realFiveOnFive2[0].slice(2 * tempArray7[j] + 2);
-                    realFiveOnFive2[0] = realFiveOnFiveBefore.concat(realFiveOnFiveAfter);
-                    realFiveOnFiveBefore = realFiveOnFive2[1].slice(0, 2 * tempArray8[j]);
-                    realFiveOnFiveAfter = realFiveOnFive2[1].slice(2 * tempArray8[j] + 2);
-                    realFiveOnFive2[1] = realFiveOnFiveBefore.concat(realFiveOnFiveAfter);
+                    realFiveOnFiveBefore = realFiveOnFive2[0][m].slice(0, 2 * tempArray7[j]);
+                    realFiveOnFiveAfter = realFiveOnFive2[0][m].slice(2 * tempArray7[j] + 2);
+                    realFiveOnFive2[0][m] = realFiveOnFiveBefore.concat(realFiveOnFiveAfter);
+                    realFiveOnFiveBefore = realFiveOnFive2[1][m].slice(0, 2 * tempArray8[j]);
+                    realFiveOnFiveAfter = realFiveOnFive2[1][m].slice(2 * tempArray8[j] + 2);
+                    realFiveOnFive2[1][m] = realFiveOnFiveBefore.concat(realFiveOnFiveAfter);
                   }                    
-                  }                  
-                  //console.log('realFiveOnFive', realFiveOnFive, realFiveOnFive2);
+                } // end i loop
+              } // end m loop 3 periods descending
+              console.log('realfiveonfive', realFiveOnFive, realFiveOnFive2)
                   for (i = 0; i < realFiveOnFive2[2].length; i++) {tempArray11 = []; tempArray12 = []; // Road PPG
                     for (j = 0; j < realFiveOnFive2[0].length/2; j++){if ((realFiveOnFive2[2][i] > realFiveOnFive2[0][2*j])&&(realFiveOnFive2[2][i] < realFiveOnFive2[0][2*j + 1]))
                     {if (realFiveOnFive2[0][2*j+1] - realFiveOnFive2[0][2*j] === 120){tempArray11.push(j)}}
