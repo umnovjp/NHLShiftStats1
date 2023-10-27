@@ -18,10 +18,12 @@ After multiple failures to generate reliable results without separating special 
 In some games, players get injured. Or some players get game misconduct penalty. They cannot finish game. That results in defensive pair of lines of forwards change as game goes by. If a skater did not have a shift during last 10 minutes of the game, a message will appear that he did not finish the game, without specific reason. Case when both goalies were injured and emergency goalie is required was not tested. Most likely script will not handle this case. Also, incorrect data is expected if main goalie is in concussion protocol and is being replaced by backup goalie for short time. 
 
 ## Game data do not display
-In very rare cases, data do not display. An example is game 2 on 04/06/2023 when coach of road team was assessed a game misconduct penalty. Script stopped because coach was not in the players' list. I will fix it some time later. Because it does not happen frequently. Therefor priority is low.
+In very rare cases, data do not display. An example is game 2 on 04/06/2023 when coach of road team was assessed a game misconduct penalty. Script stopped because coach was not in the players' list. I will fix it some time later. Because it does not happen frequently. Therefore priority is low.
 
-## Kind of known bug 
+## Kind of known bugs 
 If teams played shutout there is known bug when if a player scored shutout goal he is not added to team's roster. Instead his shifts are added to next player's shifts. Next player's shift stats are incorrect. It will be fixed eventually.
+
+If penalty is asesed late in first or second peiod but PPG is scored early in next period that is not counted inthis version. It will be fixed eventually. 
 
 ## Teams playing with 7 Dmen and 11 Forwards
 Not much analysis is done to investigate teams playing with 7 defensemen and 11 forwards. I just add third pair and 7th Dman. But I do not make great job analyzing how their pair are actually rotated. Main reason is that Stars are not playing this way. Tampa Bay, Colorado, Philly, some games of St Louis, maybe New Jersey are playing. It will be more interesting to check how 11 forwards rotate
