@@ -231,9 +231,9 @@ function getInputValue() {
                   if (homeRosterArray[tempVariable - 2] == 'D') { homeRosterDArray.push(idChart[i]) }
                   else if (homeRosterArray[tempVariable - 2] == 'G') {
                     homeRosterGArray.push(idChart[i]);
-                    console.log(i, totalChart[3 * i], totalChart[3 * i + 1], totalChart[3 * i + 2])
+                    // console.log(i, totalChart[3 * i], totalChart[3 * i + 1], totalChart[3 * i + 2])
                     fiveOnFive[12].push(totalChart[3 * i], totalChart[3 * i + 1], totalChart[3 * i + 2]);
-                    console.log(fiveOnFive[12])
+                    // console.log(fiveOnFive[12])
                   }
                   else if (homeRosterArray[tempVariable - 2] == 'C') { homeRosterFArray.push(idChart[i]) }
                   else if (homeRosterArray[tempVariable - 2] == 'RW') { homeRosterFArray.push(idChart[i]) }
@@ -259,7 +259,7 @@ function getInputValue() {
               } // end for away idChart loop
               console.log(homeRosterDArray, homeRosterGArray, homeRosterFArray);
               console.log(awayRosterDArray, awayRosterGArray, awayRosterFArray);
-              console.log(fiveOnFive, realFiveOnFive)
+              // console.log(fiveOnFive, realFiveOnFive)
              
               counterArray = [[[],[],[]],[[],[],[]],[[],[],[]],[[],[],[]]] // this array collects data on mutual penalties; it is empty if there were no mutual penalties
 
@@ -381,25 +381,28 @@ function getInputValue() {
                   for (k = 0; k < tempArray8[j].length/2 - 1; k++) {if (tempArray8[j][2*k+1] === tempArray8[j][2*k+2]){tempArray9 = tempArray8[j].splice(2*k+1, 2)}}
                   fiveOnFive[i][j] = tempArray8[j]
                 } // end j loop period goalies changes loop
-                }
+                } // end i loop
               }
               console.log(fiveOnFive[12], fiveOnFive[13]);
-              // tempArray11 = []; tempArray12 = [];
-              for (i = 12; i < 14; i++) { for (j = 0; j < fiveOnFive[i][1].length; j++) {fiveOnFive[i][1][j] = fiveOnFive[i][1][j] + 1200}
-              for (j = 0; j < fiveOnFive[i][2].length; j++) {fiveOnFive[i][2][j] = fiveOnFive[i][2][j] + 2400}
+              for (i = 0; i < 2; i++) {
+              for (j = 0; j < 3; j++) {for (k = 0; k < realFiveOnFive2[i][j].length/2 - 1; k++) { tempArray11 = [];
+                for (l=k+1; l< realFiveOnFive2[i][j].length/2 - 1; l++) {
+                if (realFiveOnFive2[i][j][2*m+1] < realFiveOnFive2[i][j][2*l]) {}
+              else {tempArray11.push(l, realFiveOnFive2[i][j][2*l])}
+                } // end l loop
+              }}
+              }
+              // for (i = 12; i < 14; i++) { for (j = 0; j < fiveOnFive[i][1].length; j++) {fiveOnFive[i][1][j] = fiveOnFive[i][1][j] + 1200}
+              // for (j = 0; j < fiveOnFive[i][2].length; j++) {fiveOnFive[i][2][j] = fiveOnFive[i][2][j] + 2400}
               // if ((fiveOnFive[i][0][fiveOnFive[i][0].length-1] === 1200)&&(fiveOnFive[i][1][0] === 1200)) {fiveOnFive[i][0].pop();
               // fiveOnFive[i][1].shift()}
               // if ((fiveOnFive[i][1][fiveOnFive[i][1].length-1] === 2400)&&(fiveOnFive[i][2][0] === 2400)) {fiveOnFive[i][1].pop();
               //   fiveOnFive[i][2].shift()}
               //   tempArray11 = fiveOnFive[i][0].concat(fiveOnFive[i][1]);
               // tempArray12 = tempArray11.concat(fiveOnFive[i][2]);
-
-                  // for (j = tempArray12.length/2-1; j > 0; j--) {if (tempArray12[2*j+1] === tempArray12[2*j+2])
-                  // {realFiveOnFiveBefore = tempArray12.slice(2*j+3);
-                  // realFiveOnFiveAfter = tempArray12.slice(0,2*j+1);
-                  // }
+               
                 // console.log(i, tempArray12)
-              }              
+              //}              
 
               getDPairs();
               function getDPairs() {shiftsFArray = []; awayShiftsFArray = [];
@@ -489,36 +492,36 @@ function getInputValue() {
                         }
                         pairingsAwayArray.push(sum); pairingsAwayArray.push(shifts);   
                   }}} // end i loop
-                //pairingsArray = [];                
-                // for (i = 0; i < tempArray6.length; i++) {
-                //   for (j = 0; j < tempArray6[i].length; j++) {
-                //     tempArray5 = tempArray6[i];
-                //     for (k = j + 1; k < tempArray6[i].length; k++) {
-                //       tempTime = [];
-                //       for (l = 0; l < 0.5 * tempArray5[j].length; l++) {
-                //         tempArray = tempArray5[j];
-                //         for (m = 0; m < 0.5 * tempArray5[k].length; m++) {
-                //           tempArray2 = tempArray5[k];
-                //           if (tempArray2[2 * m] >= tempArray[2 * l] && tempArray2[2 * m] <= tempArray[2 * l + 1]) {
-                //             if (tempArray2[2 * m + 1] >= tempArray[2 * l + 1]) { tempTime.push(tempArray[2 * l + 1] - tempArray2[2 * m]) }
-                //             else { tempTime.push(tempArray2[2 * m + 1] - tempArray2[2 * m]) }
-                //           }
-                //           else if (tempArray2[2 * m] <= tempArray[2 * l] && tempArray2[2 * m + 1] >= tempArray[2 * l]) {
-                //             if (tempArray2[2 * m + 1] >= tempArray[2 * l + 1]) { tempTime.push(tempArray[2 * l + 1] - tempArray[2 * l]) }
-                //             else { tempTime.push(tempArray2[2 * m + 1] - tempArray[2 * l]) }
-                //           }
-                //         }
-                //       } // end l cycle
-                //       shifts = 0;
-                //       const sum = tempTime.reduce((partialSum, a) => partialSum + a, 0);
-                //       for (n = 0; n < tempTime.length; n++) {
-                //         if (tempTime[n] >= 10) { shifts = shifts + 1 }
-                //       }
-                //       pairingsArray.push(sum);
-                //       pairingsArray.push(shifts); console.log('tempTime2', i, j, k, tempTime) 
-                //     }
-                //   }  // end j loop each D player
-                // } // end i loop for 3 periods
+                pairingsArray = [];                
+                for (i = 0; i < tempArray6.length; i++) {
+                  for (j = 0; j < tempArray6[i].length; j++) {
+                    tempArray5 = tempArray6[i];
+                    for (k = j + 1; k < tempArray6[i].length; k++) {
+                      tempTime = [];
+                      for (l = 0; l < 0.5 * tempArray5[j].length; l++) {
+                        tempArray = tempArray5[j];
+                        for (m = 0; m < 0.5 * tempArray5[k].length; m++) {
+                          tempArray2 = tempArray5[k];
+                          if (tempArray2[2 * m] >= tempArray[2 * l] && tempArray2[2 * m] <= tempArray[2 * l + 1]) {
+                            if (tempArray2[2 * m + 1] >= tempArray[2 * l + 1]) { tempTime.push(tempArray[2 * l + 1] - tempArray2[2 * m]) }
+                            else { tempTime.push(tempArray2[2 * m + 1] - tempArray2[2 * m]) }
+                          }
+                          else if (tempArray2[2 * m] <= tempArray[2 * l] && tempArray2[2 * m + 1] >= tempArray[2 * l]) {
+                            if (tempArray2[2 * m + 1] >= tempArray[2 * l + 1]) { tempTime.push(tempArray[2 * l + 1] - tempArray[2 * l]) }
+                            else { tempTime.push(tempArray2[2 * m + 1] - tempArray[2 * l]) }
+                          }
+                        }
+                      } // end l cycle
+                      shifts = 0;
+                      const sum = tempTime.reduce((partialSum, a) => partialSum + a, 0);
+                      for (n = 0; n < tempTime.length; n++) {
+                        if (tempTime[n] >= 10) { shifts = shifts + 1 }
+                      }
+                      pairingsArray.push(sum);
+                      pairingsArray.push(shifts); console.log('tempTime2', i, j, k, tempTime) 
+                    }
+                  }  // end j loop each D player
+                } // end i loop for 3 periods
                 console.log('pairingsSrray', pairingsArray)
                 // tempArray4 = shiftsFArray.splice(shiftsFArray.length / 3); tempArray5 = tempArray4.splice(tempArray4.length / 2);
                 // tempArray6[1] = tempArray4; tempArray6[2] = tempArray5; tempArray6[0] = shiftsFArray;
