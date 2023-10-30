@@ -384,24 +384,22 @@ function getInputValue() {
                 } // end i loop
               }
               console.log(fiveOnFive[12], fiveOnFive[13]);
-              for (i = 0; i < 2; i++) {
+              for (i = 0; i < 2; i++) { // home and away teams
               for (j = 0; j < 3; j++) {for (k = 0; k < realFiveOnFive2[i][j].length/2 - 1; k++) { tempArray11 = [];
                 for (l=k+1; l< realFiveOnFive2[i][j].length/2 - 1; l++) {
                 if (realFiveOnFive2[i][j][2*m+1] < realFiveOnFive2[i][j][2*l]) {}
               else {tempArray11.push(l, realFiveOnFive2[i][j][2*l])}
                 } // end l loop
-              }}
-              }
+              console.log('ijk', i, j, k, tempArray11)}
+            }}
+
               // for (i = 12; i < 14; i++) { for (j = 0; j < fiveOnFive[i][1].length; j++) {fiveOnFive[i][1][j] = fiveOnFive[i][1][j] + 1200}
               // for (j = 0; j < fiveOnFive[i][2].length; j++) {fiveOnFive[i][2][j] = fiveOnFive[i][2][j] + 2400}
               // if ((fiveOnFive[i][0][fiveOnFive[i][0].length-1] === 1200)&&(fiveOnFive[i][1][0] === 1200)) {fiveOnFive[i][0].pop();
               // fiveOnFive[i][1].shift()}
               // if ((fiveOnFive[i][1][fiveOnFive[i][1].length-1] === 2400)&&(fiveOnFive[i][2][0] === 2400)) {fiveOnFive[i][1].pop();
               //   fiveOnFive[i][2].shift()}
-              //   tempArray11 = fiveOnFive[i][0].concat(fiveOnFive[i][1]);
-              // tempArray12 = tempArray11.concat(fiveOnFive[i][2]);
-               
-                // console.log(i, tempArray12)
+          
               //}              
 
               getDPairs();
