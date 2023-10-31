@@ -124,7 +124,7 @@ function getInputValue() {
               }   
               console.log(realFiveOnFive);
             });
-          // console.log(gameId);  https://api.nhle.com/stats/rest/en/shiftcharts?cayenneExp=gameId=' + gameId
+          // console.log(gameId); https://api.nhle.com/stats/rest/en/shiftcharts?cayenneExp=gameId=' + gameId
           var shiftURL = 'https://cors-anywhere.herokuapp.com/https://api.nhle.com/stats/rest/en/shiftcharts?cayenneExp=gameId=' + gameId;
           fetch(shiftURL, {
             "method": "GET", "headers": {}
@@ -226,14 +226,10 @@ function getInputValue() {
             //  console.log(fiveOnFive[12])
               for (i = 0; i < idChart.length; i++) {
                 tempValue = 'ID' + idChart[i];
-                if (homeRosterArray.includes(tempValue)) {
-                  tempVariable = homeRosterArray.indexOf(tempValue);
+                if (homeRosterArray.includes(tempValue)) { tempVariable = homeRosterArray.indexOf(tempValue);
                   if (homeRosterArray[tempVariable - 2] == 'D') { homeRosterDArray.push(idChart[i]) }
-                  else if (homeRosterArray[tempVariable - 2] == 'G') {
-                    homeRosterGArray.push(idChart[i]);
-                    // console.log(i, totalChart[3 * i], totalChart[3 * i + 1], totalChart[3 * i + 2])
+                  else if (homeRosterArray[tempVariable - 2] == 'G') { homeRosterGArray.push(idChart[i]);
                     fiveOnFive[12].push(totalChart[3 * i], totalChart[3 * i + 1], totalChart[3 * i + 2]);
-                    // console.log(fiveOnFive[12])
                   }
                   else if (homeRosterArray[tempVariable - 2] == 'C') { homeRosterFArray.push(idChart[i]) }
                   else if (homeRosterArray[tempVariable - 2] == 'RW') { homeRosterFArray.push(idChart[i]) }
@@ -259,7 +255,6 @@ function getInputValue() {
               } // end for away idChart loop
               console.log(homeRosterDArray, homeRosterGArray, homeRosterFArray);
               console.log(awayRosterDArray, awayRosterGArray, awayRosterFArray);
-              // console.log(fiveOnFive, realFiveOnFive)
              
               counterArray = [[[],[],[]],[[],[],[]],[[],[],[]],[[],[],[]]] // this array collects data on mutual penalties; it is empty if there were no mutual penalties
 
@@ -277,7 +272,7 @@ function getInputValue() {
                 }
               }
             }
-            console.log('counterArray', counterArray)
+            // console.log('counterArray', counterArray)
               tempArray9 = [[],[],[]];
               for (m = 0; m < 3; m++) {for (i = 0; i < counterArray[0][m].length / 2; i++)  { if (tempArray9[m].includes(counterArray[0][m][2 * i + 1])) {}
               else {tempArray9[m].push(counterArray[0][m][2 * i + 1])}
@@ -341,7 +336,6 @@ function getInputValue() {
                   }                    
                 } // end i loop
               } // end m loop 3 periods descending
-              // console.log('realfiveonfive', realFiveOnFive, realFiveOnFive2)
               for (k = 0; k < 3; k++){ // this loop will change time end of penalty time if a PPG is scored by road team
               for (i = 0; i < realFiveOnFive2[2][k].length; i++) {tempArray11 = []; tempArray12 = []; // tempArray11 and tempArray12 are different to count for 5x3 or 4x3 goals
                     for (j = 0; j < realFiveOnFive2[0][k].length/2; j++){if ((realFiveOnFive2[2][k][i] > realFiveOnFive2[0][k][2*j])&&(realFiveOnFive2[2][k][i] < realFiveOnFive2[0][k][2*j + 1]))
@@ -387,19 +381,17 @@ function getInputValue() {
               for (i = 0; i < 2; i++) { // home and away teams
               for (j = 0; j < 3; j++) {for (k = 0; k < realFiveOnFive2[i][j].length/2 - 1; k++) { tempArray11 = [];
                 for (l=k+1; l< realFiveOnFive2[i][j].length/2 - 1; l++) {
-                if (realFiveOnFive2[i][j][2*m+1] < realFiveOnFive2[i][j][2*l]) {}
-              else {tempArray11.push(l, realFiveOnFive2[i][j][2*l])}
-                } // end l loop
-              console.log('ijk', i, j, k, tempArray11)}
+                if (realFiveOnFive2[i][j][2*k+1] < realFiveOnFive2[i][j][2*l]) {}
+              else {tempArray11.push(l, realFiveOnFive2[i][j][2*k+1], realFiveOnFive2[i][j][2*l])}
+              console.log('ijk', i, j, k, tempArray11)} // end l loop
+              }
             }}
 
+              // 10/12 game 1
               // for (i = 12; i < 14; i++) { for (j = 0; j < fiveOnFive[i][1].length; j++) {fiveOnFive[i][1][j] = fiveOnFive[i][1][j] + 1200}
               // for (j = 0; j < fiveOnFive[i][2].length; j++) {fiveOnFive[i][2][j] = fiveOnFive[i][2][j] + 2400}
               // if ((fiveOnFive[i][0][fiveOnFive[i][0].length-1] === 1200)&&(fiveOnFive[i][1][0] === 1200)) {fiveOnFive[i][0].pop();
               // fiveOnFive[i][1].shift()}
-              // if ((fiveOnFive[i][1][fiveOnFive[i][1].length-1] === 2400)&&(fiveOnFive[i][2][0] === 2400)) {fiveOnFive[i][1].pop();
-              //   fiveOnFive[i][2].shift()}
-          
               //}              
 
               getDPairs();
