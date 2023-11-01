@@ -272,10 +272,9 @@ function getInputValue() {
                 }
               }
             }
-            // console.log('counterArray', counterArray)
               tempArray9 = [[],[],[]];
               for (m = 0; m < 3; m++) {for (i = 0; i < counterArray[0][m].length / 2; i++)  { if (tempArray9[m].includes(counterArray[0][m][2 * i + 1])) {}
-              else {tempArray9[m].push(counterArray[0][m][2 * i + 1])}
+              else {tempArray9[m].push(counterArray[0][m][2 * i + 1])} 
               }
               }
               console.log(tempArray9); // array of mutual penalties TO START HERE ON TUESDAY
@@ -283,8 +282,8 @@ function getInputValue() {
               for (m = 0; m < 3; m++)  {
               for (i = 0; i < tempArray9[m].length; i++) {tempArray10 = []; tempArray1 = []; tempArray12 = []; tempArray11 = []; tempArray13 =[]; tempArray14 = [];
                 for (j = 0; j < counterArray[0][m].length / 2; j++) {
-                if (counterArray[0][m][2 * j + 1] === tempArray9[m][i]) {
-                  if (tempArray10.includes(counterArray[0][m][2 * j])) {}                
+                if (counterArray[0][m][2 * j + 1] === tempArray9[m][i]) { 
+                  if (tempArray10.includes(counterArray[0][m][2 * j])) {}             
                 else { 
                   if (realFiveOnFive[0][m][2 * counterArray[0][m][2 * j] + 1] - realFiveOnFive[0][m][2 * counterArray[0][m][2 * j]] === 120 ) {
                 tempArray10.push(counterArray[0][m][2 * j]); tempArray11.push(counterArray[0][m][2 * j])
@@ -390,8 +389,6 @@ function getInputValue() {
               // 10/12 game 1
               // for (i = 12; i < 14; i++) { for (j = 0; j < fiveOnFive[i][1].length; j++) {fiveOnFive[i][1][j] = fiveOnFive[i][1][j] + 1200}
               // for (j = 0; j < fiveOnFive[i][2].length; j++) {fiveOnFive[i][2][j] = fiveOnFive[i][2][j] + 2400}
-              // if ((fiveOnFive[i][0][fiveOnFive[i][0].length-1] === 1200)&&(fiveOnFive[i][1][0] === 1200)) {fiveOnFive[i][0].pop();
-              // fiveOnFive[i][1].shift()}
               //}              
 
               getDPairs();
