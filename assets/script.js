@@ -277,7 +277,7 @@ function getInputValue() {
               else {tempArray9[m].push(counterArray[0][m][2 * i + 1])} 
               }
               }
-              console.log(tempArray9); // array of mutual penalties TO START HERE ON TUESDAY
+              console.log(tempArray9); // array of mutual penalties start times
           
               for (m = 0; m < 3; m++)  {
               for (i = 0; i < tempArray9[m].length; i++) {tempArray10 = []; tempArray1 = []; tempArray12 = []; tempArray11 = []; tempArray13 =[]; tempArray14 = [];
@@ -377,19 +377,18 @@ function getInputValue() {
                 } // end i loop
               }
               console.log(fiveOnFive[12], fiveOnFive[13]);
-              for (i = 0; i < 2; i++) { // home and away teams
-              for (j = 0; j < 3; j++) {for (k = 0; k < realFiveOnFive2[i][j].length/2 - 1; k++) { tempArray11 = [];
-                for (l=k+1; l< realFiveOnFive2[i][j].length/2 - 1; l++) {
+              for (i = 0; i < 2; i++) { // home 0 and away 1 teams
+              for (j = 0; j < 3; j++) { tempArray11 = [];
+                for (k = 0; k < realFiveOnFive2[i][j].length/2 - 1; k++) { 
+                for (l=k+1; l < realFiveOnFive2[i][j].length/2 - 1; l++) {
                 if (realFiveOnFive2[i][j][2*k+1] < realFiveOnFive2[i][j][2*l]) {}
               else {tempArray11.push(l, realFiveOnFive2[i][j][2*k+1], realFiveOnFive2[i][j][2*l])}
-              console.log('ijk', i, j, k, tempArray11)} // end l loop
+              console.log('ijk', i, j, k, tempArray11, realFiveOnFive2[i][j][2*k+1], realFiveOnFive2[i][j][2*l])} // end l loop
               }
             }}
 
               // 10/12 game 1
               // for (i = 12; i < 14; i++) { for (j = 0; j < fiveOnFive[i][1].length; j++) {fiveOnFive[i][1][j] = fiveOnFive[i][1][j] + 1200}
-              // for (j = 0; j < fiveOnFive[i][2].length; j++) {fiveOnFive[i][2][j] = fiveOnFive[i][2][j] + 2400}
-              //}              
 
               getDPairs();
               function getDPairs() {shiftsFArray = []; awayShiftsFArray = [];
