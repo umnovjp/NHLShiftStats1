@@ -382,13 +382,11 @@ function getInputValue() {
                 for (k = 0; k < realFiveOnFive2[i][j].length/2 - 1; k++) { 
                 for (l=k+1; l < realFiveOnFive2[i][j].length/2 - 1; l++) {
                 if (realFiveOnFive2[i][j][2*k+1] < realFiveOnFive2[i][j][2*l]) {}
-              else {tempArray11.push(l, realFiveOnFive2[i][j][2*k+1], realFiveOnFive2[i][j][2*l])}
-              console.log('ijk', i, j, k, tempArray11, realFiveOnFive2[i][j][2*k+1], realFiveOnFive2[i][j][2*l])} // end l loop
+              else {tempArray11.push(l, realFiveOnFive2[i][j][2*k+1], realFiveOnFive2[i][j][2*l])
+                console.log('ijk', i, j, k, tempArray11)}
+              } // end l loop
               }
             }}
-
-              // 10/12 game 1
-              // for (i = 12; i < 14; i++) { for (j = 0; j < fiveOnFive[i][1].length; j++) {fiveOnFive[i][1][j] = fiveOnFive[i][1][j] + 1200}
 
               getDPairs();
               function getDPairs() {shiftsFArray = []; awayShiftsFArray = [];
