@@ -77,10 +77,9 @@ function getInputValue() {
                 }
                 else { console.log(val.id, 'player probably changed team') }
               }
-              // console.log(homeRosterIdArray, awayRosterIdArray);
               // fiveOnFive structure: array elements 0-2 and 3-5 are home and away team penalties; elements 6-8 and 9-11 are home and away team goals
               // elements 12 and 13 are each array of 3 or 6; home and away goalie on-ice times for three periods
-              fiveOnFive = [[], [], [], [], [], [], [], [], [], [], [], [], [], [], []];
+              fiveOnFive = [[], [], [], [], [], [], [], [], [], [], [], [], [], [], []]; 
 
               for (i = 0; i < data.liveData.plays.penaltyPlays.length; i++) { penaltyPlay = data.liveData.plays.penaltyPlays[i];
                 if ((homeRosterIdArray.includes(data.liveData.plays.allPlays[penaltyPlay].players[0].player.id)) && (data.liveData.plays.allPlays[penaltyPlay].about.period < 4)) { fiveOnFive[data.liveData.plays.allPlays[penaltyPlay].about.period - 1].push(data.liveData.plays.allPlays[penaltyPlay].about.periodTime, data.liveData.plays.allPlays[penaltyPlay].result.penaltyMinutes); }
@@ -91,7 +90,7 @@ function getInputValue() {
               for (i = 0; i < data.liveData.plays.scoringPlays.length; i++) { scoringPlay = data.liveData.plays.scoringPlays[i];
                 if ((homeRosterIdArray.includes(data.liveData.plays.allPlays[scoringPlay].players[0].player.id) && (data.liveData.plays.allPlays[scoringPlay].result.strength.code === 'PPG') && (data.liveData.plays.allPlays[scoringPlay].about.period < 4))) { fiveOnFive[data.liveData.plays.allPlays[scoringPlay].about.period + 5].push(data.liveData.plays.allPlays[scoringPlay].about.periodTime); }
                 else if ((awayRosterIdArray.includes(data.liveData.plays.allPlays[scoringPlay].players[0].player.id) && (data.liveData.plays.allPlays[scoringPlay].result.strength.code === 'PPG' && (data.liveData.plays.allPlays[scoringPlay].about.period < 4)))) { fiveOnFive[data.liveData.plays.allPlays[scoringPlay].about.period + 8].push(data.liveData.plays.allPlays[scoringPlay].about.periodTime); }
-              }
+              } 
               console.log('fiveOnFive', fiveOnFive);
               realFiveOnFive = [[[],[],[]], [[],[],[]], [[],[],[]], [[],[],[]]]; // penalties for home and road team, PPG for road and home teams: unmutable
               realFiveOnFive2 = [[[],[],[]], [[],[],[]], [[],[],[]], [[],[],[]]]; // mutable copy of realFiveOnFive
@@ -223,7 +222,6 @@ function getInputValue() {
               // lines 286-302 disabled on 02/05/2023 i do not need starting lineup for now
 
               homeRosterGArray = []; homeRosterFArray = []; awayRosterGArray = []; awayRosterFArray = [];
-            //  console.log(fiveOnFive[12])
               for (i = 0; i < idChart.length; i++) {
                 tempValue = 'ID' + idChart[i];
                 if (homeRosterArray.includes(tempValue)) { tempVariable = homeRosterArray.indexOf(tempValue);
