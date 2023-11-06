@@ -106,7 +106,7 @@ function getInputValue() {
               }
               for (k = 0; k < 2; k++){ // home and away team penalties
               for (i = 3*k; i < 3*k + 3; i++) { for (j = 0; j < fiveOnFive[i].length / 2; j++) { timeStamp = fiveOnFive[i][2 * j].split(':');
-                  timeInSeconds = i * 1200 + Number(timeStamp[0]) * 60 + Number(timeStamp[1]);
+                  timeInSeconds = i * 1200 + Number(timeStamp[0]) * 60 + Number(timeStamp[1]) - 3600 * k;
                   penaltyLengthSeconds = fiveOnFive[i][2 * j + 1] * 60;
                   if (timeInSeconds + penaltyLengthSeconds < 7200) {realFiveOnFive3[k].push(timeInSeconds, timeInSeconds + penaltyLengthSeconds);
                     realFiveOnFive4[k].push(timeInSeconds, timeInSeconds + penaltyLengthSeconds)}
@@ -135,8 +135,8 @@ function getInputValue() {
               for (k = 2; k < 4; k++) {
               for (i = 3*k ; i < 3*k+3; i++) { // home PPG
                 for (j = 0; j < fiveOnFive[i].length; j++) { timeStamp = fiveOnFive[i][j].split(':');
-                  timeInSeconds = (i - 6) * 1200 + Number(timeStamp[0]) * 60 + Number(timeStamp[1]);
-                  realFiveOnFive3[3].push(timeInSeconds); realFiveOnFive2[3].push(timeInSeconds)}
+                  timeInSeconds = (i - 6) * 1200 + Number(timeStamp[0]) * 60 + Number(timeStamp[1]) - 3600 * (k-2);
+                  realFiveOnFive3[k].push(timeInSeconds); realFiveOnFive4[k].push(timeInSeconds)}
               }
             }
               console.log(realFiveOnFive);
@@ -274,7 +274,7 @@ function getInputValue() {
               console.log(awayRosterDArray, awayRosterGArray, awayRosterFArray);
              
               counterArray = [[[],[],[]],[[],[],[]],[[],[],[]],[[],[],[]]] // this array collects data on mutual penalties; it is empty if there were no mutual penalties
-
+              counterArray2 = [[],[],[],[]] // same as counterArray but without division to periods
               for (m = 0; m < 3; m++) {
               for (i = 0; i < realFiveOnFive[0][m].length / 2; i++) {
                 for (j = 0; j < realFiveOnFive[1][m].length / 2; j++) {
@@ -289,12 +289,29 @@ function getInputValue() {
                 }
               }
             }
+            
+              for (i = 0; i < realFiveOnFive3[0].length / 2; i++) { // mutual penalties
+                for (j = 0; j < realFiveOnFive3[1].length / 2; j++) {
+                  if ((realFiveOnFive3[0][2 * i] === realFiveOnFive3[1][2 * j]) && (realFiveOnFive3[0][2 * i + 1] === realFiveOnFive3[1][2 * j + 1]))  // 
+                  { countHome = 0; countAway = 0;
+                  for (k = 0; k < realFiveOnFive3[0].length / 2; k++) {if ((realFiveOnFive3[0][2 * k] === realFiveOnFive3[0][2 * i]) && (realFiveOnFive3[0][2 * k + 1] === realFiveOnFive3[0][2 * i + 1])) {countHome++}}
+                  for (l = 0; l < realFiveOnFive3[1].length / 2; l++) {if ((realFiveOnFive3[1][2 * l] === realFiveOnFive3[1][2 * j]) && (realFiveOnFive3[1][2 * l + 1] === realFiveOnFive3[1][2 * j + 1])) {countAway++}}
+                //}
+                counterArray2[0].push(i, realFiveOnFive3[0][2*i] )
+                counterArray2[1].push(j, realFiveOnFive3[1][2*j] )
+                  } 
+                }
+              }
+              console.log(counterArray2)
               tempArray9 = [[],[],[]];
+              tempArray91 = [];
               for (m = 0; m < 3; m++) {for (i = 0; i < counterArray[0][m].length / 2; i++)  { if (tempArray9[m].includes(counterArray[0][m][2 * i + 1])) {}
               else {tempArray9[m].push(counterArray[0][m][2 * i + 1])} 
+              }}
+              for (i = 0; i < counterArray2[0].length / 2; i++)  { if (tempArray91.includes(counterArray2[0][2 * i + 1])) {}
+              else {tempArray91.push(counterArray2[0][2 * i + 1])} 
               }
-              }
-              console.log(tempArray9); // array of mutual penalties start times
+              console.log('tempArray91', tempArray9, tempArray91); // array of mutual penalties start times
           
               for (m = 0; m < 3; m++)  {
               for (i = 0; i < tempArray9[m].length; i++) {tempArray10 = []; tempArray1 = []; tempArray12 = []; tempArray11 = []; tempArray13 =[]; tempArray14 = [];
