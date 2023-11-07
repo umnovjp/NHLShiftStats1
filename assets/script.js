@@ -341,7 +341,25 @@ function getInputValue() {
                 counterArray[3][m].push(tempArray12, tempArray14);
                 } // end i loop
               } // end m loop
-                    console.log('CounterArray', counterArray);                
+
+              for (k = 0; k < 2; k++){
+              for (i = 0; i < tempArray91.length; i++) {tempArray10 = []; tempArray1 = []; tempArray12 = []; tempArray11 = []; tempArray13 =[]; tempArray14 = [];
+                for (j = 0; j < counterArray2[0].length / 2; j++) {
+                if (counterArray[k][2 * j + 1] === tempArray91[i]) { 
+                  if (tempArray10.includes(counterArray2[k][2 * j])) {}             
+                else { 
+                  if (realFiveOnFive3[k][2 * counterArray2[k][2 * j] + 1] - realFiveOnFive3[k][2 * counterArray2[k][2 * j]] === 120 ) {
+                tempArray10.push(counterArray2[k][2 * j]); tempArray11.push(counterArray2[k][2 * j])
+              console.log(tempArray10, tempArray11)}
+                else if (realFiveOnFive3[k][2 * counterArray2[k][2 * j] + 1] - realFiveOnFive3[k][2 * counterArray2[k][2 * j]] === 300 ) {
+                tempArray13.push(counterArray2[k][2 * j]); tempArray10.push(counterArray2[k][2 * j])}
+                else {console.log('not 2 or 5 minutes')} // assume there will never be mutual 4 minutes penalty
+                  }}}                
+                counterArray2[2].push(tempArray11, tempArray13);
+                counterArray2[3].push(tempArray12, tempArray14);
+                } // end i loop
+              } // end k loop for home and away teams
+                    console.log('CounterArray2', counterArray, counterArray2);                
                 for (m = 2; m > -1; m--){ // this loop filters out mutual penalties out of penalties array; compare realFiveOnFive unfiltered and realFiveOnFive2 filtered and check if there were mutual penalties (tempArray9 is not empty)
               for (i = tempArray9[m].length - 1; i > -1; i--) { if (counterArray[2][m][2*i].length >= counterArray[3][m][2*i].length) 
                 { tempArray11 = counterArray[2][m][2*i].slice(0,counterArray[3][m][2*i].length);
