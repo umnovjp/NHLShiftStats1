@@ -339,15 +339,15 @@ function getInputValue() {
                   }}}
                 counterArray[2][m].push(tempArray11, tempArray13);
                 counterArray[3][m].push(tempArray12, tempArray14); 
-                } //end i loop
-              } //end m loop
+                } //end i loop 
+              } //end m loop 
 
               for (k = 0; k < 2; k++){
               for (i = 0; i < tempArray91.length; i++) {tempArray10 = []; tempArray1 = []; tempArray12 = []; tempArray11 = []; tempArray13 =[]; tempArray14 = [];
                 for (j = 0; j < counterArray2[0].length / 2; j++) {
-                if (counterArray[k][2 * j + 1] === tempArray91[i]) { 
-                  if (tempArray10.includes(counterArray2[k][2 * j])) {}             
-                else { 
+                if (counterArray[k][2 * j + 1] === tempArray91[i]) {
+                  if (tempArray10.includes(counterArray2[k][2 * j])) {}            
+                else {
                   if (realFiveOnFive3[k][2 * counterArray2[k][2 * j] + 1] - realFiveOnFive3[k][2 * counterArray2[k][2 * j]] === 120 ) {
                 tempArray10.push(counterArray2[k][2 * j]); tempArray11.push(counterArray2[k][2 * j])
               console.log(tempArray10, tempArray11)} 
