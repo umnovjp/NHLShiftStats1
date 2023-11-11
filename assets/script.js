@@ -95,7 +95,7 @@ function getInputValue() {
               realFiveOnFive = [[[],[],[]], [[],[],[]], [[],[],[]], [[],[],[]]]; // penalties for home and road team, PPG for road and home teams: unmutable
               realFiveOnFive2 = [[[],[],[]], [[],[],[]], [[],[],[]], [[],[],[]]]; // mutable copy of realFiveOnFive
               realFiveOnFive3 = [[],[],[],[]]; // will change it back to avoid periods
-              realFiveOnFive4 = [[],[],[],[]]; // mutable copy of realIveOnFive3
+              realFiveOnFive4 = [[],[],[],[]]; // unmutable copy of realIveOnFive3
               for (i = 0; i < 3; i++) { // home penalties
                 for (j = 0; j < fiveOnFive[i].length / 2; j++) { timeStamp = fiveOnFive[i][2 * j].split(':');
                   timeInSeconds = i * 1200 + Number(timeStamp[0]) * 60 + Number(timeStamp[1]);
@@ -385,6 +385,31 @@ function getInputValue() {
                   }                    
                 } // end i loop
               } // end m loop 3 periods descending
+
+              for (i = tempArray91.length - 1; i > -1; i--) { if (counterArray2[2][2*i].length >= counterArray2[3][2*i].length) 
+                { tempArray11 = counterArray2[2][2*i].slice(0,counterArray[3][2*i].length);
+                  tempArray12 = counterArray2[3][2*i] }
+                  else if (counterArray2[2][2*i].length < counterArray[3][m][2*i].length)
+                  {tempArray11 = counterArray2[2][2*i];
+                  tempArray12 = counterArray2[3][2*i].slice(0,counterArray2[2][2*i].length)}
+                  if (counterArray2[2][2*i + 1].length >= counterArray2[3][2*i + 1].length) 
+                { tempArray13 = counterArray2[2][2*i + 1].slice(0,counterArray2[3][2*i + 1].length);
+                  tempArray14 = counterArray2[3][2*i + 1]}
+                  else if (counterArray2[2][2*i + 1].length < counterArray2[3][2*i + 1].length)
+                  {tempArray13 = counterArray2[2][2*i + 1];
+                  tempArray14 = counterArray2[3][2*i + 1].slice(0,counterArray2[2][2*i + 1].length)}
+                  tempArray7 = tempArray11.concat(tempArray13);
+                  tempArray8 = tempArray12.concat(tempArray14);
+                  tempArray7.sort(function(a, b){return a - b});
+                  tempArray8.sort(function(a, b){return a - b});
+                    for (j = tempArray7.length - 1; j > -1; j--){
+                    realFiveOnFiveBefore = realFiveOnFive3[0].slice(0, 2 * tempArray7[j]);
+                    realFiveOnFiveAfter = realFiveOnFive3[0].slice(2 * tempArray7[j] + 2);
+                    realFiveOnFive3[0] = realFiveOnFiveBefore.concat(realFiveOnFiveAfter);
+                    realFiveOnFiveBefore = realFiveOnFive3[1].slice(0, 2 * tempArray8[j]);
+                    realFiveOnFiveAfter = realFiveOnFive3[1].slice(2 * tempArray8[j] + 2);
+                    realFiveOnFive3[1] = realFiveOnFiveBefore.concat(realFiveOnFiveAfter);
+                  }} // end i loop
               for (k = 0; k < 3; k++){ // this loop will change time end of penalty time if a PPG is scored by road team
               for (i = 0; i < realFiveOnFive2[2][k].length; i++) {tempArray11 = []; tempArray12 = []; // tempArray11 and tempArray12 are different to count for 5x3 or 4x3 goals
                     for (j = 0; j < realFiveOnFive2[0][k].length/2; j++){if ((realFiveOnFive2[2][k][i] > realFiveOnFive2[0][k][2*j])&&(realFiveOnFive2[2][k][i] < realFiveOnFive2[0][k][2*j + 1]))
