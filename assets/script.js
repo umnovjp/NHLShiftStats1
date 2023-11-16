@@ -6,7 +6,7 @@ const homeRosterDArray = []; const awayRosterDArray = []; pairingsArray4 = [];
 function getInputValue() {
   var inputVal = document.getElementById('datepicker').value; var date = inputVal.split('/');
   var formatted = date[2] + '-' + date[0] + '-' + date[1]; console.log(formatted)
-  var requestURL = 'https://statsapi.web.nhl.com/api/v1/schedule/?date=' + formatted;
+  var requestURL = 'https://cors-anywhere.herokuapp.com/https://api-web.nhle.com/v1/schedule/' + formatted; // old version https://statsapi.web.nhl.com/api/v1/schedule/?date=
   fetch(requestURL, {
     "method": "GET", "headers": {}
   })
@@ -15,21 +15,23 @@ function getInputValue() {
     })
     .then(function (data) {
       console.log('I am in schedule then');
-      console.log(data.dates[0].games);
-      var numberOfGames = data.dates[0].games.length; scheduleContent.textContent = '';
+      console.log(data.gameWeek[0]);
+      var numberOfGames = data.gameWeek[0].games.length; scheduleContent.textContent = '';
       for (var i = 0; i < numberOfGames; i++) {
         var gameName = document.createElement('button');
         gameName.setAttribute('id', 'game' + i); var idx = gameName.getAttribute('id');
-        gameName.innerHTML = 'Game ' + i + ': ' + data.dates[0].games[i].teams.away.team.name + ' ' + data.dates[0].games[i].teams.away.leagueRecord.wins + 'W ' + data.dates[0].games[i].teams.away.leagueRecord.losses + 'L ' + data.dates[0].games[i].teams.away.leagueRecord.ot + 'O vs ' + data.dates[0].games[i].teams.home.team.name + ' ' + data.dates[0].games[i].teams.home.leagueRecord.wins + 'W ' + data.dates[0].games[i].teams.home.leagueRecord.losses + 'L ' + data.dates[0].games[i].teams.home.leagueRecord.ot + 'O ';
+        gameName.innerHTML = 'Game ' + i + ': ' + data.gameWeek[0].games[i].awayTeam.abbrev + ' vs ' + data.gameWeek[0].games[i].homeTeam.abbrev;
         document.getElementById('schedule').appendChild(gameName); gameName.addEventListener('click', displayGameData);
       }
+      //  + data.gameWeek[0].games[i].teams.away.leagueRecord.wins + 'W ' + data.dates[0].games[i].teams.away.leagueRecord.losses + 'L ' + data.dates[0].games[i].teams.away.leagueRecord.ot + 
 
       function displayGameData(event) {
-        idx = event.currentTarget; idxString = event.currentTarget.textContent;
+        idx = event.currentTarget; idxString = event.currentTarget.textContent; 
         idxArray = idxString.split(':'); idxNumber = idxArray[0].split(' ');
-        console.log(idxNumber); gameNumber = idxNumber[1]; const gameId = data.dates[0].games[gameNumber].gamePk;
+         gameNumber = idxNumber[1]; console.log(gameNumber);
+         const gameId = data.gameWeek[0].games[gameNumber].id;
         console.log(gameId);
-        var requestURL = 'https://statsapi.web.nhl.com/api/v1/game/' + gameId + '/feed/live';
+        var requestURL = 'https://cors-anywhere.herokuapp.com/https://api-web.nhle.com/v1/gamecenter/' + gameId + '/boxscore';
         fetch(requestURL, {
           "method": "GET", "headers": {
           }
@@ -45,13 +47,14 @@ function getInputValue() {
             const gameInfoAway = document.createElement('section'); gameInfoAway.setAttribute('id', 'gameInfoAway');
             document.getElementById('schedule').appendChild(gameInfoAway);
             var gameTitle = document.createElement('h2'); gameTitle.textContent = '';
-            gameTitle.innerHTML = 'You are watching stats for ' + data.gameData.teams.away.name + ' at ' + data.gameData.teams.home.name + ' game';
+            console.log(data);
+            gameTitle.innerHTML = 'You are watching stats for ' + data.awayTeam.abbrev + ' at ' + data.homeTeam.abbrev + ' game';
             document.getElementById('gameInfo').appendChild(gameTitle);
           });
 
         getShifts();
         function getShifts(event) {
-          var rosterURL = 'https://statsapi.web.nhl.com/api/v1/game/' + gameId + '/feed/live';
+          var rosterURL = 'https://cors-anywhere.herokuapp.com/https://api-web.nhle.com/v1/gamecenter/' + gameId + '/boxscore';
           fetch(rosterURL, {
             "method": "GET", "headers": {}
           })

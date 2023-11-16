@@ -1,92 +1,92 @@
 h1 {
-  background-image: linear-gradient(to right, rgb(109, 109, 207), darkblue);
-  color:white;
-text-align: center;
-margin: -7px;
-color: rgb(234, 0, 255);
-/* height: 50px; */
-}
-h2 {
-  Color: lightgrey;
-  text-shadow: 1.5px 1.5px darkgrey;
-}
-h3 {
-  font-size: 24px;
-  color: rgb(88, 88, 88);
-  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
-}
-p {
-color: rgb(7, 26, 241);
-font-size: 18px;
-}
-p2 {
-  color: rgb(241, 46, 7);
-  font-size: 11x;
+    background-image: linear-gradient(to right, rgb(109, 109, 207), darkblue);
+    color:white;
+  text-align: center;
+  margin: -7px;
+  color: rgb(234, 0, 255);
+  /* height: 50px; */
   }
-  p3 {
-    color: rgb(7, 19, 241);
+  h2 {
+    Color: lightgrey;
+    text-shadow: 1.5px 1.5px darkgrey;
+  }
+  h3 {
+    font-size: 24px;
+    color: rgb(88, 88, 88);
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  }
+  p {
+  color: rgb(7, 26, 241);
+  font-size: 18px;
+  }
+  p2 {
+    color: rgb(241, 46, 7);
     font-size: 11x;
     }
-
-#input2 {display: inline-block;
-}
-
-.background {
-background-color: gray;
-background-blend-mode: black;
-background-blend-mode: red;
-} /* not used*/
-
-.main {
-  margin-left: 160px; /* Same as the width of the sidenav */
-  font-size: 14px; /* Increased text to enable scrolling */
-  padding: 0px 10px;
-}
-
-.yearEntry{float:right;
-  font-size:20px;
-width: 215px;
-height: 128px;
-color: lightblue;
-vertical-align: top;
-margin-right: 20px;
-rotate: -20.2deg; 
-}
-
-.yearEntry:hover  {box-shadow: 5px 5px 3px rgb(234, 0, 255);}
-
-path:hover { fill: yellow; stroke: blue; pointer-events:all; }
-
-path { fill: red; stroke: green; pointer-events:all; }
-circle { fill: red; stroke: green; pointer-events:all}
-circle:hover { fill: yellow; stroke: blue; pointer-events:all; }
-
-#ch { fill: green; stroke: orange; pointer-events:all; }
-#dz {fill: green; stroke: orange; pointer-events:all; }
-#ch path:hover {fill: yellow; stroke: purple; pointer-events:all; }
-.landxx_ch path:hover {fill: yellow; stroke: blue; pointer-events:all; }
-#es:hover {fill: yellow; stroke: purple; pointer-events:all; }
-#es {fill: yellow; stroke: purple; pointer-events:all; }
-#ru { background-image: url('./Flag_of_Russia.png');}
-
-/*.landxx coast ca {color: #818181}
-.yearEntry2{float:center;
-  font-size: 16px;
-width: 150px;
-height: 75px;
-color:lightslategrey;
-vertical-align: top;
-}*/
-.searchParameter{
-  background-color: rgb(122, 124, 240);
-  margin-left: 5px;
-  margin-right: 5px;
-  font-size: 20px;
-  border-radius: 6px;
-}
-
-.searchParameter:hover {
-  background-color: rgb(196, 248, 91);
-  cursor: pointer;
-  box-shadow:  3.5px 3.5px rgb(155, 3, 74);
-}
+    p3 {
+      color: rgb(7, 19, 241);
+      font-size: 11x;
+      }
+  
+  #input2 {display: inline-block;
+  }
+  
+  .background {
+  background-color: gray;
+  background-blend-mode: black;
+  background-blend-mode: red;
+  } /* not used*/
+  
+  .main {
+    margin-left: 160px; /* Same as the width of the sidenav */
+    font-size: 14px; /* Increased text to enable scrolling */
+    padding: 0px 10px;
+  }
+  
+  .yearEntry{float:right;
+    font-size:20px;
+  width: 215px;
+  height: 128px;
+  color: lightblue;
+  vertical-align: top;
+  margin-right: 20px;
+  rotate: -20.2deg; 
+  }
+  
+  .yearEntry:hover  {box-shadow: 5px 5px 3px rgb(234, 0, 255);}
+  
+  path:hover { fill: yellow; stroke: blue; pointer-events:all; }
+  
+  path { fill: red; stroke: green; pointer-events:all; }
+  circle { fill: red; stroke: green; pointer-events:all}
+  circle:hover { fill: yellow; stroke: blue; pointer-events:all; }
+  
+  #ch { fill: green; stroke: orange; pointer-events:all; }
+  #dz {fill: green; stroke: orange; pointer-events:all; }
+  #ch path:hover {fill: yellow; stroke: purple; pointer-events:all; }
+  .landxx_ch path:hover {fill: yellow; stroke: blue; pointer-events:all; }
+  #es:hover {fill: yellow; stroke: purple; pointer-events:all; }
+  #es {fill: yellow; stroke: purple; pointer-events:all; }
+  #ru { background-image: url('./Flag_of_Russia.png');}
+  
+  /*.landxx coast ca {color: #818181}
+  .yearEntry2{float:center;
+    font-size: 16px;
+  width: 150px;
+  height: 75px;
+  color:lightslategrey;
+  vertical-align: top;
+  }*/
+  .searchParameter{
+    background-color: rgb(122, 124, 240);
+    margin-left: 5px;
+    margin-right: 5px;
+    font-size: 20px;
+    border-radius: 6px;
+  }
+  
+  .searchParameter:hover {
+    background-color: rgb(196, 248, 91);
+    cursor: pointer;
+    box-shadow:  3.5px 3.5px rgb(155, 3, 74);
+  }
