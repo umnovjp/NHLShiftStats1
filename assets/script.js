@@ -7,8 +7,7 @@ function getInputValue() {
   var inputVal = document.getElementById('datepicker').value; var date = inputVal.split('/');
   var formatted = date[2] + '-' + date[0] + '-' + date[1]; console.log(formatted)
   var requestURL = 'https://cors-anywhere.herokuapp.com/https://api-web.nhle.com/v1/schedule/' + formatted; // old version https://statsapi.web.nhl.com/api/v1/schedule/?date=
-  fetch(requestURL, {
-    "method": "GET", "headers": {}
+  fetch(requestURL, { "method": "GET", "headers": {}
   })
     .then(function (response) {
       return response.json();
@@ -28,20 +27,17 @@ function getInputValue() {
       function displayGameData(event) {
         idx = event.currentTarget; idxString = event.currentTarget.textContent; 
         idxArray = idxString.split(':'); idxNumber = idxArray[0].split(' ');
-         gameNumber = idxNumber[1]; console.log(gameNumber);
+         gameNumber = idxNumber[1];
          const gameId = data.gameWeek[0].games[gameNumber].id;
         console.log(gameId);
+        // var requestURL = 'https://cors-anywhere.herokuapp.com/https://api-web.nhle.com/v1/gamecenter/2023020159/boxscore'
         var requestURL = 'https://cors-anywhere.herokuapp.com/https://api-web.nhle.com/v1/gamecenter/' + gameId + '/boxscore';
-        fetch(requestURL, {
-          "method": "GET", "headers": {
-          }
+        fetch(requestURL, { "method": "GET", "headers": { }
         })
-
           .then(function (response) {
             return response.json();
           })
-          .then(function (data) {
-            const gameInfo = document.createElement('section'); gameInfo.setAttribute('id', 'gameInfo');
+          .then(function (data) { const gameInfo = document.createElement('section'); gameInfo.setAttribute('id', 'gameInfo');
             document.getElementById('schedule').appendChild(gameInfo); const gameInfoHome = document.createElement('section');
             gameInfoHome.setAttribute('id', 'gameInfoHome'); document.getElementById('schedule').appendChild(gameInfoHome);
             const gameInfoAway = document.createElement('section'); gameInfoAway.setAttribute('id', 'gameInfoAway');
@@ -51,7 +47,7 @@ function getInputValue() {
             gameTitle.innerHTML = 'You are watching stats for ' + data.awayTeam.abbrev + ' at ' + data.homeTeam.abbrev + ' game';
             document.getElementById('gameInfo').appendChild(gameTitle);
           });
-
+        } // end displayGameData 
         getShifts();
         function getShifts(event) {
           var rosterURL = 'https://cors-anywhere.herokuapp.com/https://api-web.nhle.com/v1/gamecenter/' + gameId + '/boxscore';
@@ -61,7 +57,8 @@ function getInputValue() {
             .then(function (response) {
               return response.json();
             })
-            .then(function (data) { console.log(data.liveData.boxscore.teams.away.skaters, data.liveData.boxscore.teams.home.skaters, data.gameData.players);
+            .then(function (data) { console.log(data);
+              console.log(data.liveData.boxscore.teams.away.skaters, data.liveData.boxscore.teams.home.skaters, data.gameData.players);
               skatersHome = data.liveData.boxscore.teams.home.skaters; skatersAway = data.liveData.boxscore.teams.away.skaters;
               goaliesHome = data.liveData.boxscore.teams.home.goalies; goaliesAway = data.liveData.boxscore.teams.away.goalies;
               var obj = data.gameData.players; var keys = Object.keys(obj);
@@ -1137,7 +1134,7 @@ function getInputValue() {
               } // end function getDPairs Joel Henley was dressed as F on 11/19 against NYI he missed entire 3rd period
             });
         } // end getshifts line 68 start
-      } // end displayGameData 
+      
     } // end second .then from getinputvalue
     );
 } // end getInput Value function $65k at 4.50% on 3/27
